@@ -24,7 +24,8 @@ struct TopMenuBarView: View {
                 .font(.system(size: 30))
         }.padding(.leading)
             .sheet(isPresented: $showAddCarView) {
-                AddCarView().environment(\.managedObjectContext, self.managedObjectContext)
+                AddCarView(show: self.$showAddCarView).environment(\.managedObjectContext, self.managedObjectContext)
+
         }
         Spacer()
         
