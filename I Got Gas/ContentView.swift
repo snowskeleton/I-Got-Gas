@@ -10,7 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            TopMenuBarView()
+            Spacer()
+            CarView(name: "Julie", make: "Jeep", model: "Rangler", year: "2010")
+            Spacer()
+        }
     }
 }
 
