@@ -20,12 +20,17 @@ struct ContentView: View {
                 VStack {
                     List {
                         ForEach(cars, id: \.self) { car in
-                            CarView(name: car.name!, make: car.make!, model: car.model!, year: car.year!)
+                            CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
                         }
+                        .onDelete { indexSet in
+                            let deleteItem = self.cars[indexSet.first!]
+                            self.managedObjectContext.delete(deleteItem)
+                        }
+                        
                     }
-                    //                CarView(name: "Julie", make: "Jeep", model: "Rangler", year: "2010")
-                    //                Spacer()
                 }
+                .navigationBarTitle(Text("Solves"), displayMode: .inline)
+                .navigationBarItems(trailing: EditButton())
             }
         }
     }
