@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		804B24DB24CE382F009FC038 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* AddEntryView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
 		805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		804B24DA24CE382F009FC038 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		805B414024CDF04B0085DB47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,11 +68,10 @@
 			children = (
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
-				805B414524CDF04B0085DB47 /* ContentView.swift */,
-				805B415524CDF5080085DB47 /* CarView.swift */,
-
 				80AF282A24CE03030050CDA7 /* TopMenuBarView.swift */,
-
+				805B414524CDF04B0085DB47 /* ContentView.swift */,
+				804B24DA24CE382F009FC038 /* AddEntryView.swift */,
+				805B415524CDF5080085DB47 /* CarView.swift */,
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
@@ -163,6 +164,7 @@
 				80AF282B24CE03030050CDA7 /* TopMenuBarView.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
+				804B24DB24CE382F009FC038 /* AddEntryView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,

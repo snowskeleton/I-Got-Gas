@@ -11,17 +11,27 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    @State private var showAddEntryView = false
     
     var body: some View {
         VStack {
             TopMenuBarView()
                 .padding(.bottom)
-                List {
-                        ForEach(cars, id: \.self) { car in
-                            CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
-                        }.onDelete(perform: crashCar)
+            List {
+                ForEach(cars, id: \.self) { car in
+                    
+                    Button(action: {
+                        self.showAddEntryView = true
+                    }) {
+                        CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
                     }
+                    .sheet(isPresented: self.$showAddEntryView) {
+                        AddEntryView(show: self.$showAddEntryView, id: car.id!).environment(\.managedObjectContext, self.managedObjectContext)
+                }
+                    
+            }.onDelete(perform: crashCar)
         }
+    }
     }
     func crashCar(at offsets: IndexSet) {
         for index in offsets {
@@ -30,6 +40,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {

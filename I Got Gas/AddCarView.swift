@@ -55,6 +55,7 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
+        car.id = UUID()
         try? self.managedObjectContext.save()
         
         self.show = false
