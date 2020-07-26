@@ -13,7 +13,7 @@ struct CarView: View {
     let name: String
     let make: String
     let model: String
-    let year: Int
+    let year: String
     
     var body: some View {
         HStack {
@@ -25,7 +25,7 @@ struct CarView: View {
             
             VStack(alignment: .leading) {
                 Text(self.name)
-                Text("\(self.make), \(self.model), \(self.year)")
+                Text("\(self.year) \(self.make) \(self.model)")
                 Text("Some number stats")
             }
             
@@ -41,6 +41,6 @@ struct CarView: View {
 
 struct CarView_Previews: PreviewProvider {
     static var previews: some View {
-        CarView(name: "Julie", make: "Jeep", model: "Rangler", year: 2010)
+        CarView(name: "Julie", make: "Jeep", model: "Wrangler", year: "2010")
     }
 }
