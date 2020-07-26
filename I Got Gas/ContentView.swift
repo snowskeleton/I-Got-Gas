@@ -16,25 +16,21 @@ struct ContentView: View {
         VStack {
             TopMenuBarView()
                 .padding(.bottom)
-            NavigationView {
-                VStack {
-                    List {
+                List {
                         ForEach(cars, id: \.self) { car in
                             CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
-                        }
-                        .onDelete { indexSet in
-                            let deleteItem = self.cars[indexSet.first!]
-                            self.managedObjectContext.delete(deleteItem)
-                        }
-                        
+                        }.onDelete(perform: crashCar)
                     }
-                }
-                .navigationBarTitle(Text("Solves"), displayMode: .inline)
-                .navigationBarItems(trailing: EditButton())
-            }
+        }
+    }
+    func crashCar(at offsets: IndexSet) {
+        for index in offsets {
+            let car = cars[index]
+            managedObjectContext.delete(car)
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
