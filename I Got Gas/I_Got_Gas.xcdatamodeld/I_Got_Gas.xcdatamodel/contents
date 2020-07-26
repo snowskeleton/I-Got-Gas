@@ -13,7 +13,7 @@
     </entity>
     <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES" codeGenerationType="class">
         <attribute name="costPerGallon" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="numberOfGallons" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="numberOfGallons" optional="YES" attributeType="Decimal" defaultValueString="0"/>
     </entity>
     <entity name="Service" representedClassName="Service" syncable="YES" codeGenerationType="class">
         <attribute name="cost" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
