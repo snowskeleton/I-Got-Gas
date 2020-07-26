@@ -64,5 +64,6 @@ struct AddCarView: View {
 struct AddCarView_Previews: PreviewProvider {
     static var previews: some View {
         AddCarView(show: Binding.constant(true))
+
     }
 }
