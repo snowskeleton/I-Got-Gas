@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct CarView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+
 //    let carPhoto: String
     let name: String
     let make: String
