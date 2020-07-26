@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        CarView()
+        CarView(name: "Julie", make: "Jeep", model: "Rangler", year: 2010)
     }
 }
 

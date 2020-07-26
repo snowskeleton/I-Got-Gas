@@ -9,6 +9,11 @@
 import SwiftUI
 
 struct CarView: View {
+//    let carPhoto: String
+    let name: String
+    let make: String
+    let model: String
+    let year: Int
     
     var body: some View {
         HStack {
@@ -19,8 +24,8 @@ struct CarView: View {
             Spacer()
             
             VStack(alignment: .leading) {
-                Text("Vehicle name")
-                Text("Make, modle, year")
+                Text(self.name)
+                Text("\(self.make), \(self.model), \(self.year)")
                 Text("Some number stats")
             }
             
@@ -36,6 +41,6 @@ struct CarView: View {
 
 struct CarView_Previews: PreviewProvider {
     static var previews: some View {
-        CarView()
+        CarView(name: "Julie", make: "Jeep", model: "Rangler", year: 2010)
     }
 }
