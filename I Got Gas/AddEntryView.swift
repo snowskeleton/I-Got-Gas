@@ -15,19 +15,22 @@ struct AddEntryView: View {
     @Binding var show: Bool
     let id: String
     var body: some View {
-        ShowCarName(filter: id)
+        VStack {
+            ShowCarName(filter: id)
+        }
     }
 }
 
 struct ShowCarName: View {
     var fetchRequest: FetchRequest<Car>
-    
+    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+
     init(filter: String) {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
     }
     
     var body: some View {
-        List(fetchRequest.wrappedValue, id: \.self) { car in
+        ForEach(car, id: \.self) { car in
             Text("\(car.name!)")
         }
     }
