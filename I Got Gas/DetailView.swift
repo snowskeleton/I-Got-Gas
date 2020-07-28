@@ -13,23 +13,30 @@ struct DetailView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
 
     @Binding var show: Bool
+    @State var showAddExpenseView = false
     let id: String
+    
     var body: some View {
         VStack {
             CarView(id: id)
                 .padding()
             Spacer()
-            ShowCarName(filter: id)
+            DetailSubView(filter: id)
+            
             Button(action: {
-                //
+                self.showAddExpenseView = true
             }) {
                 Text("Add Expense")
             }
+            .sheet(isPresented: self.$showAddExpenseView) {
+                AddExpenseView(show: self.$showAddExpenseView, id: self.id).environment(\.managedObjectContext, self.managedObjectContext)
+            }
+
         }
     }
 }
 
-struct ShowCarName: View {
+struct DetailSubView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
 
@@ -41,7 +48,39 @@ struct ShowCarName: View {
     
     var body: some View {
         ForEach(car, id: \.self) { car in
-            Text("\(car.name!)")
+            VStack {
+                Form {
+                    Section(header: Text("General information")) {
+                        HStack {
+                            Text("Odometer")
+                            Spacer()
+                            Text("\(car.odometer)")
+                        }
+                        HStack {
+                            Text("Current MPG")
+                            Spacer()
+                            Text("42/g")
+                        }
+                        HStack {
+                            Text("Last fill-up")
+                            Spacer()
+                            Text("7/10/2020")
+                        }
+                        HStack {
+                            Text("Horoscope")
+                            Spacer()
+                            Text("Aries")
+                        }
+                    }
+                    Section(header: Text("Service")) {
+                        Text("Oil change")
+                        Text("Break Check")
+                        Text("Other service")
+                        Text("Something important")
+                    }
+                }
+                Spacer()
+            }
         }
     }
 }
@@ -57,7 +96,8 @@ struct DetailView_Previews: PreviewProvider {
         carSelected.model = ""
         carSelected.plate = ""
         carSelected.vin = ""
-        return DetailView(show: Binding.constant(true), id: "Hello, darkness").environment(\.managedObjectContext, context)
+        return DetailView(show: Binding.constant(true), id: "Hello, darkness")
+            .environment(\.managedObjectContext, context)
 
 //        AddEntryView(show: Binding.constant(true), car: "Mine")
     }
