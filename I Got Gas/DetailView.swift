@@ -13,7 +13,7 @@ struct DetailView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
 //    @Binding var show: Bool
-//    @State var showAddExpenseView = false
+    @State var showAddExpenseView = false
     
 //    @State var id: String
     var fetchRequest: FetchRequest<Car>
@@ -67,15 +67,15 @@ struct DetailView: View {
                     Spacer()
                     
                     Button(action: {
-//                        self.showAddExpenseView = true
+                        self.showAddExpenseView = true
                     }) {
                         Text("Add Expense")
                     }
-//                                        .sheet(isPresented: self.$showAddExpenseView) {
-//                                            AddExpenseView(show: self.$showAddExpenseView,
-//                                                             id: self.id)
-//                                                .environment(\.managedObjectContext, self.managedObjectContext)
-//                }
+                                        .sheet(isPresented: self.$showAddExpenseView) {
+                                            AddExpenseView(show: self.$showAddExpenseView,
+                                                           id: car.idea ?? "")
+                                                .environment(\.managedObjectContext, self.managedObjectContext)
+                }
                 }
                 
             }
@@ -87,20 +87,20 @@ struct DetailView: View {
 
 
 
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        //Test data
-        let carSelected = Car.init(context: context)
-        carSelected.name = ""
-        carSelected.year = ""
-        carSelected.make = ""
-        carSelected.model = ""
-        carSelected.plate = ""
-        carSelected.vin = ""
-        return DetailView(filter: "Howdy, doody")
-            .environment(\.managedObjectContext, context)
-        
-        //        AddEntryView(show: Binding.constant(true), car: "Mine")
-    }
-}
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//        //Test data
+//        let carSelected = Car.init(context: context)
+//        carSelected.name = ""
+//        carSelected.year = ""
+//        carSelected.make = ""
+//        carSelected.model = ""
+//        carSelected.plate = ""
+//        carSelected.vin = ""
+//        return DetailView(filter: "Howdy, doody")
+//            .environment(\.managedObjectContext, context)
+//
+//        //        AddEntryView(show: Binding.constant(true), car: "Mine")
+//    }
+//}

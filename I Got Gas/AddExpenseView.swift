@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddExpenseView: View {
     @Binding var show: Bool
-    let id: String
+    var id: String
 
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
