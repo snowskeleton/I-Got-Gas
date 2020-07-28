@@ -20,6 +20,7 @@ struct AddCarView: View {
     @State var carModel: String = ""
     @State var carPlate: String = ""
     @State var carVIN: String = ""
+    @State var carOdometer: String = ""
     
     var body: some View {
         VStack {
@@ -29,8 +30,11 @@ struct AddCarView: View {
                         Section(header: Text("Vehicle Info")) {
                             TextField("Name", text: self.$carName)
                             TextField("Year", text: self.$carYear)
+                                .keyboardType(.numberPad)
                             TextField("Make", text: self.$carMake)
                             TextField("Model", text: self.$carModel)
+                            TextField("Current Odometer", text: self.$carOdometer)
+                                .keyboardType(.numberPad)
                             TextField("License Plate", text: self.$carPlate)
                             TextField("VIN", text: self.$carVIN)
                         }
@@ -55,6 +59,7 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
+//        car.odometer = Int64(from: self.carOdometer!)
         car.idea = UUID().uuidString
         try? self.managedObjectContext.save()
         

@@ -23,10 +23,10 @@ struct ContentView: View {
                     Button(action: {
                         self.showDetailView = true
                     }) {
-                        CarView(id: car.idea!)
+                        CarView(id: car.idea ?? "")
                     }
                     .sheet(isPresented: self.$showDetailView) {
-                        DetailView(show: self.$showDetailView, id: car.idea!).environment(\.managedObjectContext, self.managedObjectContext)
+                        DetailView(show: self.$showDetailView, id: car.idea ?? "").environment(\.managedObjectContext, self.managedObjectContext)
                 }
                     
             }.onDelete(perform: crashCar)
