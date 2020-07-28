@@ -59,7 +59,7 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
-//        car.odometer = Int64(from: self.carOdometer!)
+        car.odometer = Int64(self.carOdometer) ?? 0
         car.idea = UUID().uuidString
         try? self.managedObjectContext.save()
         
