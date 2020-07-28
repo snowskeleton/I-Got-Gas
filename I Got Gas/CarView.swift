@@ -8,18 +8,18 @@
 
 import SwiftUI
 
-struct CarView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    
-    let id: String
-    
-    var body: some View {
-        CarSubView(filter: id)
-    }
-}
+//struct CarView: View {
+//    @Environment(\.managedObjectContext) var managedObjectContext
+//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+//
+////    let id: String
+//
+//    var body: some View {
+//        CarSubView(filter: id)
+//    }
+//}
 
-struct CarSubView: View {
+struct CarView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
@@ -56,6 +56,6 @@ struct CarSubView: View {
 
 struct CarView_Previews: PreviewProvider {
     static var previews: some View {
-        CarView(id: "Hello, Doctor")
+        CarView(filter: "Hello, Doctor")
     }
 }

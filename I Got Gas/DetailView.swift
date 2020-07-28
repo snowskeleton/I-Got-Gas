@@ -18,7 +18,7 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
-            CarView(id: id)
+            CarView(filter: id)
                 .padding()
             Spacer()
             DetailSubView(filter: id)

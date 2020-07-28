@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State private var showDetailView = false
+    @State var selectedCarID = ""
     
     var body: some View {
         VStack {
@@ -22,11 +23,14 @@ struct ContentView: View {
                     
                     Button(action: {
                         self.showDetailView = true
+                        self.selectedCarID = car.idea ?? ""
                     }) {
-                        CarView(id: car.idea ?? "")
+                        CarView(filter: car.idea ?? "")
                     }
                     .sheet(isPresented: self.$showDetailView) {
-                        DetailView(show: self.$showDetailView, id: car.idea ?? "").environment(\.managedObjectContext, self.managedObjectContext)
+                        DetailView(show: self.$showDetailView,
+                                     id: car.idea ?? "")
+                            .environment(\.managedObjectContext, self.managedObjectContext)
                 }
                     
             }.onDelete(perform: crashCar)
