@@ -13,9 +13,23 @@ struct AddEntryView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
 
     @Binding var show: Bool
-    let id: UUID
+    let id: String
     var body: some View {
-        Text("\(id)")
+        ShowCarName(filter: id)
+    }
+}
+
+struct ShowCarName: View {
+    var fetchRequest: FetchRequest<Car>
+    
+    init(filter: String) {
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
+    }
+    
+    var body: some View {
+        List(fetchRequest.wrappedValue, id: \.self) { car in
+            Text("\(car.name!)")
+        }
     }
 }
 
@@ -30,7 +44,7 @@ struct AddEntryView_Previews: PreviewProvider {
         carSelected.model = ""
         carSelected.plate = ""
         carSelected.vin = ""
-        return AddEntryView(show: Binding.constant(true), id: "Hello darkness" as! UUID).environment(\.managedObjectContext, context)
+        return AddEntryView(show: Binding.constant(true), id: "Hello, darkness").environment(\.managedObjectContext, context)
 
 //        AddEntryView(show: Binding.constant(true), car: "Mine")
     }
