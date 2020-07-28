@@ -62,6 +62,7 @@ struct DetailView: View {
                             Text("Something important")
                         }
                     }
+                    
                     Spacer()
                     
                     Button(action: {
@@ -71,7 +72,7 @@ struct DetailView: View {
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
                         AddExpenseView(show: self.$showAddExpenseView,
-                                       id: car.idea ?? "")
+                                         id: car.idea ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
