@@ -40,6 +40,7 @@ struct AddCarView: View {
                         }
                     }
                 }
+            .navigationBarTitle("You get a car!")
             }
             
             Spacer()

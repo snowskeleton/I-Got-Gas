@@ -13,18 +13,17 @@ struct ContentView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State private var showDetailView = false
     @State var selectedCarID = ""
+    @State var showAddCarView = false
     
     var body: some View {
         NavigationView {
             VStack {
-                TopMenuBarView()
-                    .padding(.bottom)
-                NavigationLink(destination: DetailView(filter: self.selectedCarID)
-                    .navigationBarTitle("this is a subview")
-                    .navigationBarHidden(true),
-                               isActive: self.$showDetailView) {
-                                EmptyView()
-                }
+                NavigationLink(
+                    destination: DetailView(
+                        filter: self.selectedCarID)
+                    .navigationBarHidden(false),
+                        isActive: self.$showDetailView)
+                    { EmptyView() }
                 List {
                     ForEach(cars, id: \.self) { car in
                         
@@ -38,10 +37,27 @@ struct ContentView: View {
                     }.onDelete(perform: crashCar)
                 }
             }
-            .navigationBarTitle("this is a bar")
-            .navigationBarHidden(true)
-        }
+            .navigationBarItems(leading:
+                Button(action: {
+                    self.showAddCarView.toggle()
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 30))
+                }.padding(.leading)
+                    .sheet(isPresented: $showAddCarView) {
+                        AddCarView(show: self.$showAddCarView)
+                            .environment(\.managedObjectContext,
+                                         self.managedObjectContext)},
+
+                                trailing:
+                Button(action: {
+                    //
+                }) {
+                    Text("Options")
+            })
         
+        }
+    
     }
     
     func crashCar(at offsets: IndexSet) {

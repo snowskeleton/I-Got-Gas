@@ -15,7 +15,7 @@ struct DetailView: View {
 //    @Binding var show: Bool
 //    @State var showAddExpenseView = false
     
-    //    var id: String
+//    @State var id: String
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
@@ -29,8 +29,8 @@ struct DetailView: View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                //                CarView(filter: self.id)
-                //                    .padding()
+                CarView(filter: car.idea ?? "")
+                                    .padding()
                 Spacer()
                 
                 VStack {
@@ -71,10 +71,10 @@ struct DetailView: View {
                     }) {
                         Text("Add Expense")
                     }
-                    //                    .sheet(isPresented: self.$showAddExpenseView) {
-                    //                        AddExpenseView(show: self.$showAddExpenseView,
-                    //                                         id: self.id)
-                    //                            .environment(\.managedObjectContext, self.managedObjectContext)
+//                                        .sheet(isPresented: self.$showAddExpenseView) {
+//                                            AddExpenseView(show: self.$showAddExpenseView,
+//                                                             id: self.id)
+//                                                .environment(\.managedObjectContext, self.managedObjectContext)
 //                }
                 }
                 
