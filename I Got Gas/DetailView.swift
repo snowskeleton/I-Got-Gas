@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddEntryView: View {
+struct DetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
 
@@ -16,7 +16,15 @@ struct AddEntryView: View {
     let id: String
     var body: some View {
         VStack {
+            CarView(id: id)
+                .padding()
+            Spacer()
             ShowCarName(filter: id)
+            Button(action: {
+                //
+            }) {
+                Text("Add Expense")
+            }
         }
     }
 }
@@ -26,7 +34,9 @@ struct ShowCarName: View {
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
 
     init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
+                                         sortDescriptors: [],
+                                         predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
     }
     
     var body: some View {
@@ -36,7 +46,7 @@ struct ShowCarName: View {
     }
 }
 
-struct AddEntryView_Previews: PreviewProvider {
+struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         //Test data
@@ -47,7 +57,7 @@ struct AddEntryView_Previews: PreviewProvider {
         carSelected.model = ""
         carSelected.plate = ""
         carSelected.vin = ""
-        return AddEntryView(show: Binding.constant(true), id: "Hello, darkness").environment(\.managedObjectContext, context)
+        return DetailView(show: Binding.constant(true), id: "Hello, darkness").environment(\.managedObjectContext, context)
 
 //        AddEntryView(show: Binding.constant(true), car: "Mine")
     }

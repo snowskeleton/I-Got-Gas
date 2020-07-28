@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    @State private var showAddEntryView = false
+    @State private var showDetailView = false
     
     var body: some View {
         VStack {
@@ -21,12 +21,12 @@ struct ContentView: View {
                 ForEach(cars, id: \.self) { car in
                     
                     Button(action: {
-                        self.showAddEntryView = true
+                        self.showDetailView = true
                     }) {
                         CarView(id: car.idea!)
                     }
-                    .sheet(isPresented: self.$showAddEntryView) {
-                        AddEntryView(show: self.$showAddEntryView, id: car.idea!).environment(\.managedObjectContext, self.managedObjectContext)
+                    .sheet(isPresented: self.$showDetailView) {
+                        DetailView(show: self.$showDetailView, id: car.idea!).environment(\.managedObjectContext, self.managedObjectContext)
                 }
                     
             }.onDelete(perform: crashCar)
