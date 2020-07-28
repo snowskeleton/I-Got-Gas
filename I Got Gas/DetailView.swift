@@ -12,25 +12,23 @@ struct DetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
-//    @Binding var show: Bool
     @State var showAddExpenseView = false
     
-//    @State var id: String
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
     init(filter: String) {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
-                                         predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
+                                         predicate: NSPredicate(
+                                            format: "idea BEGINSWITH %@", filter))
     }
     
     var body: some View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                CarView(filter: car.idea ?? "")
-                                    .padding()
+                CarView(filter: car.idea ?? "").padding()
                 Spacer()
                 
                 VStack {
@@ -71,11 +69,11 @@ struct DetailView: View {
                     }) {
                         Text("Add Expense")
                     }
-                                        .sheet(isPresented: self.$showAddExpenseView) {
-                                            AddExpenseView(show: self.$showAddExpenseView,
-                                                           id: car.idea ?? "")
-                                                .environment(\.managedObjectContext, self.managedObjectContext)
-                }
+                    .sheet(isPresented: self.$showAddExpenseView) {
+                        AddExpenseView(show: self.$showAddExpenseView,
+                                       id: car.idea ?? "")
+                            .environment(\.managedObjectContext, self.managedObjectContext)
+                    }
                 }
                 
             }
