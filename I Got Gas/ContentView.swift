@@ -15,34 +15,42 @@ struct ContentView: View {
     @State var selectedCarID = ""
     
     var body: some View {
-        VStack {
-            TopMenuBarView()
-                .padding(.bottom)
-            List {
-                ForEach(cars, id: \.self) { car in
-                    
-                    Button(action: {
-                        self.showDetailView = true
-                        self.selectedCarID = car.idea ?? ""
-                    }) {
-                        CarView(filter: car.idea ?? "")
-                    }
-                    .sheet(isPresented: self.$showDetailView) {
-                        DetailView(show: self.$showDetailView,
-                                     id: car.idea ?? "")
-                            .environment(\.managedObjectContext, self.managedObjectContext)
+        NavigationView {
+            VStack {
+                TopMenuBarView()
+                    .padding(.bottom)
+                NavigationLink(destination: DetailView(filter: self.selectedCarID)
+                    .navigationBarTitle("this is a subview")
+                    .navigationBarHidden(true),
+                               isActive: self.$showDetailView) {
+                                EmptyView()
                 }
-                    
-            }.onDelete(perform: crashCar)
+                List {
+                    ForEach(cars, id: \.self) { car in
+                        
+                        Button(action: {
+                            self.selectedCarID = car.idea ?? ""
+                            self.showDetailView.toggle()
+                        }) {
+                            CarView(filter: car.idea ?? "")
+                        }
+                        
+                    }.onDelete(perform: crashCar)
+                }
+            }
+            .navigationBarTitle("this is a bar")
+            .navigationBarHidden(true)
         }
+        
     }
-    }
+    
     func crashCar(at offsets: IndexSet) {
         for index in offsets {
             let car = cars[index]
             managedObjectContext.delete(car)
         }
     }
+    
 }
 
 

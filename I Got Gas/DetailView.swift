@@ -11,35 +11,14 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
-    @Binding var show: Bool
-    @State var showAddExpenseView = false
-    let id: String
     
-    var body: some View {
-        VStack {
-            CarView(filter: id)
-                .padding()
-            Spacer()
-            DetailSubView(filter: id)
-            
-            Button(action: {
-                self.showAddExpenseView = true
-            }) {
-                Text("Add Expense")
-            }
-            .sheet(isPresented: self.$showAddExpenseView) {
-                AddExpenseView(show: self.$showAddExpenseView, id: self.id).environment(\.managedObjectContext, self.managedObjectContext)
-            }
-
-        }
-    }
-}
-
-struct DetailSubView: View {
+//    @Binding var show: Bool
+//    @State var showAddExpenseView = false
+    
+    //    var id: String
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
-
+    
     init(filter: String) {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
@@ -48,42 +27,65 @@ struct DetailSubView: View {
     
     var body: some View {
         ForEach(car, id: \.self) { car in
+            
             VStack {
-                Form {
-                    Section(header: Text("General information")) {
-                        HStack {
-                            Text("Odometer")
-                            Spacer()
-                            Text("\(car.odometer)")
-                        }
-                        HStack {
-                            Text("Current MPG")
-                            Spacer()
-                            Text("42/g")
-                        }
-                        HStack {
-                            Text("Last fill-up")
-                            Spacer()
-                            Text("7/10/2020")
-                        }
-                        HStack {
-                            Text("Horoscope")
-                            Spacer()
-                            Text("Aries")
-                        }
-                    }
-                    Section(header: Text("Service")) {
-                        Text("Oil change")
-                        Text("Break Check")
-                        Text("Other service")
-                        Text("Something important")
-                    }
-                }
+                //                CarView(filter: self.id)
+                //                    .padding()
                 Spacer()
+                
+                VStack {
+                    Form {
+                        Section(header: Text("General information")) {
+                            HStack {
+                                Text("Odometer")
+                                Spacer()
+                                Text("\(car.odometer)")
+                            }
+                            HStack {
+                                Text("Current MPG")
+                                Spacer()
+                                Text("42/g")
+                            }
+                            HStack {
+                                Text("Last fill-up")
+                                Spacer()
+                                Text("7/10/2020")
+                            }
+                            HStack {
+                                Text("Horoscope")
+                                Spacer()
+                                Text("Aries")
+                            }
+                        }
+                        Section(header: Text("Service")) {
+                            Text("Oil change")
+                            Text("Break Check")
+                            Text("Other service")
+                            Text("Something important")
+                        }
+                    }
+                    Spacer()
+                    
+                    Button(action: {
+//                        self.showAddExpenseView = true
+                    }) {
+                        Text("Add Expense")
+                    }
+                    //                    .sheet(isPresented: self.$showAddExpenseView) {
+                    //                        AddExpenseView(show: self.$showAddExpenseView,
+                    //                                         id: self.id)
+                    //                            .environment(\.managedObjectContext, self.managedObjectContext)
+//                }
+                }
+                
             }
         }
     }
 }
+
+
+
+
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
@@ -96,9 +98,9 @@ struct DetailView_Previews: PreviewProvider {
         carSelected.model = ""
         carSelected.plate = ""
         carSelected.vin = ""
-        return DetailView(show: Binding.constant(true), id: "Hello, darkness")
+        return DetailView(filter: "Howdy, doody")
             .environment(\.managedObjectContext, context)
-
-//        AddEntryView(show: Binding.constant(true), car: "Mine")
+        
+        //        AddEntryView(show: Binding.constant(true), car: "Mine")
     }
 }
