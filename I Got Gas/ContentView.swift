@@ -26,7 +26,7 @@ struct ContentView: View {
                         CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
                     }
                     .sheet(isPresented: self.$showAddEntryView) {
-                        AddEntryView(show: self.$showAddEntryView, id: car.id!).environment(\.managedObjectContext, self.managedObjectContext)
+                        AddEntryView(show: self.$showAddEntryView, id: car.idea!).environment(\.managedObjectContext, self.managedObjectContext)
                 }
                     
             }.onDelete(perform: crashCar)
