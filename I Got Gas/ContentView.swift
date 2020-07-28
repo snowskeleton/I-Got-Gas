@@ -23,7 +23,7 @@ struct ContentView: View {
                     Button(action: {
                         self.showAddEntryView = true
                     }) {
-                        CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
+                        CarView(id: car.idea!)
                     }
                     .sheet(isPresented: self.$showAddEntryView) {
                         AddEntryView(show: self.$showAddEntryView, id: car.idea!).environment(\.managedObjectContext, self.managedObjectContext)

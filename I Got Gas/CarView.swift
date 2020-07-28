@@ -11,39 +11,51 @@ import SwiftUI
 struct CarView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
-//    let carPhoto: String
-    let name: String
-    let make: String
-    let model: String
-    let year: String
+    
+    let id: String
     
     var body: some View {
-        HStack {
-            Image(systemName: "star.fill")
-                .font(.system(size: 60))
-                .padding(.leading)
-            
-            Spacer()
-            
-            VStack(alignment: .leading) {
-                Text(self.name)
-                Text("\(self.year) \(self.make) \(self.model)")
-                Text("Some number stats")
+        CarSubView(filter: id)
+    }
+}
+
+struct CarSubView: View {
+    var fetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    
+    init(filter: String) {
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "idea BEGINSWITH %@", filter))
+    }
+    
+    var body: some View {
+        ForEach(car, id: \.self) { car in
+            HStack {
+                Image(systemName: "star.fill")
+                    .font(.system(size: 60))
+                    .padding(.leading)
+                
+                Spacer()
+                
+                VStack(alignment: .leading) {
+                    Text(car.name ?? "")
+                    Text("\(car.year ?? "") \(car.make ?? "") \(car.model ?? "")")
+                    Text("Some number stats")
+                }
+                
+                Spacer()
             }
+            .padding(.vertical, 20)
+            .background(Color.blue)
+            .opacity(0.8)
+            .cornerRadius(20)
+            .padding(.horizontal, 20)
             
-            Spacer()
         }
-        .padding(.vertical, 20)
-        .background(Color.blue)
-        .opacity(0.8)
-        .cornerRadius(20)
-        .padding(.horizontal, 20)
     }
 }
 
 struct CarView_Previews: PreviewProvider {
     static var previews: some View {
-        CarView(name: "Julie", make: "Jeep", model: "Wrangler", year: "2010")
+        CarView(id: "Hello, Doctor")
     }
 }
