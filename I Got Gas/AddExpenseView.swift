@@ -13,6 +13,13 @@ struct AddExpenseView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
+    var dateFormatter: DateFormatter {
+           let formatter = DateFormatter()
+           formatter.dateStyle = .long
+           return formatter
+       }
+    @State private var expenseDate = Date()
+    
     @State private var gasPrice: Decimal = 0.00
     @State private var gallonsOfGas: Decimal = 0.00
     @State private var pricePerGallon: Decimal = 0.00
@@ -29,6 +36,7 @@ struct AddExpenseView: View {
     var body: some View {
         ForEach(car, id: \.self) { car in
             VStack {
+
                 HStack {
                     Button(action: {
                         self.isGas.toggle()
@@ -43,6 +51,7 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
+                            DatePicker("Please enter a date", selection: self.$expenseDate, displayedComponents: .date)
                             if self.isGas {
                                 Section {
                                     TextField("Total Gallons", value: self.$gallonsOfGas, formatter: NumberFormatter())
