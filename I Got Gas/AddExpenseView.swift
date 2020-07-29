@@ -8,6 +8,14 @@
 
 import SwiftUI
 
+extension NumberFormatter {
+       static var decimal: NumberFormatter {
+           let formatter = NumberFormatter()
+           formatter.numberStyle = .decimal
+           return formatter
+       }
+   }
+
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     var fetchRequest: FetchRequest<Car>
@@ -20,10 +28,14 @@ struct AddExpenseView: View {
        }
     @State private var expenseDate = Date()
     
-    @State private var gasPrice: Decimal = 0.00
-    @State private var gallonsOfGas: Decimal = 0.00
-    @State private var pricePerGallon: Decimal = 0.00
+    @State private var gasPrice: Float = 0.00
+    @State private var gallonsOfGas: Float = 0.00
+    @State private var pricePerGallon: Float = 0.00
     @State private var isGas = true
+    
+    
+   
+    
     
     init(filter: String) {
         
@@ -51,17 +63,24 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker("Please enter a date", selection: self.$expenseDate, displayedComponents: .date)
+                            DatePicker("Please enter a date",
+                                       selection: self.$expenseDate,
+                                       displayedComponents: .date)
+                            
                             if self.isGas {
                                 Section {
-                                    TextField("Total Gallons", value: self.$gallonsOfGas, formatter: NumberFormatter())
-                                        .keyboardType(.asciiCapableNumberPad)
+                                    TextField("Total Gallons",
+                                              value: self.$gallonsOfGas,
+                                              formatter: NumberFormatter.decimal)
+                                        .keyboardType(.decimalPad)
                                     }
                             }
                             Text("\(car.name ?? "")")
                         }
                         
                         Spacer()
+                        
+                        
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                         }) {
