@@ -9,12 +9,17 @@
 import SwiftUI
 
 extension NumberFormatter {
-       static var decimal: NumberFormatter {
-           let formatter = NumberFormatter()
-           formatter.numberStyle = .decimal
-           return formatter
-       }
-   }
+    static var decimal: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }
+    static var currency: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }
+}
 
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -22,10 +27,10 @@ struct AddExpenseView: View {
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
     var dateFormatter: DateFormatter {
-           let formatter = DateFormatter()
-           formatter.dateStyle = .long
-           return formatter
-       }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }
     @State private var expenseDate = Date()
     
     @State private var gasPrice: Float = 0.00
@@ -34,7 +39,7 @@ struct AddExpenseView: View {
     @State private var isGas = true
     
     
-   
+    
     
     
     init(filter: String) {
@@ -48,7 +53,7 @@ struct AddExpenseView: View {
     var body: some View {
         ForEach(car, id: \.self) { car in
             VStack {
-
+                
                 HStack {
                     Button(action: {
                         self.isGas.toggle()
@@ -68,18 +73,26 @@ struct AddExpenseView: View {
                                        displayedComponents: .date)
                             
                             if self.isGas {
-                                Section {
+                                Section(header: Text("Fuel stats")) {
                                     TextField("Total Gallons",
                                               value: self.$gallonsOfGas,
                                               formatter: NumberFormatter.decimal)
                                         .keyboardType(.decimalPad)
-                                    }
+                                        .font(.system(size: 30))
+                                    HStack {
+                                        Text("$")
+                                        TextField("Price/gallon",
+                                                  value: self.$pricePerGallon,
+                                                  formatter: NumberFormatter.decimal)
+                                            .keyboardType(.decimalPad)
+                                    }.font(.system(size: 30))
+                                }
                             }
+                            
                             Text("\(car.name ?? "")")
                         }
                         
                         Spacer()
-                        
                         
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
@@ -87,7 +100,7 @@ struct AddExpenseView: View {
                             Text("Save me!")
                         }
                     }.navigationBarTitle("")
-                    .navigationBarHidden(true)
+                        .navigationBarHidden(true)
                 }
             }
         }
