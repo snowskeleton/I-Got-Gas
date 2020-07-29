@@ -9,16 +9,36 @@
 import SwiftUI
 
 struct AddExpenseView: View {
-    @Binding var show: Bool
-    var id: String
+    @Environment(\.presentationMode) var presentationMode
+    var fetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+
+    init(filter: String) {
+
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
+                                         sortDescriptors: [],
+                                         predicate: NSPredicate(
+                                            format: "idea BEGINSWITH %@", filter))
+    }
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ForEach(car, id: \.self) { car in
+                Text("\(car.name ?? "")")
+            }
+            
+            Spacer()
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Save me!")
+            }
+        }
     }
 }
 
-struct AddExpenseView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddExpenseView(show: Binding.constant(true), id: "Hello darkness")
-    }
-}
+//struct AddExpenseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddExpenseView(filter: "Hello, darkness").environmentObject(\.presentationMode)
+//    }
+//}

@@ -71,8 +71,7 @@ struct DetailView: View {
                         Text("Add Expense")
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
-                        AddExpenseView(show: self.$showAddExpenseView,
-                                         id: car.idea ?? "")
+                        AddExpenseView(filter: car.idea ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
