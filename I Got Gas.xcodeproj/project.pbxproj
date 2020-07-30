@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */; };
+		803993D524D33CD1006C311D /* Car+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993CD24D33CD1006C311D /* Car+CoreDataClass.swift */; };
+		803993D624D33CD1006C311D /* Car+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993CE24D33CD1006C311D /* Car+CoreDataProperties.swift */; };
+		803993D724D33CD1006C311D /* Fuel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993CF24D33CD1006C311D /* Fuel+CoreDataClass.swift */; };
+		803993D824D33CD1006C311D /* Fuel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993D024D33CD1006C311D /* Fuel+CoreDataProperties.swift */; };
+		803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993D124D33CD1006C311D /* Service+CoreDataClass.swift */; };
+		803993DA24D33CD1006C311D /* Service+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993D224D33CD1006C311D /* Service+CoreDataProperties.swift */; };
+		803993DB24D33CD1006C311D /* Vendor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993D324D33CD1006C311D /* Vendor+CoreDataClass.swift */; };
+		803993DC24D33CD1006C311D /* Vendor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803993D424D33CD1006C311D /* Vendor+CoreDataProperties.swift */; };
 		804B24DB24CE382F009FC038 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* DetailView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
@@ -23,6 +31,14 @@
 
 /* Begin PBXFileReference section */
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		803993CD24D33CD1006C311D /* Car+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Car+CoreDataClass.swift"; path = "Data/Car+CoreDataClass.swift"; sourceTree = "<group>"; };
+		803993CE24D33CD1006C311D /* Car+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Car+CoreDataProperties.swift"; path = "Data/Car+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		803993CF24D33CD1006C311D /* Fuel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Fuel+CoreDataClass.swift"; path = "Data/Fuel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		803993D024D33CD1006C311D /* Fuel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Fuel+CoreDataProperties.swift"; path = "Data/Fuel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		803993D124D33CD1006C311D /* Service+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Service+CoreDataClass.swift"; path = "Data/Service+CoreDataClass.swift"; sourceTree = "<group>"; };
+		803993D224D33CD1006C311D /* Service+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Service+CoreDataProperties.swift"; path = "Data/Service+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		803993D324D33CD1006C311D /* Vendor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Vendor+CoreDataClass.swift"; path = "Data/Vendor+CoreDataClass.swift"; sourceTree = "<group>"; };
+		803993D424D33CD1006C311D /* Vendor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Vendor+CoreDataProperties.swift"; path = "Data/Vendor+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +68,14 @@
 		805B413224CDF04B0085DB47 = {
 			isa = PBXGroup;
 			children = (
+				803993CD24D33CD1006C311D /* Car+CoreDataClass.swift */,
+				803993CE24D33CD1006C311D /* Car+CoreDataProperties.swift */,
+				803993CF24D33CD1006C311D /* Fuel+CoreDataClass.swift */,
+				803993D024D33CD1006C311D /* Fuel+CoreDataProperties.swift */,
+				803993D124D33CD1006C311D /* Service+CoreDataClass.swift */,
+				803993D224D33CD1006C311D /* Service+CoreDataProperties.swift */,
+				803993D324D33CD1006C311D /* Vendor+CoreDataClass.swift */,
+				803993D424D33CD1006C311D /* Vendor+CoreDataProperties.swift */,
 				805B413D24CDF04B0085DB47 /* I Got Gas */,
 				805B413C24CDF04B0085DB47 /* Products */,
 			);
@@ -164,14 +188,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				803993D624D33CD1006C311D /* Car+CoreDataProperties.swift in Sources */,
+				803993DA24D33CD1006C311D /* Service+CoreDataProperties.swift in Sources */,
+				803993D824D33CD1006C311D /* Fuel+CoreDataProperties.swift in Sources */,
+				803993DC24D33CD1006C311D /* Vendor+CoreDataProperties.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
+				803993D724D33CD1006C311D /* Fuel+CoreDataClass.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
+				803993DB24D33CD1006C311D /* Vendor+CoreDataClass.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
+				803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
+				803993D524D33CD1006C311D /* Car+CoreDataClass.swift in Sources */,
 				805B415624CDF5080085DB47 /* CarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

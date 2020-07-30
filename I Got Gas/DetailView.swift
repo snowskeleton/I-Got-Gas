@@ -21,14 +21,14 @@ struct DetailView: View {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "idea BEGINSWITH %@", filter))
+                                            format: "id BEGINSWITH %@", filter))
     }
     
     var body: some View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                CarView(filter: car.idea ?? "").padding()
+                CarView(filter: car.id ?? "").padding()
                 Spacer()
                 
                 VStack {
@@ -71,7 +71,7 @@ struct DetailView: View {
                         Text("Add Expense")
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
-                        AddExpenseView(filter: car.idea ?? "")
+                        AddExpenseView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }

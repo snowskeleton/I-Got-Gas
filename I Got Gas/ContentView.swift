@@ -28,10 +28,10 @@ struct ContentView: View {
                     ForEach(cars, id: \.self) { car in
                         
                         Button(action: {
-                            self.selectedCarID = car.idea ?? ""
+                            self.selectedCarID = car.id ?? ""
                             self.showDetailView.toggle()
                         }) {
-                            CarView(filter: car.idea ?? "")
+                            CarView(filter: car.id ?? "")
                         }
                         
                     }.onDelete(perform: crashCar)
@@ -51,7 +51,7 @@ struct ContentView: View {
 
                                 trailing:
                 Button(action: {
-                    //
+                    try? self.managedObjectContext.save()
                 }) {
                     Text("Options")
             })

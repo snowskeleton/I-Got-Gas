@@ -9,20 +9,27 @@
 import SwiftUI
 
 struct AddExpenseView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
+    @Environment(\.presentationMode) var presentationMode
+    
+//    @Binding var filter: String
+
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         return formatter
     }
+    
     @State private var expenseDate = Date()
     
     @State private var isGas = true
-    @State private var totalPrice: Float = 0.00
-    @State private var gallonsOfGas: Float = 0.00
+    @State private var totalPrice = ""
+    @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var serviceNotes = ""
     
@@ -56,28 +63,24 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker("Please enter a date",
+                            DatePicker(self.isGas ? "Fuel-up Date:" : "Service Date:",
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
+                                .padding(.top)
                             
                             Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
                                 
-                                VStack {
-                                    if self.isGas {
-                                        HStack {
-                                            Text("Gallons: ")
-                                            TextField("", value: self.$gallonsOfGas,
-                                                      formatter: NumberFormatter.decimal)
-                                                .keyboardType(.decimalPad)
-                                        }
-                                    }
-                                    HStack {
-                                        Text("Price:   $")
-                                        TextField("", value: self.$totalPrice,
-                                                  formatter: NumberFormatter.decimal)
-                                            .keyboardType(.decimalPad)
-                                    }
+                                if self.isGas {
+                                    TextField("    Gallons", text: self.$gallonsOfGas)
+                                        .keyboardType(.decimalPad)
+                                        .font(.system(size: 30))
+                                }
+                                HStack {
+                                    Text("$")
+                                    TextField("Price", text: self.$totalPrice)
+                                        .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
+                                
                                 
                             }
                             
@@ -103,6 +106,23 @@ struct AddExpenseView: View {
             }
         }
     }
+    
+//    func save() -> Void {
+//
+//            car.name = self.carName
+//            car.year = self.carYear
+//            car.make = self.carMake
+//            car.model = self.carModel
+//            car.plate = self.carPlate
+//            car.vin = self.carVIN
+//            car.odometer = Int64(self.carOdometer) ?? 0
+//            car.idea = UUID().uuidString
+//            
+//            try? self.managedObjectContext.save()
+////            let car = Car(context: self.managedObjectContext)
+//
+//    }
+    
 }
 
 //struct AddExpenseView_Previews: PreviewProvider {
