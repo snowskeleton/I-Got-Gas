@@ -36,6 +36,8 @@ struct AddExpenseView: View {
     @State private var isGas = true
     @State private var totalPrice: Float = 0.00
     @State private var gallonsOfGas: Float = 0.00
+    @State private var vendorName = ""
+    @State private var serviceNotes = ""
     
     
     
@@ -71,13 +73,15 @@ struct AddExpenseView: View {
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
                             
-                            if self.isGas {
-                                Section(header: Text("Fuel stats")) {
+                                Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
+                            
                                     VStack {
+                                        if self.isGas {
                                         TextField("Total Gallons",
                                                   value: self.$gallonsOfGas,
                                                   formatter: NumberFormatter.decimal)
                                             .keyboardType(.decimalPad)
+                                            }   
                                         HStack {
                                             Text("$")
                                             TextField("Total Price",
@@ -87,10 +91,15 @@ struct AddExpenseView: View {
                                         }
                                     }.font(.system(size: 30))
                                     
-                                }
                             }
                             
-                            Text("\(car.name ?? "")")
+                            Section(header: Text("Vendor")) {
+                                TextField("Vendor name", text: self.$vendorName)
+                                
+                                if !self.isGas {
+                                    TextField("Service Notes", text: self.$serviceNotes)
+                                }
+                            }
                         }
                         
                         Spacer()
