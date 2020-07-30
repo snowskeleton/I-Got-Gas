@@ -73,24 +73,25 @@ struct AddExpenseView: View {
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
                             
-                                Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
-                            
-                                    VStack {
-                                        if self.isGas {
-                                        TextField("Total Gallons",
-                                                  value: self.$gallonsOfGas,
-                                                  formatter: NumberFormatter.decimal)
-                                            .keyboardType(.decimalPad)
-                                            }   
+                            Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
+                                
+                                VStack {
+                                    if self.isGas {
                                         HStack {
-                                            Text("$")
-                                            TextField("Total Price",
-                                                      value: self.$totalPrice,
+                                            Text("Gallons: ")
+                                            TextField("", value: self.$gallonsOfGas,
                                                       formatter: NumberFormatter.decimal)
                                                 .keyboardType(.decimalPad)
                                         }
-                                    }.font(.system(size: 30))
-                                    
+                                    }
+                                    HStack {
+                                        Text("Price:   $")
+                                        TextField("", value: self.$totalPrice,
+                                                  formatter: NumberFormatter.decimal)
+                                            .keyboardType(.decimalPad)
+                                    }
+                                }.font(.system(size: 30))
+                                
                             }
                             
                             Section(header: Text("Vendor")) {
