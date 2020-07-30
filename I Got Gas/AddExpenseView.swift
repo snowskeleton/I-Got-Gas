@@ -33,10 +33,9 @@ struct AddExpenseView: View {
     }
     @State private var expenseDate = Date()
     
-    @State private var gasPrice: Float = 0.00
-    @State private var gallonsOfGas: Float = 0.00
-    @State private var pricePerGallon: Float = 0.00
     @State private var isGas = true
+    @State private var totalPrice: Float = 0.00
+    @State private var gallonsOfGas: Float = 0.00
     
     
     
@@ -74,18 +73,20 @@ struct AddExpenseView: View {
                             
                             if self.isGas {
                                 Section(header: Text("Fuel stats")) {
-                                    TextField("Total Gallons",
-                                              value: self.$gallonsOfGas,
-                                              formatter: NumberFormatter.decimal)
-                                        .keyboardType(.decimalPad)
-                                        .font(.system(size: 30))
-                                    HStack {
-                                        Text("$")
-                                        TextField("Price/gallon",
-                                                  value: self.$pricePerGallon,
+                                    VStack {
+                                        TextField("Total Gallons",
+                                                  value: self.$gallonsOfGas,
                                                   formatter: NumberFormatter.decimal)
                                             .keyboardType(.decimalPad)
+                                        HStack {
+                                            Text("$")
+                                            TextField("Total Price",
+                                                      value: self.$totalPrice,
+                                                      formatter: NumberFormatter.decimal)
+                                                .keyboardType(.decimalPad)
+                                        }
                                     }.font(.system(size: 30))
+                                    
                                 }
                             }
                             
