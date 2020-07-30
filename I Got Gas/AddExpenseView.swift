@@ -8,19 +8,6 @@
 
 import SwiftUI
 
-extension NumberFormatter {
-    static var decimal: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }
-    static var currency: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }
-}
-
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     var fetchRequest: FetchRequest<Car>

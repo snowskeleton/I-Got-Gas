@@ -17,6 +17,7 @@
 		805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */; };
 		805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */; };
 		805B415624CDF5080085DB47 /* CarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B415524CDF5080085DB47 /* CarView.swift */; };
+		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		805B414D24CDF04E0085DB47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		805B415524CDF5080085DB47 /* CarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarView.swift; sourceTree = "<group>"; };
+		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
+				805BAB8224D335E10026FA6F /* Extensions.swift */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
+				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
