@@ -27,12 +27,8 @@
 		805B415624CDF5080085DB47 /* CarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B415524CDF5080085DB47 /* CarView.swift */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
 		806FC50B24D72D0C0016AF62 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* TestView.swift */; };
+		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
-		F85087DD24CE54B9009E6945 /* NHTSAResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85087D924CE54B9009E6945 /* NHTSAResponse.swift */; };
-		F85087DE24CE54B9009E6945 /* VINProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85087DA24CE54B9009E6945 /* VINProperty.swift */; };
-		F85087DF24CE54B9009E6945 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85087DB24CE54B9009E6945 /* APIRequest.swift */; };
-		F85087E024CE54B9009E6945 /* ResultsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85087DC24CE54B9009E6945 /* ResultsContainer.swift */; };
-		F85087E324CE54C7009E6945 /* VINDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85087E224CE54C7009E6945 /* VINDecode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,12 +54,8 @@
 		805B415524CDF5080085DB47 /* CarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarView.swift; sourceTree = "<group>"; };
 		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		806FC50A24D72D0C0016AF62 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
-		F85087D924CE54B9009E6945 /* NHTSAResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NHTSAResponse.swift; sourceTree = "<group>"; };
-		F85087DA24CE54B9009E6945 /* VINProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VINProperty.swift; sourceTree = "<group>"; };
-		F85087DB24CE54B9009E6945 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
-		F85087DC24CE54B9009E6945 /* ResultsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsContainer.swift; sourceTree = "<group>"; };
-		F85087E224CE54C7009E6945 /* VINDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VINDecode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,15 +88,14 @@
 		805B413D24CDF04B0085DB47 /* I Got Gas */ = {
 			isa = PBXGroup;
 			children = (
+				80A230B724D74C6D0081FAD3 /* Rest Client */,
 				806FC50924D72BCD0016AF62 /* Data */,
-
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				806FC50A24D72D0C0016AF62 /* TestView.swift */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
-
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
 				805BAB8224D335E10026FA6F /* Extensions.swift */,
@@ -198,6 +189,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A230B824D74C6D0081FAD3 /* Rest Client in Resources */,
 				805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */,
 				805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */,
 				805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */,
@@ -222,7 +214,6 @@
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				803993DB24D33CD1006C311D /* Vendor+CoreDataClass.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
-
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */,
