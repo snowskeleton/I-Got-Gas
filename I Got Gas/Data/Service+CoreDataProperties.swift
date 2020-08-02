@@ -2,7 +2,7 @@
 //  Service+CoreDataProperties.swift
 //  I Got Gas
 //
-//  Created by Isaac Lyons on 8/2/20.
+//  Created by Isaac Lyons on 7/30/20.
 //  Copyright © 2020 Blizzard Skeleton. All rights reserved.
 //
 //
@@ -22,5 +22,14 @@ extension Service {
     @NSManaged public var odometer: Int32
     @NSManaged public var vehicle: Car?
     @NSManaged public var vendor: Vendor?
+    
+    
+    public var wrappedOdometer: Int32 {
+        odometer
+    }
+    
+    public var carArray: [Car] {
+        
+    }
 
 }

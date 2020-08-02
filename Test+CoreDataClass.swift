@@ -1,5 +1,5 @@
 //
-//  Service+CoreDataClass.swift
+//  Test+CoreDataClass.swift
 //  I Got Gas
 //
 //  Created by Isaac Lyons on 8/2/20.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Service)
-public class Service: NSManagedObject {
+@objc(Test)
+public class Test: NSManagedObject {
 
 }

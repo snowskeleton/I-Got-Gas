@@ -27,7 +27,40 @@ extension Car {
     @NSManaged public var vin: String?
     @NSManaged public var year: String?
     @NSManaged public var services: NSSet?
-
+    
+    public var wrappedId: String {
+        id ?? "Unknown Car"
+    }
+    public var wrappedMake: String {
+        make ?? "Unknown Car"
+    }
+    public var wrappedModel: String {
+        model ?? "Unknown Car"
+    }
+    public var wrappedName: String {
+        name ?? "Unknown Car"
+    }
+    public var wrappedOdometer: Int64 {
+        odometer
+    }
+    
+    public var wrappedPlate: String {
+        plate ?? "Unknown Car"
+    }
+    public var wrappedVin: String {
+        vin ?? "Unknown Car"
+    }
+    public var wrappedYear: String {
+        year ?? "Unknown Car"
+    }
+    
+    public var serviceArray: [Service] {
+        let set = services as? Set<Service> ?? []
+        
+        return set.sorted {
+            $0.wrappedDate < $1.wrappedDate
+        }
+    }
 }
 
 // MARK: Generated accessors for services
