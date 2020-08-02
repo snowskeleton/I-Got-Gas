@@ -32,17 +32,14 @@ struct AddExpenseView: View {
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var serviceNotes = ""
-    
-    
-    
-    
-    
+    @State private var odometer = ""
+ 
     init(filter: String) {
         
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "idea BEGINSWITH %@", filter))
+                                            format: "id BEGINSWITH %@", filter))
     }
     
     var body: some View {
@@ -81,6 +78,9 @@ struct AddExpenseView: View {
                                         .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
                                 
+                                TextField("    Odometer", text: self.$odometer)
+                                    .keyboardType(.decimalPad)
+                                    .font(.system(size: 30))
                                 
                             }
                             
@@ -97,6 +97,7 @@ struct AddExpenseView: View {
                         
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
+                            self.save()
                         }) {
                             Text("Save me!")
                         }
@@ -107,21 +108,26 @@ struct AddExpenseView: View {
         }
     }
     
-//    func save() -> Void {
-//
-//            car.name = self.carName
-//            car.year = self.carYear
-//            car.make = self.carMake
-//            car.model = self.carModel
-//            car.plate = self.carPlate
-//            car.vin = self.carVIN
-//            car.odometer = Int64(self.carOdometer) ?? 0
-//            car.idea = UUID().uuidString
-//            
-//            try? self.managedObjectContext.save()
-////            let car = Car(context: self.managedObjectContext)
-//
-//    }
+    func save() -> Void {
+
+        for car in car {
+            let service = Service(context: self.managedObjectContext)
+            
+            service.vehicle = car
+
+            service.vendor = Vendor(context: self.managedObjectContext)
+            service.vendor?.name = self.vendorName
+            
+            
+            service.cost = Double(self.totalPrice) ?? 0.00
+            service.date = self.expenseDate
+            service.odometer = Int64(self.odometer) ?? 0
+            service.vehicle!.odometer = Int64(self.odometer) ?? 0
+
+            try? self.managedObjectContext.save()
+        }
+
+    }
     
 }
 
