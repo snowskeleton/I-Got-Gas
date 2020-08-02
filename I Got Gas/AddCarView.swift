@@ -20,6 +20,7 @@ struct AddCarView: View {
     @State var carModel: String = ""
     @State var carPlate: String = ""
     @State var carVIN: String = ""
+    @State var carOdometer: String = ""
     
     var body: some View {
         VStack {
@@ -29,13 +30,17 @@ struct AddCarView: View {
                         Section(header: Text("Vehicle Info")) {
                             TextField("Name", text: self.$carName)
                             TextField("Year", text: self.$carYear)
+                                .keyboardType(.numberPad)
                             TextField("Make", text: self.$carMake)
                             TextField("Model", text: self.$carModel)
+                            TextField("Current Odometer", text: self.$carOdometer)
+                                .keyboardType(.numberPad)
                             TextField("License Plate", text: self.$carPlate)
                             TextField("VIN", text: self.$carVIN)
                         }
                     }
                 }
+            .navigationBarTitle("You get a car!")
             }
             
             Spacer()
@@ -55,6 +60,8 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
+        car.odometer = Int64(self.carOdometer) ?? 0
+        car.id = UUID().uuidString
         try? self.managedObjectContext.save()
         
         self.show = false
