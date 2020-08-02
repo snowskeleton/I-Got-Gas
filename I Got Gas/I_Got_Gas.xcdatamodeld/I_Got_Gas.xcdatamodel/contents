@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Car" representedClassName="Car" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Car" representedClassName="Car" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="make" optional="YES" attributeType="String"/>
         <attribute name="model" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="odometer" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="plate" optional="YES" attributeType="String"/>
         <attribute name="vin" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="String"/>
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Service" inverseName="vehicle" inverseEntity="Service"/>
     </entity>
-    <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES" codeGenerationType="class">
-        <attribute name="costPerGallon" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="numberOfGallons" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES">
+        <attribute name="numberOfGallons" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
     </entity>
-    <entity name="Service" representedClassName="Service" syncable="YES" codeGenerationType="class">
-        <attribute name="cost" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+    <entity name="Service" representedClassName="Service" syncable="YES">
+        <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="odometer" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="services" inverseEntity="Car"/>
         <relationship name="vendor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vendor" inverseName="services" inverseEntity="Vendor"/>
     </entity>
-    <entity name="Vendor" representedClassName="Vendor" syncable="YES" codeGenerationType="class">
+    <entity name="Vendor" representedClassName="Vendor" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Service" inverseName="vendor" inverseEntity="Service"/>
     </entity>
     <elements>
-        <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="178"/>
+        <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="193"/>
         <element name="Fuel" positionX="331.30078125" positionY="287.00390625" width="128" height="73"/>
         <element name="Service" positionX="333.23046875" positionY="131.08984375" width="128" height="118"/>
         <element name="Vendor" positionX="69.8046875" positionY="229.7578125" width="128" height="103"/>

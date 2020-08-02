@@ -11,25 +11,64 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    @State private var showDetailView = false
+    @State var selectedCarID = ""
+    @State var showAddCarView = false
     
     var body: some View {
-        VStack {
-            TopMenuBarView()
-                .padding(.bottom)
+        NavigationView {
+            VStack {
+                NavigationLink(
+                    destination: DetailView(
+                        filter: self.selectedCarID)
+                    .navigationBarHidden(false),
+                        isActive: self.$showDetailView)
+                    { EmptyView() }
                 List {
-                        ForEach(cars, id: \.self) { car in
-                            CarView(name: car.name ?? "", make: car.make ?? "", model: car.model ?? "", year: car.year ?? "")
-                        }.onDelete(perform: crashCar)
-                    }
+                    ForEach(cars, id: \.self) { car in
+                        
+                        Button(action: {
+                            self.selectedCarID = car.id ?? ""
+                            self.showDetailView.toggle()
+                        }) {
+                            CarView(filter: car.id ?? "")
+                        }
+                        
+                    }.onDelete(perform: crashCar)
+                }
+            }
+            .navigationBarItems(leading:
+                Button(action: {
+                    self.showAddCarView.toggle()
+                }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 30))
+                }.padding(.leading)
+                    .sheet(isPresented: $showAddCarView) {
+                        AddCarView(show: self.$showAddCarView)
+                            .environment(\.managedObjectContext,
+                                         self.managedObjectContext)},
+
+                                trailing:
+                Button(action: {
+                    try? self.managedObjectContext.save()
+                }) {
+                    Text("Options")
+            })
+        
         }
+    
     }
+    
     func crashCar(at offsets: IndexSet) {
         for index in offsets {
             let car = cars[index]
             managedObjectContext.delete(car)
         }
     }
+    
 }
+
 
 
 struct ContentView_Previews: PreviewProvider {
