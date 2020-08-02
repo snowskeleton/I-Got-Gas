@@ -17,19 +17,14 @@ extension Service {
         return NSFetchRequest<Service>(entityName: "Service")
     }
 
-    @NSManaged public var cost: NSDecimalNumber?
+    @NSManaged public var cost: Double
     @NSManaged public var date: Date?
-    @NSManaged public var odometer: Int32
+    @NSManaged public var odometer: Int64
     @NSManaged public var vehicle: Car?
     @NSManaged public var vendor: Vendor?
     
-    
-    public var wrappedOdometer: Int32 {
+//
+    public var wrappedOdometer: Int64 {
         odometer
     }
-    
-    public var carArray: [Car] {
-        
-    }
-
 }

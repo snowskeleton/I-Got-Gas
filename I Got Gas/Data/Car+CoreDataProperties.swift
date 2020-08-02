@@ -43,7 +43,6 @@ extension Car {
     public var wrappedOdometer: Int64 {
         odometer
     }
-    
     public var wrappedPlate: String {
         plate ?? "Unknown Car"
     }
@@ -58,7 +57,7 @@ extension Car {
         let set = services as? Set<Service> ?? []
         
         return set.sorted {
-            $0.wrappedDate < $1.wrappedDate
+            $0.wrappedOdometer < $1.wrappedOdometer
         }
     }
 }
