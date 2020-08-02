@@ -13,6 +13,7 @@ struct DetailView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     @State var showAddExpenseView = false
+    @State var showTestView = false
     
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
@@ -64,7 +65,16 @@ struct DetailView: View {
                     }
                     
                     Spacer()
-                    
+                    Button(action: {
+                        self.showTestView = true
+                    }) {
+                        Text("Text")
+                    }
+                    .sheet(isPresented: self.$showTestView) {
+                        TestView(filter: car.id ?? "")
+                            .environment(\.managedObjectContext, self.managedObjectContext)
+                    }
+
                     Button(action: {
                         self.showAddExpenseView = true
                     }) {
