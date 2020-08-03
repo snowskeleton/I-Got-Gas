@@ -33,6 +33,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var serviceNotes = ""
     @State private var odometer = ""
+    @State private var isAnimated = false
  
     init(filter: String) {
         
@@ -65,19 +66,19 @@ struct AddExpenseView: View {
                                 .padding(.top)
                                 .labelsHidden()
                             
-                            Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
+                            Section(header: Text("Details")) {
                                 
-                                if self.isGas {
-                                    TextField("    Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                        .font(.system(size: 30))
-                                }
                                 HStack {
                                     Text("$")
                                     TextField("Price", text: self.$totalPrice)
                                         .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
-                                
+                                if self.isGas {
+                                    TextField("    Gallons", text: self.$gallonsOfGas)
+                                        .keyboardType(.decimalPad)
+                                        .font(.system(size: 30))
+                                        .animation(Animation.linear(duration: 1))
+                                }
                                 TextField("    Odometer", text: self.$odometer)
                                     .keyboardType(.decimalPad)
                                     .font(.system(size: 30))
