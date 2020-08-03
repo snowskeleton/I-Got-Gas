@@ -14,13 +14,13 @@ struct AddCarView: View {
     
     @Binding var show: Bool
 
-    @State var carName: String = ""
-    @State var carYear: String = ""
-    @State var carMake: String = ""
-    @State var carModel: String = ""
-    @State var carPlate: String = ""
-    @State var carVIN: String = ""
-    @State var carOdometer: String = ""
+    @State var carName = ""
+    @State var carYear = ""
+    @State var carMake = ""
+    @State var carModel = ""
+    @State var carPlate = ""
+    @State var carVIN = ""
+    @State var carOdometer = ""
     
     var body: some View {
         VStack {
