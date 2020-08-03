@@ -33,8 +33,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var serviceNotes = ""
     @State private var odometer = ""
-    @State private var isAnimated = false
- 
+
     init(filter: String) {
         
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
@@ -77,7 +76,6 @@ struct AddExpenseView: View {
                                     TextField("    Gallons", text: self.$gallonsOfGas)
                                         .keyboardType(.decimalPad)
                                         .font(.system(size: 30))
-                                        .animation(Animation.linear(duration: 1))
                                 }
                                 TextField("    Odometer", text: self.$odometer)
                                     .keyboardType(.decimalPad)
