@@ -60,10 +60,10 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker(self.isGas ? "Fuel-up Date:" : "Service Date:",
-                                       selection: self.$expenseDate,
+                            DatePicker("Date", selection: self.$expenseDate,
                                        displayedComponents: .date)
                                 .padding(.top)
+                                .labelsHidden()
                             
                             Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
                                 
