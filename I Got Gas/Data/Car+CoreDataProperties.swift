@@ -22,7 +22,6 @@ extension Car {
     @NSManaged public var model: String?
     @NSManaged public var name: String?
     @NSManaged public var odometer: Int64
-    @NSManaged public var photo: Data?
     @NSManaged public var plate: String?
     @NSManaged public var vin: String?
     @NSManaged public var year: String?
