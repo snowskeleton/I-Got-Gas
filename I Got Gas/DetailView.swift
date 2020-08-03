@@ -50,11 +50,6 @@ struct DetailView: View {
                                 Spacer()
                                 Text("7/10/2020")
                             }
-                            HStack {
-                                Text("Horoscope")
-                                Spacer()
-                                Text("Aries")
-                            }
                         }
                         Section(header: Text("Service")) {
                             Text("Oil change")
