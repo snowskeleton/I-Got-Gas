@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TestView: View {
+struct DataView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     var fetchRequest: FetchRequest<Car>
@@ -40,8 +40,8 @@ struct TestView: View {
     }
 }
 
-struct TestView_Previews: PreviewProvider {
+struct DataView_Previews: PreviewProvider {
     static var previews: some View {
-        TestView(filter: "")
+        DataView(filter: "")
     }
 }
