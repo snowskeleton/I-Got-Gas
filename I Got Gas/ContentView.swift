@@ -48,7 +48,6 @@ struct ContentView: View {
                         AddCarView(show: self.$showAddCarView)
                             .environment(\.managedObjectContext,
                                          self.managedObjectContext)},
-
                                 trailing:
                 Button(action: {
                     try? self.managedObjectContext.save()
