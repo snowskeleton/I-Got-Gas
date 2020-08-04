@@ -14,7 +14,7 @@ struct DetailView: View {
 
     
     @State var showAddExpenseView = false
-    @State var showTestView = false
+    @State var showServiceView = false
     
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
@@ -68,19 +68,17 @@ struct DetailView: View {
                     
                     Spacer()
                     Button(action: {
-                        self.showTestView = true
+                        self.showServiceView = true
                     }) {
                         Text("Services")
                     }
-                    .sheet(isPresented: self.$showTestView) {
+                    .sheet(isPresented: self.$showServiceView) {
                         ServiceView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
 
-                    Button(action: {
+                    Button("Add Expense") {
                         self.showAddExpenseView = true
-                    }) {
-                        Text("Add Expense")
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
                         AddExpenseView(filter: car.id ?? "")
