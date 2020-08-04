@@ -32,24 +32,24 @@ struct AddCarView: View {
                             TextField("Name",
                                       text: self.$carName,
                                       onCommit: { self.maybeEnableButton() })
-                            TextField("Year",
+                            TextField("* Year",
                                       text: self.$carYear,
                                       onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
-                            TextField("Make",
+                            TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
-                            TextField("Model",
+                            TextField("* Model",
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
-                            TextField("Current Odometer",
+                            TextField("* Current Odometer",
                                       text: self.$carOdometer,
                                       onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
-                            TextField("License Plate",
+                            TextField("* License Plate",
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
-                            TextField("VIN",
+                            TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
                         }
