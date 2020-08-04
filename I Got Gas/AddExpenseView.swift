@@ -60,7 +60,8 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker("Date", selection: self.$expenseDate,
+                            DatePicker("Date",
+                                       selection: self.$expenseDate,
                                        displayedComponents: .date)
                                 .padding(.top)
                                 .labelsHidden()
