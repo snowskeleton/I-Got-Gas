@@ -113,6 +113,7 @@ struct AddExpenseView: View {
             let service = Service(context: self.managedObjectContext)
             
             service.vehicle = car
+            service.vehicle?.lastFillup = self.expenseDate
 
             service.vendor = Vendor(context: self.managedObjectContext)
             service.vendor?.name = self.vendorName
