@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
+    
     
     @State var showAddExpenseView = false
     @State var showServiceView = false
@@ -67,20 +67,16 @@ struct DetailView: View {
                     }
                     
                     Spacer()
-                    Button(action: {
+                    Button("Services") {
                         self.showServiceView = true
-                    }) {
-                        Text("Services")
-                    }
-                    .sheet(isPresented: self.$showServiceView) {
+                    }.sheet(isPresented: self.$showServiceView) {
                         ServiceView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
-
+                    
                     Button("Add Expense") {
                         self.showAddExpenseView = true
-                    }
-                    .sheet(isPresented: self.$showAddExpenseView) {
+                    }.sheet(isPresented: self.$showAddExpenseView) {
                         AddExpenseView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
