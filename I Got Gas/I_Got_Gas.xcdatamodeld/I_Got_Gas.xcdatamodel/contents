@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Car" representedClassName="Car" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lastFillup" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="make" optional="YES" attributeType="String"/>
         <attribute name="model" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -29,7 +30,7 @@
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Service" inverseName="vendor" inverseEntity="Service"/>
     </entity>
     <elements>
-        <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="178"/>
+        <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="193"/>
         <element name="Fuel" positionX="331.30078125" positionY="287.00390625" width="128" height="73"/>
         <element name="Service" positionX="333.23046875" positionY="131.08984375" width="128" height="118"/>
         <element name="Vendor" positionX="69.8046875" positionY="229.7578125" width="128" height="103"/>

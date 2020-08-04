@@ -33,7 +33,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var serviceNotes = ""
     @State private var odometer = ""
- 
+
     init(filter: String) {
         
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
@@ -60,24 +60,24 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker(self.isGas ? "Fuel-up Date:" : "Service Date:",
+                            DatePicker("Date",
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
                                 .padding(.top)
+                                .labelsHidden()
                             
-                            Section(header: self.isGas ? Text("Fuel stats") : Text("Price")) {
+                            Section(header: Text("Details")) {
                                 
-                                if self.isGas {
-                                    TextField("    Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                        .font(.system(size: 30))
-                                }
                                 HStack {
                                     Text("$")
                                     TextField("Price", text: self.$totalPrice)
                                         .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
-                                
+                                if self.isGas {
+                                    TextField("    Gallons", text: self.$gallonsOfGas)
+                                        .keyboardType(.decimalPad)
+                                        .font(.system(size: 30))
+                                }
                                 TextField("    Odometer", text: self.$odometer)
                                     .keyboardType(.decimalPad)
                                     .font(.system(size: 30))
@@ -114,6 +114,9 @@ struct AddExpenseView: View {
             let service = Service(context: self.managedObjectContext)
             
             service.vehicle = car
+            if isGas {
+                service.vehicle?.lastFillup = self.expenseDate
+            }
 
             service.vendor = Vendor(context: self.managedObjectContext)
             service.vendor?.name = self.vendorName

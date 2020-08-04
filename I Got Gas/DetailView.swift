@@ -12,11 +12,18 @@ struct DetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
+    
     @State var showAddExpenseView = false
-    @State var showTestView = false
+    @State var showServiceView = false
     
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    
+    static let taskDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
     
     init(filter: String) {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
@@ -46,9 +53,9 @@ struct DetailView: View {
                                 Text("42/g")
                             }
                             HStack {
-                                Text("Last fill-up")
+                                Text("Last Fillup")
                                 Spacer()
-                                Text("7/10/2020")
+                                Text(car.lastFillup == nil ? "" : "\( car.lastFillup!, formatter: ServiceView.self.taskDateFormat)")
                             }
                         }
                         Section(header: Text("Service")) {
@@ -60,28 +67,22 @@ struct DetailView: View {
                     }
                     
                     Spacer()
-                    Button(action: {
-                        self.showTestView = true
-                    }) {
-                        Text("Text")
-                    }
-                    .sheet(isPresented: self.$showTestView) {
-                        TestView(filter: car.id ?? "")
+                    Button("Services") {
+                        self.showServiceView = true
+                    }.sheet(isPresented: self.$showServiceView) {
+                        ServiceView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
-
-                    Button(action: {
+                    
+                    Button("Add Expense") {
                         self.showAddExpenseView = true
-                    }) {
-                        Text("Add Expense")
-                    }
-                    .sheet(isPresented: self.$showAddExpenseView) {
+                    }.sheet(isPresented: self.$showAddExpenseView) {
                         AddExpenseView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.managedObjectContext)
                     }
                 }
                 
-            }
+            }.navigationBarTitle(Text(""), displayMode: .inline)
         }
     }
 }

@@ -8,11 +8,17 @@
 
 import SwiftUI
 
-struct TestView: View {
+struct ServiceView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    
+    static let taskDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
 
     init(filter: String) {
         
@@ -29,9 +35,14 @@ struct TestView: View {
                 ForEach(car, id: \.self) { car in
                     ForEach(car.serviceArray, id: \.self) { service in
                         VStack {
-                            Text("Hello service")
-                            Text("\(service.odometer)")
-                            Text("\(service.cost, specifier: "%.2f")")
+                            HStack {
+                                Text("$\(service.cost, specifier: "%.2f")")
+                            }
+                            HStack {
+                                Text("\(service.odometer)")
+                                Spacer()
+                                Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
+                            }
                         }
                     }
                 }
@@ -40,8 +51,8 @@ struct TestView: View {
     }
 }
 
-struct TestView_Previews: PreviewProvider {
+struct ServiceView_Previews: PreviewProvider {
     static var previews: some View {
-        TestView(filter: "")
+        ServiceView(filter: "")
     }
 }

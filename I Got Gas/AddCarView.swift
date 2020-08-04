@@ -13,14 +13,15 @@ struct AddCarView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     @Binding var show: Bool
+    @State private var buttonEnabled = false
 
-    @State var carName: String = ""
-    @State var carYear: String = ""
-    @State var carMake: String = ""
-    @State var carModel: String = ""
-    @State var carPlate: String = ""
-    @State var carVIN: String = ""
-    @State var carOdometer: String = ""
+    @State private var carName = ""
+    @State private var carYear = ""
+    @State private var carMake = ""
+    @State private var carModel = ""
+    @State private var carPlate = ""
+    @State private var carVIN = ""
+    @State private var carOdometer = ""
     
     var body: some View {
         VStack {
@@ -28,15 +29,29 @@ struct AddCarView: View {
                 VStack {
                     Form {
                         Section(header: Text("Vehicle Info")) {
-                            TextField("Name", text: self.$carName)
-                            TextField("Year", text: self.$carYear)
+                            TextField("Name",
+                                      text: self.$carName,
+                                      onCommit: { self.maybeEnableButton() })
+                            TextField("* Year",
+                                      text: self.$carYear,
+                                      onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
-                            TextField("Make", text: self.$carMake)
-                            TextField("Model", text: self.$carModel)
-                            TextField("Current Odometer", text: self.$carOdometer)
+                            TextField("* Make",
+                                      text: self.$carMake,
+                                      onCommit: { self.maybeEnableButton() })
+                            TextField("* Model",
+                                      text: self.$carModel,
+                                      onCommit: { self.maybeEnableButton() })
+                            TextField("* Current Odometer",
+                                      text: self.$carOdometer,
+                                      onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
-                            TextField("License Plate", text: self.$carPlate)
-                            TextField("VIN", text: self.$carVIN)
+                            TextField("* License Plate",
+                                      text: self.$carPlate,
+                                      onCommit: { self.maybeEnableButton() })
+                            TextField("* VIN",
+                                      text: self.$carVIN,
+                                      onCommit: { self.maybeEnableButton() })
                         }
                     }
                 }
@@ -50,8 +65,32 @@ struct AddCarView: View {
             }) {
                 Text("Add Vehicle")
             }
+        .disabled(!buttonEnabled)
         }
     }
+
+    func maybeEnableButton() {
+        if self.carYear == "" {
+            return
+        }
+        if self.carMake == "" {
+            return
+        }
+        if self.carModel == "" {
+            return
+        }
+        if self.carPlate == "" {
+            return
+        }
+        if self.carVIN == "" {
+            return
+        }
+        if self.carOdometer == "" {
+            return
+        }
+        self.buttonEnabled = true
+    }
+    
     func save() {
         let car = Car(context: self.managedObjectContext)
         car.name = self.carName
