@@ -82,7 +82,7 @@ struct DetailView: View {
                     }
                 }
                 
-            }
+            }.navigationBarTitle(Text(""), displayMode: .inline)
         }
     }
 }
