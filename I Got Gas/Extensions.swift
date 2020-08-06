@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension NumberFormatter {
     static var decimal: NumberFormatter {
@@ -18,5 +19,38 @@ extension NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         return formatter
+    }
+}
+
+struct CollapsableWheelPicker<Label, Item, Content>: View
+where Content: View, Item: Hashable, Label: View
+{
+    @Binding var showsPicker: Bool
+    var picker: Picker<Label, Item, Content>
+    init<S: StringProtocol>(_ title: S,
+                            showsPicker: Binding<Bool>,
+                            selection: Binding<Item>,
+                            @ViewBuilder content: ()->Content)
+    where Label == Text
+    {
+        self._showsPicker = showsPicker
+        self.picker = Picker(title, selection: selection, content: content)
+    }
+    var body: some View {
+        Group {
+            if showsPicker {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button("dismiss") {
+//                            selection = content
+                            self.showsPicker = false
+                        }
+                    }
+                    picker
+                }
+                .pickerStyle(WheelPickerStyle())
+            }
+        }
     }
 }
