@@ -42,7 +42,6 @@ struct AddCarView: View {
                                     selection: $carYear
                                 ) {
                                     ForEach((1885..<2020).reversed(), id: \.self) {
-//                                    ForEach(0..<self.numA.count) {
                                         Text("\($0)")
                                     }
                                 }
