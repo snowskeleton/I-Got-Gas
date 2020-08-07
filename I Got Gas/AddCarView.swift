@@ -11,15 +11,15 @@ import SwiftUI
 struct AddCarView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
+    
     @Binding var show: Bool
     @State private var buttonEnabled = false
-
+    
     @State private var carName = ""
     
     @State var carYear = 0
     @State private var showsYearPicker = false
-
+    
     @State private var carMake = ""
     @State private var carModel = ""
     @State private var carPlate = ""
@@ -33,20 +33,20 @@ struct AddCarView: View {
                     Form {
                         Section(header: Text("Vehicle Info")) {
                             CollapsableWheelPicker(
-                                    "",
-                                    showsPicker: $showsYearPicker,
-                                    selection: $carYear
-                                ) {
-                                    ForEach((1885..<2020).reversed(), id: \.self) { year in
-                                        Text("\(year.formattedWithoutSeparator)").tag(year)
-                                    }
+                                "",
+                                showsPicker: $showsYearPicker,
+                                selection: $carYear
+                            ) {
+                                ForEach((1885..<2020).reversed(), id: \.self) { year in
+                                    Text("\(year.formattedWithoutSeparator)").tag(year)
                                 }
+                            }
                             .animation(.easeInOut)
                             if !self.showsYearPicker {
                                 Text(carYear == 0 ? "Year: " : "\(carYear.formattedWithoutSeparator)")
                                     .onTapGesture {
                                         self.showsYearPicker.toggle()
-                                    }
+                                }
                             }
                             TextField("* Make",
                                       text: self.$carMake,
@@ -67,7 +67,7 @@ struct AddCarView: View {
                         }
                     }
                 }
-            .navigationBarTitle("You get a car!")
+                .navigationBarTitle("You get a car!")
             }
             
             Spacer()
@@ -77,10 +77,10 @@ struct AddCarView: View {
             }) {
                 Text("Add Vehicle")
             }
-        .disabled(!buttonEnabled)
+            .disabled(!buttonEnabled)
         }
     }
-
+    
     func maybeEnableButton() {
         if self.carYear == 0 {
             return
@@ -122,6 +122,6 @@ struct AddCarView: View {
 struct AddCarView_Previews: PreviewProvider {
     static var previews: some View {
         AddCarView(show: Binding.constant(true))
-
+        
     }
 }
