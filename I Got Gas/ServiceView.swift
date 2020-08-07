@@ -14,6 +14,9 @@ struct ServiceView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
+    @State var showAddExpenseView = false
+
+    
     static let taskDateFormat: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -44,6 +47,13 @@ struct ServiceView: View {
                                 Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
                             }
                         }
+                    }
+                    Spacer()
+                    Button("Add Expense") {
+                        self.showAddExpenseView = true
+                    }.sheet(isPresented: self.$showAddExpenseView) {
+                        AddExpenseView(filter: car.id ?? "")
+                            .environment(\.managedObjectContext, self.moc)
                     }
                 }
             }
