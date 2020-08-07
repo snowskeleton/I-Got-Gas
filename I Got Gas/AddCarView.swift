@@ -32,17 +32,13 @@ struct AddCarView: View {
                 VStack {
                     Form {
                         Section(header: Text("Vehicle Info")) {
-                            TextField("Name",
-                                      text: self.$carName,
-                                      onCommit: { self.maybeEnableButton() })
-
                             CollapsableWheelPicker(
                                     "",
                                     showsPicker: $showsYearPicker,
                                     selection: $carYear
                                 ) {
-                                    ForEach((1885..<2020).reversed(), id: \.self) {
-                                        Text("\($0)")
+                                    ForEach((1885..<2020).reversed(), id: \.self) { year in
+                                        Text("\(year)").tag(year)
                                     }
                                 }
                             .animation(.easeInOut)
