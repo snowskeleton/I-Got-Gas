@@ -22,6 +22,19 @@ extension NumberFormatter {
     }
 }
 
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ""
+        return formatter
+    }()
+}
+
+extension Numeric {
+    var formattedWithoutSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
+}
+
 struct CollapsableWheelPicker<Label, Item, Content>: View
 where Content: View, Item: Hashable, Label: View
 {
