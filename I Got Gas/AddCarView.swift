@@ -38,12 +38,12 @@ struct AddCarView: View {
                                     selection: $carYear
                                 ) {
                                     ForEach((1885..<2020).reversed(), id: \.self) { year in
-                                        Text("\(year)").tag(year)
+                                        Text("\(year.formattedWithoutSeparator)").tag(year)
                                     }
                                 }
                             .animation(.easeInOut)
                             if !self.showsYearPicker {
-                                Text(carYear == 0 ? "Year: " : "\(carYear)")
+                                Text(carYear == 0 ? "Year: " : "\(carYear.formattedWithoutSeparator)")
                                     .onTapGesture {
                                         self.showsYearPicker.toggle()
                                     }
