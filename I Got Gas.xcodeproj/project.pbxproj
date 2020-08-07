@@ -30,7 +30,6 @@
 		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
-		80A230C124DC76150081FAD3 /* TestVew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230C024DC76150081FAD3 /* TestVew.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +59,6 @@
 		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
-		80A230C024DC76150081FAD3 /* TestVew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVew.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +109,6 @@
 				805B414F24CDF04E0085DB47 /* Info.plist */,
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
 				805B414924CDF04E0085DB47 /* Preview Content */,
-				80A230C024DC76150081FAD3 /* TestVew.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -223,7 +220,6 @@
 			files = (
 				803993D624D33CD1006C311D /* Car+CoreDataProperties.swift in Sources */,
 				803993DA24D33CD1006C311D /* Service+CoreDataProperties.swift in Sources */,
-				80A230C124DC76150081FAD3 /* TestVew.swift in Sources */,
 				80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */,
 				803993D824D33CD1006C311D /* Fuel+CoreDataProperties.swift in Sources */,
 				803993DC24D33CD1006C311D /* Vendor+CoreDataProperties.swift in Sources */,
