@@ -14,9 +14,12 @@ struct AddCarView: View {
     
     @Binding var show: Bool
     @State private var buttonEnabled = false
-
+    
     @State private var carName = ""
-    @State private var carYear = ""
+    
+    @State var carYear = 0
+    @State private var showsYearPicker = false
+    
     @State private var carMake = ""
     @State private var carModel = ""
     @State private var carPlate = ""
@@ -29,13 +32,22 @@ struct AddCarView: View {
                 VStack {
                     Form {
                         Section(header: Text("Vehicle Info")) {
-                            TextField("Name",
-                                      text: self.$carName,
-                                      onCommit: { self.maybeEnableButton() })
-                            TextField("* Year",
-                                      text: self.$carYear,
-                                      onCommit: { self.maybeEnableButton() })
-                                .keyboardType(.numberPad)
+                            CollapsableWheelPicker(
+                                "",
+                                showsPicker: $showsYearPicker,
+                                selection: $carYear
+                            ) {
+                                ForEach((1885..<2020).reversed(), id: \.self) { year in
+                                    Text("\(year.formattedWithoutSeparator)").tag(year)
+                                }
+                            }
+                            .animation(.easeInOut)
+                            if !self.showsYearPicker {
+                                Text(carYear == 0 ? "Year: " : "\(carYear.formattedWithoutSeparator)")
+                                    .onTapGesture {
+                                        self.showsYearPicker.toggle()
+                                }
+                            }
                             TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
@@ -55,7 +67,7 @@ struct AddCarView: View {
                         }
                     }
                 }
-            .navigationBarTitle("You get a car!")
+                .navigationBarTitle("You get a car!")
             }
             
             Spacer()
@@ -65,12 +77,12 @@ struct AddCarView: View {
             }) {
                 Text("Add Vehicle")
             }
-        .disabled(!buttonEnabled)
+            .disabled(!buttonEnabled)
         }
     }
-
+    
     func maybeEnableButton() {
-        if self.carYear == "" {
+        if self.carYear == 0 {
             return
         }
         if self.carMake == "" {
@@ -94,7 +106,7 @@ struct AddCarView: View {
     func save() {
         let car = Car(context: self.managedObjectContext)
         car.name = self.carName
-        car.year = self.carYear
+        car.year = String(self.carYear)
         car.make = self.carMake
         car.model = self.carModel
         car.plate = self.carPlate
@@ -110,6 +122,6 @@ struct AddCarView: View {
 struct AddCarView_Previews: PreviewProvider {
     static var previews: some View {
         AddCarView(show: Binding.constant(true))
-
+        
     }
 }
