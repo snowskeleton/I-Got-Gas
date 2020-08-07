@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     
@@ -40,47 +40,64 @@ struct DetailView: View {
                 Spacer()
                 
                 VStack {
-                    Form {
-                        Section(header: Text("General information")) {
-                            HStack {
-                                Text("Odometer")
-                                Spacer()
-                                Text("\(car.odometer)")
-                            }
-                            HStack {
-                                Text("Current MPG")
-                                Spacer()
-                                Text("42/g")
-                            }
-                            HStack {
-                                Text("Last Fillup")
-                                Spacer()
-                                Text(car.lastFillup == nil ? "" : "\( car.lastFillup!, formatter: ServiceView.self.taskDateFormat)")
-                            }
-                        }
-                        Section(header: Text("Service")) {
-                            Text("Oil change")
-                            Text("Break Check")
-                            Text("Other service")
-                            Text("Something important")
-                        }
-                    }
                     
-                    Spacer()
-                    Button("Services") {
-                        self.showServiceView = true
-                    }.sheet(isPresented: self.$showServiceView) {
-                        ServiceView(filter: car.id ?? "")
-                            .environment(\.managedObjectContext, self.managedObjectContext)
-                    }
                     
-                    Button("Add Expense") {
-                        self.showAddExpenseView = true
-                    }.sheet(isPresented: self.$showAddExpenseView) {
-                        AddExpenseView(filter: car.id ?? "")
-                            .environment(\.managedObjectContext, self.managedObjectContext)
-                    }
+                    ScrollView {
+                        VStack(spacing: 8) {
+                            GroupBox(label: ExpenseLable()) {
+                                VStack(alignment: .leading) {
+                                    ForEach(car.serviceArray, id: \.self) { service in
+                                        HStack {
+                                            Text("$\(service.cost, specifier: "%.2f")")
+                                            Spacer()
+                                            Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
+                                        }
+                                    }
+                                    Text(". . .")
+                                }
+                            }.groupBoxStyle(HealthGroupBoxStyle(color: .black, destination: ServiceView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)))
+                        }.padding()
+                        //                        Section(header: Text("General information")) {
+                        //                            HStack {
+                        //                                Text("Odometer")
+                        //                                Spacer()
+                        //                                Text("\(car.odometer)")
+                        //                            }
+                        //                            HStack {
+                        //                                Text("Current MPG")
+                        //                                Spacer()
+                        //                                Text("42/g")
+                        //                            }
+                        //                            HStack {
+                        //                                Text("Last Fillup")
+                        //                                Spacer()
+                        //                                Text(car.lastFillup == nil ? "" : "\( car.lastFillup!, formatter: ServiceView.self.taskDateFormat)")
+                        //                            }
+                        //                        }
+                        //                        Section(header: Text("Service")) {
+                        //                            Text("Oil change")
+                        //                            Text("Break Check")
+                        //                            Text("Other service")
+                        //                            Text("Something important")
+                        //                        }
+                    }                        }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
+                
+                
+                Spacer()
+                Button("Services") {
+                    self.showServiceView = true
+                }.sheet(isPresented: self.$showServiceView) {
+                    ServiceView(filter: car.id ?? "")
+                        .environment(\.managedObjectContext, self.moc)
                 }
+                
+                Button("Add Expense") {
+                    self.showAddExpenseView = true
+                }.sheet(isPresented: self.$showAddExpenseView) {
+                    AddExpenseView(filter: car.id ?? "")
+                        .environment(\.managedObjectContext, self.moc)
+                }
+                
                 
             }.navigationBarTitle(Text(""), displayMode: .inline)
         }
