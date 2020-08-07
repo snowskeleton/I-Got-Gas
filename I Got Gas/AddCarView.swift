@@ -82,9 +82,9 @@ struct AddCarView: View {
     }
 
     func maybeEnableButton() {
-//        if self.carYear != nil {
-//            return
-//        }
+        if self.carYear == 0 {
+            return
+        }
         if self.carMake == "" {
             return
         }
@@ -106,7 +106,7 @@ struct AddCarView: View {
     func save() {
         let car = Car(context: self.managedObjectContext)
         car.name = self.carName
-//        car.year = self.carYear
+        car.year = String(self.carYear)
         car.make = self.carMake
         car.model = self.carModel
         car.plate = self.carPlate
