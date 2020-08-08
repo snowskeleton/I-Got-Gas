@@ -7,15 +7,33 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct ExpenseBoxView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct ExpensesBoxView: View {
+    var fetchRequest: FetchRequest<Service>
+    var services: FetchedResults<Service> { fetchRequest.wrappedValue }
+    
+    init(filter: String) {
+        let request: NSFetchRequest<Service> = Service.fetchRequest()
+        request.fetchLimit = 4
+        request.predicate = NSPredicate(format: "vehicle.id BEGINSWITH %@", filter)
+        request.sortDescriptors = []
+        fetchRequest = FetchRequest<Service>(fetchRequest: request)
+        
     }
-}
-
-struct ExpenseBoxView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpenseBoxView()
+    
+    var body: some View {
+        
+        GroupBox(label: ExpenseLable()) {
+            VStack(alignment: .leading) {
+                ForEach(services, id: \.self) { service in
+                    HStack {
+                        Text("$\(service.cost, specifier: "%.2f")")
+                        Spacer()
+                        Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
+                    }
+                }
+            }
+        }
     }
 }

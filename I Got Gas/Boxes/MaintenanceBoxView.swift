@@ -9,13 +9,36 @@
 import SwiftUI
 
 struct MaintenanceBoxView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    
+    var fetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    init(filter: String) {
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
+                                         sortDescriptors: [],
+                                         predicate: NSPredicate(
+                                            format: "id BEGINSWITH %@", filter))
     }
-}
-
-struct MaintenanceBoxView_Previews: PreviewProvider {
-    static var previews: some View {
-        MaintenanceBoxView()
+    
+    
+    var body: some View {
+        ForEach(car, id: \.self) { car in
+            GroupBox(label: MaintainanceLable()) {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Odometer")
+                        Spacer()
+                        Text("\(car.odometer)")
+                    }
+                    HStack {
+                        Text("Current MPG")
+                        Spacer()
+                        Text("42/g")
+                    }
+                    
+                }
+            }.groupBoxStyle(HealthGroupBoxStyle(color: .black, destination: ServiceView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)))
+        }
     }
 }
