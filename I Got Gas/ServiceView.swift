@@ -11,7 +11,6 @@ import CoreData
 
 struct ServiceView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     var carFetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
