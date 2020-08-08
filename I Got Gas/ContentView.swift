@@ -20,7 +20,7 @@ struct ContentView: View {
             VStack {
                 NavigationLink(
                     destination: DetailView(
-                        filter: self.selectedCarID)
+                        carID: self.selectedCarID)
                     .navigationBarHidden(false),
                         isActive: self.$showDetailView)
                     { EmptyView() }
