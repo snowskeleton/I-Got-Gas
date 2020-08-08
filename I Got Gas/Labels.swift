@@ -18,11 +18,11 @@ struct ExpenseLable: View {
     }
 }
 
-struct MaintainanceLable: View {
+struct MaintenanceLable: View {
     var body: some View {
         HStack {
             Image(systemName: "wrench")
-            Text("Maintainence")
+            Text("Maintenance")
         }
     }
 }

@@ -24,7 +24,7 @@ struct MaintenanceBoxView: View {
     
     var body: some View {
         ForEach(car, id: \.self) { car in
-            GroupBox(label: MaintainanceLable()) {
+            GroupBox(label: MaintenanceLable()) {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Odometer")
