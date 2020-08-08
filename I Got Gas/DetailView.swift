@@ -49,14 +49,14 @@ struct DetailView: View {
 
                             ExpensesBoxView(filter: car.id ?? "")
                                 .environment(\.managedObjectContext, self.moc)
-                                .groupBoxStyle(HealthGroupBoxStyle(
+                                .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: ServiceView(filter: car.id ?? "")
                                                     .environment(\.managedObjectContext, self.moc)))
                             
                             
                             //more boxes
-                            MaintainanceBoxView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)
+                            MaintenanceBoxView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)
                             
                         }.padding()
                         
@@ -108,69 +108,7 @@ struct DetailView: View {
     }
 }
 
-struct ExpensesBoxView: View {
-    var fetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { fetchRequest.wrappedValue }
-    
-    init(filter: String) {
-        let request: NSFetchRequest<Service> = Service.fetchRequest()
-        request.fetchLimit = 4
-        request.predicate = NSPredicate(format: "vehicle.id BEGINSWITH %@", filter)
-        request.sortDescriptors = []
-        fetchRequest = FetchRequest<Service>(fetchRequest: request)
-        
-    }
-    
-    var body: some View {
-        
-        GroupBox(label: ExpenseLable()) {
-            VStack(alignment: .leading) {
-                ForEach(services, id: \.self) { service in
-                    HStack {
-                        Text("$\(service.cost, specifier: "%.2f")")
-                        Spacer()
-                        Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
-                    }
-                }
-            }
-        }
-    }
-}
 
-struct MaintainanceBoxView: View {
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
-    init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
-    }
-    
-    
-    var body: some View {
-        ForEach(car, id: \.self) { car in
-            GroupBox(label: MaintainanceLable()) {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Odometer")
-                        Spacer()
-                        Text("\(car.odometer)")
-                    }
-                    HStack {
-                        Text("Current MPG")
-                        Spacer()
-                        Text("42/g")
-                    }
-                    
-                }
-            }.groupBoxStyle(HealthGroupBoxStyle(color: .black, destination: ServiceView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)))
-        }
-    }
-}
 
 
 

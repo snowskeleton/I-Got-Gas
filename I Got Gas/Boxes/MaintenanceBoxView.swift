@@ -38,7 +38,7 @@ struct MaintenanceBoxView: View {
                     }
                     
                 }
-            }.groupBoxStyle(HealthGroupBoxStyle(color: .black, destination: ServiceView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)))
+            }.groupBoxStyle(DetailBoxStyle(color: .black, destination: ServiceView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)))
         }
     }
 }
