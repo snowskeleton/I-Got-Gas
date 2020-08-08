@@ -17,7 +17,7 @@ extension Fuel {
         return NSFetchRequest<Fuel>(entityName: "Fuel")
     }
 
-    @NSManaged public var numberOfGallons: NSDecimalNumber?
-    @NSManaged public var totalPrice: NSDecimalNumber?
-
+    @NSManaged public var numberOfGallons: Double
+    @NSManaged public var dpg: Double
+    @NSManaged public var totalPrice: Double
 }

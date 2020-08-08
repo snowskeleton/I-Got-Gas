@@ -22,7 +22,8 @@ extension Service {
     @NSManaged public var odometer: Int64
     @NSManaged public var vehicle: Car?
     @NSManaged public var vendor: Vendor?
-    
+    @NSManaged public var fuel: Fuel?
+
 //
     public var wrappedOdometer: Int64 {
         odometer
