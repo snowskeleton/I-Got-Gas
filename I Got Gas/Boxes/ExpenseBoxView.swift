@@ -13,17 +13,11 @@ struct ExpensesBoxView: View {
     var fetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { fetchRequest.wrappedValue }
     
-    init(filter: String) {
-        let request: NSFetchRequest<Service> = Service.fetchRequest()
-        request.fetchLimit = 4
-        request.predicate = NSPredicate(format: "vehicle.id BEGINSWITH %@", filter)
-        request.sortDescriptors = []
-        fetchRequest = FetchRequest<Service>(fetchRequest: request)
-        
+    init(carID: String) {
+        fetchRequest = FetchServices(howMany: 3, carID: carID)
     }
     
     var body: some View {
-        
         GroupBox(label: ExpenseLable()) {
             VStack(alignment: .leading) {
                 ForEach(services, id: \.self) { service in
