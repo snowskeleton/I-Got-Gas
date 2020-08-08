@@ -32,6 +32,7 @@
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
 		80B1D06D24DDA9D80090390E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06C24DDA9D80090390E /* TestView.swift */; };
+		80B1D06F24DDE70C0090390E /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Labels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
 		80B1D06C24DDA9D80090390E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		80B1D06E24DDE70C0090390E /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
 				805B414924CDF04E0085DB47 /* Preview Content */,
 				80B1D06C24DDA9D80090390E /* TestView.swift */,
+				80B1D06E24DDE70C0090390E /* Labels.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				80B1D06D24DDA9D80090390E /* TestView.swift in Sources */,
+				80B1D06F24DDE70C0090390E /* Labels.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
 				803993D524D33CD1006C311D /* Car+CoreDataClass.swift in Sources */,
 				805B415624CDF5080085DB47 /* CarView.swift in Sources */,
