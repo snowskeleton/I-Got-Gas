@@ -34,8 +34,9 @@ struct ServiceView: View {
     
     var body: some View {
         VStack {
-            List {
                 ForEach(car, id: \.self) { car in
+                    List {
+
                     ForEach(car.serviceArray, id: \.self) { service in
                         VStack {
                             HStack {
@@ -48,6 +49,8 @@ struct ServiceView: View {
                             }
                         }
                     }
+                    
+                }
                     Spacer()
                     Button("Add Expense") {
                         self.showAddExpenseView = true
@@ -55,7 +58,6 @@ struct ServiceView: View {
                         AddExpenseView(filter: car.id ?? "")
                             .environment(\.managedObjectContext, self.moc)
                     }
-                }
             }
         }
     }
