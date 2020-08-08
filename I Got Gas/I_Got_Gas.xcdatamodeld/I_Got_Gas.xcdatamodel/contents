@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17162" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Car" representedClassName="Car" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="lastFillup" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -13,13 +13,16 @@
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Service" inverseName="vehicle" inverseEntity="Service"/>
     </entity>
     <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES">
-        <attribute name="numberOfGallons" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="dpg" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="numberOfGallons" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="fuel" inverseEntity="Service"/>
     </entity>
     <entity name="Service" representedClassName="Service" syncable="YES">
         <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="odometer" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="fuel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Fuel" inverseName="service" inverseEntity="Fuel"/>
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="services" inverseEntity="Car"/>
         <relationship name="vendor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Vendor" inverseName="services" inverseEntity="Vendor"/>
     </entity>
@@ -31,8 +34,8 @@
     </entity>
     <elements>
         <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="193"/>
-        <element name="Fuel" positionX="331.30078125" positionY="287.00390625" width="128" height="73"/>
-        <element name="Service" positionX="333.23046875" positionY="131.08984375" width="128" height="118"/>
+        <element name="Fuel" positionX="331.30078125" positionY="287.00390625" width="128" height="103"/>
+        <element name="Service" positionX="333.23046875" positionY="131.08984375" width="128" height="133"/>
         <element name="Vendor" positionX="69.8046875" positionY="229.7578125" width="128" height="103"/>
     </elements>
 </model>
