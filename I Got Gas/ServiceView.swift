@@ -7,37 +7,37 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ServiceView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    
+    var serviceFetchRequest: FetchRequest<Service>
+    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
+       
     
     @State var showAddExpenseView = false
 
-    
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }()
+    init(carID: String) {
 
-    init(filter: String) {
-        
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
+        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+                                            format: "id BEGINSWITH %@", carID))
+        serviceFetchRequest = FetchServices(howMany: 0, carID: carID)
+
     }
 
-    
+     
     var body: some View {
         VStack {
                 ForEach(car, id: \.self) { car in
                     List {
 
-                    ForEach(car.serviceArray, id: \.self) { service in
+                    ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
@@ -45,7 +45,7 @@ struct ServiceView: View {
                             HStack {
                                 Text("\(service.odometer)")
                                 Spacer()
-                                Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
+                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                     }
@@ -65,6 +65,6 @@ struct ServiceView: View {
 
 struct ServiceView_Previews: PreviewProvider {
     static var previews: some View {
-        ServiceView(filter: "")
+        ServiceView(carID: "")
     }
 }

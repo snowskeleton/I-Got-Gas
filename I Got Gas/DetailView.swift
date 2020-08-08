@@ -11,8 +11,6 @@ import CoreData
 
 struct DetailView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    
     
     @State var showAddExpenseView = false
     @State var showServiceView = false
@@ -20,17 +18,11 @@ struct DetailView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }()
-    
-    init(filter: String) {
+    init(carID: String) {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+                                            format: "id BEGINSWITH %@", carID))
     }
     
     var body: some View {
@@ -45,13 +37,12 @@ struct DetailView: View {
                     
                     ScrollView {
                         VStack(spacing: 8) {
-//                            ExpensesBoxView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)
 
-                            ExpensesBoxView(filter: car.id ?? "")
+                            ExpensesBoxView(carID: car.id ?? "")
                                 .environment(\.managedObjectContext, self.moc)
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
-                                                destination: ServiceView(filter: car.id ?? "")
+                                                destination: ServiceView(carID: car.id ?? "")
                                                     .environment(\.managedObjectContext, self.moc)))
                             
                             
@@ -91,7 +82,7 @@ struct DetailView: View {
                 Button("Services") {
                     self.showServiceView = true
                 }.sheet(isPresented: self.$showServiceView) {
-                    ServiceView(filter: car.id ?? "")
+                    ServiceView(carID: car.id ?? "")
                         .environment(\.managedObjectContext, self.moc)
                 }
                 

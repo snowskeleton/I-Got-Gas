@@ -10,11 +10,11 @@ import SwiftUI
 import CoreData
 
 struct ExpensesBoxView: View {
-    var fetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { fetchRequest.wrappedValue }
+    var serviceFetchRequest: FetchRequest<Service>
+    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
     
     init(carID: String) {
-        fetchRequest = FetchServices(howMany: 3, carID: carID)
+        serviceFetchRequest = FetchServices(howMany: 3, carID: carID)
     }
     
     var body: some View {
@@ -24,7 +24,7 @@ struct ExpensesBoxView: View {
                     HStack {
                         Text("$\(service.cost, specifier: "%.2f")")
                         Spacer()
-                        Text("\(service.date!, formatter: ServiceView.self.taskDateFormat)")
+                        Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                     }
                 }
             }

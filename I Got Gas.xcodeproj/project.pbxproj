@@ -34,6 +34,7 @@
 		80B1D06F24DDE70C0090390E /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Labels.swift */; };
 		80E7534724DE3B5C00277392 /* ExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* ExpenseBoxView.swift */; };
 		80E7534924DE3BA200277392 /* MaintenanceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* MaintenanceBoxView.swift */; };
+		80E7534B24DE439100277392 /* FetchingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* FetchingServices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		80B1D06E24DDE70C0090390E /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		80E7534624DE3B5C00277392 /* ExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseBoxView.swift; sourceTree = "<group>"; };
 		80E7534824DE3BA200277392 /* MaintenanceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceBoxView.swift; sourceTree = "<group>"; };
+		80E7534A24DE439100277392 /* FetchingServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingServices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +103,9 @@
 				80A230BB24DB1E9E0081FAD3 /* Long Stuff */,
 				80A230B724D74C6D0081FAD3 /* Rest Client */,
 				806FC50924D72BCD0016AF62 /* Data */,
+				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
-				80E7534524DE3B4400277392 /* Boxes */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* ServiceView.swift */,
@@ -117,6 +119,7 @@
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
 				805B414924CDF04E0085DB47 /* Preview Content */,
 				80B1D06E24DDE70C0090390E /* Labels.swift */,
+				80E7534A24DE439100277392 /* FetchingServices.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				80E7534724DE3B5C00277392 /* ExpenseBoxView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */,
+				80E7534B24DE439100277392 /* FetchingServices.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				80B1D06F24DDE70C0090390E /* Labels.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
