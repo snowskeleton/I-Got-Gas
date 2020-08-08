@@ -31,8 +31,9 @@
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
-		80B1D06D24DDA9D80090390E /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06C24DDA9D80090390E /* TestView.swift */; };
 		80B1D06F24DDE70C0090390E /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Labels.swift */; };
+		80E7534724DE3B5C00277392 /* ExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* ExpenseBoxView.swift */; };
+		80E7534924DE3BA200277392 /* MaintenanceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* MaintenanceBoxView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,8 +63,9 @@
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
-		80B1D06C24DDA9D80090390E /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		80B1D06E24DDE70C0090390E /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		80E7534624DE3B5C00277392 /* ExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseBoxView.swift; sourceTree = "<group>"; };
+		80E7534824DE3BA200277392 /* MaintenanceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				806FC50924D72BCD0016AF62 /* Data */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
+				80E7534524DE3B4400277392 /* Boxes */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* ServiceView.swift */,
@@ -113,7 +116,6 @@
 				805B414F24CDF04E0085DB47 /* Info.plist */,
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
 				805B414924CDF04E0085DB47 /* Preview Content */,
-				80B1D06C24DDA9D80090390E /* TestView.swift */,
 				80B1D06E24DDE70C0090390E /* Labels.swift */,
 			);
 			path = "I Got Gas";
@@ -149,6 +151,15 @@
 				80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */,
 			);
 			path = "Long Stuff";
+			sourceTree = "<group>";
+		};
+		80E7534524DE3B4400277392 /* Boxes */ = {
+			isa = PBXGroup;
+			children = (
+				80E7534624DE3B5C00277392 /* ExpenseBoxView.swift */,
+				80E7534824DE3BA200277392 /* MaintenanceBoxView.swift */,
+			);
+			path = Boxes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,6 +241,7 @@
 				803993D824D33CD1006C311D /* Fuel+CoreDataProperties.swift in Sources */,
 				803993DC24D33CD1006C311D /* Vendor+CoreDataProperties.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
+				80E7534924DE3BA200277392 /* MaintenanceBoxView.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
 				806FC50B24D72D0C0016AF62 /* ServiceView.swift in Sources */,
 				803993D724D33CD1006C311D /* Fuel+CoreDataClass.swift in Sources */,
@@ -237,10 +249,10 @@
 				803993DB24D33CD1006C311D /* Vendor+CoreDataClass.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
+				80E7534724DE3B5C00277392 /* ExpenseBoxView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				803993D924D33CD1006C311D /* Service+CoreDataClass.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
-				80B1D06D24DDA9D80090390E /* TestView.swift in Sources */,
 				80B1D06F24DDE70C0090390E /* Labels.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
 				803993D524D33CD1006C311D /* Car+CoreDataClass.swift in Sources */,
