@@ -112,13 +112,16 @@ struct AddExpenseView: View {
 
         for car in car {
             let service = Service(context: self.managedObjectContext)
+            service.vendor = Vendor(context: self.managedObjectContext)
             
             service.vehicle = car
             if isGas {
+                service.fuel = Fuel(context: self.managedObjectContext)
                 service.vehicle?.lastFillup = self.expenseDate
+                service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
+                service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
             }
 
-            service.vendor = Vendor(context: self.managedObjectContext)
             service.vendor?.name = self.vendorName
             
             
