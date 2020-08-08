@@ -9,6 +9,14 @@
 import Foundation
 import SwiftUI
 
+extension DateFormatter {
+    static let taskDateFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
+}
+
 extension NumberFormatter {
     static var decimal: NumberFormatter {
         let formatter = NumberFormatter()
