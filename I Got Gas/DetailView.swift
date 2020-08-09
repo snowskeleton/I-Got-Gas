@@ -78,7 +78,6 @@ struct DetailView: View {
                         .environment(\.managedObjectContext, self.moc)
                 }
                 
-                
             }.navigationBarTitle(Text(""), displayMode: .inline)
         }
     }
