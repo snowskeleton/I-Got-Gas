@@ -29,7 +29,30 @@ struct DetailView: View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                CarView(filter: car.id ?? "").padding()
+                VStack {
+                    HStack {
+                        VStack {
+                            Text("Cost Per Mile")
+                                .font(.system(size: 10))
+                            Text("$0.25/m")
+                        }.padding(.leading)
+                        Spacer()
+                        VStack {
+                            Text("Mean Fillup Time")
+                                .font(.system(size: 10))
+                            Text("6 days")
+                        }
+                        Spacer()
+                        VStack {
+                            Text("Something else")
+                                .font(.system(size: 10))
+                            Text("69")
+                        }.padding(.trailing)
+                    }
+                    .padding(.top)
+                    .font(.system(size: 30))
+                    Text("\(car.odometer)")
+                }
                 Spacer()
                 
                 VStack {
