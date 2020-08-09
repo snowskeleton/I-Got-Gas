@@ -22,7 +22,7 @@ struct DetailView: View {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", carID))
+                                            format: "id = %@", carID))
     }
     
     var body: some View {
