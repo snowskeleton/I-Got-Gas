@@ -16,9 +16,7 @@ struct AddExpenseView: View {
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
     @Environment(\.presentationMode) var presentationMode
-    
-    //    @Binding var filter: String
-    
+        
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long

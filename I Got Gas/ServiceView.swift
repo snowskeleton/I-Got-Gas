@@ -25,7 +25,7 @@ struct ServiceView: View {
         carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", carID))
+                                            format: "id = %@", carID))
         serviceFetchRequest = FetchServices(howMany: 0, carID: carID)
 
     }

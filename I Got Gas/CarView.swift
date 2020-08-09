@@ -24,7 +24,7 @@ struct CarView: View {
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
     init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "id BEGINSWITH %@", filter))
+        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "id = %@", filter))
     }
     
     var body: some View {
