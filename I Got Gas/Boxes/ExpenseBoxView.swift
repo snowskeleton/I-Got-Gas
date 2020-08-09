@@ -18,7 +18,7 @@ struct ExpensesBoxView: View {
     }
     
     var body: some View {
-        GroupBox(label: ExpenseLable()) {
+        GroupBox(label: ImageAndTextLable(imageName: "dollarsign.square", text: "Expenses")) {
             VStack(alignment: .leading) {
                 ForEach(services, id: \.self) { service in
                     HStack {
