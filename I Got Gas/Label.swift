@@ -13,7 +13,7 @@ struct ImageAndTextLable: View {
     var text: String
     var body: some View {
         HStack {
-            Image(systemName: "\(imageName)")
+            Image(systemName: "\(image)")
             Text("\(text)")
         }
     }
