@@ -77,7 +77,6 @@ struct DetailView: View {
                     AddExpenseView(filter: car.id ?? "")
                         .environment(\.managedObjectContext, self.moc)
                 }
-                
             }.navigationBarTitle(Text(""), displayMode: .inline)
         }
     }
