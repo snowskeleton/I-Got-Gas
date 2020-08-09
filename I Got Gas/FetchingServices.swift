@@ -17,7 +17,7 @@ func FetchServices(howMany: Int, carID: String) -> FetchRequest<Service> {
     let request: NSFetchRequest<Service> = Service.fetchRequest()
     request.fetchLimit = howMany
     request.predicate = NSPredicate(format: "vehicle.id = %@", carID)
-    request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true), NSSortDescriptor(key: "cost", ascending: true)]
+    request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false), NSSortDescriptor(key: "cost", ascending: true)]
     fetchRequest = FetchRequest<Service>(fetchRequest: request)
     
     return fetchRequest
