@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ImageAndTextLable: View {
-    var imageName: String
+    var image: String
     var text: String
     var body: some View {
         HStack {

@@ -24,7 +24,7 @@ struct MaintenanceBoxView: View {
     
     var body: some View {
         ForEach(car, id: \.self) { car in
-            GroupBox(label: ImageAndTextLable(imageName: "wrench", text: "Maintenance")) {
+            GroupBox(label: ImageAndTextLable(image: "wrench", text: "Maintenance")) {
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Oil Change")
