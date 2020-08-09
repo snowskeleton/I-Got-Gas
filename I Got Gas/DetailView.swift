@@ -53,32 +53,23 @@ struct DetailView: View {
                     .font(.system(size: 30))
                     Text("\(car.odometer)")
                 }
+                
                 Spacer()
                 
                 VStack {
                     ScrollView {
                         VStack(spacing: 8) {
-
                             ExpensesBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: ServiceView(carID: car.id ?? "")))
-                            
-                            
-                            //more boxes
                             MaintenanceBoxView(filter: car.id ?? "")
                             
                         }.padding()
-                    }                        }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-                
+                    }
+                }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
                 
                 Spacer()
-                Button("Services") {
-                    self.showServiceView = true
-                }.sheet(isPresented: self.$showServiceView) {
-                    ServiceView(carID: car.id ?? "")
-                        .environment(\.managedObjectContext, self.moc)
-                }
                 
                 Button("Add Expense") {
                     self.showAddExpenseView = true
