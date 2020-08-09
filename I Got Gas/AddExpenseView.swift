@@ -11,14 +11,14 @@ import SwiftUI
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
+    
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
     @Environment(\.presentationMode) var presentationMode
     
-//    @Binding var filter: String
-
+    //    @Binding var filter: String
+    
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -33,7 +33,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var serviceNotes = ""
     @State private var odometer = ""
-
+    
     init(filter: String) {
         
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
@@ -74,13 +74,17 @@ struct AddExpenseView: View {
                                         .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
                                 if self.isGas {
-                                    TextField("    Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                        .font(.system(size: 30))
+                                    HStack {
+                                        Text("   ")
+                                        TextField("Gallons", text: self.$gallonsOfGas)
+                                            .keyboardType(.decimalPad)
+                                    }.font(.system(size: 30))
                                 }
-                                TextField("    Odometer", text: self.$odometer)
-                                    .keyboardType(.decimalPad)
-                                    .font(.system(size: 30))
+                                HStack {
+                                    Text("   ")
+                                    TextField("Odometer", text: self.$odometer)
+                                        .keyboardType(.decimalPad)
+                                }.font(.system(size: 30))
                                 
                             }
                             
@@ -102,14 +106,14 @@ struct AddExpenseView: View {
                             Text("Save me!")
                         }
                     }.navigationBarTitle("")
-                        .navigationBarHidden(true)
+                    .navigationBarHidden(true)
                 }
             }
         }
     }
     
     func save() -> Void {
-
+        
         for car in car {
             let service = Service(context: self.managedObjectContext)
             service.vendor = Vendor(context: self.managedObjectContext)
@@ -121,7 +125,7 @@ struct AddExpenseView: View {
                 service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
                 service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
             }
-
+            
             service.vendor?.name = self.vendorName
             
             
@@ -129,10 +133,10 @@ struct AddExpenseView: View {
             service.date = self.expenseDate
             service.odometer = Int64(self.odometer) ?? 0
             service.vehicle!.odometer = Int64(self.odometer) ?? 0
-
+            
             try? self.managedObjectContext.save()
         }
-
+        
     }
     
 }
