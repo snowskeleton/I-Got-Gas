@@ -56,48 +56,19 @@ struct DetailView: View {
                 Spacer()
                 
                 VStack {
-                    
-                    
                     ScrollView {
                         VStack(spacing: 8) {
 
                             ExpensesBoxView(carID: car.id ?? "")
-                                .environment(\.managedObjectContext, self.moc)
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
-                                                destination: ServiceView(carID: car.id ?? "")
-                                                    .environment(\.managedObjectContext, self.moc)))
+                                                destination: ServiceView(carID: car.id ?? "")))
                             
                             
                             //more boxes
-                            MaintenanceBoxView(filter: car.id ?? "").environment(\.managedObjectContext, self.moc)
+                            MaintenanceBoxView(filter: car.id ?? "")
                             
                         }.padding()
-                        
-                        
-                        //                        Section(header: Text("General information")) {
-                        //                            HStack {
-                        //                                Text("Odometer")
-                        //                                Spacer()
-                        //                                Text("\(car.odometer)")
-                        //                            }
-                        //                            HStack {
-                        //                                Text("Current MPG")
-                        //                                Spacer()
-                        //                                Text("42/g")
-                        //                            }
-                        //                            HStack {
-                        //                                Text("Last Fillup")
-                        //                                Spacer()
-                        //                                Text(car.lastFillup == nil ? "" : "\( car.lastFillup!, formatter: ServiceView.self.taskDateFormat)")
-                        //                            }
-                        //                        }
-                        //                        Section(header: Text("Service")) {
-                        //                            Text("Oil change")
-                        //                            Text("Break Check")
-                        //                            Text("Other service")
-                        //                            Text("Something important")
-                        //                        }
                     }                        }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
                 
                 

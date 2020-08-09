@@ -27,14 +27,19 @@ struct MaintenanceBoxView: View {
             GroupBox(label: ImageAndTextLable(imageName: "wrench", text: "Maintenance")) {
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Odometer")
+                        Text("Oil Change")
                         Spacer()
-                        Text("\(car.odometer)")
+                        Text("eventually")
                     }
                     HStack {
-                        Text("Current MPG")
+                        Text("Break Check")
                         Spacer()
-                        Text("42/g")
+                        Text("Whenever")
+                    }
+                    HStack {
+                        Text("Paint job")
+                        Spacer()
+                        Text("As Needed")
                     }
                     
                 }
