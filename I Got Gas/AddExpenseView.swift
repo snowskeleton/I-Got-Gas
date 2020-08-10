@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct AddExpenseView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
-    @Environment(\.presentationMode) var presentationMode
         
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter
-    }
+//    var dateFormatter: DateFormatter {
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .long
+//        return formatter
+//    }
     
     @State private var expenseDate = Date()
     
