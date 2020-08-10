@@ -29,7 +29,7 @@ struct AddExpenseView: View {
     @State private var totalPrice = ""
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
-    @State private var serviceNotes = ""
+    @State private var note = ""
     @State private var odometer = ""
     
     init(filter: String) {
@@ -71,6 +71,7 @@ struct AddExpenseView: View {
                                     TextField("Price", text: self.$totalPrice)
                                         .keyboardType(.decimalPad)
                                 }.font(.system(size: 30))
+                                
                                 if self.isGas {
                                     HStack {
                                         Text("   ")
@@ -78,6 +79,7 @@ struct AddExpenseView: View {
                                             .keyboardType(.decimalPad)
                                     }.font(.system(size: 30))
                                 }
+                                
                                 HStack {
                                     Text("   ")
                                     TextField("Odometer", text: self.$odometer)
@@ -90,7 +92,7 @@ struct AddExpenseView: View {
                                 TextField("Vendor name", text: self.$vendorName)
                                 
                                 if !self.isGas {
-                                    TextField("Service Notes", text: self.$serviceNotes)
+                                    TextField("Service Notes", text: self.$note)
                                 }
                             }
                         }
@@ -113,20 +115,22 @@ struct AddExpenseView: View {
         for car in car {
             let service = Service(context: self.managedObjectContext)
             service.vendor = Vendor(context: self.managedObjectContext)
-            
             service.vehicle = car
+            
             if isGas {
+                service.note = "Fuel"
                 service.fuel = Fuel(context: self.managedObjectContext)
                 service.vehicle?.lastFillup = self.expenseDate
                 service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
                 service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
+            } else {
+                service.note = self.note
             }
             
             service.vendor?.name = self.vendorName
-            
+            service.date = self.expenseDate
             
             service.cost = Double(self.totalPrice) ?? 0.00
-            service.date = self.expenseDate
             service.odometer = Int64(self.odometer) ?? 0
             service.vehicle!.odometer = Int64(self.odometer) ?? 0
             
