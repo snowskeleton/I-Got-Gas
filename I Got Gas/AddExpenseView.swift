@@ -97,11 +97,9 @@ struct AddExpenseView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
+                        Button("Save") {
                             self.save()
-                        }) {
-                            Text("Save me!")
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                     }.navigationBarTitle("")
                     .navigationBarHidden(true)
