@@ -20,6 +20,7 @@ extension Service {
     @NSManaged public var cost: Double
     @NSManaged public var date: Date?
     @NSManaged public var odometer: Int64
+    @NSManaged public var note: String
     @NSManaged public var vehicle: Car?
     @NSManaged public var vendor: Vendor?
     @NSManaged public var fuel: Fuel?
