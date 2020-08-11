@@ -17,6 +17,8 @@ extension Car {
         return NSFetchRequest<Car>(entityName: "Car")
     }
 
+    @NSManaged public var costPerMile: Double
+    @NSManaged public var costPerGallon: Double
     @NSManaged public var id: String?
     @NSManaged public var make: String?
     @NSManaged public var model: String?
