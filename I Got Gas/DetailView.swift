@@ -70,6 +70,11 @@ struct DetailView: View {
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: FuelExpenseView(carID: car.id ?? "")))
+                            
+                            ServiceExpenseBoxView(carID: car.id ?? "")
+                                .groupBoxStyle(DetailBoxStyle(
+                                                color: .black,
+                                                destination: FuelExpenseView(carID: car.id ?? "")))
                             MaintenanceBoxView(filter: car.id ?? "")
                             
                         }.padding()
