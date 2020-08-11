@@ -66,7 +66,7 @@ struct DetailView: View {
                 VStack {
                     ScrollView {
                         VStack(spacing: 8) {
-                            ExpensesBoxView(carID: car.id ?? "")
+                            FuelExpenseBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: FuelExpenseView(carID: car.id ?? "")))

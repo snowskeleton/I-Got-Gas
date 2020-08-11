@@ -9,12 +9,11 @@
 import SwiftUI
 import CoreData
 
-struct ExpensesBoxView: View {
+struct FuelExpenseBoxView: View {
     var serviceFetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
     
     init(carID: String) {
-//        serviceFetchRequest = FetchServices(howMany: 3, carID: carID, filters: "note = Fuel")
         serviceFetchRequest = FetchServices(howMany: 3, carID: carID, filters: [["vehicle.id = ", "\(carID)"]])
     }
     
