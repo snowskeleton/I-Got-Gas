@@ -15,6 +15,8 @@ struct DetailView: View {
     @State var showAddExpenseView = false
     @State var showServiceView = false
     
+    @State private var testvar = 0.00
+    
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
@@ -34,23 +36,28 @@ struct DetailView: View {
                         VStack {
                             Text("Cost Per Mile")
                                 .font(.system(size: 10))
-                            Text("$0.25/m")
+                            Text("\(car.costPerMile, specifier: "%.2f")/m")
                         }.padding(.leading)
+                        
                         Spacer()
+                        
                         VStack {
                             Text("Mean Fillup Time")
                                 .font(.system(size: 10))
                             Text("6 days")
                         }
+                        
                         Spacer()
+                        
                         VStack {
-                            Text("Something else")
+                            Text("Avg $/gal")
                                 .font(.system(size: 10))
-                            Text("69")
+                            Text("\(car.costPerGallon, specifier: "%.2f")/gal")
                         }.padding(.trailing)
                     }
                     .padding(.top)
                     .font(.system(size: 30))
+                    
                     Text("\(car.odometer)")
                 }
                 
