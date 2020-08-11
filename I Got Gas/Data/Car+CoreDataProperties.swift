@@ -29,7 +29,8 @@ extension Car {
     @NSManaged public var vin: String?
     @NSManaged public var year: String?
     @NSManaged public var services: NSSet?
-    
+    @NSManaged public var scheduledServices: NSSet?
+
     @NSManaged public var lastFillup: Date?
     
     public var wrappedId: String {
