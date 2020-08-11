@@ -16,13 +16,6 @@ struct AddExpenseView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
-        
-//    var dateFormatter: DateFormatter {
-//        let formatter = DateFormatter()
-//        formatter.dateStyle = .long
-//        return formatter
-//    }
-    
     @State private var expenseDate = Date()
     
     @State private var isGas = true
@@ -117,16 +110,6 @@ struct AddExpenseView: View {
             service.vendor = Vendor(context: self.managedObjectContext)
             service.vehicle = car
             
-            if isGas {
-                service.note = "Fuel"
-                service.fuel = Fuel(context: self.managedObjectContext)
-                service.vehicle?.lastFillup = self.expenseDate
-                service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-                service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
-            } else {
-                service.note = self.note
-            }
-            
             service.vendor?.name = self.vendorName
             service.date = self.expenseDate
             
@@ -135,6 +118,33 @@ struct AddExpenseView: View {
             service.vehicle!.odometer = Int64(self.odometer) ?? 0
             
             try? self.managedObjectContext.save()
+
+            if isGas {
+                service.note = "Fuel"
+                service.fuel = Fuel(context: self.managedObjectContext)
+                service.vehicle?.lastFillup = self.expenseDate
+                service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
+                service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
+                
+                var totalCost = 0.00
+                for service in car.services! {
+                    totalCost += ((service as AnyObject).cost)
+                }
+                car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+                
+                totalCost = 0.00
+                for service in car.services! {
+                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
+                }
+                car.costPerGallon = totalCost / Double(car.services!.count)
+                
+                
+            } else {
+                service.note = self.note
+            }
+            
+            try? self.managedObjectContext.save()
+
         }
         
     }
