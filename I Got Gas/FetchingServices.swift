@@ -10,13 +10,20 @@ import Foundation
 import CoreData
 import SwiftUI
 
-func FetchServices(howMany: Int, carID: String) -> FetchRequest<Service> {
+func FetchServices(howMany: Int, carID: String, filters: [Array<Any>]) -> FetchRequest<Service> {
     let fetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { fetchRequest.wrappedValue }
-    
     let request: NSFetchRequest<Service> = Service.fetchRequest()
+    var services: FetchedResults<Service> { fetchRequest.wrappedValue }
+    var subPredicates : [NSPredicate] = []
+
+    for i in filters {
+        let subPredicate = NSPredicate(format: "\(i[0]) '\(i[1])'" )
+        subPredicates.append(subPredicate)
+    }
+    
     request.fetchLimit = howMany
-    request.predicate = NSPredicate(format: "vehicle.id = %@", carID)
+    request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: subPredicates)
+
     request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false), NSSortDescriptor(key: "cost", ascending: true)]
     fetchRequest = FetchRequest<Service>(fetchRequest: request)
     

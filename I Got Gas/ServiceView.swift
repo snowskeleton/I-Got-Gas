@@ -26,7 +26,8 @@ struct ServiceView: View {
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
                                             format: "id = %@", carID))
-        serviceFetchRequest = FetchServices(howMany: 0, carID: carID)
+        serviceFetchRequest = FetchServices(howMany: 0, carID: carID, filters: [["vehicle.id = ", "\(carID)"], ["note = ", "Fuel"]])
+//        serviceFetchRequest = FetchServices(howMany: 0, carID: carID, filters: [["vehicle.id = ", "\(carID)"], ["note = ", "Fuel"]])
 
     }
 
