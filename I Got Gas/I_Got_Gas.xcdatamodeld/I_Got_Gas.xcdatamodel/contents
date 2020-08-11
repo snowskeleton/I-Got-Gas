@@ -22,7 +22,7 @@
         <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="fuel" inverseEntity="Service"/>
     </entity>
-    <entity name="ScheduledService" representedClassName="ScheduledService" syncable="YES" codeGenerationType="class">
+    <entity name="ScheduledService" representedClassName="ScheduledService" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="odometer" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

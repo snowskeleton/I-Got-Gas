@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-struct ServiceView: View {
+struct FuelExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     var carFetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
@@ -66,6 +66,6 @@ struct ServiceView: View {
 
 struct ServiceView_Previews: PreviewProvider {
     static var previews: some View {
-        ServiceView(carID: "")
+        FuelExpenseView(carID: "")
     }
 }

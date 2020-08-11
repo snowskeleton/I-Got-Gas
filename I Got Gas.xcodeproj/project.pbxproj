@@ -26,7 +26,7 @@
 		805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */; };
 		805B415624CDF5080085DB47 /* CarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B415524CDF5080085DB47 /* CarView.swift */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
-		806FC50B24D72D0C0016AF62 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* ServiceView.swift */; };
+		806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */; };
 		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
@@ -61,7 +61,7 @@
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		805B415524CDF5080085DB47 /* CarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarView.swift; sourceTree = "<group>"; };
 		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		806FC50A24D72D0C0016AF62 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
+		806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseView.swift; sourceTree = "<group>"; };
 		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
-				806FC50A24D72D0C0016AF62 /* ServiceView.swift */,
+				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
@@ -253,7 +253,7 @@
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				80E7534924DE3BA200277392 /* MaintenanceBoxView.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
-				806FC50B24D72D0C0016AF62 /* ServiceView.swift in Sources */,
+				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				803993D724D33CD1006C311D /* Fuel+CoreDataClass.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				803993DB24D33CD1006C311D /* Vendor+CoreDataClass.swift in Sources */,
