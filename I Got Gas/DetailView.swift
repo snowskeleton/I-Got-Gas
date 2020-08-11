@@ -13,7 +13,7 @@ struct DetailView: View {
     @Environment(\.managedObjectContext) var moc
     
     @State var showAddExpenseView = false
-    @State var showServiceView = false
+    @State var showFuelExpenseView = false
     
     @State private var testvar = 0.00
     
@@ -69,7 +69,7 @@ struct DetailView: View {
                             ExpensesBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
-                                                destination: ServiceView(carID: car.id ?? "")))
+                                                destination: FuelExpenseView(carID: car.id ?? "")))
                             MaintenanceBoxView(filter: car.id ?? "")
                             
                         }.padding()

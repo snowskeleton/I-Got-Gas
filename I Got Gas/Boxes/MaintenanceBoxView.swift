@@ -43,7 +43,7 @@ struct MaintenanceBoxView: View {
                     }
                     
                 }
-            }.groupBoxStyle(DetailBoxStyle(color: .black, destination: ServiceView(carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
+            }.groupBoxStyle(DetailBoxStyle(color: .black, destination: FuelExpenseView(carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
         }
     }
 }
