@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MaintenanceBoxView: View {
+struct FutureServiceBoxView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     

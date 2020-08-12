@@ -51,7 +51,7 @@ struct DetailView: View {
                                                 color: .black,
                                                 destination: ServiceExpenseView(carID: car.id ?? "")))
                             
-                            MaintenanceBoxView(filter: car.id ?? "")
+                            FutureServiceBoxView(filter: car.id ?? "")
                                 
                             
                         }.padding()
