@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(ScheduledService)
-public class ScheduledService: NSManagedObject {
+public class FutureService: NSManagedObject {
 
 }

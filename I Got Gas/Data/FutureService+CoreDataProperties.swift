@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension ScheduledService {
+extension FutureService {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<ScheduledService> {
-        return NSFetchRequest<ScheduledService>(entityName: "ScheduledService")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FutureService> {
+        return NSFetchRequest<FutureService>(entityName: "FutureService")
     }
 
     @NSManaged public var date: Date?
