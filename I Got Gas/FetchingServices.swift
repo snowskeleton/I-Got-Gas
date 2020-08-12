@@ -34,3 +34,20 @@ func FetchServices(howMany: Int, carID: String, filters: [String]) -> FetchReque
     
     return fetchRequest
 }
+
+func FetchFutureServices(howMany: Int, carID: String) -> FetchRequest<FutureService> {
+    let fetchRequest: FetchRequest<FutureService>
+    let request: NSFetchRequest<FutureService> = FutureService.fetchRequest()
+    var services: FetchedResults<FutureService> { fetchRequest.wrappedValue }
+    request.predicate = NSPredicate(format: "vehicle.id = '\(carID)'")
+
+    request.fetchLimit = howMany
+
+    request.sortDescriptors = [NSSortDescriptor(
+                                key: "date",
+                                ascending: false)]
+    fetchRequest = FetchRequest<FutureService>(fetchRequest: request)
+    
+    return fetchRequest
+}
+

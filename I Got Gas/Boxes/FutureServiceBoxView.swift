@@ -45,7 +45,7 @@ struct FutureServiceBoxView: View {
                 }
             }.groupBoxStyle(DetailBoxStyle(
                                 color: .black,
-                                destination: FuelExpenseView(
+                                destination: FutureServiceView(
                                     carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
         }
     }

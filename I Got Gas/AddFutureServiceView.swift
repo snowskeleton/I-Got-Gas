@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddFutureExpenseView: View {
+struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
