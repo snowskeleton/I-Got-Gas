@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State private var showDetailView = false
     @State var selectedCarID = ""
@@ -45,10 +45,10 @@ struct ContentView: View {
                         .font(.system(size: 30))
                 }.padding(.leading)
                     .sheet(isPresented: $showAddCarView) {
-                        AddCarView(show: self.$showAddCarView).environment(\.managedObjectContext, self.managedObjectContext)},
+                        AddCarView(show: self.$showAddCarView).environment(\.managedObjectContext, self.moc)},
                                 trailing:
                 Button(action: {
-                    try? self.managedObjectContext.save()
+                    try? self.moc.save()
                 }) {
                     Text("Options")
             })
@@ -60,7 +60,8 @@ struct ContentView: View {
     func crashCar(at offsets: IndexSet) {
         for index in offsets {
             let car = cars[index]
-            managedObjectContext.delete(car)
+            moc.delete(car)
+            try? self.moc.save()
         }
     }
     
