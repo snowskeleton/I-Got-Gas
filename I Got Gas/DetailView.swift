@@ -49,7 +49,7 @@ struct DetailView: View {
                             ServiceExpenseBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
-                                                destination: FuelExpenseView(carID: car.id ?? "")))
+                                                destination: ServiceExpenseView(carID: car.id ?? "")))
                             
                             MaintenanceBoxView(filter: car.id ?? "")
                                 

@@ -9,14 +9,13 @@
 import SwiftUI
 import CoreData
 
-struct FuelExpenseView: View {
+struct ServiceExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     var carFetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     var serviceFetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
-    
     
     @State var showAddExpenseView = false
     
@@ -31,7 +30,7 @@ struct FuelExpenseView: View {
                                             carID: carID,
                                             filters: [
                                                 "vehicle.id = '\(carID)'",
-                                                "note = 'Fuel'"
+                                                "note != 'Fuel'"
                                             ])
     }
     
@@ -44,7 +43,7 @@ struct FuelExpenseView: View {
                     ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\(service.fuel?.dpg ?? 0.00, specifier: "%.2f")/g)")
+                                Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
                             }
                             HStack {
@@ -68,7 +67,7 @@ struct FuelExpenseView: View {
     }
 }
 
-struct FuelExpenseView_Previews: PreviewProvider {
+struct ServiceExpenseView_Previews: PreviewProvider {
     static var previews: some View {
         FuelExpenseView(carID: "")
     }
