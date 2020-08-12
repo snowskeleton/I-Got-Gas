@@ -31,51 +31,28 @@ struct DetailView: View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                VStack {
-                    HStack {
-                        VStack {
-                            Text("Cost Per Mile")
-                                .font(.system(size: 10))
-                            Text("\(car.costPerMile, specifier: "%.2f")/m")
-                        }.padding(.leading)
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Text("Mean Fillup Time")
-                                .font(.system(size: 10))
-                            Text("6 days")
-                        }
-                        
-                        Spacer()
-                        
-                        VStack {
-                            Text("Avg $/gal")
-                                .font(.system(size: 10))
-                            Text("\(car.costPerGallon, specifier: "%.2f")/gal")
-                        }.padding(.trailing)
-                    }
-                    .padding(.top)
-                    .font(.system(size: 30))
-                    
-                    Text("\(car.odometer)")
-                }
+                TopDetailView(car: car)
                 
                 Spacer()
                 
                 VStack {
                     ScrollView {
                         VStack(spacing: 8) {
+                            EmptyView()
                             FuelExpenseBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: FuelExpenseView(carID: car.id ?? "")))
+                                
+                                
                             
                             ServiceExpenseBoxView(carID: car.id ?? "")
                                 .groupBoxStyle(DetailBoxStyle(
                                                 color: .black,
                                                 destination: FuelExpenseView(carID: car.id ?? "")))
+                            
                             MaintenanceBoxView(filter: car.id ?? "")
+                                
                             
                         }.padding()
                     }

@@ -18,7 +18,7 @@ struct MaintenanceBoxView: View {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+                                            format: "id = %@", filter))
     }
     
     
@@ -43,7 +43,10 @@ struct MaintenanceBoxView: View {
                     }
                     
                 }
-            }.groupBoxStyle(DetailBoxStyle(color: .black, destination: FuelExpenseView(carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
+            }.groupBoxStyle(DetailBoxStyle(
+                                color: .black,
+                                destination: FuelExpenseView(
+                                    carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
         }
     }
 }

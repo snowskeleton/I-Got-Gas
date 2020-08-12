@@ -30,7 +30,7 @@ struct AddExpenseView: View {
         fetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+                                            format: "id = %@", filter))
     }
     
     var body: some View {
