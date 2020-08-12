@@ -32,8 +32,7 @@ struct FuelExpenseView: View {
                                             filters: [
                                                 "vehicle.id = '\(carID)'",
                                                 "note = 'Fuel'"
-                                            ]
-        )
+                                            ])
     }
 
      
