@@ -13,7 +13,7 @@
         <attribute name="startingOdometer" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="vin" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="String"/>
-        <relationship name="scheduledService" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScheduledService" inverseName="car" inverseEntity="ScheduledService"/>
+        <relationship name="futureSerevice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FutureService" inverseName="car" inverseEntity="FutureService"/>
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Service" inverseName="vehicle" inverseEntity="Service"/>
     </entity>
     <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES">
@@ -22,11 +22,11 @@
         <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="fuel" inverseEntity="Service"/>
     </entity>
-    <entity name="ScheduledService" representedClassName="ScheduledService" syncable="YES">
+    <entity name="FutureService" representedClassName="FutureService" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="odometer" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="car" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="scheduledService" inverseEntity="Car"/>
+        <relationship name="car" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="futureSerevice" inverseEntity="Car"/>
     </entity>
     <entity name="Service" representedClassName="Service" syncable="YES">
         <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -48,6 +48,6 @@
         <element name="Fuel" positionX="331.30078125" positionY="287.00390625" width="128" height="103"/>
         <element name="Service" positionX="333.23046875" positionY="131.08984375" width="128" height="148"/>
         <element name="Vendor" positionX="69.8046875" positionY="229.7578125" width="128" height="103"/>
-        <element name="ScheduledService" positionX="135" positionY="180" width="128" height="103"/>
+        <element name="FutureService" positionX="135" positionY="180" width="128" height="103"/>
     </elements>
 </model>
