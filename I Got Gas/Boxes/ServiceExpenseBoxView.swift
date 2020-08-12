@@ -17,8 +17,8 @@ struct ServiceExpenseBoxView: View {
         serviceFetchRequest = FetchServices(howMany: 3,
                                             carID: carID,
                                             filters: [
-                                                ["vehicle.id = ", "\(carID)"],
-                                                ["note != ", "Fuel"]
+                                                "vehicle.id = '\(carID)'",
+                                                "note != 'Fuel'"
                                             ])
     }
     

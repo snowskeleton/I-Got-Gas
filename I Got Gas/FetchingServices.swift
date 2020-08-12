@@ -10,14 +10,14 @@ import Foundation
 import CoreData
 import SwiftUI
 
-func FetchServices(howMany: Int, carID: String, filters: [Array<Any>]) -> FetchRequest<Service> {
+func FetchServices(howMany: Int, carID: String, filters: [String]) -> FetchRequest<Service> {
     let fetchRequest: FetchRequest<Service>
     let request: NSFetchRequest<Service> = Service.fetchRequest()
     var services: FetchedResults<Service> { fetchRequest.wrappedValue }
     var subPredicates : [NSPredicate] = []
 
     for i in filters {
-        let subPredicate = NSPredicate(format: "\(i[0]) '\(i[1])'" )
+        let subPredicate = NSPredicate(format: "\(i)" )
         subPredicates.append(subPredicate)
     }
     
