@@ -1,8 +1,8 @@
 //
-//  ScheduledService+CoreDataProperties.swift
+//  FutureService+CoreDataProperties.swift
 //  I Got Gas
 //
-//  Created by Isaac Lyons on 8/11/20.
+//  Created by Isaac Lyons on 8/12/20.
 //  Copyright © 2020 Blizzard Skeleton. All rights reserved.
 //
 //
@@ -17,8 +17,8 @@ extension FutureService {
         return NSFetchRequest<FutureService>(entityName: "FutureService")
     }
 
-    @NSManaged public var date: Date?
     @NSManaged public var name: String?
+    @NSManaged public var date: Date?
     @NSManaged public var odometer: Int64
     @NSManaged public var note: String?
     @NSManaged public var vehicle: Car?

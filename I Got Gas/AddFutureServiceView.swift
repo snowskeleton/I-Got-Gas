@@ -68,7 +68,7 @@ struct AddFutureServiceView: View {
                         Spacer()
                         
                         Button("Save") {
-//                            self.save()
+                            self.save()
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     }.navigationBarTitle("")
@@ -78,21 +78,19 @@ struct AddFutureServiceView: View {
         }
     }
     
-//    func save() -> Void {
-//
-//        for car in car {
-//            let service = Service(context: self.managedObjectContext)
-//            service.vendor = Vendor(context: self.managedObjectContext)
-//            service.vehicle = car
-//
-//            service.vendor?.name = self.vendorName
-//            service.date = self.expenseDate
-//
-//            service.cost = Double(self.totalPrice) ?? 0.00
-//            service.odometer = Int64(self.odometer) ?? 0
-//            service.vehicle!.odometer = Int64(self.odometer) ?? 0
-//
-//            try? self.managedObjectContext.save()
+    func save() -> Void {
+
+        for car in car {
+            let futureService = FutureService(context: self.managedObjectContext)
+            futureService.vehicle = car
+
+            futureService.date = self.date
+
+            futureService.note = self.note
+
+            futureService.odometer = Int64(self.odometer) ?? 0
+
+            try? self.managedObjectContext.save()
 //
 //            if isGas {
 //                service.note = "Fuel"
@@ -115,14 +113,13 @@ struct AddFutureServiceView: View {
 //
 //
 //            } else {
-//                service.note = self.note
 //            }
 //
 //            try? self.managedObjectContext.save()
 //
-//        }
-//
-//    }
+        }
+
+    }
     
 }
 
