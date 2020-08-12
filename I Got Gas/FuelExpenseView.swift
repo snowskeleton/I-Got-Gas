@@ -53,7 +53,7 @@ struct FuelExpenseView: View {
                                 Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
-                    }
+                    }.onDelete(perform: loseMemory)
                     
                 }
                 Spacer()
@@ -64,6 +64,13 @@ struct FuelExpenseView: View {
                         .environment(\.managedObjectContext, self.moc)
                 }
             }
+        }
+    }
+    func loseMemory(at offsets: IndexSet) {
+        for index in offsets {
+            let service = services[index]
+            moc.delete(service)
+            try? self.moc.save()
         }
     }
 }

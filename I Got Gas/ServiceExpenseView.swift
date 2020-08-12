@@ -39,21 +39,22 @@ struct ServiceExpenseView: View {
         VStack {
             ForEach(car, id: \.self) { car in
                 List {
-                    
                     ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
+                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                             HStack {
                                 Text("\(service.odometer)")
                                 Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text("\(service.note)")
+                                Spacer()
+                                Text("\(service.vendor?.name ?? "")")
                             }
                         }
-                    }
-                    
+                    }.onDelete(perform: loseMemory)
                 }
                 Spacer()
                 Button("Add Expense") {
@@ -63,6 +64,14 @@ struct ServiceExpenseView: View {
                         .environment(\.managedObjectContext, self.moc)
                 }
             }
+        }
+    }
+    
+    func loseMemory(at offsets: IndexSet) {
+        for index in offsets {
+            let service = services[index]
+            moc.delete(service)
+            try? self.moc.save()
         }
     }
 }
