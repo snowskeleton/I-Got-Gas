@@ -9,44 +9,25 @@
 import SwiftUI
 
 struct FutureServiceBoxView: View {
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    var futureServicesFetchRequest: FetchRequest<FutureService>
+    var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
-    init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id = %@", filter))
+    init(carID: String) {
+        futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
     }
     
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
-            GroupBox(label: ImageAndTextLable(image: "wrench", text: "Maintenance")) {
+            GroupBox(label: ImageAndTextLable(image: "clock", text: "Future Service")) {
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text("Oil Change")
-                        Spacer()
-                        Text("eventually")
+                    ForEach(futureServices, id: \.self) { futureService in
+                        HStack {
+                            Text("\(futureService.name!)")
+                            Spacer()
+                            Text("\(futureService.miles) / \(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                        }
                     }
-                    HStack {
-                        Text("Break Check")
-                        Spacer()
-                        Text("Whenever")
-                    }
-                    HStack {
-                        Text("Paint job")
-                        Spacer()
-                        Text("As Needed")
-                    }
-                    
                 }
-            }.groupBoxStyle(DetailBoxStyle(
-                                color: .black,
-                                destination: FutureServiceView(
-                                    carID: car.id ?? "").environment(\.managedObjectContext, self.moc)))
-        }
+            }
     }
 }

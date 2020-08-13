@@ -37,15 +37,14 @@ struct FutureServiceView: View {
                     ForEach(futureServices, id: \.self) { futureService in
                         VStack {
                             HStack {
-                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text("\(futureService.name ?? "")")
                                 Spacer()
                                 Text("\(futureService.odometer)")
                             }
                             HStack {
-                                Text("\(futureService.odometer)")
+                                Text("\(futureService.note ?? "")")
                                 Spacer()
-//                                Text("\(futureService.note)")
-                                Spacer()
+                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                     }.onDelete(perform: loseMemory)

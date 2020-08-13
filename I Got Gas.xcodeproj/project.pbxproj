@@ -125,8 +125,8 @@
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
-				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
+				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
 				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
@@ -180,8 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */,
-				80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */,
 				80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */,
+				80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */,
 			);
 			path = Boxes;
 			sourceTree = "<group>";

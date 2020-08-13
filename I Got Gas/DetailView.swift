@@ -51,7 +51,11 @@ struct DetailView: View {
                                                 color: .black,
                                                 destination: ServiceExpenseView(carID: car.id ?? "")))
                             
-                            FutureServiceBoxView(filter: car.id ?? "")
+                            FutureServiceBoxView(carID: car.id ?? "")
+                                .groupBoxStyle(DetailBoxStyle(
+                                                color: .black,
+                                                destination: FutureServiceView(
+                                                    carID: car.id ?? "")))
                                 
                             
                         }.padding()

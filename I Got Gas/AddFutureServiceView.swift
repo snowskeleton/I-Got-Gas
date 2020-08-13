@@ -16,11 +16,12 @@ struct AddFutureServiceView: View {
     var fetchRequest: FetchRequest<Car>
     var car: FetchedResults<Car> { fetchRequest.wrappedValue }
     
-    @State private var date = Date()
+    @State private var today = Date()
     @State private var odometer = ""
-    @State private var note = ""
     @State private var name = ""
     @State private var repeating = true
+    @State private var months = ""
+    @State private var miles = ""
     
     init(filter: String) {
         
@@ -44,25 +45,32 @@ struct AddFutureServiceView: View {
                             }
                             .font(.system(size: 30))
                             .padding()
-                            
                         }
                         
                         Form {
-                            DatePicker("Date",
-                                       selection: self.$date,
-                                       displayedComponents: .date)
-                                .padding(.top)
-                                .labelsHidden()
                             
-                                
-                                TextField("Service Description", text: self.$name)
-                                    .keyboardType(.decimalPad)
-                                    .font(.system(size: 30))
-                                
-                                TextField("Service Notes", text: self.$note)
-                                    .font(.system(size: 30))
-
+                            TextField("Service Description", text: self.$name)
+                                .font(.system(size: 30))
                             
+                            Section(header: Text("Every...")) {
+                                HStack {
+                                    TextField("", text: self.$months)
+                                        .font(.system(size: 30))
+                                        .keyboardType(.numberPad)
+                                    Spacer()
+                                    Text("months")
+                                }
+                            }
+                            
+                            Section(header: Text("Or...")) {
+                                HStack {
+                                    TextField("", text: self.$miles)
+                                        .font(.system(size: 30))
+                                        .keyboardType(.numberPad)
+                                    Spacer()
+                                    Text("miles")
+                                }
+                            }
                         }
                         
                         Spacer()
@@ -79,46 +87,19 @@ struct AddFutureServiceView: View {
     }
     
     func save() -> Void {
-
         for car in car {
             let futureService = FutureService(context: self.managedObjectContext)
             futureService.vehicle = car
-
-            futureService.date = self.date
-
-            futureService.note = self.note
-
-            futureService.odometer = Int64(self.odometer) ?? 0
-
+            
+            futureService.name = self.name
+            futureService.miles = Int64(self.miles) ?? 0
+            futureService.months = Int64(self.months) ?? 0
+            print((car.odometer + (Int64(self.miles) ?? 0)))
+            futureService.odometer = (car.odometer + (Int64(self.miles) ?? 0))
+            futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
+            
             try? self.managedObjectContext.save()
-//
-//            if isGas {
-//                service.note = "Fuel"
-//                service.fuel = Fuel(context: self.managedObjectContext)
-//                service.vehicle?.lastFillup = self.expenseDate
-//                service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-//                service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
-//
-//                var totalCost = 0.00
-//                for service in car.services! {
-//                    totalCost += ((service as AnyObject).cost)
-//                }
-//                car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-//
-//                totalCost = 0.00
-//                for service in car.services! {
-//                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
-//                }
-//                car.costPerGallon = totalCost / Double(car.services!.count)
-//
-//
-//            } else {
-//            }
-//
-//            try? self.managedObjectContext.save()
-//
         }
-
     }
     
 }
