@@ -39,7 +39,7 @@ struct FutureServiceView: View {
                             HStack {
                                 Text("\(futureService.name ?? "")")
                                 Spacer()
-                                Text("\(futureService.odometer)")
+                                Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
                             }
                             HStack {
                                 Text("\(futureService.note ?? "")")

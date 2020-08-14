@@ -20,7 +20,8 @@ extension FutureService {
     @NSManaged public var name: String?
     @NSManaged public var date: Date?
     @NSManaged public var odometer: Int64
-    @NSManaged public var miles: Int64
+    @NSManaged public var milesLeft: Int64
+    @NSManaged public var startingMiles: Int64
     @NSManaged public var months: Int64
     @NSManaged public var note: String?
     @NSManaged public var vehicle: Car?

@@ -21,11 +21,17 @@ struct FutureServiceBoxView: View {
             GroupBox(label: ImageAndTextLable(image: "clock", text: "Future Service")) {
                 VStack(alignment: .leading) {
                     ForEach(futureServices, id: \.self) { futureService in
-                        HStack {
-                            Text("\(futureService.name!)")
-                            Spacer()
-                            Text("\(futureService.miles) / \(futureService.date!, formatter: DateFormatter.taskDateFormat)")
-                        }
+                        VStack {
+                            HStack {
+                                Text("\(futureService.name!)")
+                                Spacer()
+                                Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
+                            }
+                            HStack {
+                                Spacer()
+                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                            }
+                        }.padding(.bottom)
                     }
                 }
             }

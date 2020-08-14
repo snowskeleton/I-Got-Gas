@@ -92,7 +92,8 @@ struct AddFutureServiceView: View {
             futureService.vehicle = car
             
             futureService.name = self.name
-            futureService.miles = Int64(self.miles) ?? 0
+            futureService.milesLeft = Int64(self.miles) ?? 0
+            futureService.startingMiles = Int64(self.miles) ?? 0
             futureService.months = Int64(self.months) ?? 0
             print((car.odometer + (Int64(self.miles) ?? 0)))
             futureService.odometer = (car.odometer + (Int64(self.miles) ?? 0))
