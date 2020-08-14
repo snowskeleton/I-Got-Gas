@@ -31,7 +31,7 @@ struct DetailView: View {
         ForEach(car, id: \.self) { car in
             
             VStack {
-                TopDetailView(car: car)
+                TopDetailView(carID: car.id ?? "")
                 
                 Spacer()
                 

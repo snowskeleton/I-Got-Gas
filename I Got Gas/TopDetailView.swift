@@ -9,37 +9,49 @@
 import SwiftUI
 
 struct TopDetailView: View {
-    var car: Car
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    
+    init(carID: String) {
+        
+        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
+                                            sortDescriptors: [],
+                                            predicate: NSPredicate(
+                                                format: "id = %@", carID))
+    }
     
     var body: some View {
-        VStack {
-            HStack {
-                VStack {
-                    Text("Cost Per Mile")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerMile, specifier: "%.2f")/m")
-                }.padding(.leading)
-                
-                Spacer()
-                
-                VStack {
-                    Text("Mean Fillup Time")
-                        .font(.system(size: 10))
-                    Text("6 days")
+        ForEach(car, id: \.self) { car in
+            VStack {
+                HStack {
+                    VStack {
+                        Text("Cost Per Mile")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerMile, specifier: "%.2f")/m")
+                    }.padding(.leading)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("Mean Fillup Time")
+                            .font(.system(size: 10))
+                        Text("6 days")
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("Avg $/gal")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                    }.padding(.trailing)
                 }
+                .padding(.top)
+                .font(.system(size: 30))
                 
-                Spacer()
-                
-                VStack {
-                    Text("Avg $/gal")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerGallon, specifier: "%.2f")/gal")
-                }.padding(.trailing)
+                Text("\(car.odometer)")
             }
-            .padding(.top)
-            .font(.system(size: 30))
             
-            Text("\(car.odometer)")
         }
         
     }
