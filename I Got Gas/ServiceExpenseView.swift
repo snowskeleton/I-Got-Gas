@@ -49,7 +49,7 @@ struct ServiceExpenseView: View {
                             HStack {
                                 Text("\(service.odometer)")
                                 Spacer()
-                                Text("\(service.note)")
+                                Text("\(service.note ?? "")")
                                 Spacer()
                                 Text("\(service.vendor?.name ?? "")")
                             }

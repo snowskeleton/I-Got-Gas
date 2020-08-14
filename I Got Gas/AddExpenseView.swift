@@ -110,6 +110,10 @@ struct AddExpenseView: View {
             service.vendor = Vendor(context: self.managedObjectContext)
             service.vehicle = car
             
+//            for futureService in service.vehicle?.futureServices! {
+//                futureService.milesLeft -= ( (Int64(self.odometer) ?? 0) - service.odometer)
+//            }
+            
             service.vendor?.name = self.vendorName
             service.date = self.expenseDate
             
@@ -133,9 +137,9 @@ struct AddExpenseView: View {
                 car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
                 
                 totalCost = 0.00
-                for service in car.services! {
-                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
-                }
+//                for service in car.services! {
+//                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
+//                }
                 car.costPerGallon = totalCost / Double(car.services!.count)
                 
                 
