@@ -68,9 +68,3 @@ struct FutureServiceView: View {
         }
     }
 }
-
-struct FutureServiceView_Previews: PreviewProvider {
-    static var previews: some View {
-        FuelExpenseView(carID: "")
-    }
-}
