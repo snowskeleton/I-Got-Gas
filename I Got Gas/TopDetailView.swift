@@ -13,11 +13,7 @@ struct TopDetailView: View {
     var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     init(carID: String) {
-        
-        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                            sortDescriptors: [],
-                                            predicate: NSPredicate(
-                                                format: "id = %@", carID))
+        carFetchRequest = FetchCar(carID: carID)
     }
     
     var body: some View {

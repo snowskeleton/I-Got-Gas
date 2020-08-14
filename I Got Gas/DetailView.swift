@@ -17,14 +17,11 @@ struct DetailView: View {
     
     @State private var testvar = 0.00
     
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     init(carID: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id = %@", carID))
+        carFetchRequest = FetchCar(carID: carID)
     }
     
     var body: some View {

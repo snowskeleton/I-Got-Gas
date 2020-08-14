@@ -51,3 +51,14 @@ func FetchFutureServices(howMany: Int, carID: String) -> FetchRequest<FutureServ
     return fetchRequest
 }
 
+func FetchCar(carID: String) -> FetchRequest<Car> {
+    let fetchRequest: FetchRequest<Car>
+    let request: NSFetchRequest<Car> = Car.fetchRequest()
+    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    request.predicate = NSPredicate(format: "id = '\(carID)'")
+    request.sortDescriptors = []
+    fetchRequest = FetchRequest<Car>(fetchRequest: request)
+
+    return fetchRequest
+    
+}

@@ -20,11 +20,11 @@ import SwiftUI
 //}
 
 struct CarView: View {
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
-    init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "id = %@", filter))
+    init(carID: String) {
+        carFetchRequest = FetchCar(carID: carID)
     }
     
     var body: some View {
@@ -56,6 +56,6 @@ struct CarView: View {
 
 struct CarView_Previews: PreviewProvider {
     static var previews: some View {
-        CarView(filter: "Hello, Doctor")
+        CarView(carID: "Hello, Doctor")
     }
 }

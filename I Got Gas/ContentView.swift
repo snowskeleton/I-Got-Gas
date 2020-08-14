@@ -31,7 +31,7 @@ struct ContentView: View {
                             self.selectedCarID = car.id ?? ""
                             self.showDetailView.toggle()
                         }) {
-                            CarView(filter: car.id ?? "")
+                            CarView(carID: car.id ?? "")
                         }
                         
                     }.onDelete(perform: crashCar)

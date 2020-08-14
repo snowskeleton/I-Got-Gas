@@ -20,12 +20,8 @@ struct FutureServiceView: View {
     @State var showAddFutureExpenseView = false
     
     init(carID: String) {
-        
-        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                            sortDescriptors: [],
-                                            predicate: NSPredicate(
-                                                format: "id = %@", carID))
-        
+        carFetchRequest = FetchCar(carID: carID)
+
         futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
     }
     
@@ -53,7 +49,7 @@ struct FutureServiceView: View {
                 Button("Schedule Service") {
                     self.showAddFutureExpenseView = true
                 }.sheet(isPresented: self.$showAddFutureExpenseView) {
-                    AddFutureServiceView(filter: car.id ?? "")
+                    AddFutureServiceView(carID: car.id ?? "")
                         .environment(\.managedObjectContext, self.moc)
                 }
             }

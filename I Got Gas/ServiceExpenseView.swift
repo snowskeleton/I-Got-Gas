@@ -20,12 +20,8 @@ struct ServiceExpenseView: View {
     @State var showAddExpenseView = false
     
     init(carID: String) {
-        
-        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                            sortDescriptors: [],
-                                            predicate: NSPredicate(
-                                                format: "id = %@", carID))
-        
+        carFetchRequest = FetchCar(carID: carID)
+
         serviceFetchRequest = FetchServices(howMany: 0,
                                             carID: carID,
                                             filters: [

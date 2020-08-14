@@ -13,8 +13,8 @@ struct AddFutureServiceView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     @State private var today = Date()
     @State private var odometer = ""
@@ -23,12 +23,8 @@ struct AddFutureServiceView: View {
     @State private var months = ""
     @State private var miles = ""
     
-    init(filter: String) {
-        
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id = %@", filter))
+    init(carID: String) {
+        carFetchRequest = FetchCar(carID: carID)
     }
     
     var body: some View {
@@ -105,9 +101,3 @@ struct AddFutureServiceView: View {
     }
     
 }
-
-//struct AddFutureExpenseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddExpenseView(filter: "Hello, darkness").environmentObject(\.presentationMode)
-//    }
-//}

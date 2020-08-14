@@ -28,11 +28,8 @@ struct AddExpenseView: View {
     @State private var odometer = ""
     
     init(carID: String) {
-        
-        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id = %@", carID))
+        carFetchRequest = FetchCar(carID: carID)
+
         futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
     }
     
