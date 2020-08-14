@@ -60,7 +60,7 @@ struct FuelExpenseView: View {
                 Button("Add Expense") {
                     self.showAddExpenseView = true
                 }.sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(filter: car.id ?? "")
+                    AddExpenseView(carID: car.id ?? "")
                         .environment(\.managedObjectContext, self.moc)
                 }
             }

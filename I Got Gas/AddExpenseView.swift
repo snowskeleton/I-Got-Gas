@@ -13,8 +13,10 @@ struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var futureServicesFetchRequest: FetchRequest<FutureService>
+    var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
     @State private var expenseDate = Date()
     
@@ -25,12 +27,13 @@ struct AddExpenseView: View {
     @State private var note = ""
     @State private var odometer = ""
     
-    init(filter: String) {
+    init(carID: String) {
         
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
+        carFetchRequest = FetchRequest<Car>(entity: Car.entity(),
                                          sortDescriptors: [],
                                          predicate: NSPredicate(
-                                            format: "id = %@", filter))
+                                            format: "id = %@", carID))
+        futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
@@ -110,42 +113,44 @@ struct AddExpenseView: View {
             service.vendor = Vendor(context: self.managedObjectContext)
             service.vehicle = car
             
-//            for futureService in service.vehicle?.futureServices! {
-//                futureService.milesLeft -= ( (Int64(self.odometer) ?? 0) - service.odometer)
-//            }
+            for futureService in futureServices {
+                if futureService.startingMiles != 0 {
+                    futureService.milesLeft -= ((Int64(self.odometer) ?? 0) - car.odometer)
+                }
+            }
             
             service.vendor?.name = self.vendorName
             service.date = self.expenseDate
             
             service.cost = Double(self.totalPrice) ?? 0.00
             service.odometer = Int64(self.odometer) ?? 0
-            service.vehicle!.odometer = Int64(self.odometer) ?? 0
+            car.odometer = Int64(self.odometer) ?? 0
             
             try? self.managedObjectContext.save()
 
             if isGas {
                 service.note = "Fuel"
                 service.fuel = Fuel(context: self.managedObjectContext)
-                service.vehicle?.lastFillup = self.expenseDate
+                car.lastFillup = self.expenseDate
                 service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
                 service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
-                
-                var totalCost = 0.00
-                for service in car.services! {
-                    totalCost += ((service as AnyObject).cost)
-                }
-                car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-                
-                totalCost = 0.00
-//                for service in car.services! {
-//                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
-//                }
-                car.costPerGallon = totalCost / Double(car.services!.count)
-                
-                
             } else {
                 service.note = self.note
             }
+            
+            var totalCost = 0.00
+            for service in car.services! {
+                totalCost += ((service as AnyObject).cost)
+            }
+            car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+            
+            totalCost = 0.00
+            for service in car.services! {
+                if ((service as AnyObject).fuel as AnyObject).dpg != nil {
+                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
+                }
+            }
+            car.costPerGallon = totalCost / Double(car.services!.count)
             
             try? self.managedObjectContext.save()
 
