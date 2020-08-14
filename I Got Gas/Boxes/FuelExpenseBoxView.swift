@@ -14,7 +14,7 @@ struct FuelExpenseBoxView: View {
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
     
     init(carID: String) {
-        serviceFetchRequest = FetchServices(howMany: 3,
+        serviceFetchRequest = Fetch.services(howMany: 3,
                                             carID: carID,
                                             filters: [
                                                 "vehicle.id = '\(carID)'",

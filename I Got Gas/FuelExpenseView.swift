@@ -21,9 +21,9 @@ struct FuelExpenseView: View {
     @State var showAddExpenseView = false
     
     init(carID: String) {
-        carFetchRequest = FetchCar(carID: carID)
+        carFetchRequest = Fetch.car(carID: carID)
 
-        serviceFetchRequest = FetchServices(howMany: 0,
+        serviceFetchRequest = Fetch.services(howMany: 0,
                                             carID: carID,
                                             filters: [
                                                 "vehicle.id = '\(carID)'",

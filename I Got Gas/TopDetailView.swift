@@ -13,7 +13,7 @@ struct TopDetailView: View {
     var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     init(carID: String) {
-        carFetchRequest = FetchCar(carID: carID)
+        carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {

@@ -24,7 +24,7 @@ struct AddFutureServiceView: View {
     @State private var miles = ""
     
     init(carID: String) {
-        carFetchRequest = FetchCar(carID: carID)
+        carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {

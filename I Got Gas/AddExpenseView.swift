@@ -28,9 +28,9 @@ struct AddExpenseView: View {
     @State private var odometer = ""
     
     init(carID: String) {
-        carFetchRequest = FetchCar(carID: carID)
+        carFetchRequest = Fetch.car(carID: carID)
 
-        futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {

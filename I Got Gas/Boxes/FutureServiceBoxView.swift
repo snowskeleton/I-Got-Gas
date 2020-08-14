@@ -13,7 +13,7 @@ struct FutureServiceBoxView: View {
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
     init(carID: String) {
-        futureServicesFetchRequest = FetchFutureServices(howMany: 0, carID: carID)
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     
