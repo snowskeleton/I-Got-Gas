@@ -71,6 +71,7 @@ struct AddFutureServiceView: View {
                                     Text("miles")
                                 }
                             }
+                            
                         }
                         
                         Spacer()
