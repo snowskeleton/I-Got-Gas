@@ -75,9 +75,3 @@ struct ServiceExpenseView: View {
         }
     }
 }
-
-struct ServiceExpenseView_Previews: PreviewProvider {
-    static var previews: some View {
-        FuelExpenseView(carID: "")
-    }
-}
