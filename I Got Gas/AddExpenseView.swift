@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     var carFetchRequest: FetchRequest<Car>
@@ -109,8 +109,8 @@ struct AddExpenseView: View {
     func save() -> Void {
         
         for car in car {
-            let service = Service(context: self.managedObjectContext)
-            service.vendor = Vendor(context: self.managedObjectContext)
+            let service = Service(context: self.moc)
+            service.vendor = Vendor(context: self.moc)
             service.vehicle = car
             
             for futureService in futureServices {
@@ -126,12 +126,12 @@ struct AddExpenseView: View {
             service.odometer = Int64(self.odometer) ?? 0
             car.odometer = Int64(self.odometer) ?? 0
             
-            try? self.managedObjectContext.save()
+            try? self.moc.save()
 
             if isGas {
-                service.note = "Fuel"
-                service.fuel = Fuel(context: self.managedObjectContext)
                 car.lastFillup = self.expenseDate
+                service.note = "Fuel"
+                service.fuel = Fuel(context: self.moc)
                 service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
                 service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
             } else {
@@ -152,8 +152,7 @@ struct AddExpenseView: View {
             }
             car.costPerGallon = totalCost / Double(car.services!.count)
             
-            try? self.managedObjectContext.save()
-
+            try? self.moc.save()
         }
         
     }
