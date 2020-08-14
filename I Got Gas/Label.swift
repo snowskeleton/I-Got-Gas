@@ -9,12 +9,23 @@
 import SwiftUI
 
 struct ImageAndTextLable: View {
-    var image: String
+    var systemImage: String? = nil
+    var image: String? = nil
     var text: String
+    
     var body: some View {
-        HStack {
-            Image(systemName: "\(image)")
-            Text("\(text)")
+        if systemImage != nil {
+            HStack {
+                Image(systemName: "\(systemImage!)")
+                Text("\(text)")
+            }
+        } else if image != nil {
+            HStack {
+                Image(image!)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                Text("\(text)")
+            }
         }
     }
 }
