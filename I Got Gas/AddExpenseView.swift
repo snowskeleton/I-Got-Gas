@@ -18,7 +18,10 @@ struct AddExpenseView: View {
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
+    @State var selectedFutureService: Int = -1
+    
     @State private var expenseDate = Date()
+    @State private var today = Date()
     
     @State private var isGas = true
     @State private var totalPrice = ""
@@ -51,11 +54,28 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker("Date",
-                                       selection: self.$expenseDate,
-                                       displayedComponents: .date)
-                                .padding(.top)
-                                .labelsHidden()
+                            Section(header: Text("Date")) {
+                                DatePicker("Date",
+                                           selection: self.$expenseDate,
+                                           displayedComponents: .date)
+                                    .padding(.top)
+                                    .labelsHidden()
+                            }
+                            if !self.isGas {
+                                Section(header: Text("Scheduled Service")) {
+                                    
+                                    Picker(selection: self.$selectedFutureService,
+                                           label: Text("Scheduled Service")) {
+                                        
+                                        Text("").tag(-1)
+                                        
+                                        ForEach(0 ..< futureServices.count) {
+                                            Text("\(futureServices[$0].name!)")
+                                        }
+                                        
+                                    }
+                                }
+                            }
                             
                             Section(header: Text("Details")) {
                                 
@@ -104,22 +124,39 @@ struct AddExpenseView: View {
     }
     
     func save() -> Void {
-        
         for car in car {
             let service = Service(context: self.moc)
             service.vendor = Vendor(context: self.moc)
             service.vehicle = car
             
+            if Int64(self.odometer)! > car.odometer {
+                car.odometer = Int64(self.odometer)!
+            }
+            
             for futureService in futureServices {
                 if futureService.startingMiles != 0 {
-                    futureService.milesLeft -= ((Int64(self.odometer) ?? 0) - car.odometer)
+                    
+                    futureService.milesLeft -= ( car.odometer - (Int64(self.odometer)!))
+                    
                     if futureService.milesLeft <= 0 {
                         futureService.important = true
                     }
+                    
                     if futureService.date! < Date() {
                         futureService.important = true
                     }
+                    
                 }
+            }
+            if selectedFutureService > -1 {
+                futureServices[selectedFutureService].important = false
+                futureServices[selectedFutureService].milesLeft = futureServices[selectedFutureService].startingMiles
+
+                futureServices[selectedFutureService].date = Calendar
+                    .current
+                    .date(byAdding: .month,
+                          value: Int(futureServices[selectedFutureService].months),
+                          to: today)!
             }
             
             service.vendor?.name = self.vendorName
@@ -127,7 +164,9 @@ struct AddExpenseView: View {
             
             service.cost = Double(self.totalPrice) ?? 0.00
             service.odometer = Int64(self.odometer) ?? 0
-            car.odometer = Int64(self.odometer) ?? 0
+            
+
+                
             
             try? self.moc.save()
 
