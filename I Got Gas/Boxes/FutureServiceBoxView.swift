@@ -32,7 +32,7 @@ struct FutureServiceBoxView: View {
                                                             ? Color.white
                                                             : Color.black))
                                 Spacer()
-                                Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
+                                Text("\(futureService.targetOdometer - futureService.vehicle!.odometer)/\(futureService.everyXMiles)")
                             }
                             HStack {
                                 Spacer()

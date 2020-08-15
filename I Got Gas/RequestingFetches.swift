@@ -56,20 +56,19 @@ struct Fetch {
         request.fetchLimit = howMany
         
         if important! {
-            request.sortDescriptors! += [(NSSortDescriptor(key: "important", ascending: true))]
+            request.sortDescriptors! += [(NSSortDescriptor(key: "important", ascending: false))]
         }
         
         request.sortDescriptors = [
             NSSortDescriptor(
-                key: "milesLeft",
-                ascending: false),
+                key: "targetOdometer",
+                ascending: true),
             NSSortDescriptor(
                 key: "date",
                 ascending: true)
         ]
         
         fetchRequest = FetchRequest<FutureService>(fetchRequest: request)
-        print(fetchRequest)
         return fetchRequest
     }
 }

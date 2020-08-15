@@ -145,13 +145,9 @@ struct AddExpenseView: View {
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
         
         for futureService in futureServices {
-            if futureService.startingMiles != 0 {
+            if futureService.everyXMiles != 0 {
                 
-                if car.odometer < Int64(self.odometer)! {
-                    futureService.milesLeft -= (Int64(self.odometer)! - car.odometer)
-                }
-                
-                if futureService.milesLeft <= 0 {
+                if futureService.targetOdometer <= Int64(self.odometer)! {
                     futureService.important = true
                 }
                 
@@ -166,20 +162,10 @@ struct AddExpenseView: View {
     
     fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
         if selectedFutureService > -1 {
-            futureServices[selectedFutureService].important = false
-            
-            if car.odometer < Int64(self.odometer)! {
-                futureServices[selectedFutureService].milesLeft = futureServices[selectedFutureService].startingMiles
-                futureServices[selectedFutureService].targetOdometer = (Int64(self.odometer)! + car.odometer + futureServices[selectedFutureService].startingMiles)
-            } else {
-                futureServices[selectedFutureService].milesLeft = (car.odometer - futureServices[selectedFutureService].startingMiles)
-            }
-            
-            futureServices[selectedFutureService].date = Calendar
-                .current
-                .date(byAdding: .month,
-                      value: Int(futureServices[selectedFutureService].months),
-                      to: expenseDate)!
+            let service = futureServices[selectedFutureService]
+            service.important = false
+            service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
+            service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
         }
     }
     

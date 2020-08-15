@@ -35,7 +35,7 @@ struct FutureServiceView: View {
                             HStack {
                                 Text("\(futureService.name ?? "")")
                                 Spacer()
-                                Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
+                                Text("\(futureService.targetOdometer - car.odometer)/\(futureService.everyXMiles)")
                             }
                             HStack {
                                 Text("\(futureService.note ?? "")")
