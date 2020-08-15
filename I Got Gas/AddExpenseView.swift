@@ -21,7 +21,6 @@ struct AddExpenseView: View {
     @State var selectedFutureService: Int = -1
     
     @State private var expenseDate = Date()
-    @State private var today = Date()
     
     @State private var isGas = true
     @State private var totalPrice = ""
@@ -129,74 +128,101 @@ struct AddExpenseView: View {
             service.vendor = Vendor(context: self.moc)
             service.vehicle = car
             
-            if Int64(self.odometer)! > car.odometer {
-                car.odometer = Int64(self.odometer)!
-            }
-            
-            for futureService in futureServices {
-                if futureService.startingMiles != 0 {
-                    
-                    futureService.milesLeft -= ( car.odometer - (Int64(self.odometer)!))
-                    
-                    if futureService.milesLeft <= 0 {
-                        futureService.important = true
-                    }
-                    
-                    if futureService.date! < Date() {
-                        futureService.important = true
-                    }
-                    
-                }
-            }
-            if selectedFutureService > -1 {
-                futureServices[selectedFutureService].important = false
-                futureServices[selectedFutureService].milesLeft = futureServices[selectedFutureService].startingMiles
-
-                futureServices[selectedFutureService].date = Calendar
-                    .current
-                    .date(byAdding: .month,
-                          value: Int(futureServices[selectedFutureService].months),
-                          to: today)!
-            }
-            
-            service.vendor?.name = self.vendorName
-            service.date = self.expenseDate
-            
-            service.cost = Double(self.totalPrice) ?? 0.00
-            service.odometer = Int64(self.odometer) ?? 0
-            
-
-                
+            updateFutureServices(car)
+            setFutureInStone(car)
+            updateCarOdometer(car)
+            setServiceStats(service)
             
             try? self.moc.save()
 
-            if isGas {
-                car.lastFillup = self.expenseDate
-                service.note = "Fuel"
-                service.fuel = Fuel(context: self.moc)
-                service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-                service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
-            } else {
-                service.note = self.note
-            }
-            
-            var totalCost = 0.00
-            var fuelCost = 0.00
-            
-            for service in car.services! {
-                totalCost += ((service as AnyObject).cost)
-                
-                if ((service as AnyObject).fuel as AnyObject).dpg != nil {
-                    fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
-                }
-            }
-            car.costPerGallon = fuelCost / Double(car.services!.count)
-            car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-
+            setFuelDetails(car, service)
+            updateCarStats(car)
             
             try? self.moc.save()
         }
+    }
+    
+    fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
         
+        for futureService in futureServices {
+            if futureService.startingMiles != 0 {
+                
+                if car.odometer < Int64(self.odometer)! {
+                    futureService.milesLeft -= (Int64(self.odometer)! - car.odometer)
+                }
+                
+                if futureService.milesLeft <= 0 {
+                    futureService.important = true
+                }
+                
+            }
+            
+            if futureService.date! < Date() {
+                futureService.important = true
+            }
+
+        }
+    }
+    
+    fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
+        if selectedFutureService > -1 {
+            futureServices[selectedFutureService].important = false
+            
+            if car.odometer < Int64(self.odometer)! {
+                futureServices[selectedFutureService].milesLeft = futureServices[selectedFutureService].startingMiles
+                futureServices[selectedFutureService].targetOdometer = (Int64(self.odometer)! + car.odometer + futureServices[selectedFutureService].startingMiles)
+            } else {
+                futureServices[selectedFutureService].milesLeft = (car.odometer - futureServices[selectedFutureService].startingMiles)
+            }
+            
+            futureServices[selectedFutureService].date = Calendar
+                .current
+                .date(byAdding: .month,
+                      value: Int(futureServices[selectedFutureService].months),
+                      to: expenseDate)!
+        }
+    }
+    
+    fileprivate func updateCarOdometer(_ car: FetchedResults<Car>.Element) {
+        if Int64(self.odometer)! > car.odometer {
+            car.odometer = Int64(self.odometer)!
+        }
+    }
+    
+    fileprivate func setFuelDetails(_ car: FetchedResults<Car>.Element, _ service: Service) {
+        if isGas {
+            car.lastFillup = self.expenseDate
+            service.note = "Fuel"
+            service.fuel = Fuel(context: self.moc)
+            service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
+            service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
+        } else {
+            service.note = self.note
+        }
+    }
+    
+    fileprivate func updateCarStats(_ car: FetchedResults<Car>.Element) {
+        
+        var totalCost = 0.00
+        var fuelCost = 0.00
+        
+        for service in car.services! {
+            totalCost += ((service as AnyObject).cost)
+            
+            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
+                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
+            }
+        }
+        car.costPerGallon = fuelCost / Double(car.services!.count)
+        car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+    }
+    
+    fileprivate func setServiceStats(_ service: Service) {
+        service.vendor?.name = self.vendorName
+        service.date = self.expenseDate
+        
+        service.cost = Double(self.totalPrice) ?? 0.00
+        service.odometer = Int64(self.odometer) ?? 0
     }
     
 }

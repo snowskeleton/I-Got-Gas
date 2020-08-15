@@ -89,8 +89,8 @@ struct AddFutureServiceView: View {
             futureService.vehicle = car
             
             futureService.name = self.name
-            futureService.milesLeft = Int64(self.miles) ?? 0
-            futureService.startingMiles = Int64(self.miles) ?? 0
+//            futureService.milesLeft = Int64(self.miles) ?? 0
+            futureService.everyXMiles = Int64(self.miles) ?? 0
             futureService.months = Int64(self.months) ?? 0
             futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
             futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
