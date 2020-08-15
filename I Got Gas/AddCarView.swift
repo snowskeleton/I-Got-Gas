@@ -14,9 +14,7 @@ struct AddCarView: View {
     
     @Binding var show: Bool
     @State private var buttonEnabled = false
-    
-    @State private var carName = ""
-    
+        
     @State private var carYear = 0
     @State private var showsYearPicker = false
     
@@ -105,7 +103,6 @@ struct AddCarView: View {
     
     func save() {
         let car = Car(context: self.managedObjectContext)
-        car.name = self.carName
         car.year = String(self.carYear)
         car.make = self.carMake
         car.model = self.carModel
