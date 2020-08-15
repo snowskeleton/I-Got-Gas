@@ -17,7 +17,7 @@ struct AddCarView: View {
     
     @State private var carName = ""
     
-    @State var carYear = 0
+    @State private var carYear = 0
     @State private var showsYearPicker = false
     
     @State private var carMake = ""
