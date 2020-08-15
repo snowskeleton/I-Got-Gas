@@ -17,11 +17,11 @@ struct EditCarView: View {
     @State private var showsYearPicker = false
     @State private var carYear: Int64 = 0
     
-    @State private var carMake: String
-    @State private var carModel: String
-    @State private var carPlate: String
-    @State private var carVIN: String
-    @State private var carOdometer: String
+    @State private var carMake: String = ""
+    @State private var carModel: String = ""
+    @State private var carPlate: String = ""
+    @State private var carVIN: String = ""
+    @State private var carOdometer: String = ""
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
@@ -88,7 +88,7 @@ struct EditCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
-        car.odometer = Int64(self.carOdometer) ?? 0
+        car.odometer = Int64(self.carOdometer)!
         try? self.managedObjectContext.save()
     }
 }
