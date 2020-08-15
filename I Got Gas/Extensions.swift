@@ -98,3 +98,18 @@ struct DetailBoxStyle<V: View>: GroupBoxStyle {
         }.buttonStyle(PlainButtonStyle())
     }
 }
+
+
+struct BackgroundView : UIViewRepresentable {
+    
+    var color: UIColor = .systemBackground
+    
+    func makeUIView(context: Context) -> UIView {
+        UIView(frame: .zero)
+    }
+    
+    func updateUIView(_ view: UIView, context: Context) {
+        view.backgroundColor = color
+    }
+    
+}
