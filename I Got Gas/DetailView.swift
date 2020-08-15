@@ -37,21 +37,15 @@ struct DetailView: View {
                         VStack(spacing: 8) {
                             EmptyView()
                             FuelExpenseBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(
-                                                color: .black,
-                                                destination: FuelExpenseView(carID: car.id ?? "")))
+                                .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id ?? "")))
                                 
                                 
                             
                             ServiceExpenseBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(
-                                                color: .black,
-                                                destination: ServiceExpenseView(carID: car.id ?? "")))
+                                .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(carID: car.id ?? "")))
                             
                             FutureServiceBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(
-                                                color: .black,
-                                                destination: FutureServiceView(
+                                .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
                                                     carID: car.id ?? "")))
                                 
                             

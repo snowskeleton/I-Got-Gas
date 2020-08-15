@@ -10,6 +10,8 @@ import SwiftUI
 import CoreData
 
 struct FuelExpenseBoxView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var serviceFetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
     
@@ -23,7 +25,7 @@ struct FuelExpenseBoxView: View {
     }
     
     var body: some View {
-        GroupBox(label: ImageAndTextLable(image: "gasHandle", text: "Fuel")) {
+        GroupBox(label: ImageAndTextLable(image: (colorScheme == .dark ? "gasHandleDarkMode" : "gasHandle"), text: "Fuel")) {
             VStack(alignment: .leading) {
                 ForEach(services, id: \.self) { service in
                     HStack {

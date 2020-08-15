@@ -77,7 +77,7 @@ where Content: View, Item: Hashable, Label: View
 
 
 struct DetailBoxStyle<V: View>: GroupBoxStyle {
-    var color: Color
+//    var color: Color
     var destination: V
     var date: Date?
     
@@ -86,7 +86,7 @@ struct DetailBoxStyle<V: View>: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         NavigationLink(destination: destination) {
             GroupBox(label: HStack {
-                configuration.label.foregroundColor(color)
+                configuration.label//.foregroundColor(color)
                 Spacer()
                 if date != nil {
                     Text("\(date!)").font(.footnote).foregroundColor(.secondary).padding(.trailing, 4)

@@ -92,8 +92,7 @@ struct AddFutureServiceView: View {
             futureService.milesLeft = Int64(self.miles) ?? 0
             futureService.startingMiles = Int64(self.miles) ?? 0
             futureService.months = Int64(self.months) ?? 0
-            print((car.odometer + (Int64(self.miles) ?? 0)))
-            futureService.odometer = (car.odometer + (Int64(self.miles) ?? 0))
+            futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
             futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
             
             try? self.managedObjectContext.save()
