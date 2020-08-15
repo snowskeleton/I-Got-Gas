@@ -20,6 +20,8 @@ struct TopDetailView: View {
         ForEach(car, id: \.self) { car in
             VStack {
                 HStack {
+                    Spacer()
+
                     VStack {
                         Text("Cost Per Mile")
                             .font(.system(size: 10))
@@ -29,18 +31,12 @@ struct TopDetailView: View {
                     Spacer()
                     
                     VStack {
-                        Text("Mean Fillup Time")
-                            .font(.system(size: 10))
-                        Text("6 days")
-                    }
-                    
-                    Spacer()
-                    
-                    VStack {
                         Text("Avg $/gal")
                             .font(.system(size: 10))
                         Text("\(car.costPerGallon, specifier: "%.2f")/gal")
-                    }.padding(.trailing)
+                    }
+                    Spacer()
+
                 }
                 .padding(.top)
                 .font(.system(size: 30))
