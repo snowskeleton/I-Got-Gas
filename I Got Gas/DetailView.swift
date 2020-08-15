@@ -18,73 +18,48 @@ struct DetailView: View {
     @State private var testvar = 0.00
     
     var carFetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var car: Car { carFetchRequest.wrappedValue[0] }
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
+        VStack {
+            TopDetailView(carID: car.id ?? "")
+            
+            Spacer()
             
             VStack {
-                TopDetailView(carID: car.id ?? "")
-                
-                Spacer()
-                
-                VStack {
-                    ScrollView {
-                        VStack(spacing: 8) {
-                            EmptyView()
-                            FuelExpenseBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id ?? "")))
-                                
-                                
-                            
-                            ServiceExpenseBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(carID: car.id ?? "")))
-                            
-                            FutureServiceBoxView(carID: car.id ?? "")
-                                .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
-                                                    carID: car.id ?? "")))
-                                
-                            
-                        }.padding()
-                    }
-                }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-                
-                Spacer()
-                
-                Button("Add Expense") {
-                    self.showAddExpenseView = true
-                }.sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(carID: car.id ?? "")
-                        .environment(\.managedObjectContext, self.moc)
+                ScrollView {
+                    VStack(spacing: 8) {
+                        EmptyView()
+                        FuelExpenseBoxView(carID: car.id ?? "")
+                            .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id ?? "")))
+                        
+                        
+                        
+                        ServiceExpenseBoxView(carID: car.id ?? "")
+                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(carID: car.id ?? "")))
+                        
+                        FutureServiceBoxView(carID: car.id ?? "")
+                            .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
+                                                            carID: car.id ?? "")))
+                        
+                        
+                    }.padding()
                 }
-            }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),
-                                 displayMode: .inline)
-        }
+            }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
+            
+            Spacer()
+            
+            Button("Add Expense") {
+                self.showAddExpenseView = true
+            }.sheet(isPresented: self.$showAddExpenseView) {
+                AddExpenseView(carID: car.id ?? "")
+                    .environment(\.managedObjectContext, self.moc)
+            }
+        }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),
+                             displayMode: .inline)
     }
 }
-
-
-
-
-
-//struct DetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//        //Test data
-//        let carSelected = Car.init(context: context)
-//        carSelected.name = ""
-//        carSelected.year = ""
-//        carSelected.make = ""
-//        carSelected.model = ""
-//        carSelected.plate = ""
-//        carSelected.vin = ""
-//        return DetailView(filter: "Howdy, doody")
-//            .environment(\.managedObjectContext, context)
-//
-//        //        AddEntryView(show: Binding.constant(true), car: "Mine")
-//    }
-//}

@@ -10,41 +10,37 @@ import SwiftUI
 
 struct TopDetailView: View {
     var carFetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var car: Car { carFetchRequest.wrappedValue[0] }
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
-            VStack {
-                HStack {
-                    Spacer()
-
-                    VStack {
-                        Text("Cost Per Mile")
-                            .font(.system(size: 10))
-                        Text("\(car.costPerMile, specifier: "%.2f")/m")
-                    }.padding(.leading)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        Text("Avg $/gal")
-                            .font(.system(size: 10))
-                        Text("\(car.costPerGallon, specifier: "%.2f")/gal")
-                    }
-                    Spacer()
-
-                }
-                .padding(.top)
-                .font(.system(size: 30))
+        VStack {
+            HStack {
+                Spacer()
                 
-                Text("\(car.odometer)")
+                VStack {
+                    Text("Cost Per Mile")
+                        .font(.system(size: 10))
+                    Text("\(car.costPerMile, specifier: "%.2f")/m")
+                }.padding(.leading)
+                
+                Spacer()
+                
+                VStack {
+                    Text("Avg $/gal")
+                        .font(.system(size: 10))
+                    Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                }
+                Spacer()
+                
             }
+            .padding(.top)
+            .font(.system(size: 30))
             
+            Text("\(car.odometer)")
         }
-        
     }
 }

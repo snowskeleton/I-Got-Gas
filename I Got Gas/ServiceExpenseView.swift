@@ -12,7 +12,7 @@ import CoreData
 struct ServiceExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     var carFetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var car: Car { carFetchRequest.wrappedValue[0] }
     
     var serviceFetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
@@ -21,44 +21,42 @@ struct ServiceExpenseView: View {
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
-
+        
         serviceFetchRequest = Fetch.services(howMany: 0,
-                                            carID: carID,
-                                            filters: [
+                                             carID: carID,
+                                             filters: [
                                                 "vehicle.id = '\(carID)'",
                                                 "note != 'Fuel'"
-                                            ])
+                                             ])
     }
     
     
     var body: some View {
         VStack {
-            ForEach(car, id: \.self) { car in
-                List {
-                    ForEach(services, id: \.self) { service in
-                        VStack {
-                            HStack {
-                                Text("$\(service.cost, specifier: "%.2f")")
-                                Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
-                            }
-                            HStack {
-                                Text("\(service.odometer)")
-                                Spacer()
-                                Text("\(service.note ?? "")")
-                                Spacer()
-                                Text("\(service.vendor?.name ?? "")")
-                            }
+            List {
+                ForEach(services, id: \.self) { service in
+                    VStack {
+                        HStack {
+                            Text("$\(service.cost, specifier: "%.2f")")
+                            Spacer()
+                            Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                         }
-                    }.onDelete(perform: loseMemory)
-                }
-                Spacer()
-                Button("Add Expense") {
-                    self.showAddExpenseView = true
-                }.sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(carID: car.id ?? "")
-                        .environment(\.managedObjectContext, self.moc)
-                }
+                        HStack {
+                            Text("\(service.odometer)")
+                            Spacer()
+                            Text("\(service.note ?? "")")
+                            Spacer()
+                            Text("\(service.vendor?.name ?? "")")
+                        }
+                    }
+                }.onDelete(perform: loseMemory)
+            }
+            Spacer()
+            Button("Add Expense") {
+                self.showAddExpenseView = true
+            }.sheet(isPresented: self.$showAddExpenseView) {
+                AddExpenseView(carID: car.id ?? "")
+                    .environment(\.managedObjectContext, self.moc)
             }
         }
     }
@@ -68,7 +66,7 @@ struct ServiceExpenseView: View {
             let service = services[index]
             moc.delete(service)
             try? self.moc.save()
-            AddExpenseView(carID: car[0].id ?? "").updateCarStats(car[0])
+            AddExpenseView(carID: car.id ?? "").updateCarStats(car)
         }
     }
 }

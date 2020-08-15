@@ -21,14 +21,13 @@ import SwiftUI
 
 struct CarView: View {
     var carFetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var car: Car { carFetchRequest.wrappedValue[0] }
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
             HStack {
                 Image(systemName: "star.fill")
                     .font(.system(size: 60))
@@ -50,12 +49,5 @@ struct CarView: View {
             .cornerRadius(20)
             .padding(.horizontal, 20)
             
-        }
-    }
-}
-
-struct CarView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarView(carID: "Hello, Doctor")
     }
 }

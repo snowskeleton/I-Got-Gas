@@ -66,22 +66,3 @@ struct ContentView: View {
     }
     
 }
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        //Test data
-        let car = Car.init(context: context)
-        car.name = ""
-        car.year = ""
-        car.make = ""
-        car.model = ""
-        car.plate = ""
-        car.vin = ""
-        return ContentView().environment(\.managedObjectContext, context)
-        
-        //        ContentView()
-    }
-}
