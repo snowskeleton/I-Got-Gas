@@ -136,18 +136,18 @@ struct AddExpenseView: View {
             }
             
             var totalCost = 0.00
+            var fuelCost = 0.00
+            
             for service in car.services! {
                 totalCost += ((service as AnyObject).cost)
-            }
-            car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-            
-            totalCost = 0.00
-            for service in car.services! {
+                
                 if ((service as AnyObject).fuel as AnyObject).dpg != nil {
-                    totalCost += ((service as AnyObject).fuel as AnyObject).dpg
+                    fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
                 }
             }
-            car.costPerGallon = totalCost / Double(car.services!.count)
+            car.costPerGallon = fuelCost / Double(car.services!.count)
+            car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+
             
             try? self.moc.save()
         }
