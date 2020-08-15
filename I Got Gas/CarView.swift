@@ -45,7 +45,7 @@ struct CarView: View {
                 Spacer()
             }
             .padding(.vertical, 20)
-            .background(BackgroundView(color: .systemBlue))
+            .background(Color(.systemBlue))
             .opacity(0.8)
             .cornerRadius(20)
             .padding(.horizontal, 20)
