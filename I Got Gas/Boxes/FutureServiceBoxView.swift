@@ -24,6 +24,7 @@ struct FutureServiceBoxView: View {
                         VStack {
                             HStack {
                                 Text("\(futureService.name!)")
+                                    .foregroundColor(futureService.important ? Color.red : Color.green)
                                 Spacer()
                                 Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
                             }
