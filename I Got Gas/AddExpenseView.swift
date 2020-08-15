@@ -146,17 +146,13 @@ struct AddExpenseView: View {
         
         for futureService in futureServices {
             if futureService.everyXMiles != 0 {
-                
                 if futureService.targetOdometer <= Int64(self.odometer)! {
                     futureService.important = true
                 }
-                
             }
-            
             if futureService.date! < Date() {
                 futureService.important = true
             }
-
         }
     }
     
