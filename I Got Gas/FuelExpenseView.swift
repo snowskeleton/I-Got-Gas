@@ -67,6 +67,7 @@ struct FuelExpenseView: View {
             let service = services[index]
             moc.delete(service)
             try? self.moc.save()
+            AddExpenseView(carID: car[0].id ?? "").updateCarStats(car[0])
         }
     }
 }

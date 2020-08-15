@@ -183,7 +183,7 @@ struct AddExpenseView: View {
         }
     }
     
-    fileprivate func updateCarStats(_ car: FetchedResults<Car>.Element) {
+    public func updateCarStats(_ car: FetchedResults<Car>.Element) {
         
         var totalCost = 0.00
         var fuelCost = 0.00
@@ -197,6 +197,7 @@ struct AddExpenseView: View {
         }
         car.costPerGallon = fuelCost / Double(car.services!.count)
         car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+        try? self.moc.save()
     }
     
     fileprivate func setServiceStats(_ service: Service) {
