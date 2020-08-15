@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct FutureServiceBoxView: View {
+    @Environment(\.colorScheme) var colorScheme
+
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
@@ -24,7 +26,11 @@ struct FutureServiceBoxView: View {
                         VStack {
                             HStack {
                                 Text("\(futureService.name!)")
-                                    .foregroundColor(futureService.important ? Color.red : Color.green)
+                                    .foregroundColor(futureService.important
+                                                        ? Color.red
+                                                        : (colorScheme == .dark
+                                                            ? Color.white
+                                                            : Color.black))
                                 Spacer()
                                 Text("\(futureService.milesLeft)/\(futureService.startingMiles)")
                             }
