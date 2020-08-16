@@ -7,31 +7,21 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct EditCarView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var moc
+    @State var car: Car
 
-    var carFetchRequest: FetchRequest<Car>
-    var car: Car { carFetchRequest.wrappedValue[0] }
-    
     @State private var showsYearPicker = false
     @State private var carYear: Int64 = 0
-    
     @State private var carMake: String = ""
     @State private var carModel: String = ""
     @State private var carPlate: String = ""
     @State private var carVIN: String = ""
-    @State private var carOdometer: String = ""
-    
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
-        carMake = car.make!
-        carYear = Int64(car.year!)!
-        carModel = car.model!
-        carPlate = car.plate!
-        carVIN = car.vin!
-        carOdometer = String(car.odometer)
-    }
+//    @State private var carOdometer: String = ""
+
 
     var body: some View {
         VStack {
@@ -50,51 +40,58 @@ struct EditCarView: View {
                             }
                             .animation(.easeInOut)
                             if !self.showsYearPicker {
-                                Text(carYear == 0 ? "Year: " : "\(carYear.formattedWithoutSeparator)")
+                                Text(carYear == 0 ? "\(car.year!)" : "\(carYear.formattedWithoutSeparator)")
                                     .onTapGesture {
                                         self.showsYearPicker.toggle()
                                 }
                             }
-                            TextField("* Make",
-                                      text: self.$carMake)
-                            TextField("* Model",
-                                      text: self.$carModel)
-                            TextField("* Current Odometer",
-                                      text: self.$carOdometer)
-                                .keyboardType(.numberPad)
-                            TextField("* License Plate",
-                                      text: self.$carPlate)
-                            TextField("* VIN",
-                                      text: self.$carVIN)
+                    TextField("\(car.make!)",
+                              text: $carMake)
+                            TextField("\(car.model!)",
+                                      text: $carModel)
+//                            TextField("\(car.odometer)",
+//                                      text: $carOdometer)
+//                                .keyboardType(.numberPad)
+                            TextField("\(car.plate!)",
+                                      text: $carPlate)
+                            TextField("\(car.vin!)",
+                                      text: $carVIN)
                         }
                     }
                 }
                 .navigationBarTitle("Repaint the Car!")
             }
-            
+
             Spacer()
-            
+
             Button(action: {
                 self.save()
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Finalize Rebuild")
             }
         }
     }
-    
-    func save() {
-        car.year = String(self.carYear)
-        car.make = self.carMake
-        car.model = self.carModel
-        car.plate = self.carPlate
-        car.vin = self.carVIN
-        car.odometer = Int64(self.carOdometer)!
-        try? self.managedObjectContext.save()
-    }
-}
 
-struct EditCarView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditCarView(carID: "Hello, darkness")
+    func save() {
+        if carYear != 0 {
+            car.year = String(self.carYear)
+        }
+        if carMake != "" {
+            car.make = self.carMake
+        }
+        if carModel != "" {
+            car.model = self.carModel
+        }
+        if carPlate != "" {
+            car.plate = self.carPlate
+        }
+        if carVIN != "" {
+            car.vin = self.carVIN
+        }
+//        if carOdometer != "" {
+//            car.odometer = Int64(self.carOdometer)!
+//        }
+        try? self.moc.save()
     }
 }

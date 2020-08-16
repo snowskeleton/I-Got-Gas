@@ -15,7 +15,7 @@ struct DetailView: View {
     @State var showAddExpenseView = false
     @State var showFuelExpenseView = false
     
-    @State private var testvar = 0.00
+    @State private var showEditCarView = false
     
     var carFetchRequest: FetchRequest<Car>
     var car: Car { carFetchRequest.wrappedValue[0] }
@@ -61,5 +61,11 @@ struct DetailView: View {
             }
         }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),
                              displayMode: .inline)
+        .navigationBarItems(trailing:
+                                Button("Edit") {
+                                    self.showEditCarView.toggle()
+                                }.sheet(isPresented: self.$showEditCarView) {
+                                    EditCarView(car: car)
+                                })
     }
 }

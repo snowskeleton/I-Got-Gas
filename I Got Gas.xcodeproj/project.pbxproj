@@ -19,6 +19,7 @@
 		805B415624CDF5080085DB47 /* CarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B415524CDF5080085DB47 /* CarView.swift */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
 		806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */; };
+		80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802C9D24E8A2B7009DFF25 /* EditCarView.swift */; };
 		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
@@ -49,6 +50,7 @@
 		805B415524CDF5080085DB47 /* CarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarView.swift; sourceTree = "<group>"; };
 		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseView.swift; sourceTree = "<group>"; };
+		80802C9D24E8A2B7009DFF25 /* EditCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarView.swift; sourceTree = "<group>"; };
 		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
+				80802C9D24E8A2B7009DFF25 /* EditCarView.swift */,
 				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
 				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
@@ -239,6 +242,7 @@
 				80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */,
 				80B1D06F24DDE70C0090390E /* Label.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
+				80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */,
 				80D4D3E324E459460005650B /* AddFutureServiceView.swift in Sources */,
 				805B415624CDF5080085DB47 /* CarView.swift in Sources */,
 			);
