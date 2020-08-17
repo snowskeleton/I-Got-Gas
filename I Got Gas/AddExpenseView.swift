@@ -23,7 +23,7 @@ struct AddExpenseView: View {
     @State private var expenseDate = Date()
     
     @State private var isGas = true
-    @State private var totalPrice = ""
+    @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
@@ -77,26 +77,22 @@ struct AddExpenseView: View {
                         
                         Section(header: Text("Details")) {
                             
-                            HStack {
-                                Text("$")
-                                TextField("Price", text: self.$totalPrice)
-                                    .keyboardType(.decimalPad)
-                            }.font(.system(size: 30))
+                            
+                            CurrencyTextField("Price", value: self.$totalPrice)
+                                .font(.largeTitle)
+                                .multilineTextAlignment(TextAlignment.leading)
+                            
                             
                             if self.isGas {
-                                HStack {
-                                    Text("   ")
-                                    TextField("Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                }.font(.system(size: 30))
+                                TextField("Gallons", text: self.$gallonsOfGas)
+                                    .keyboardType(.decimalPad)
+                                    .font(.largeTitle)
                             }
                             
-                            HStack {
-                                Text("   ")
-                                TextField("Odometer", value: self.$odometer,
-                                          formatter: NumberFormatter.withCommaSeparator)
-                                    .keyboardType(.decimalPad)
-                            }.font(.system(size: 30))
+                            TextField("Odometer", value: self.$odometer,
+                                      formatter: NumberFormatter.withCommaSeparator)
+                                .keyboardType(.decimalPad)
+                                .font(.largeTitle)
                             
                         }
                         
@@ -174,7 +170,7 @@ struct AddExpenseView: View {
             service.note = "Fuel"
             service.fuel = Fuel(context: self.moc)
             service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-            service.fuel?.dpg = ((Double(self.totalPrice) ?? 0.00) / (Double(self.gallonsOfGas) ?? 0.00))
+            service.fuel?.dpg = ((self.totalPrice!) / (Double(self.gallonsOfGas) ?? 0.00))
         } else {
             service.note = self.note
         }
@@ -201,7 +197,7 @@ struct AddExpenseView: View {
         service.vendor?.name = self.vendorName
         service.date = self.expenseDate
         
-        service.cost = Double(self.totalPrice) ?? 0.00
+        service.cost = self.totalPrice!
         service.odometer = self.odometer!
     }
     
