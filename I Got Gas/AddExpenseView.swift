@@ -90,12 +90,16 @@ struct AddExpenseView: View {
                                 TextField("Gallons", text: self.$gallonsOfGas)
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
                             }
                             
                             TextField("Odometer", value: self.$odometer,
                                       formatter: NumberFormatter.withCommaSeparator)
                                 .keyboardType(.decimalPad)
                                 .font(.largeTitle)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                             
                         }
                         
@@ -104,6 +108,8 @@ struct AddExpenseView: View {
                             
                             if !self.isGas {
                                 TextField("Service Notes", text: self.$note)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
                             }
                         }
                     }

@@ -32,7 +32,9 @@
 		80D4D3E524E45C970005650B /* FutureServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E424E45C970005650B /* FutureServiceView.swift */; };
 		80D61AFF24E9FD84007A0C8F /* YearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61AFE24E9FD84007A0C8F /* YearPicker.swift */; };
 		80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */; };
-		80D61B0324EAD9BF007A0C8F /* extensions in Resources */ = {isa = PBXBuildFile; fileRef = 80D61B0224EAD9BF007A0C8F /* extensions */; };
+		80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */; };
+		80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */; };
+		80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */; };
 		80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */; };
 		80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */; };
 		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
@@ -66,7 +68,9 @@
 		80D4D3E424E45C970005650B /* FutureServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceView.swift; sourceTree = "<group>"; };
 		80D61AFE24E9FD84007A0C8F /* YearPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearPicker.swift; sourceTree = "<group>"; };
 		80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
-		80D61B0224EAD9BF007A0C8F /* extensions */ = {isa = PBXFileReference; lastKnownFileType = folder; name = extensions; path = ../../SwiftUIKit/Sources/SwiftUIKit/extensions; sourceTree = "<group>"; };
+		80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dismissKeyboardOnSwipe.swift; sourceTree = "<group>"; };
+		80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adaptToKeyboard.swift; sourceTree = "<group>"; };
+		80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dismissKeyboardOnTap.swift; sourceTree = "<group>"; };
 		80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseBoxView.swift; sourceTree = "<group>"; };
 		80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceBoxView.swift; sourceTree = "<group>"; };
 		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
@@ -118,10 +122,10 @@
 				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
 				805B415524CDF5080085DB47 /* CarView.swift */,
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
-				805BAB8224D335E10026FA6F /* Extensions.swift */,
 				80D61AFE24E9FD84007A0C8F /* YearPicker.swift */,
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
-				80D61B0224EAD9BF007A0C8F /* extensions */,
+				805BAB8224D335E10026FA6F /* Extensions.swift */,
+				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
@@ -148,6 +152,16 @@
 				80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */,
 			);
 			path = "Long Stuff";
+			sourceTree = "<group>";
+		};
+		80D61B0624EAEFEE007A0C8F /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */,
+				80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */,
+				80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		80E7534524DE3B4400277392 /* Boxes */ = {
@@ -220,7 +234,6 @@
 			files = (
 				80A230B824D74C6D0081FAD3 /* Rest Client in Resources */,
 				805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */,
-				80D61B0324EAD9BF007A0C8F /* extensions in Resources */,
 				805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */,
 				80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */,
 				805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */,
@@ -234,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
 				80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */,
@@ -243,6 +257,8 @@
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
+				80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */,
+				80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */,
 				80D61AFF24E9FD84007A0C8F /* YearPicker.swift in Sources */,
 				80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,

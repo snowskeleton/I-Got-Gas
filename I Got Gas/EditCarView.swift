@@ -13,57 +13,68 @@ struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     @State var car: Car
-
+    
     @State private var showsYearPicker = false
-    @State private var carYear: Int64 = 0
+    @State private var carYear: String? = ""
     @State private var carMake: String = ""
     @State private var carModel: String = ""
     @State private var carPlate: String = ""
     @State private var carVIN: String = ""
-//    @State private var carOdometer: String = ""
-
-
+    //    @State private var carOdometer: String = ""
+    
+    private var years: [String] {
+        var list: [Int] = []
+        for i in 1885...2022 {
+            list.insert(i, at: 0)
+        }
+        let returnlist = list.map { String($0) }
+        return returnlist
+    }
+    @State var selectionIndex = 0
+    
+    
+    
     var body: some View {
         VStack {
             NavigationView {
                 VStack {
                     Form {
                         Section(header: Text("Vehicle Info")) {
-                            CollapsableWheelPicker(
-                                "",
-                                showsPicker: $showsYearPicker,
-                                selection: $carYear
-                            ) {
-                                ForEach((1885..<2020).reversed(), id: \.self) { year in
-                                    Text("\(year.formattedWithoutSeparator)").tag(year)
-                                }
-                            }
-                            .animation(.easeInOut)
-                            if !self.showsYearPicker {
-                                Text(carYear == 0 ? "\(car.year!)" : "\(carYear.formattedWithoutSeparator)")
-                                    .onTapGesture {
-                                        self.showsYearPicker.toggle()
-                                }
-                            }
-                    TextField("\(car.make!)",
-                              text: $carMake)
+                            TextFieldWithPickerAsInputView(data: self.years,
+                                                           placeholder: "* Year",
+                                                           selectionIndex: self.$selectionIndex,
+                                                           text: self.$carYear)
+                            TextField("\(car.make!)",
+                                      text: $carMake)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+
                             TextField("\(car.model!)",
                                       text: $carModel)
-//                            TextField("\(car.odometer)",
-//                                      text: $carOdometer)
-//                                .keyboardType(.numberPad)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+
+                            //                            TextField("\(car.odometer)",
+                            //                                      text: $carOdometer)
+                            //                                .keyboardType(.numberPad)
                             TextField("\(car.plate!)",
                                       text: $carPlate)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+
                             TextField("\(car.vin!)",
                                       text: $carVIN)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+
                         }
                     }
                 }
                 .navigationBarTitle("Repaint the Car!")
             }
-
+            
             Spacer()
-
+            
             Button(action: {
                 self.save()
                 self.presentationMode.wrappedValue.dismiss()
@@ -72,10 +83,10 @@ struct EditCarView: View {
             }
         }
     }
-
+    
     func save() {
-        if carYear != 0 {
-            car.year = String(self.carYear)
+        if self.carYear != "" {
+            car.year = self.carYear!
         }
         if carMake != "" {
             car.make = self.carMake
@@ -89,9 +100,9 @@ struct EditCarView: View {
         if carVIN != "" {
             car.vin = self.carVIN
         }
-//        if carOdometer != "" {
-//            car.odometer = Int64(self.carOdometer)!
-//        }
+        //        if carOdometer != "" {
+        //            car.odometer = Int64(self.carOdometer)!
+        //        }
         try? self.moc.save()
     }
 }
