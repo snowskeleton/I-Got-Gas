@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct AddExpenseView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
@@ -69,6 +70,11 @@ struct AddExpenseView: View {
                                     
                                     ForEach(0 ..< futureServices.count) {
                                         Text("\(futureServices[$0].name!)")
+                                            .foregroundColor(futureServices[$0].important
+                                                                ? Color.red
+                                                                : (colorScheme == .dark
+                                                                    ? Color.white
+                                                                    : Color.black))
                                     }
                                     
                                 }
