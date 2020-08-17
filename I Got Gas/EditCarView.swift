@@ -46,29 +46,23 @@ struct EditCarView: View {
                                                            text: self.$carYear)
                             TextField("\(car.make!)",
                                       text: $carMake)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
 
                             TextField("\(car.model!)",
                                       text: $carModel)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
 
                             //                            TextField("\(car.odometer)",
                             //                                      text: $carOdometer)
                             //                                .keyboardType(.numberPad)
                             TextField("\(car.plate!)",
                                       text: $carPlate)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
 
                             TextField("\(car.vin!)",
                                       text: $carVIN)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
 
                         }
                     }
+                    .dismissKeyboardOnSwipe()
+                    .dismissKeyboardOnTap()
                 }
                 .navigationBarTitle("Repaint the Car!")
             }
