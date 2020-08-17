@@ -27,8 +27,8 @@ struct AddExpenseView: View {
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
-    @State private var odometer = ""
-    
+    @State private var odometer: Int64?
+
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
         
@@ -93,7 +93,8 @@ struct AddExpenseView: View {
                             
                             HStack {
                                 Text("   ")
-                                TextField("Odometer", text: self.$odometer)
+                                TextField("Odometer", value: self.$odometer,
+                                          formatter: NumberFormatter.withCommaSeparator)
                                     .keyboardType(.decimalPad)
                             }.font(.system(size: 30))
                             
@@ -142,7 +143,7 @@ struct AddExpenseView: View {
         
         for futureService in futureServices {
             if futureService.everyXMiles != 0 {
-                if futureService.targetOdometer <= Int64(self.odometer)! {
+                if futureService.targetOdometer <= self.odometer! {
                     futureService.important = true
                 }
             }
@@ -156,14 +157,14 @@ struct AddExpenseView: View {
         if selectedFutureService > -1 {
             let service = futureServices[selectedFutureService]
             service.important = false
-            service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
+            service.targetOdometer = (self.odometer! + service.everyXMiles)
             service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
         }
     }
     
     fileprivate func updateCarOdometer(_ car: FetchedResults<Car>.Element) {
-        if Int64(self.odometer)! > car.odometer {
-            car.odometer = Int64(self.odometer)!
+        if self.odometer! > car.odometer {
+            car.odometer = self.odometer!
         }
     }
     
@@ -201,7 +202,7 @@ struct AddExpenseView: View {
         service.date = self.expenseDate
         
         service.cost = Double(self.totalPrice) ?? 0.00
-        service.odometer = Int64(self.odometer) ?? 0
+        service.odometer = self.odometer!
     }
     
 }
