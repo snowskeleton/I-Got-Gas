@@ -29,7 +29,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var note = ""
     @State private var odometer: Int64?
-
+    
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
         
@@ -61,23 +61,20 @@ struct AddExpenseView: View {
                                 .labelsHidden()
                         }
                         if !self.isGas {
-                            Section(header: Text("Scheduled Service")) {
+                            Picker(selection: self.$selectedFutureService,
+                                   label: Text("Scheduled Service")) {
                                 
-                                Picker(selection: self.$selectedFutureService,
-                                       label: Text("Scheduled Service")) {
-                                    
-                                    Text("").tag(-1)
-                                    
-                                    ForEach(0 ..< futureServices.count) {
-                                        Text("\(futureServices[$0].name!)")
-                                            .foregroundColor(futureServices[$0].important
-                                                                ? Color.red
-                                                                : (colorScheme == .dark
-                                                                    ? Color.white
-                                                                    : Color.black))
-                                    }
-                                    
+                                Text("").tag(-1)
+                                
+                                ForEach(0 ..< futureServices.count) {
+                                    Text("\(futureServices[$0].name!)")
+                                        .foregroundColor(futureServices[$0].important
+                                                            ? Color.red
+                                                            : (colorScheme == .dark
+                                                                ? Color.white
+                                                                : Color.black))
                                 }
+                                
                             }
                         }
                         
