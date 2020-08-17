@@ -21,8 +21,8 @@ struct ContentView: View {
                 NavigationLink(
                     destination: DetailView(
                         carID: self.selectedCarID)
-                    .navigationBarHidden(false),
-                        isActive: self.$showDetailView)
+                        .navigationBarHidden(false),
+                    isActive: self.$showDetailView)
                     { EmptyView() }
                 List {
                     ForEach(cars, id: \.self) { car in
@@ -38,23 +38,23 @@ struct ContentView: View {
                 }
             }
             .navigationBarItems(leading:
-                Button(action: {
-                    self.showAddCarView.toggle()
-                }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 30))
-                }.padding(.leading)
-                    .sheet(isPresented: $showAddCarView) {
-                        AddCarView(show: self.$showAddCarView).environment(\.managedObjectContext, self.moc)},
+                                    Button(action: {
+                                        try? self.moc.save()
+                                    }) {
+                                        Text("Options")},
                                 trailing:
-                Button(action: {
-                    try? self.moc.save()
-                }) {
-                    Text("Options")
-            })
-        
+                                    Button(action: {
+                                        self.showAddCarView.toggle()
+                                    }) {
+                                        Image(systemName: "plus")
+                                            .font(.system(size: 30))
+                                    }.padding(.leading)
+                                    .sheet(isPresented: $showAddCarView) {
+                                        AddCarView(show: self.$showAddCarView)
+                                        
+                                    })
         }
-    
+        
     }
     
     func crashCar(at offsets: IndexSet) {
