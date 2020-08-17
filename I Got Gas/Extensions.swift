@@ -37,11 +37,21 @@ extension Formatter {
         formatter.groupingSeparator = ""
         return formatter
     }()
+    static let withCommaSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        return formatter
+    }()
 }
 
 extension Numeric {
     var formattedWithoutSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
 }
+//extension Numeric {
+//    var formattedWithCommaSeparator: String { Formatter.withSeparator.string(for: self) ?? "," }
+//}
+
 
 struct CollapsableWheelPicker<Label, Item, Content>: View
 where Content: View, Item: Hashable, Label: View
@@ -77,20 +87,15 @@ where Content: View, Item: Hashable, Label: View
 
 
 struct DetailBoxStyle<V: View>: GroupBoxStyle {
-//    var color: Color
     var destination: V
-    var date: Date?
     
     @ScaledMetric var size: CGFloat = 1
     
     func makeBody(configuration: Configuration) -> some View {
         NavigationLink(destination: destination) {
             GroupBox(label: HStack {
-                configuration.label//.foregroundColor(color)
+                configuration.label
                 Spacer()
-                if date != nil {
-                    Text("\(date!)").font(.footnote).foregroundColor(.secondary).padding(.trailing, 4)
-                }
                 Image(systemName: "chevron.right").foregroundColor(Color(.systemGray4)).imageScale(.small)
             }) {
                 configuration.content.padding(.top)

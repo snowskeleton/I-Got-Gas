@@ -15,7 +15,7 @@ struct AddCarView: View {
     
     @Binding var show: Bool
     @State private var buttonEnabled = false
-        
+    
     @State private var carYear: String? = ""
     @State private var showsYearPicker = false
     
@@ -23,7 +23,7 @@ struct AddCarView: View {
     @State private var carModel = ""
     @State private var carPlate = ""
     @State private var carVIN = ""
-    @State private var carOdometer = ""
+    @State private var carOdometer: Int64?
     
     private var years: [String] {
         var list: [Int] = []
@@ -43,8 +43,11 @@ struct AddCarView: View {
                     Form {
                         Section(header: Text("Vehicle Info")) {
                             
-                            TextFieldWithPickerAsInputView(data: self.years, placeholder: "* Year", selectionIndex: self.$selectionIndex, text: self.$carYear)
-
+                            TextFieldWithPickerAsInputView(data: self.years,
+                                                           placeholder: "* Year",
+                                                           selectionIndex: self.$selectionIndex,
+                                                           text: self.$carYear)
+                            
                             TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
@@ -52,15 +55,19 @@ struct AddCarView: View {
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
                             TextField("* Current Odometer",
-                                      text: self.$carOdometer,
+                                      value: self.$carOdometer,
+                                      formatter: NumberFormatter.withCommaSeparator,
                                       onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
                             TextField("* License Plate",
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
+                                .disableAutocorrection(true)
+                            
                             TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
+                                .disableAutocorrection(true)
                         }
                     }
                 }
@@ -80,21 +87,23 @@ struct AddCarView: View {
     
     func maybeEnableButton() {
         if self.carYear == "" {
+            self.buttonEnabled = false
             return
         }
         if self.carMake == "" {
+            self.buttonEnabled = false
             return
         }
         if self.carModel == "" {
+            self.buttonEnabled = false
             return
         }
         if self.carPlate == "" {
+            self.buttonEnabled = false
             return
         }
         if self.carVIN == "" {
-            return
-        }
-        if self.carOdometer == "" {
+            self.buttonEnabled = false
             return
         }
         self.buttonEnabled = true
@@ -107,7 +116,7 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
-        car.odometer = Int64(self.carOdometer) ?? 0
+        car.odometer = self.carOdometer ?? 0
         car.id = UUID().uuidString
         try? self.managedObjectContext.save()
         
@@ -123,58 +132,58 @@ struct AddCarView_Previews: PreviewProvider {
 }
 
 struct TextFieldWithPickerAsInputView : UIViewRepresentable {
-
-     var data : [String]
-     var placeholder : String
-
-     @Binding var selectionIndex : Int
-     @Binding var text : String?
-
-     private let textField = UITextField()
-     private let picker = UIPickerView()
-
-     func makeCoordinator() -> TextFieldWithPickerAsInputView.Coordinator {
-          Coordinator(textfield: self)
-     }
-
-     func makeUIView(context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) -> UITextField {
-          picker.delegate = context.coordinator
-          picker.dataSource = context.coordinator
-          textField.placeholder = placeholder
-          textField.inputView = picker
-          textField.delegate = context.coordinator
-          return textField
-     }
-
-     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) {
-          uiView.text = text
-     }
-
-     class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
-
-          private let parent : TextFieldWithPickerAsInputView
-
-          init(textfield : TextFieldWithPickerAsInputView) {
-               self.parent = textfield
-          }
-
-          func numberOfComponents(in pickerView: UIPickerView) -> Int {
-               return 1
-          }
-          func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-               return self.parent.data.count
-          }
-          func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-               return self.parent.data[row]
-          }
-          func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-               self.parent.$selectionIndex.wrappedValue = row
-               self.parent.text = self.parent.data[self.parent.selectionIndex]
-               self.parent.textField.endEditing(true)
-
-          }
-          func textFieldDidEndEditing(_ textField: UITextField) {
-               self.parent.textField.resignFirstResponder()
-          }
+    
+    var data : [String]
+    var placeholder : String
+    
+    @Binding var selectionIndex : Int
+    @Binding var text : String?
+    
+    private let textField = UITextField()
+    private let picker = UIPickerView()
+    
+    func makeCoordinator() -> TextFieldWithPickerAsInputView.Coordinator {
+        Coordinator(textfield: self)
+    }
+    
+    func makeUIView(context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) -> UITextField {
+        picker.delegate = context.coordinator
+        picker.dataSource = context.coordinator
+        textField.placeholder = placeholder
+        textField.inputView = picker
+        textField.delegate = context.coordinator
+        return textField
+    }
+    
+    func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<TextFieldWithPickerAsInputView>) {
+        uiView.text = text
+    }
+    
+    class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
+        
+        private let parent : TextFieldWithPickerAsInputView
+        
+        init(textfield : TextFieldWithPickerAsInputView) {
+            self.parent = textfield
+        }
+        
+        func numberOfComponents(in pickerView: UIPickerView) -> Int {
+            return 1
+        }
+        func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+            return self.parent.data.count
+        }
+        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return self.parent.data[row]
+        }
+        func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            self.parent.$selectionIndex.wrappedValue = row
+            self.parent.text = self.parent.data[self.parent.selectionIndex]
+            self.parent.textField.endEditing(true)
+            
+        }
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            self.parent.textField.resignFirstResponder()
+        }
     }
 }
