@@ -11,11 +11,13 @@ import CoreData
 import SwiftUI
 
 struct Fetch {
-    static func car(carID: String) -> FetchRequest<Car> {
+    static func car(carID: String? = "", all: Bool? = false) -> FetchRequest<Car> {
         let fetchRequest: FetchRequest<Car>
         let request: NSFetchRequest<Car> = I_Got_Gas.Car.fetchRequest()
         var car: FetchedResults<Car> { fetchRequest.wrappedValue }
-        request.predicate = NSPredicate(format: "id = '\(carID)'")
+        if !all! {
+            request.predicate = NSPredicate(format: "id = '\(carID!)'")
+        }
         request.sortDescriptors = []
         fetchRequest = FetchRequest<Car>(fetchRequest: request)
         
