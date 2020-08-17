@@ -51,27 +51,34 @@ struct AddCarView: View {
                             TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                             TextField("* Model",
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
-                                    TextField("* Current Odometer",
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+                            TextField("* Current Odometer",
                                       value: self.$carOdometer,
                                       formatter: NumberFormatter.withCommaSeparator,
                                       onCommit: { self.maybeEnableButton() })
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
                             TextField("* License Plate",
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
                             
                             TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
                         }
-                        .dismissKeyboardOnSwipe()
-                        .dismissKeyboardOnTap()
-
                     }
                 }
                 .navigationBarTitle("You get a car!")
