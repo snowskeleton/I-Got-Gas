@@ -11,8 +11,6 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    //    @State private var showDetailView = false
-    //    @State var selectedCarID = ""
     @State var showAddCarView = false
     
     var body: some View {

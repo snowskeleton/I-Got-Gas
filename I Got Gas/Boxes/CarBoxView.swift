@@ -33,7 +33,7 @@ struct CarBoxView: View {
                 VStack {
                     Text("Last Fuel-Up")
                         .font(.system(size: 10))
-                    Text(car.lastFillup == nil ? "0" : "\(car.lastFillup!)")
+                    Text(car.lastFillup == nil ? "0" : "\(car.lastFillup!, formatter: DateFormatter.taskDateFormat)")
                 }
             }
             .font(.system(size: 20))
