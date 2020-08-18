@@ -23,7 +23,6 @@ struct AddExpenseView: View {
     @State private var expenseDate = Date()
     
     @Binding var isGas: Bool
-//    @State private var isGas = true
     @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
