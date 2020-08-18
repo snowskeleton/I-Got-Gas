@@ -28,6 +28,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var note = ""
     @State private var odometer: String = ""
+    @State private var isFullTank = true
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
@@ -77,6 +78,9 @@ struct AddExpenseView: View {
                                     }
                                     
                                 }
+                            } else {
+                                Toggle(isOn: self.$isFullTank) {}
+                                .toggleStyle(CheckMarkToggleStyle(label: !self.isFullTank ? "Partil Tank" : "Full Tank"))
                             }
                             
                             Section(header: Text("Details")) {

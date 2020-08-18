@@ -103,3 +103,24 @@ struct DetailBoxStyle<V: View>: GroupBoxStyle {
         }.buttonStyle(PlainButtonStyle())
     }
 }
+
+struct CheckMarkToggleStyle: ToggleStyle {
+    var label: String
+    var color = Color.primary
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Button(action: { configuration.isOn.toggle() } )
+            {
+                Image(systemName: configuration.isOn
+                    ? "checkmark.square.fill"
+                    : "square.fill")
+                    .foregroundColor(color)
+            }
+        }
+        .font(.title)
+        .padding(.horizontal)
+    }
+}
