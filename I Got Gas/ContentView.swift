@@ -19,7 +19,7 @@ struct ContentView: View {
                     VStack {
                         ForEach(cars, id: \.self) { car in
                             CarBoxView(car: car)
-                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(carID: car.id!)))
+                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))))
                         }.onDelete(perform: crashCar)
                     }
             }

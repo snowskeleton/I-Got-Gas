@@ -13,8 +13,8 @@ struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
+//    var carFetchRequest: FetchRequest<Car>
+//    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
@@ -23,6 +23,7 @@ struct AddExpenseView: View {
     @State private var expenseDate = Date()
     
     @Binding var isGas: Bool
+    @Binding var car: Car
     @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
@@ -30,15 +31,16 @@ struct AddExpenseView: View {
     @State private var odometer: String = ""
     @State private var isFullTank = true
     
-    init(carID: String, isGas: Binding<Bool>) {
+    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
         self._isGas = isGas
-        carFetchRequest = Fetch.car(carID: carID)
+        self._car = car
+//        carFetchRequest = Fetch.car(carID: carID)
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
+//        ForEach(cars, id: \.self) { car in
             
             VStack {
                 
@@ -129,11 +131,11 @@ struct AddExpenseView: View {
                     .navigationBarHidden(true)
                 }
             }
-        }
+//        }
     }
     
     fileprivate func save() -> Void {
-        for car in cars {
+//        for car in cars {
             let service = Service(context: self.moc)
             service.vendor = Vendor(context: self.moc)
             service.vehicle = car
@@ -149,7 +151,7 @@ struct AddExpenseView: View {
             updateCarStats(car)
             
             try? self.moc.save()
-        }
+//        }
     }
     
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
