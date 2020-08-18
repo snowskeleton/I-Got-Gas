@@ -22,7 +22,7 @@ struct EditCarView: View {
     @State private var carVIN: String = ""
     //    @State private var carOdometer: String = ""
     
-    private var years = yearsPlusTwo()
+    var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
     var body: some View {

@@ -17,7 +17,6 @@ struct AddCarView: View {
     @State private var buttonEnabled = false
     
     @State private var carYear: String? = ""
-    @State private var showsYearPicker = false
     
     @State private var carMake = ""
     @State private var carModel = ""
@@ -25,7 +24,7 @@ struct AddCarView: View {
     @State private var carVIN = ""
     @State private var carOdometer: Int64?
     
-    private var years = yearsPlusTwo()
+    var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
     var body: some View {
@@ -43,35 +42,27 @@ struct AddCarView: View {
                             TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                             TextField("* Model",
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                             TextField("* Current Odometer",
                                       value: self.$carOdometer,
                                       formatter: NumberFormatter.withCommaSeparator,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
                             TextField("* License Plate",
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
                             
                             TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
                         }
                     }
+                    .dismissKeyboardOnSwipe()
+                    .dismissKeyboardOnTap()
                 }
                 .navigationBarTitle("You get a car!")
             }
