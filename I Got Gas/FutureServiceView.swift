@@ -12,7 +12,7 @@ import CoreData
 struct FutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
     var carFetchRequest: FetchRequest<Car>
-    var car: Car { carFetchRequest.wrappedValue[0] }
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
@@ -27,29 +27,32 @@ struct FutureServiceView: View {
     
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(futureServices, id: \.self) { futureService in
-                    VStack {
-                        HStack {
-                            Text("\(futureService.name ?? "")")
-                            Spacer()
-                            Text("\(futureService.targetOdometer - car.odometer)/\(futureService.everyXMiles)")
+        ForEach(cars, id: \.self) { car in
+            
+            VStack {
+                List {
+                    ForEach(futureServices, id: \.self) { futureService in
+                        VStack {
+                            HStack {
+                                Text("\(futureService.name ?? "")")
+                                Spacer()
+                                Text("\(futureService.targetOdometer - car.odometer)/\(futureService.everyXMiles)")
+                            }
+                            HStack {
+                                Text("\(futureService.note ?? "")")
+                                Spacer()
+                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                            }
                         }
-                        HStack {
-                            Text("\(futureService.note ?? "")")
-                            Spacer()
-                            Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
-                        }
-                    }
-                }.onDelete(perform: loseMemory)
-            }
-            Spacer()
-            Button("Schedule Service") {
-                self.showAddFutureExpenseView = true
-            }.sheet(isPresented: self.$showAddFutureExpenseView) {
-                AddFutureServiceView(carID: car.id ?? "")
-                    .environment(\.managedObjectContext, self.moc)
+                    }.onDelete(perform: loseMemory)
+                }
+                Spacer()
+                Button("Schedule Service") {
+                    self.showAddFutureExpenseView = true
+                }.sheet(isPresented: self.$showAddFutureExpenseView) {
+                    AddFutureServiceView(carID: car.id ?? "")
+                        .environment(\.managedObjectContext, self.moc)
+                }
             }
         }
     }
