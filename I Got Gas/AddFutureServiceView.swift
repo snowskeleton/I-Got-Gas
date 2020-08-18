@@ -11,10 +11,10 @@ import SwiftUI
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     var carFetchRequest: FetchRequest<Car>
-    var car: Car { carFetchRequest.wrappedValue[0] }
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     @State private var today = Date()
     @State private var odometer = ""
@@ -28,64 +28,67 @@ struct AddFutureServiceView: View {
     }
     
     var body: some View {
-        VStack {
-            NavigationView {
-                VStack {
-                    
-                    HStack {
-                        Button(action: {
-                            self.repeating.toggle()
-                        }) {
-                            self.repeating ? Text("Repeating") : Text("One Time")
-                        }
-                        .font(.system(size: 30))
-                        .padding()
-                    }
-                    
-                    Form {
+        ForEach(cars, id: \.self) { car in
+            
+            VStack {
+                NavigationView {
+                    VStack {
                         
-                        TextField("Service Description", text: self.$name)
+                        HStack {
+                            Button(action: {
+                                self.repeating.toggle()
+                            }) {
+                                self.repeating ? Text("Repeating") : Text("One Time")
+                            }
                             .font(.system(size: 30))
-                        
-                        Section(header: Text("Every...")) {
-                            HStack {
-                                TextField("", text: self.$months)
-                                    .font(.system(size: 30))
-                                    .keyboardType(.numberPad)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
-                                Spacer()
-                                Text("months")
-                            }
+                            .padding()
                         }
                         
-                        Section(header: Text("Or...")) {
-                            HStack {
-                                TextField("", text: self.$miles)
-                                    .font(.system(size: 30))
-                                    .keyboardType(.numberPad)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
-                                Spacer()
-                                Text("miles")
+                        Form {
+                            
+                            TextField("Service Description", text: self.$name)
+                                .font(.system(size: 30))
+                            
+                            Section(header: Text("Every...")) {
+                                HStack {
+                                    TextField("", text: self.$months)
+                                        .font(.system(size: 30))
+                                        .keyboardType(.numberPad)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
+                                    Spacer()
+                                    Text("months")
+                                }
                             }
+                            
+                            Section(header: Text("Or...")) {
+                                HStack {
+                                    TextField("", text: self.$miles)
+                                        .font(.system(size: 30))
+                                        .keyboardType(.numberPad)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
+                                    Spacer()
+                                    Text("miles")
+                                }
+                            }
+                            
                         }
                         
-                    }
-                    
-                    Spacer()
-                    
-                    Button("Save") {
-                        self.save()
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                }.navigationBarTitle("")
-                .navigationBarHidden(true)
+                        Spacer()
+                        
+                        Button("Save") {
+                            self.save()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }.navigationBarTitle("")
+                    .navigationBarHidden(true)
+                }
             }
         }
     }
-    
     func save() -> Void {
+        for car in cars {
             let futureService = FutureService(context: self.managedObjectContext)
             futureService.vehicle = car
             
@@ -96,6 +99,7 @@ struct AddFutureServiceView: View {
             futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
             
             try? self.managedObjectContext.save()
+        }
     }
     
 }
