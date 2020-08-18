@@ -28,7 +28,7 @@ struct DetailView: View {
         ForEach(cars, id: \.self) { car in
             
             VStack {
-                TopDetailView(carID: car.id ?? "")
+                TopDetailView(car: Binding<Car>.constant(car))
                 
                 Spacer()
                 
