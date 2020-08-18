@@ -20,15 +20,16 @@ import SwiftUI
 //}
 
 struct CarView: View {
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    var carFetchRequest: FetchRequest<Car>
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
-    init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(), sortDescriptors: [], predicate: NSPredicate(format: "id BEGINSWITH %@", filter))
+    init(carID: String) {
+        carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
+        ForEach(cars, id: \.self) { car in
+            
             HStack {
                 Image(systemName: "star.fill")
                     .font(.system(size: 60))
@@ -45,17 +46,11 @@ struct CarView: View {
                 Spacer()
             }
             .padding(.vertical, 20)
-            .background(Color.blue)
+            .background(Color(.systemBlue))
             .opacity(0.8)
             .cornerRadius(20)
             .padding(.horizontal, 20)
             
         }
-    }
-}
-
-struct CarView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarView(filter: "Hello, Doctor")
     }
 }

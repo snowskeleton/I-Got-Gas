@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State private var showDetailView = false
     @State var selectedCarID = ""
@@ -20,9 +20,9 @@ struct ContentView: View {
             VStack {
                 NavigationLink(
                     destination: DetailView(
-                        filter: self.selectedCarID)
-                    .navigationBarHidden(false),
-                        isActive: self.$showDetailView)
+                        carID: self.selectedCarID)
+                        .navigationBarHidden(false),
+                    isActive: self.$showDetailView)
                     { EmptyView() }
                 List {
                     ForEach(cars, id: \.self) { car in
@@ -31,56 +31,38 @@ struct ContentView: View {
                             self.selectedCarID = car.id ?? ""
                             self.showDetailView.toggle()
                         }) {
-                            CarView(filter: car.id ?? "")
+                            CarView(carID: car.id ?? "")
                         }
                         
                     }.onDelete(perform: crashCar)
                 }
             }
             .navigationBarItems(leading:
-                Button(action: {
-                    self.showAddCarView.toggle()
-                }) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 30))
-                }.padding(.leading)
-                    .sheet(isPresented: $showAddCarView) {
-                        AddCarView(show: self.$showAddCarView).environment(\.managedObjectContext, self.managedObjectContext)},
+                                    Button(action: {
+                                        try? self.moc.save()
+                                    }) {
+                                        Text("Options")},
                                 trailing:
-                Button(action: {
-                    try? self.managedObjectContext.save()
-                }) {
-                    Text("Options")
-            })
-        
+                                    Button(action: {
+                                        self.showAddCarView.toggle()
+                                    }) {
+                                        Image(systemName: "plus")
+                                            .font(.system(size: 30))
+                                    }.padding(.leading)
+                                    .sheet(isPresented: $showAddCarView) {
+                                        AddCarView(show: self.$showAddCarView)
+                                        
+                                    })
         }
-    
+        
     }
     
     func crashCar(at offsets: IndexSet) {
         for index in offsets {
             let car = cars[index]
-            managedObjectContext.delete(car)
+            moc.delete(car)
+            try? self.moc.save()
         }
     }
     
-}
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        //Test data
-        let car = Car.init(context: context)
-        car.name = ""
-        car.year = ""
-        car.make = ""
-        car.model = ""
-        car.plate = ""
-        car.vin = ""
-        return ContentView().environment(\.managedObjectContext, context)
-        
-        //        ContentView()
-    }
 }

@@ -9,41 +9,36 @@
 import SwiftUI
 
 struct AddExpenseView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
-    
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
-//    @Binding var filter: String
-
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter
-    }
+    var carFetchRequest: FetchRequest<Car>
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var futureServicesFetchRequest: FetchRequest<FutureService>
+    var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
+    
+    @State var selectedFutureService: Int = -1
     
     @State private var expenseDate = Date()
     
     @State private var isGas = true
-    @State private var totalPrice = ""
+    @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
-    @State private var serviceNotes = ""
-    @State private var odometer = ""
-
-    init(filter: String) {
+    @State private var note = ""
+    @State private var odometer: Int64?
+    
+    init(carID: String) {
+        carFetchRequest = Fetch.car(carID: carID)
         
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
+        ForEach(cars, id: \.self) { car in
+            
             VStack {
                 
                 HStack {
@@ -60,27 +55,53 @@ struct AddExpenseView: View {
                 NavigationView {
                     VStack {
                         Form {
-                            DatePicker("Date",
-                                       selection: self.$expenseDate,
-                                       displayedComponents: .date)
-                                .padding(.top)
-                                .labelsHidden()
+                            Section(header: Text("Date")) {
+                                DatePicker("Date",
+                                           selection: self.$expenseDate,
+                                           displayedComponents: .date)
+                                    .padding(.top)
+                                    .labelsHidden()
+                            }
+                            if !self.isGas {
+                                Picker(selection: self.$selectedFutureService,
+                                       label: Text("Scheduled Service")) {
+                                    
+                                    Text("").tag(-1)
+                                    
+                                    ForEach(0 ..< futureServices.count) {
+                                        Text("\(futureServices[$0].name!)")
+                                            .foregroundColor(futureServices[$0].important
+                                                                ? Color.red
+                                                                : (colorScheme == .dark
+                                                                    ? Color.white
+                                                                    : Color.black))
+                                    }
+                                    
+                                }
+                            }
                             
                             Section(header: Text("Details")) {
                                 
-                                HStack {
-                                    Text("$")
-                                    TextField("Price", text: self.$totalPrice)
-                                        .keyboardType(.decimalPad)
-                                }.font(.system(size: 30))
+                                
+                                CurrencyTextField("Price", value: self.$totalPrice)
+                                    .font(.largeTitle)
+                                    .multilineTextAlignment(TextAlignment.leading)
+                                
+                                
                                 if self.isGas {
-                                    TextField("    Gallons", text: self.$gallonsOfGas)
+                                    TextField("Gallons", text: self.$gallonsOfGas)
                                         .keyboardType(.decimalPad)
-                                        .font(.system(size: 30))
+                                        .font(.largeTitle)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
                                 }
-                                TextField("    Odometer", text: self.$odometer)
+                                
+                                TextField("Odometer", value: self.$odometer,
+                                          formatter: NumberFormatter.withCommaSeparator)
                                     .keyboardType(.decimalPad)
-                                    .font(.system(size: 30))
+                                    .font(.largeTitle)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
                                 
                             }
                             
@@ -88,54 +109,110 @@ struct AddExpenseView: View {
                                 TextField("Vendor name", text: self.$vendorName)
                                 
                                 if !self.isGas {
-                                    TextField("Service Notes", text: self.$serviceNotes)
+                                    TextField("Service Notes", text: self.$note)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
                                 }
                             }
                         }
                         
                         Spacer()
                         
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
+                        Button("Save") {
                             self.save()
-                        }) {
-                            Text("Save me!")
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                     }.navigationBarTitle("")
-                        .navigationBarHidden(true)
+                    .navigationBarHidden(true)
                 }
             }
         }
     }
     
-    func save() -> Void {
-
-        for car in car {
-            let service = Service(context: self.managedObjectContext)
-            
+    fileprivate func save() -> Void {
+        for car in cars {
+            let service = Service(context: self.moc)
+            service.vendor = Vendor(context: self.moc)
             service.vehicle = car
-            if isGas {
-                service.vehicle?.lastFillup = self.expenseDate
-            }
-
-            service.vendor = Vendor(context: self.managedObjectContext)
-            service.vendor?.name = self.vendorName
             
+            updateFutureServices(car)
+            setFutureInStone(car)
+            updateCarOdometer(car)
+            setServiceStats(service)
             
-            service.cost = Double(self.totalPrice) ?? 0.00
-            service.date = self.expenseDate
-            service.odometer = Int64(self.odometer) ?? 0
-            service.vehicle!.odometer = Int64(self.odometer) ?? 0
-
-            try? self.managedObjectContext.save()
+            try? self.moc.save()
+            
+            setFuelDetails(car, service)
+            updateCarStats(car)
+            
+            try? self.moc.save()
         }
-
+    }
+    
+    fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
+        
+        for futureService in futureServices {
+            if futureService.everyXMiles != 0 {
+                if futureService.targetOdometer <= self.odometer! {
+                    futureService.important = true
+                }
+            }
+            if futureService.date! < Date() {
+                futureService.important = true
+            }
+        }
+    }
+    
+    fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
+        if selectedFutureService > -1 {
+            let service = futureServices[selectedFutureService]
+            service.important = false
+            service.targetOdometer = (self.odometer! + service.everyXMiles)
+            service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
+        }
+    }
+    
+    fileprivate func updateCarOdometer(_ car: FetchedResults<Car>.Element) {
+        if self.odometer! > car.odometer {
+            car.odometer = self.odometer!
+        }
+    }
+    
+    fileprivate func setFuelDetails(_ car: FetchedResults<Car>.Element, _ service: Service) {
+        if isGas {
+            car.lastFillup = self.expenseDate
+            service.note = "Fuel"
+            service.fuel = Fuel(context: self.moc)
+            service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
+            service.fuel?.dpg = ((self.totalPrice!) / (Double(self.gallonsOfGas) ?? 0.00))
+        } else {
+            service.note = self.note
+        }
+    }
+    
+    public func updateCarStats(_ car: FetchedResults<Car>.Element) {
+        
+        var totalCost = 0.00
+        var fuelCost = 0.00
+        
+        for service in car.services! {
+            totalCost += ((service as AnyObject).cost)
+            
+            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
+                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
+            }
+        }
+        car.costPerGallon = fuelCost / Double(car.services!.count)
+        car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+        try? self.moc.save()
+    }
+    
+    fileprivate func setServiceStats(_ service: Service) {
+        service.vendor?.name = self.vendorName
+        service.date = self.expenseDate
+        
+        service.cost = self.totalPrice!
+        service.odometer = self.odometer!
     }
     
 }
-
-//struct AddExpenseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddExpenseView(filter: "Hello, darkness").environmentObject(\.presentationMode)
-//    }
-//}

@@ -7,104 +7,68 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DetailView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    
+    @Environment(\.managedObjectContext) var moc
     
     @State var showAddExpenseView = false
-    @State var showServiceView = false
+    @State var showFuelExpenseView = false
     
-    var fetchRequest: FetchRequest<Car>
-    var car: FetchedResults<Car> { fetchRequest.wrappedValue }
+    @State private var showEditCarView = false
     
-    static let taskDateFormat: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }()
+    var carFetchRequest: FetchRequest<Car>
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
-    init(filter: String) {
-        fetchRequest = FetchRequest<Car>(entity: Car.entity(),
-                                         sortDescriptors: [],
-                                         predicate: NSPredicate(
-                                            format: "id BEGINSWITH %@", filter))
+    init(carID: String) {
+        carFetchRequest = Fetch.car(carID: carID)
     }
     
     var body: some View {
-        ForEach(car, id: \.self) { car in
+        ForEach(cars, id: \.self) { car in
             
             VStack {
-                CarView(filter: car.id ?? "").padding()
+                TopDetailView(carID: car.id ?? "")
+                
                 Spacer()
                 
                 VStack {
-                    Form {
-                        Section(header: Text("General information")) {
-                            HStack {
-                                Text("Odometer")
-                                Spacer()
-                                Text("\(car.odometer)")
-                            }
-                            HStack {
-                                Text("Current MPG")
-                                Spacer()
-                                Text("42/g")
-                            }
-                            HStack {
-                                Text("Last Fillup")
-                                Spacer()
-                                Text(car.lastFillup == nil ? "" : "\( car.lastFillup!, formatter: ServiceView.self.taskDateFormat)")
-                            }
-                        }
-                        Section(header: Text("Service")) {
-                            Text("Oil change")
-                            Text("Break Check")
-                            Text("Other service")
-                            Text("Something important")
-                        }
+                    ScrollView {
+                        VStack(spacing: 8) {
+                            EmptyView()
+                            FuelExpenseBoxView(carID: car.id ?? "")
+                                .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id ?? "")))
+                            
+                            
+                            
+                            ServiceExpenseBoxView(carID: car.id ?? "")
+                                .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(carID: car.id ?? "")))
+                            
+                            FutureServiceBoxView(carID: car.id ?? "")
+                                .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
+                                                                carID: car.id ?? "")))
+                            
+                            
+                        }.padding()
                     }
-                    
-                    Spacer()
-                    Button("Services") {
-                        self.showServiceView = true
-                    }.sheet(isPresented: self.$showServiceView) {
-                        ServiceView(filter: car.id ?? "")
-                            .environment(\.managedObjectContext, self.managedObjectContext)
-                    }
-                    
-                    Button("Add Expense") {
-                        self.showAddExpenseView = true
-                    }.sheet(isPresented: self.$showAddExpenseView) {
-                        AddExpenseView(filter: car.id ?? "")
-                            .environment(\.managedObjectContext, self.managedObjectContext)
-                    }
-                }
+                }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
                 
-            }.navigationBarTitle(Text(""), displayMode: .inline)
+                Spacer()
+                
+                Button("Add Expense") {
+                    self.showAddExpenseView = true
+                }.sheet(isPresented: self.$showAddExpenseView) {
+                    AddExpenseView(carID: car.id ?? "")
+                        .environment(\.managedObjectContext, self.moc)
+                }
+            }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),
+                                 displayMode: .inline)
+            .navigationBarItems(trailing:
+                                    Button("Edit") {
+                                        self.showEditCarView.toggle()
+                                    }.sheet(isPresented: self.$showEditCarView) {
+                                        EditCarView(car: car)
+                                    })
         }
     }
 }
-
-
-
-
-
-//struct DetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//        //Test data
-//        let carSelected = Car.init(context: context)
-//        carSelected.name = ""
-//        carSelected.year = ""
-//        carSelected.make = ""
-//        carSelected.model = ""
-//        carSelected.plate = ""
-//        carSelected.vin = ""
-//        return DetailView(filter: "Howdy, doody")
-//            .environment(\.managedObjectContext, context)
-//
-//        //        AddEntryView(show: Binding.constant(true), car: "Mine")
-//    }
-//}
