@@ -12,7 +12,6 @@ struct AddExpenseView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     var carFetchRequest: FetchRequest<Car>
     var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
@@ -28,7 +27,7 @@ struct AddExpenseView: View {
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
-    @State private var odometer: Int64?
+    @State private var odometer: String = ""
     
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
@@ -96,8 +95,7 @@ struct AddExpenseView: View {
                                         .dismissKeyboardOnTap()
                                 }
                                 
-                                TextField("Odometer", value: self.$odometer,
-                                          formatter: NumberFormatter.withCommaSeparator)
+                                TextField("Odometer", text: self.$odometer)
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
                                     .dismissKeyboardOnSwipe()
@@ -153,7 +151,7 @@ struct AddExpenseView: View {
         
         for futureService in futureServices {
             if futureService.everyXMiles != 0 {
-                if futureService.targetOdometer <= self.odometer! {
+                if futureService.targetOdometer <= Int64(self.odometer)! {
                     futureService.important = true
                 }
             }
@@ -167,14 +165,14 @@ struct AddExpenseView: View {
         if selectedFutureService > -1 {
             let service = futureServices[selectedFutureService]
             service.important = false
-            service.targetOdometer = (self.odometer! + service.everyXMiles)
+            service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
             service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
         }
     }
     
     fileprivate func updateCarOdometer(_ car: FetchedResults<Car>.Element) {
-        if self.odometer! > car.odometer {
-            car.odometer = self.odometer!
+        if Int64(self.odometer)! > car.odometer {
+            car.odometer = Int64(self.odometer)!
         }
     }
     
@@ -210,9 +208,10 @@ struct AddExpenseView: View {
     fileprivate func setServiceStats(_ service: Service) {
         service.vendor?.name = self.vendorName
         service.date = self.expenseDate
+        service.vehicle?.lastFillup = self.expenseDate
         
         service.cost = self.totalPrice!
-        service.odometer = self.odometer!
+        service.odometer = Int64(self.odometer)!
     }
     
 }
