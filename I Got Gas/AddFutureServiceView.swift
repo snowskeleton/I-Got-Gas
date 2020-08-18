@@ -11,25 +11,19 @@ import SwiftUI
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
-//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
-    
+        
     @State private var today = Date()
     @State private var odometer = ""
     @State private var name = ""
     @State private var repeating = true
     @State private var months = ""
     @State private var miles = ""
-    
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
+    @Binding var car: Car
+    init(car: Binding<Car>) {
+        self._car = car
     }
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
-            
             VStack {
                 NavigationView {
                     VStack {
@@ -86,9 +80,8 @@ struct AddFutureServiceView: View {
                 }
             }
         }
-    }
+    
     func save() -> Void {
-        for car in cars {
             let futureService = FutureService(context: self.managedObjectContext)
             futureService.vehicle = car
             
@@ -99,7 +92,6 @@ struct AddFutureServiceView: View {
             futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
             
             try? self.managedObjectContext.save()
-        }
     }
     
 }

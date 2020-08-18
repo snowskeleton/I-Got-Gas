@@ -44,7 +44,8 @@ struct DetailView: View {
                         
                         FutureServiceBoxView(carID: car.id ?? "")
                             .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
-                                                            carID: car.id ?? "")))
+                                                            carID: car.id ?? "",
+                                                            car: Binding<Car>.constant(car))))
                         
                         
                     }.padding()
