@@ -34,13 +34,11 @@ struct AddExpenseView: View {
     init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
         self._isGas = isGas
         self._car = car
-//        carFetchRequest = Fetch.car(carID: carID)
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
-//        ForEach(cars, id: \.self) { car in
             
             VStack {
                 
@@ -131,11 +129,9 @@ struct AddExpenseView: View {
                     .navigationBarHidden(true)
                 }
             }
-//        }
     }
     
     fileprivate func save() -> Void {
-//        for car in cars {
             let service = Service(context: self.moc)
             service.vendor = Vendor(context: self.moc)
             service.vehicle = car
@@ -151,7 +147,6 @@ struct AddExpenseView: View {
             updateCarStats(car)
             
             try? self.moc.save()
-//        }
     }
     
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
