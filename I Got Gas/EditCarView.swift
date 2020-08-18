@@ -71,6 +71,7 @@ struct EditCarView: View {
                     }
                     Button("Delete Car") {
                         self.moc.delete(car)
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
                 .navigationBarTitle("Repaint the Car!")
