@@ -22,17 +22,8 @@ struct EditCarView: View {
     @State private var carVIN: String = ""
     //    @State private var carOdometer: String = ""
     
-    private var years: [String] {
-        var list: [Int] = []
-        for i in 1885...2022 {
-            list.insert(i, at: 0)
-        }
-        let returnlist = list.map { String($0) }
-        return returnlist
-    }
+    private var years = yearsPlusTwo()
     @State var selectionIndex = 0
-    
-    
     
     var body: some View {
         VStack {

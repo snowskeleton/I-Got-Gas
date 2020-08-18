@@ -25,15 +25,7 @@ struct AddCarView: View {
     @State private var carVIN = ""
     @State private var carOdometer: Int64?
     
-    private var years: [String] {
-        var list: [Int] = []
-        for i in 1885...2022 {
-            list.insert(i, at: 0)
-        }
-        let returnlist = list.map { String($0) }
-        return returnlist
-    }
-    
+    private var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
     var body: some View {
@@ -134,12 +126,6 @@ struct AddCarView: View {
     }
 }
 
-struct AddCarView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCarView(show: Binding.constant(true))
-        
-    }
-}
 
 struct TextFieldWithPickerAsInputView : UIViewRepresentable {
     
