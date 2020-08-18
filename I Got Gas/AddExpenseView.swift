@@ -22,7 +22,8 @@ struct AddExpenseView: View {
     
     @State private var expenseDate = Date()
     
-    @State private var isGas = true
+    @Binding var isGas: Bool
+//    @State private var isGas = true
     @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
@@ -30,7 +31,8 @@ struct AddExpenseView: View {
     @State private var odometer: String = ""
     @State private var isFullTank = true
     
-    init(carID: String) {
+    init(carID: String, isGas: Binding<Bool>) {
+        self._isGas = isGas
         carFetchRequest = Fetch.car(carID: carID)
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
