@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct CarBoxView: View {
-    @Environment(\.colorScheme) var colorScheme
     var car: Car
     
     var body: some View {
