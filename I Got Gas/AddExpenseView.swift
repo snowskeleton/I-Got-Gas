@@ -13,8 +13,6 @@ struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-//    var carFetchRequest: FetchRequest<Car>
-//    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
