@@ -69,6 +69,9 @@ struct EditCarView: View {
 
                         }
                     }
+                    Button("Delete Car") {
+                        self.moc.delete(car)
+                    }
                 }
                 .navigationBarTitle("Repaint the Car!")
             }

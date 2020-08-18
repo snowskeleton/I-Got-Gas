@@ -11,32 +11,19 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    @State private var showDetailView = false
-    @State var selectedCarID = ""
     @State var showAddCarView = false
     
     var body: some View {
         NavigationView {
-            VStack {
-                NavigationLink(
-                    destination: DetailView(
-                        carID: self.selectedCarID)
-                        .navigationBarHidden(false),
-                    isActive: self.$showDetailView)
-                    { EmptyView() }
-                List {
-                    ForEach(cars, id: \.self) { car in
-                        
-                        Button(action: {
-                            self.selectedCarID = car.id ?? ""
-                            self.showDetailView.toggle()
-                        }) {
-                            CarView(carID: car.id ?? "")
-                        }
-                        
-                    }.onDelete(perform: crashCar)
-                }
+                ScrollView {
+                    VStack {
+                        ForEach(cars, id: \.self) { car in
+                            CarBoxView(car: car)
+                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(carID: car.id!)))
+                        }.onDelete(perform: crashCar)
+                    }
             }
+            .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
             .navigationBarItems(leading:
                                     Button(action: {
                                         try? self.moc.save()
