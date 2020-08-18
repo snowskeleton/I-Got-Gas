@@ -1,49 +1,49 @@
 {
   "images" : [
     {
-      "filename" : "iggIcon40.png",
+      "filename" : "Iconx40.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "iggIcon60.png",
+      "filename" : "Iconx60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "iggIcon58.png",
+      "filename" : "Iconx58.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "iggIcon87.png",
+      "filename" : "Iconx87.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "iggIcon80.png",
+      "filename" : "Iconx80.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "iggIcon120.png",
+      "filename" : "Iconx120.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "iggIcon120-1.png",
+      "filename" : "Iconx120-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "iggIcon180.png",
+      "filename" : "Iconx180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
@@ -94,7 +94,7 @@
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "iggIcon1024.png",
+      "filename" : "Icon.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
