@@ -80,7 +80,7 @@ struct AddExpenseView: View {
                                 }
                             } else {
                                 Toggle(isOn: self.$isFullTank) {}
-                                .toggleStyle(CheckMarkToggleStyle(label: !self.isFullTank ? "Partil Tank" : "Full Tank"))
+                                .toggleStyle(CheckMarkToggleStyle(label: !self.isFullTank ? "Partial Tank" : "Full Tank"))
                             }
                             
                             Section(header: Text("Details")) {
