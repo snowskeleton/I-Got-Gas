@@ -33,7 +33,7 @@ struct AddExpenseView: View {
         self._isGas = isGas
         self._car = car
         
-        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: "\(car.id)")
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
@@ -66,7 +66,7 @@ struct AddExpenseView: View {
                                                                 : Color.black))
                                 }
                                 
-                            }//.pickerStyle(SegmentedPickerStyle())
+                            }
 
                         } else {
                             Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {

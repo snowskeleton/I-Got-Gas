@@ -40,7 +40,7 @@ struct DetailView: View {
                         
                         
                         ServiceExpenseBoxView(carID: car.id ?? "")
-                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(carID: car.id ?? "")))
+                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView( carID: car.id ?? "")))
                         
                         FutureServiceBoxView(carID: car.id ?? "")
                             .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
@@ -57,7 +57,7 @@ struct DetailView: View {
             Button("Add Expense") {
                 self.showAddExpenseView = true
             }.sheet(isPresented: self.$showAddExpenseView) {
-                AddExpenseView(carID: car.id ?? "", car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(true))
+                AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false))
                     .environment(\.managedObjectContext, self.moc)
             }
         }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),

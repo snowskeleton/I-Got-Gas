@@ -14,10 +14,10 @@ struct FutureServiceView: View {
     
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
-
+    
     @Binding var car: Car
     @State var showAddFutureExpenseView = false
-    
+    @State var showAddExpenseView = false
     init(carID: String, car: Binding<Car>) {
         self._car = car
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
@@ -28,17 +28,26 @@ struct FutureServiceView: View {
         VStack {
             List {
                 ForEach(futureServices, id: \.self) { futureService in
-                    VStack {
-                        HStack {
-                            Text("\(futureService.name ?? "")")
-                            Spacer()
-                            Text("\(futureService.targetOdometer - car.odometer)/\(futureService.everyXMiles)")
+                    Button(action: {
+                        self.showAddExpenseView = true
+                    }) {
+                        VStack {
+                            HStack {
+                                Text("\(futureService.name ?? "")")
+                                Spacer()
+                                Text("\(futureService.targetOdometer - car.odometer)/\(futureService.everyXMiles)")
+                            }
+                            HStack {
+                                Text("\(futureService.note ?? "")")
+                                Spacer()
+                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                            }
                         }
-                        HStack {
-                            Text("\(futureService.note ?? "")")
-                            Spacer()
-                            Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
-                        }
+                        
+                    }
+                    .sheet(isPresented: self.$showAddExpenseView) {
+                        AddExpenseView(carID: car.id ?? "", car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false))
+                            .environment(\.managedObjectContext, self.moc)
                     }
                 }.onDelete(perform: loseMemory)
             }
