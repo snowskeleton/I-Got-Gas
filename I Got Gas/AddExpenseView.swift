@@ -162,15 +162,15 @@ struct AddExpenseView: View {
     
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
         
-        for futureService in futureServices {
-            if futureService.everyXMiles != 0 {
-                if futureService.targetOdometer <= Int64(self.odometer)! {
-                    futureService.important = true
-                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(futureService, now: true)
+        for service in futureServices {
+            if service.everyXMiles != 0 {
+                if service.targetOdometer <= Int64(self.odometer)! {
+                    service.important = true
+                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
             }
-            if futureService.date! < Date() {
-                futureService.important = true
+            if service.date! < Date() {
+                service.important = true
             }
         }
     }
@@ -181,6 +181,7 @@ struct AddExpenseView: View {
             service.important = false
             service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
             service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
+            AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
     

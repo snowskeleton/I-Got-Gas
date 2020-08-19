@@ -109,6 +109,7 @@ struct AddFutureServiceView: View {
     
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
         let content = UNMutableNotificationContent()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
         content.badge = 1
@@ -119,7 +120,6 @@ struct AddFutureServiceView: View {
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             futureService.notificationUUID = request.identifier
             UNUserNotificationCenter.current().add(request)
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
             return
         }
         
