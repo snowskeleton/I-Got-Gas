@@ -7,10 +7,13 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
+    var futureServicesFetchRequest: FetchRequest<FutureService>
+    var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
         
     @State private var today = Date()
     @State private var odometer = ""
@@ -19,8 +22,10 @@ struct AddFutureServiceView: View {
     @State private var months = ""
     @State private var miles = ""
     @Binding var car: Car
+    
     init(car: Binding<Car>) {
         self._car = car
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: "\(car.id)")
     }
     
     var body: some View {
@@ -80,16 +85,45 @@ struct AddFutureServiceView: View {
         }
     
     func save() -> Void {
-            let futureService = FutureService(context: self.moc)
-            futureService.vehicle = car
-            
-            futureService.name = self.name
-            futureService.everyXMiles = Int64(self.miles) ?? 0
-            futureService.months = Int64(self.months) ?? 0
-            futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-            futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
-            
-            try? self.moc.save()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+        let futureService = FutureService(context: self.moc)
+        futureService.vehicle = car
+        
+        futureService.name = self.name
+        futureService.everyXMiles = Int64(self.miles) ?? 0
+        futureService.months = Int64(self.months) ?? 0
+        futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
+        futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
+        setFutureServiceNotification(futureService)
+        
+        try? self.moc.save()
     }
     
+    public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element) {
+        let content = UNMutableNotificationContent()
+        content.title = "\(self.name)"
+        content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
+        content.badge = 1
+        content.sound = UNNotificationSound.default
+        
+        let date = futureService.date
+        var triggerDate = Calendar.current.dateComponents([.year, .month, .day,], from: date!)
+        triggerDate.hour = 8
+        triggerDate.minute = 15
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        futureService.notificationUUID = request.identifier
+        
+        UNUserNotificationCenter.current().add(request)
+
+    }
 }
