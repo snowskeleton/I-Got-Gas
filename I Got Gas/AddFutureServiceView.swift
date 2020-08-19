@@ -107,19 +107,27 @@ struct AddFutureServiceView: View {
         try? self.moc.save()
     }
     
-    public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element) {
+    public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
         content.badge = 1
         content.sound = UNNotificationSound.default
         
+        if now! {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            futureService.notificationUUID = request.identifier
+            UNUserNotificationCenter.current().add(request)
+            print("I did a thing!")
+            return
+        }
+        
         let date = futureService.date
         var triggerDate = Calendar.current.dateComponents([.year, .month, .day,], from: date!)
         triggerDate.hour = 8
         triggerDate.minute = 15
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         futureService.notificationUUID = request.identifier
         

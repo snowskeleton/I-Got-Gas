@@ -166,6 +166,7 @@ struct AddExpenseView: View {
             if futureService.everyXMiles != 0 {
                 if futureService.targetOdometer <= Int64(self.odometer)! {
                     futureService.important = true
+                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(futureService, now: true)
                 }
             }
             if futureService.date! < Date() {
