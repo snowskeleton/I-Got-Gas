@@ -12,7 +12,7 @@ struct CarBoxView: View {
     var car: Car
     
     var body: some View {
-        GroupBox(label: ImageAndTextLable(systemImage: "car.circle", text: "\(car.year!) \(car.make!) \(car.model!)")) {
+        GroupBox(label: ImageAndTextLable(systemImage: "car", text: "\(car.year!) \(car.make!) \(car.model!) \(car.plate!)")) {
             HStack {
                 VStack {
                     Text("Cost Per Mile")
