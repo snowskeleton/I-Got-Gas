@@ -119,7 +119,7 @@ struct AddFutureServiceView: View {
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             futureService.notificationUUID = request.identifier
             UNUserNotificationCenter.current().add(request)
-            print("I did a thing!")
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
             return
         }
         
