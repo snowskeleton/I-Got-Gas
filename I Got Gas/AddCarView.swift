@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 struct AddCarView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     @Binding var show: Bool
@@ -105,7 +105,7 @@ struct AddCarView: View {
     }
     
     func save() {
-        let car = Car(context: self.managedObjectContext)
+        let car = Car(context: self.moc)
         car.year = self.carYear
         car.make = self.carMake
         car.model = self.carModel
@@ -113,7 +113,7 @@ struct AddCarView: View {
         car.vin = self.carVIN
         car.odometer = Int64(self.carOdometer)!
         car.id = UUID().uuidString
-        try? self.managedObjectContext.save()
+        try? self.moc.save()
         
         self.show = false
     }
