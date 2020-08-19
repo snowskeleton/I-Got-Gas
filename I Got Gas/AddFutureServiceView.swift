@@ -48,8 +48,6 @@ struct AddFutureServiceView: View {
                                     TextField("", text: self.$months)
                                         .font(.system(size: 30))
                                         .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
                                     Spacer()
                                     Text("months")
                                 }
@@ -60,15 +58,15 @@ struct AddFutureServiceView: View {
                                     TextField("", text: self.$miles)
                                         .font(.system(size: 30))
                                         .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
                                     Spacer()
                                     Text("miles")
                                 }
                             }
                             
                         }
-                        
+                        .dismissKeyboardOnSwipe()
+                        .dismissKeyboardOnTap()
+
                         Spacer()
                         
                         Button("Save") {
