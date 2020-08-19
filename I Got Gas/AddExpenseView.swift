@@ -37,94 +37,86 @@ struct AddExpenseView: View {
     }
     
     var body: some View {
+        
+        VStack {
+            Text(self.isGas ? "Gas" : "Service")
+                .font(.system(size: 30))
+                .padding()
             
-            VStack {
-                
-                HStack {
-                    Button(action: {
-                        self.isGas.toggle()
-                    }) {
-                        self.isGas ? Text("Gas") : Text("Service")
-                    }
-                    .font(.system(size: 30))
-                    .padding()
-                    
-                }
-                
-                NavigationView {
-                    VStack {
-                        Form {
-                            Section(header: Text("Date")) {
-                                DatePicker("Date",
-                                           selection: self.$expenseDate,
-                                           displayedComponents: .date)
-                                    .padding(.top)
-                                    .labelsHidden()
-                            }
-                            if !self.isGas {
-                                Picker(selection: self.$selectedFutureService,
-                                       label: Text("Scheduled Service")) {
-                                    
-                                    Text("").tag(-1)
-                                    
-                                    ForEach(0 ..< futureServices.count) {
-                                        Text("\(futureServices[$0].name!)")
-                                            .foregroundColor(futureServices[$0].important
-                                                                ? Color.red
-                                                                : (colorScheme == .dark
-                                                                    ? Color.white
-                                                                    : Color.black))
-                                    }
-                                    
+            NavigationView {
+                VStack {
+                    Form {
+                        Section(header: Text("Date")) {
+                            DatePicker("Date",
+                                       selection: self.$expenseDate,
+                                       displayedComponents: .date)
+                                .padding(.top)
+                                .labelsHidden()
+                        }
+                        if !self.isGas {
+                            Picker(selection: self.$selectedFutureService,
+                                   label: Text("Scheduled Service")) {
+                                
+                                Text("").tag(-1)
+                                
+                                ForEach(0 ..< futureServices.count) {
+                                    Text("\(futureServices[$0].name!)")
+                                        .foregroundColor(futureServices[$0].important
+                                                            ? Color.red
+                                                            : (colorScheme == .dark
+                                                                ? Color.white
+                                                                : Color.black))
                                 }
-                            } else {
-                                Toggle(isOn: self.$isFullTank) {}
+                                
+                            }
+                        } else {
+                            Toggle(isOn: self.$isFullTank) {}
                                 .toggleStyle(CheckMarkToggleStyle(label: !self.isFullTank ? "Partial Tank" : "Full Tank"))
-                            }
+                        }
+                        
+                        Section(header: Text("Details")) {
                             
-                            Section(header: Text("Details")) {
-                                
-                                
-                                CurrencyTextField("Price", value: self.$totalPrice)
-                                    .font(.largeTitle)
-                                    .multilineTextAlignment(TextAlignment.leading)
-                                
-                                
-                                if self.isGas {
-                                    TextField("Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                        .font(.largeTitle)
-                                }
-                                
-                                TextField("Odometer", text: self.$odometer)
+                            
+                            CurrencyTextField("Price", value: self.$totalPrice)
+                                .font(.largeTitle)
+                                .multilineTextAlignment(TextAlignment.leading)
+                            
+                            
+                            if self.isGas {
+                                TextField("Gallons", text: self.$gallonsOfGas)
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
-                                
                             }
                             
-                            Section(header: Text("Vendor")) {
-                                TextField("Vendor name", text: self.$vendorName)
-                                
-                                if !self.isGas {
-                                    TextField("Service Notes", text: self.$note)
-                                }
-                            }
+                            TextField("Odometer", text: self.$odometer)
+                                .keyboardType(.decimalPad)
+                                .font(.largeTitle)
+                            
                         }
-                        .dismissKeyboardOnSwipe()
-                        .dismissKeyboardOnTap()
-
-                        Spacer()
                         
-                        Button("Save") {
-                            if maybeEnableButton() {
-                                self.save()
-                                self.presentationMode.wrappedValue.dismiss()
+                        Section(header: Text("Vendor")) {
+                            TextField("Vendor name", text: self.$vendorName)
+                            
+                            if !self.isGas {
+                                TextField("Service Notes", text: self.$note)
                             }
                         }
-                    }.navigationBarTitle("")
-                    .navigationBarHidden(true)
-                }
+                    }
+                    .dismissKeyboardOnSwipe()
+                    .dismissKeyboardOnTap()
+                    
+                    Spacer()
+                    
+                    Button("Save") {
+                        if maybeEnableButton() {
+                            self.save()
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }.navigationBarTitle("")
+                .navigationBarHidden(true)
             }
+        }
     }
     
     fileprivate func maybeEnableButton() -> Bool {
