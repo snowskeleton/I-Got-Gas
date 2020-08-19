@@ -15,13 +15,13 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-                ScrollView {
-                    VStack {
-                        ForEach(cars, id: \.self) { car in
-                            CarBoxView(car: car)
-                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))))
-                        }.onDelete(perform: crashCar)
+            ScrollView {
+                VStack {
+                    ForEach(cars, id: \.self) { car in
+                        CarBoxView(car: car)
+                            .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))))
                     }
+                }
             }
             .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
             .navigationBarItems(leading:
@@ -43,13 +43,4 @@ struct ContentView: View {
         }
         
     }
-    
-    func crashCar(at offsets: IndexSet) {
-        for index in offsets {
-            let car = cars[index]
-            moc.delete(car)
-            try? self.moc.save()
-        }
-    }
-    
 }
