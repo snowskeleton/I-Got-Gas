@@ -13,29 +13,32 @@ struct CarBoxView: View {
     
     var body: some View {
         GroupBox(label: ImageAndTextLable(systemImage: "car", text: "\(car.year!) \(car.make!) \(car.model!) \(car.plate!)")) {
-            HStack {
-                VStack {
-                    Text("Cost Per Mile")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerMile, specifier: "%.2f")/m")
-                }.padding(.leading)
-                
-                Spacer()
-                
-                VStack {
-                    Text("Avg $/gal")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+            VStack {
+                HStack {
+                    VStack {
+                        Text("Cost Per Mile")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerMile, specifier: "%.2f")/m")
+                    }.padding(.leading)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("Avg $/gal")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                    }
+                    Spacer()
+                    
+                    VStack {
+                        Text("Last Fuel-Up")
+                            .font(.system(size: 10))
+                        Text(car.lastFillup == nil
+                                ? "0"
+                                : "\(car.lastFillup!, formatter: DateFormatter.taskDateFormat)")
+                    }
                 }
-                Spacer()
-                
-                VStack {
-                    Text("Last Fuel-Up")
-                        .font(.system(size: 10))
-                    Text(car.lastFillup == nil
-                            ? "0"
-                            : "\(car.lastFillup!, formatter: DateFormatter.taskDateFormat)")
-                }
+                Text("\(car.odometer)")
             }
             .font(.system(size: 20))
         }
