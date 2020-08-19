@@ -142,6 +142,7 @@ struct AddExpenseView: View {
         }
         return true
     }
+    
     fileprivate func save() -> Void {
         let service = Service(context: self.moc)
         service.vendor = Vendor(context: self.moc)
