@@ -94,15 +94,11 @@ struct AddExpenseView: View {
                                     TextField("Gallons", text: self.$gallonsOfGas)
                                         .keyboardType(.decimalPad)
                                         .font(.largeTitle)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
                                 }
                                 
                                 TextField("Odometer", text: self.$odometer)
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
                                 
                             }
                             
@@ -111,17 +107,19 @@ struct AddExpenseView: View {
                                 
                                 if !self.isGas {
                                     TextField("Service Notes", text: self.$note)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
                                 }
                             }
                         }
-                        
+                        .dismissKeyboardOnSwipe()
+                        .dismissKeyboardOnTap()
+
                         Spacer()
                         
                         Button("Save") {
-                            self.save()
-                            self.presentationMode.wrappedValue.dismiss()
+                            if maybeEnableButton() {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
                         }
                     }.navigationBarTitle("")
                     .navigationBarHidden(true)
@@ -129,6 +127,21 @@ struct AddExpenseView: View {
             }
     }
     
+    fileprivate func maybeEnableButton() -> Bool {
+        if self.totalPrice == nil {
+            return false
+        }
+        if self.odometer == "" {
+            return false
+        }
+        if self.vendorName == "" {
+            return false
+        }
+        if isGas && self.gallonsOfGas == "" {
+            return false
+        }
+        return true
+    }
     fileprivate func save() -> Void {
             let service = Service(context: self.moc)
             service.vendor = Vendor(context: self.moc)
