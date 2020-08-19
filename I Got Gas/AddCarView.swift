@@ -53,7 +53,6 @@ struct AddCarView: View {
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
                                 .disableAutocorrection(true)
-                            
                             TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
