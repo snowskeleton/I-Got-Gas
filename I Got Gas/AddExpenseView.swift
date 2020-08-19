@@ -98,6 +98,9 @@ struct AddExpenseView: View {
                         
                         Section(header: Text("Vendor")) {
                             TextField("Vendor name", text: self.$vendorName)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+                                .font(.largeTitle)
                             
                             if !self.isGas {
                                 TextField("Service Notes", text: self.$note)
