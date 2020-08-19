@@ -32,7 +32,7 @@ struct AddFutureServiceView: View {
                             Button(action: {
                                 self.repeating.toggle()
                             }) {
-                                self.repeating ? Text("Repeating") : Text("One Time")
+                                Text( self.repeating ? ("Repeating") : ("One Time"))
                             }
                             .font(.system(size: 30))
                             .padding()
