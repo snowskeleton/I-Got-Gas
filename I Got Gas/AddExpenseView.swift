@@ -50,15 +50,13 @@ struct AddExpenseView: View {
                             DatePicker("Date",
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
-                                .padding(.top)
+                                
                                 .labelsHidden()
                         }
                         if !self.isGas {
                             Picker(selection: self.$selectedFutureService,
                                    label: Text("Scheduled Service")) {
-                                
                                 Text("").tag(-1)
-                                
                                 ForEach(0 ..< futureServices.count) {
                                     Text("\(futureServices[$0].name!)")
                                         .foregroundColor(futureServices[$0].important
@@ -84,11 +82,15 @@ struct AddExpenseView: View {
                             
                             if self.isGas {
                                 TextField("Gallons", text: self.$gallonsOfGas)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
                             }
                             
                             TextField("Odometer", text: self.$odometer)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                                 .keyboardType(.decimalPad)
                                 .font(.largeTitle)
                             
@@ -99,11 +101,12 @@ struct AddExpenseView: View {
                             
                             if !self.isGas {
                                 TextField("Service Notes", text: self.$note)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
                             }
                         }
                     }
-                    .dismissKeyboardOnSwipe()
-                    .dismissKeyboardOnTap()
+                    // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
                     
                     Spacer()
                     
