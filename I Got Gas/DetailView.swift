@@ -34,17 +34,17 @@ struct DetailView: View {
                 ScrollView {
                     VStack(spacing: 8) {
                         EmptyView()
-                        FuelExpenseBoxView(carID: car.id ?? "")
-                            .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id ?? "")))
+                        FuelExpenseBoxView(carID: car.id!)
+                            .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id!)))
                         
                         
                         
-                        ServiceExpenseBoxView(carID: car.id ?? "")
-                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView( carID: car.id ?? "")))
+                        ServiceExpenseBoxView(carID: car.id!)
+                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView( carID: car.id!)))
                         
-                        FutureServiceBoxView(carID: car.id ?? "")
+                        FutureServiceBoxView(carID: car.id!)
                             .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
-                                                            carID: car.id ?? "",
+                                                            carID: car.id!,
                                                             car: Binding<Car>.constant(car))))
                         
                         
