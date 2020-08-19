@@ -27,7 +27,7 @@ struct AddExpenseView: View {
     @State private var vendorName = ""
     @State private var note = ""
     @State private var odometer: String = ""
-    @State private var isFullTank = true
+    @State private var isFullTank: Int = 0
     
     init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
         self._isGas = isGas
@@ -66,10 +66,13 @@ struct AddExpenseView: View {
                                                                 : Color.black))
                                 }
                                 
-                            }
+                            }.pickerStyle(SegmentedPickerStyle())
+
                         } else {
-                            Toggle(isOn: self.$isFullTank) {}
-                                .toggleStyle(CheckMarkToggleStyle(label: !self.isFullTank ? "Partial Tank" : "Full Tank"))
+                            Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {
+                                Text("Full Tank").tag(0)
+                                Text("Partial tank").tag(1)
+                            }.pickerStyle(SegmentedPickerStyle())
                         }
                         
                         Section(header: Text("Details")) {
@@ -151,7 +154,7 @@ struct AddExpenseView: View {
         try? self.moc.save()
         
         setFuelDetails(car, service)
-        if isFullTank {
+        if isFullTank == 0 { //0 is true, 1 is false. Selected by Picker.
             updateCarStats(car)
         }
         try? self.moc.save()
