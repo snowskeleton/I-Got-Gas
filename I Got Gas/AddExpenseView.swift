@@ -132,9 +132,6 @@ struct AddExpenseView: View {
         if self.odometer == "" {
             return false
         }
-        if self.vendorName == "" {
-            return false
-        }
         if isGas && self.gallonsOfGas == "" {
             return false
         }
