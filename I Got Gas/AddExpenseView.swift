@@ -143,21 +143,22 @@ struct AddExpenseView: View {
         return true
     }
     fileprivate func save() -> Void {
-            let service = Service(context: self.moc)
-            service.vendor = Vendor(context: self.moc)
-            service.vehicle = car
-            
-            updateFutureServices(car)
-            setFutureInStone(car)
-            updateCarOdometer(car)
-            setServiceStats(service)
-            
-            try? self.moc.save()
-            
-            setFuelDetails(car, service)
+        let service = Service(context: self.moc)
+        service.vendor = Vendor(context: self.moc)
+        service.vehicle = car
+        
+        updateFutureServices(car)
+        setFutureInStone(car)
+        updateCarOdometer(car)
+        setServiceStats(service)
+        
+        try? self.moc.save()
+        
+        setFuelDetails(car, service)
+        if isFullTank {
             updateCarStats(car)
-            
-            try? self.moc.save()
+        }
+        try? self.moc.save()
     }
     
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
