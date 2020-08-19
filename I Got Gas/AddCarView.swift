@@ -22,7 +22,7 @@ struct AddCarView: View {
     @State private var carModel = ""
     @State private var carPlate = ""
     @State private var carVIN = ""
-    @State private var carOdometer: Int64?
+    @State private var carOdometer = ""
     
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
@@ -46,8 +46,7 @@ struct AddCarView: View {
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
                             TextField("* Current Odometer",
-                                      value: self.$carOdometer,
-                                      formatter: NumberFormatter.withCommaSeparator,
+                                      text: self.$carOdometer,
                                       onCommit: { self.maybeEnableButton() })
                                 .keyboardType(.numberPad)
                             TextField("* License Plate",
@@ -99,6 +98,10 @@ struct AddCarView: View {
             self.buttonEnabled = false
             return
         }
+        if self.carOdometer == "" {
+            self.buttonEnabled = false
+            return
+        }
         self.buttonEnabled = true
     }
     
@@ -109,7 +112,7 @@ struct AddCarView: View {
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
-        car.odometer = self.carOdometer ?? 0
+        car.odometer = Int64(self.carOdometer)!
         car.id = UUID().uuidString
         try? self.managedObjectContext.save()
         
