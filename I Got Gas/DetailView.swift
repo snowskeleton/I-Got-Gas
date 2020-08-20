@@ -57,7 +57,7 @@ struct DetailView: View {
             Button("Add Expense") {
                 self.showAddExpenseView = true
             }.sheet(isPresented: self.$showAddExpenseView) {
-                AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false))
+                AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(true))
                     .environment(\.managedObjectContext, self.moc)
             }
         }.navigationBarTitle(Text("\(car.year!) \(car.make!) \(car.model!)"),
