@@ -59,7 +59,7 @@ struct FuelExpenseView: View {
                 }.sheet(isPresented: self.$showAddExpenseView) {
                     AddExpenseView(carID: car.id!,
                                    car: Binding<Car>.constant(cars[0]),
-                                   isGas: Binding<Bool>.constant(true))
+                                   isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
                 }
             }
         }
@@ -71,7 +71,7 @@ struct FuelExpenseView: View {
             try? self.moc.save()
             AddExpenseView(carID: cars[0].id!,
                            car: Binding<Car>.constant(cars[0]),
-                           isGas: Binding<Bool>.constant(true))
+                           isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
                 .updateCarStats(cars[0])
         }
     }

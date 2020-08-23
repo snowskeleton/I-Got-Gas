@@ -16,7 +16,7 @@ struct AddExpenseView: View {
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
-    @State var selectedFutureService: Int = -1
+    @State var selectedFutureService: Int
     
     @State private var expenseDate = Date()
     
@@ -29,9 +29,10 @@ struct AddExpenseView: View {
     @State private var odometer: String = ""
     @State private var isFullTank: Int = 0
     
-    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
+    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>, inputSelectedFutureService: Int) {
         self._isGas = isGas
         self._car = car
+        self._selectedFutureService = State(initialValue: inputSelectedFutureService)
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
@@ -39,6 +40,7 @@ struct AddExpenseView: View {
     var body: some View {
         
         VStack {
+            Text("\(selectedFutureService)")
             Text(self.isGas ? "Gas" : "Service")
                 .font(.system(size: 30))
                 .padding()
