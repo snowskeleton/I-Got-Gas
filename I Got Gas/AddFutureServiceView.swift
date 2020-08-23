@@ -18,7 +18,7 @@ struct AddFutureServiceView: View {
     @State private var odometer = ""
     @State private var name = ""
     @State private var repeating = true
-    @State private var months = ""
+    @State private var frequency = ""
     @State private var miles = ""
     @Binding var car: Car
     
@@ -48,7 +48,7 @@ struct AddFutureServiceView: View {
                             .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
-                            TextField("", text: self.$months)
+                            TextField("", text: self.$frequency)
                                 .font(.system(size: 30))
                                 .keyboardType(.numberPad)
                                 .dismissKeyboardOnSwipe()
@@ -102,9 +102,17 @@ struct AddFutureServiceView: View {
         
         futureService.name = self.name
         futureService.everyXMiles = Int64(self.miles) ?? 0
-        futureService.months = Int64(self.months) ?? 0
+        futureService.months = Int64(self.frequency) ?? 0
         futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-        futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
+        
+        futureService.date = Calendar.current.date(byAdding:
+                                                    (monthOrWeek == 0
+                                                        ? .month
+                                                        : .day),
+                                                   value: (monthOrWeek == 0
+                                                            ? Int(self.frequency) ?? 0
+                                                            : (Int(self.frequency) ?? 0 ) * 7 ),
+                                                   to: today)!
         setFutureServiceNotification(futureService)
         
         try? self.moc.save()
