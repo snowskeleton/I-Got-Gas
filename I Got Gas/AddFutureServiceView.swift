@@ -12,8 +12,6 @@ import UserNotifications
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
-    var futureServicesFetchRequest: FetchRequest<FutureService>
-    var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
     @State private var monthOrWeek: Int = 0
     @State private var today = Date()
@@ -26,7 +24,6 @@ struct AddFutureServiceView: View {
     
     init(car: Binding<Car>) {
         self._car = car
-        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: "\(car.id)")
     }
     
     var body: some View {
@@ -45,7 +42,6 @@ struct AddFutureServiceView: View {
                     }
                     
                     Form {
-                        
                         TextField("Service Description", text: self.$name)
                             .font(.system(size: 30))
                             .dismissKeyboardOnSwipe()
