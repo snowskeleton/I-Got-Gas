@@ -48,7 +48,7 @@ struct AddFutureServiceView: View {
                             .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
-                            TextField("", text: self.$frequency)
+                            TextField("3, 6, 12....", text: self.$frequency)
                                 .font(.system(size: 30))
                                 .keyboardType(.numberPad)
                                 .dismissKeyboardOnSwipe()
@@ -62,7 +62,7 @@ struct AddFutureServiceView: View {
                         
                         Section(header: Text("Or...")) {
                             HStack {
-                                TextField("", text: self.$miles)
+                                TextField("3,000, 15,000...", text: self.$miles)
                                     .font(.system(size: 30))
                                     .keyboardType(.numberPad)
                                     .dismissKeyboardOnSwipe()
