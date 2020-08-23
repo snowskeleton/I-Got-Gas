@@ -32,6 +32,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="notificationUUID" optional="YES" attributeType="String"/>
+        <attribute name="repeating" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startingMiles" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="targetOdometer" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="vehicle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="futureSerevice" inverseEntity="Car"/>
@@ -54,7 +55,7 @@
     <elements>
         <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="268"/>
         <element name="Fuel" positionX="250.9375" positionY="245.19140625" width="128" height="103"/>
-        <element name="FutureService" positionX="88.66015625" positionY="-4.24609375" width="128" height="208"/>
+        <element name="FutureService" positionX="88.66015625" positionY="-4.24609375" width="128" height="223"/>
         <element name="Service" positionX="251.203125" positionY="-12.3125" width="128" height="148"/>
         <element name="Vendor" positionX="-55.9609375" positionY="249.03125" width="128" height="103"/>
     </elements>
