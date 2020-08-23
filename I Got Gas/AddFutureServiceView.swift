@@ -87,6 +87,19 @@ struct AddFutureServiceView: View {
         }
     }
     
+    public func upDate(_ futureService: FutureService, _ date: Date) {
+        if self.frequency != "" {
+            futureService.date = Calendar.current.date(byAdding:
+                                                        (monthOrWeek == 0
+                                                            ? .month
+                                                            : .day),
+                                                       value: (monthOrWeek == 0
+                                                                ? Int(self.frequency)!
+                                                                : (Int(self.frequency)!) * 7 ),
+                                                       to: date)!
+        }
+    }
+    
     func save() -> Void {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
@@ -102,19 +115,11 @@ struct AddFutureServiceView: View {
         
         futureService.name = self.name
         futureService.everyXMiles = Int64(self.miles) ?? 0
-        futureService.months = Int64(self.frequency) ?? 0
+        
+        futureService.frequency = Int64(self.frequency) ?? 0
         futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
         
-        if self.frequency != "" {
-            futureService.date = Calendar.current.date(byAdding:
-                                                        (monthOrWeek == 0
-                                                            ? .month
-                                                            : .day),
-                                                       value: (monthOrWeek == 0
-                                                                ? Int(self.frequency)!
-                                                                : (Int(self.frequency)!) * 7 ),
-                                                       to: today)!
-        }
+        upDate(futureService, today)
         setFutureServiceNotification(futureService)
         
         try? self.moc.save()

@@ -180,7 +180,9 @@ struct AddExpenseView: View {
             let service = futureServices[selectedFutureService]
             service.important = false
             service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
-            service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
+            
+            AddFutureServiceView(car: Binding<Car>.constant(car)).upDate(service, expenseDate)
+            
             AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
