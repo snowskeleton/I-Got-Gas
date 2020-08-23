@@ -14,7 +14,7 @@ struct AddFutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
-        
+    
     @State private var monthOrWeek: Int = 0
     @State private var today = Date()
     @State private var odometer = ""
@@ -30,66 +30,66 @@ struct AddFutureServiceView: View {
     }
     
     var body: some View {
-            VStack {
-                NavigationView {
-                    VStack {
-                        
-                        HStack {
-                            Button(action: {
-                                self.repeating.toggle()
-                            }) {
-                                Text( self.repeating ? ("Repeating") : ("One Time"))
-                            }
-                            .font(.system(size: 30))
-                            .padding()
+        VStack {
+            NavigationView {
+                VStack {
+                    
+                    HStack {
+                        Button(action: {
+                            self.repeating.toggle()
+                        }) {
+                            Text( self.repeating ? ("Repeating") : ("One Time"))
                         }
+                        .font(.system(size: 30))
+                        .padding()
+                    }
+                    
+                    Form {
                         
-                        Form {
-                            
-                            TextField("Service Description", text: self.$name)
+                        TextField("Service Description", text: self.$name)
+                            .font(.system(size: 30))
+                            .dismissKeyboardOnSwipe()
+                            .dismissKeyboardOnTap()
+                        
+                        Section(header: Text("Every...")) {
+                            TextField("", text: self.$months)
                                 .font(.system(size: 30))
+                                .keyboardType(.numberPad)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
                             
-                            Section(header: Text("Every...")) {
-                                    TextField("", text: self.$months)
-                                        .font(.system(size: 30))
-                                        .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
-
-                                Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
-                                        Text("Months").tag(0)
-                                        Text("Weeks").tag(1)
-                                    }.pickerStyle(SegmentedPickerStyle())
-                            }
-                            
-                            Section(header: Text("Or...")) {
-                                HStack {
-                                    TextField("", text: self.$miles)
-                                        .font(.system(size: 30))
-                                        .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
-
-                                    Spacer()
-                                    Text("miles")
-                                }
-                            }
-                            
+                            Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
+                                Text("Months").tag(0)
+                                Text("Weeks").tag(1)
+                            }.pickerStyle(SegmentedPickerStyle())
                         }
-
-                        Spacer()
                         
-                        Button("Save") {
-                            self.save()
-                            self.presentationMode.wrappedValue.dismiss()
+                        Section(header: Text("Or...")) {
+                            HStack {
+                                TextField("", text: self.$miles)
+                                    .font(.system(size: 30))
+                                    .keyboardType(.numberPad)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
+                                
+                                Spacer()
+                                Text("miles")
+                            }
                         }
-                    }.navigationBarTitle("")
-                    .navigationBarHidden(true)
-                }
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Save") {
+                        self.save()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }.navigationBarTitle("")
+                .navigationBarHidden(true)
             }
         }
+    }
     
     func save() -> Void {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
@@ -139,6 +139,6 @@ struct AddFutureServiceView: View {
         futureService.notificationUUID = request.identifier
         
         UNUserNotificationCenter.current().add(request)
-
+        
     }
 }
