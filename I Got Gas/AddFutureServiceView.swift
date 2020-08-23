@@ -14,7 +14,7 @@ struct AddFutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
     
     @State private var monthOrWeek: Int = 0
-    @State private var today = Date()
+    @State private var date = Date()
     @State private var odometer = ""
     @State private var name = ""
     @State private var repeating = true
@@ -72,6 +72,13 @@ struct AddFutureServiceView: View {
                                 Text("miles")
                             }
                         }
+                        Section(header: Text("Starting...")) {
+                            DatePicker("Date",
+                                       selection: self.$date,
+                                       displayedComponents: .date)
+                                
+                                .labelsHidden()
+                        }
                         
                     }
                     
@@ -119,7 +126,7 @@ struct AddFutureServiceView: View {
         futureService.frequency = Int64(self.frequency) ?? 0
         futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
         
-        upDate(futureService, today)
+        upDate(futureService, date)
         setFutureServiceNotification(futureService)
         
         try? self.moc.save()
