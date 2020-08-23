@@ -91,10 +91,10 @@ struct AddExpenseView: View {
                                     .font(.largeTitle)
                             }
                             
-                            TextField("Odometer", text: self.$odometer)
+                            TextField("\(car.odometer)", text: self.$odometer)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
-                                .keyboardType(.decimalPad)
+                                .keyboardType(.numberPad)
                                 .font(.largeTitle)
                             
                         }
