@@ -40,7 +40,6 @@ struct AddExpenseView: View {
     var body: some View {
         
         VStack {
-            Text("\(selectedFutureService)")
             Text(self.isGas ? "Gas" : "Service")
                 .font(.system(size: 30))
                 .padding()

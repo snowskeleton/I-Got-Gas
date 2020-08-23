@@ -45,7 +45,6 @@ struct FutureServiceView: View {
                                 Text(futureService.date == nil ? "" : "\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
-                        
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
                         AddExpenseView(carID: car.id!,
