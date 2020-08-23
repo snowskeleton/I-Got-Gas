@@ -36,7 +36,7 @@ struct FutureServiceBoxView: View {
                             }
                             HStack {
                                 Spacer()
-                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text(futureService.date == nil ? "" : "\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }.padding(.bottom)
                     }

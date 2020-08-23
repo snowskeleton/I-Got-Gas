@@ -40,7 +40,7 @@ struct FutureServiceView: View {
                             HStack {
                                 Text("\(futureService.note ?? "")")
                                 Spacer()
-                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text(futureService.date == nil ? "" : "\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                         

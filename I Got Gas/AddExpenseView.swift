@@ -169,7 +169,7 @@ struct AddExpenseView: View {
                     AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
             }
-            if service.date! < Date() {
+            if service.date != nil && service.date! < Date() {
                 service.important = true
             }
         }
@@ -178,6 +178,10 @@ struct AddExpenseView: View {
     fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
         if selectedFutureService > -1 {
             let service = futureServices[selectedFutureService]
+            if service.repeating == false {
+                moc.delete(service)
+                return
+            }
             service.important = false
             service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
             
