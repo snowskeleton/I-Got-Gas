@@ -105,20 +105,24 @@ struct AddFutureServiceView: View {
         futureService.months = Int64(self.frequency) ?? 0
         futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
         
-        futureService.date = Calendar.current.date(byAdding:
-                                                    (monthOrWeek == 0
-                                                        ? .month
-                                                        : .day),
-                                                   value: (monthOrWeek == 0
-                                                            ? Int(self.frequency) ?? 0
-                                                            : (Int(self.frequency) ?? 0 ) * 7 ),
-                                                   to: today)!
+        if self.frequency != "" {
+            futureService.date = Calendar.current.date(byAdding:
+                                                        (monthOrWeek == 0
+                                                            ? .month
+                                                            : .day),
+                                                       value: (monthOrWeek == 0
+                                                                ? Int(self.frequency) ?? 0
+                                                                : (Int(self.frequency) ?? 0 ) * 7 ),
+                                                       to: today)!
+        }
         setFutureServiceNotification(futureService)
         
         try? self.moc.save()
     }
     
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
+        if futureService.date == nil { return }
+        
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
 
         let content = UNMutableNotificationContent()
