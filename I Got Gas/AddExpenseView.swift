@@ -13,8 +13,6 @@ struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
@@ -22,141 +20,157 @@ struct AddExpenseView: View {
     
     @State private var expenseDate = Date()
     
-    @State private var isGas = true
+    @Binding var isGas: Bool
+    @Binding var car: Car
     @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
     @State private var odometer: String = ""
+    @State private var isFullTank: Int = 0
     
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
+    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
+        self._isGas = isGas
+        self._car = car
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
+        
+        VStack {
+            Text(self.isGas ? "Gas" : "Service")
+                .font(.system(size: 30))
+                .padding()
             
-            VStack {
-                
-                HStack {
-                    Button(action: {
-                        self.isGas.toggle()
-                    }) {
-                        self.isGas ? Text("Gas") : Text("Service")
-                    }
-                    .font(.system(size: 30))
-                    .padding()
-                    
-                }
-                
-                NavigationView {
-                    VStack {
-                        Form {
-                            Section(header: Text("Date")) {
-                                DatePicker("Date",
-                                           selection: self.$expenseDate,
-                                           displayedComponents: .date)
-                                    .padding(.top)
-                                    .labelsHidden()
-                            }
-                            if !self.isGas {
-                                Picker(selection: self.$selectedFutureService,
-                                       label: Text("Scheduled Service")) {
-                                    
-                                    Text("").tag(-1)
-                                    
-                                    ForEach(0 ..< futureServices.count) {
-                                        Text("\(futureServices[$0].name!)")
-                                            .foregroundColor(futureServices[$0].important
-                                                                ? Color.red
-                                                                : (colorScheme == .dark
-                                                                    ? Color.white
-                                                                    : Color.black))
-                                    }
-                                    
-                                }
-                            }
-                            
-                            Section(header: Text("Details")) {
+            NavigationView {
+                VStack {
+                    Form {
+                        Section(header: Text("Date")) {
+                            DatePicker("Date",
+                                       selection: self.$expenseDate,
+                                       displayedComponents: .date)
                                 
-                                
-                                CurrencyTextField("Price", value: self.$totalPrice)
-                                    .font(.largeTitle)
-                                    .multilineTextAlignment(TextAlignment.leading)
-                                
-                                
-                                if self.isGas {
-                                    TextField("Gallons", text: self.$gallonsOfGas)
-                                        .keyboardType(.decimalPad)
-                                        .font(.largeTitle)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
+                                .labelsHidden()
+                        }
+                        if !self.isGas {
+                            Picker(selection: self.$selectedFutureService,
+                                   label: Text("Scheduled Service")) {
+                                Text("").tag(-1)
+                                ForEach(0 ..< futureServices.count) {
+                                    Text("\(futureServices[$0].name!)")
+                                        .foregroundColor(futureServices[$0].important
+                                                            ? Color.red
+                                                            : (colorScheme == .dark
+                                                                ? Color.white
+                                                                : Color.black))
                                 }
                                 
-                                TextField("Odometer", text: self.$odometer)
-                                    .keyboardType(.decimalPad)
-                                    .font(.largeTitle)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
-                                
                             }
-                            
-                            Section(header: Text("Vendor")) {
-                                TextField("Vendor name", text: self.$vendorName)
-                                
-                                if !self.isGas {
-                                    TextField("Service Notes", text: self.$note)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
-                                }
-                            }
+
+                        } else {
+                            Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {
+                                Text("Full Tank").tag(0)
+                                Text("Partial tank").tag(1)
+                            }.pickerStyle(SegmentedPickerStyle())
                         }
                         
-                        Spacer()
+                        Section(header: Text("Details")) {
+                            
+                            
+                            CurrencyTextField("Price", value: self.$totalPrice)
+                                .font(.largeTitle)
+                                .multilineTextAlignment(TextAlignment.leading)
+                            
+                            
+                            if self.isGas {
+                                TextField("Gallons", text: self.$gallonsOfGas)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
+                                    .keyboardType(.decimalPad)
+                                    .font(.largeTitle)
+                            }
+                            
+                            TextField("\(car.odometer)", text: self.$odometer)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+                                .keyboardType(.numberPad)
+                                .font(.largeTitle)
+                            
+                        }
                         
-                        Button("Save") {
+                        Section(header: Text("Vendor")) {
+                            TextField("Vendor name", text: self.$vendorName)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
+                                .font(.largeTitle)
+                            
+                            if !self.isGas {
+                                TextField("Service Notes", text: self.$note)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
+                            }
+                        }
+                    }
+                    // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
+                    
+                    Spacer()
+                    
+                    Button("Save") {
+                        if maybeEnableButton() {
                             self.save()
                             self.presentationMode.wrappedValue.dismiss()
                         }
-                    }.navigationBarTitle("")
-                    .navigationBarHidden(true)
-                }
+                    }
+                }.navigationBarTitle("")
+                .navigationBarHidden(true)
             }
         }
     }
     
-    fileprivate func save() -> Void {
-        for car in cars {
-            let service = Service(context: self.moc)
-            service.vendor = Vendor(context: self.moc)
-            service.vehicle = car
-            
-            updateFutureServices(car)
-            setFutureInStone(car)
-            updateCarOdometer(car)
-            setServiceStats(service)
-            
-            try? self.moc.save()
-            
-            setFuelDetails(car, service)
-            updateCarStats(car)
-            
-            try? self.moc.save()
+    fileprivate func maybeEnableButton() -> Bool {
+        if self.totalPrice == nil {
+            return false
         }
+        if self.odometer == "" {
+            return false
+        }
+        if isGas && self.gallonsOfGas == "" {
+            return false
+        }
+        return true
+    }
+    
+    fileprivate func save() -> Void {
+        let service = Service(context: self.moc)
+        service.vendor = Vendor(context: self.moc)
+        service.vehicle = car
+        
+        updateFutureServices(car)
+        setFutureInStone(car)
+        updateCarOdometer(car)
+        setServiceStats(service)
+        
+        try? self.moc.save()
+        
+        setFuelDetails(car, service)
+        if isFullTank == 0 { //0 is true, 1 is false. Selected by Picker.
+            updateCarStats(car)
+        }
+        try? self.moc.save()
     }
     
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
         
-        for futureService in futureServices {
-            if futureService.everyXMiles != 0 {
-                if futureService.targetOdometer <= Int64(self.odometer)! {
-                    futureService.important = true
+        for service in futureServices {
+            if service.everyXMiles != 0 {
+                if service.targetOdometer <= Int64(self.odometer)! {
+                    service.important = true
+                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
             }
-            if futureService.date! < Date() {
-                futureService.important = true
+            if service.date! < Date() {
+                service.important = true
             }
         }
     }
@@ -167,6 +181,7 @@ struct AddExpenseView: View {
             service.important = false
             service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
             service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
+            AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
     

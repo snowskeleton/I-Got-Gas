@@ -11,27 +11,26 @@ import CoreData
 
 struct FutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
+    @Binding var car: Car
     @State var showAddFutureExpenseView = false
-    
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
-        
+    @State var showAddExpenseView = false
+    init(carID: String, car: Binding<Car>) {
+        self._car = car
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
     
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
-            
-            VStack {
-                List {
-                    ForEach(futureServices, id: \.self) { futureService in
+        VStack {
+            List {
+                ForEach(futureServices, id: \.self) { futureService in
+                    Button(action: {
+                        self.showAddExpenseView = true
+                    }) {
                         VStack {
                             HStack {
                                 Text("\(futureService.name ?? "")")
@@ -44,15 +43,19 @@ struct FutureServiceView: View {
                                 Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
-                    }.onDelete(perform: loseMemory)
-                }
-                Spacer()
-                Button("Schedule Service") {
-                    self.showAddFutureExpenseView = true
-                }.sheet(isPresented: self.$showAddFutureExpenseView) {
-                    AddFutureServiceView(carID: car.id ?? "")
-                        .environment(\.managedObjectContext, self.moc)
-                }
+                        
+                    }
+                    .sheet(isPresented: self.$showAddExpenseView) {
+                        AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false))
+                            .environment(\.managedObjectContext, self.moc)
+                    }
+                }.onDelete(perform: loseMemory)
+            }
+            Spacer()
+            Button("Schedule Service") {
+                self.showAddFutureExpenseView = true
+            }.sheet(isPresented: self.$showAddFutureExpenseView) {
+                AddFutureServiceView(car: Binding<Car>.constant(car))
             }
         }
     }

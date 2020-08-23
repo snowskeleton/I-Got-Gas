@@ -10,30 +10,21 @@ import SwiftUI
 import UIKit
 
 struct AddCarView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
     @Binding var show: Bool
     @State private var buttonEnabled = false
     
     @State private var carYear: String? = ""
-    @State private var showsYearPicker = false
     
     @State private var carMake = ""
     @State private var carModel = ""
     @State private var carPlate = ""
     @State private var carVIN = ""
-    @State private var carOdometer: Int64?
+    @State private var carOdometer = ""
     
-    private var years: [String] {
-        var list: [Int] = []
-        for i in 1885...2022 {
-            list.insert(i, at: 0)
-        }
-        let returnlist = list.map { String($0) }
-        return returnlist
-    }
-    
+    var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
     var body: some View {
@@ -51,35 +42,25 @@ struct AddCarView: View {
                             TextField("* Make",
                                       text: self.$carMake,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                             TextField("* Model",
                                       text: self.$carModel,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                             TextField("* Current Odometer",
-                                      value: self.$carOdometer,
-                                      formatter: NumberFormatter.withCommaSeparator,
+                                      text: self.$carOdometer,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
                             TextField("* License Plate",
                                       text: self.$carPlate,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
-                            
                             TextField("* VIN",
                                       text: self.$carVIN,
                                       onCommit: { self.maybeEnableButton() })
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .disableAutocorrection(true)
                         }
                     }
+                    .dismissKeyboardOnSwipe()
+                    .dismissKeyboardOnTap()
                 }
                 .navigationBarTitle("You get a car!")
             }
@@ -116,30 +97,28 @@ struct AddCarView: View {
             self.buttonEnabled = false
             return
         }
+        if self.carOdometer == "" {
+            self.buttonEnabled = false
+            return
+        }
         self.buttonEnabled = true
     }
     
     func save() {
-        let car = Car(context: self.managedObjectContext)
+        let car = Car(context: self.moc)
         car.year = self.carYear
         car.make = self.carMake
         car.model = self.carModel
         car.plate = self.carPlate
         car.vin = self.carVIN
-        car.odometer = self.carOdometer ?? 0
+        car.odometer = Int64(self.carOdometer)!
         car.id = UUID().uuidString
-        try? self.managedObjectContext.save()
+        try? self.moc.save()
         
         self.show = false
     }
 }
 
-struct AddCarView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCarView(show: Binding.constant(true))
-        
-    }
-}
 
 struct TextFieldWithPickerAsInputView : UIViewRepresentable {
     

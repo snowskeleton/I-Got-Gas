@@ -7,99 +7,134 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var managedObjectContext
-//    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    @Environment(\.managedObjectContext) var moc
     
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
-    
+    @State private var monthOrWeek: Int = 0
     @State private var today = Date()
     @State private var odometer = ""
     @State private var name = ""
     @State private var repeating = true
     @State private var months = ""
     @State private var miles = ""
+    @Binding var car: Car
     
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
+    init(car: Binding<Car>) {
+        self._car = car
     }
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
-            
-            VStack {
-                NavigationView {
-                    VStack {
-                        
-                        HStack {
-                            Button(action: {
-                                self.repeating.toggle()
-                            }) {
-                                self.repeating ? Text("Repeating") : Text("One Time")
-                            }
+        VStack {
+            NavigationView {
+                VStack {
+                    
+                    HStack {
+                        Button(action: {
+                            self.repeating.toggle()
+                        }) {
+                            Text( self.repeating ? ("Repeating") : ("One Time"))
+                        }
+                        .font(.system(size: 30))
+                        .padding()
+                    }
+                    
+                    Form {
+                        TextField("Service Description", text: self.$name)
                             .font(.system(size: 30))
-                            .padding()
-                        }
+                            .dismissKeyboardOnSwipe()
+                            .dismissKeyboardOnTap()
                         
-                        Form {
-                            
-                            TextField("Service Description", text: self.$name)
+                        Section(header: Text("Every...")) {
+                            TextField("", text: self.$months)
                                 .font(.system(size: 30))
+                                .keyboardType(.numberPad)
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                             
-                            Section(header: Text("Every...")) {
-                                HStack {
-                                    TextField("", text: self.$months)
-                                        .font(.system(size: 30))
-                                        .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
-                                    Spacer()
-                                    Text("months")
-                                }
-                            }
-                            
-                            Section(header: Text("Or...")) {
-                                HStack {
-                                    TextField("", text: self.$miles)
-                                        .font(.system(size: 30))
-                                        .keyboardType(.numberPad)
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
-                                    Spacer()
-                                    Text("miles")
-                                }
-                            }
-                            
+                            Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
+                                Text("Months").tag(0)
+                                Text("Weeks").tag(1)
+                            }.pickerStyle(SegmentedPickerStyle())
                         }
                         
-                        Spacer()
-                        
-                        Button("Save") {
-                            self.save()
-                            self.presentationMode.wrappedValue.dismiss()
+                        Section(header: Text("Or...")) {
+                            HStack {
+                                TextField("", text: self.$miles)
+                                    .font(.system(size: 30))
+                                    .keyboardType(.numberPad)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
+                                
+                                Spacer()
+                                Text("miles")
+                            }
                         }
-                    }.navigationBarTitle("")
-                    .navigationBarHidden(true)
-                }
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Save") {
+                        self.save()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }.navigationBarTitle("")
+                .navigationBarHidden(true)
             }
         }
     }
+    
     func save() -> Void {
-        for car in cars {
-            let futureService = FutureService(context: self.managedObjectContext)
-            futureService.vehicle = car
-            
-            futureService.name = self.name
-            futureService.everyXMiles = Int64(self.miles) ?? 0
-            futureService.months = Int64(self.months) ?? 0
-            futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-            futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
-            
-            try? self.managedObjectContext.save()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if success {
+                print("All set!")
+            } else if let error = error {
+                print(error.localizedDescription)
+            }
         }
+        
+        
+        let futureService = FutureService(context: self.moc)
+        futureService.vehicle = car
+        
+        futureService.name = self.name
+        futureService.everyXMiles = Int64(self.miles) ?? 0
+        futureService.months = Int64(self.months) ?? 0
+        futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
+        futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
+        setFutureServiceNotification(futureService)
+        
+        try? self.moc.save()
     }
     
+    public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
+        let content = UNMutableNotificationContent()
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
+        content.title = "\(self.name)"
+        content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
+        content.badge = 1
+        content.sound = UNNotificationSound.default
+        
+        if now! {
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            futureService.notificationUUID = request.identifier
+            UNUserNotificationCenter.current().add(request)
+            return
+        }
+        
+        let date = futureService.date
+        var triggerDate = Calendar.current.dateComponents([.year, .month, .day,], from: date!)
+        triggerDate.hour = 8
+        triggerDate.minute = 15
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        futureService.notificationUUID = request.identifier
+        
+        UNUserNotificationCenter.current().add(request)
+        
+    }
 }

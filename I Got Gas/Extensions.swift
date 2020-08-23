@@ -103,3 +103,44 @@ struct DetailBoxStyle<V: View>: GroupBoxStyle {
         }.buttonStyle(PlainButtonStyle())
     }
 }
+
+struct CheckMarkToggleStyle: ToggleStyle {
+    var label: String
+    var color = Color.primary
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Button(action: { configuration.isOn.toggle() } )
+            {
+                Image(systemName: configuration.isOn
+                    ? "checkmark.square.fill"
+                    : "square.fill")
+                    .foregroundColor(color)
+            }
+        }
+        .font(.title)
+        .padding(.horizontal)
+    }
+}
+
+func yearsPlusTwo() -> [String] {
+    var list: [Int] = []
+    
+    var upperRange: Int {
+        let date = Date()
+        let format = DateFormatter()
+        format.dateFormat = "yyyy"
+        let formattedDate = format.string(from: date)
+        let plusTwo = Int(formattedDate)! + 2
+        return plusTwo
+    }
+    
+    for i in 1885...upperRange {
+        list.insert(i, at: 0)
+    }
+    
+    let returnlist = list.map { String($0) }
+    return returnlist
+}

@@ -9,32 +9,36 @@
 import SwiftUI
 
 struct CarBoxView: View {
-    @Environment(\.colorScheme) var colorScheme
     var car: Car
     
     var body: some View {
-        GroupBox(label: ImageAndTextLable(systemImage: "car.circle", text: "\(car.year!) \(car.make!) \(car.model!)")) {
-            HStack {
-                VStack {
-                    Text("Cost Per Mile")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerMile, specifier: "%.2f")/m")
-                }.padding(.leading)
-                
-                Spacer()
-                
-                VStack {
-                    Text("Avg $/gal")
-                        .font(.system(size: 10))
-                    Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+        GroupBox(label: ImageAndTextLable(systemImage: "car", text: "\(car.year!) \(car.make!) \(car.model!) \(car.plate!)")) {
+            VStack {
+                HStack {
+                    VStack {
+                        Text("Cost Per Mile")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerMile, specifier: "%.2f")/m")
+                    }.padding(.leading)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text("Avg $/gal")
+                            .font(.system(size: 10))
+                        Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                    }
+                    Spacer()
+                    
+                    VStack {
+                        Text("Last Fuel-Up")
+                            .font(.system(size: 10))
+                        Text(car.lastFillup == nil
+                                ? "0"
+                                : "\(car.lastFillup!, formatter: DateFormatter.taskDateFormat)")
+                    }
                 }
-                Spacer()
-                
-                VStack {
-                    Text("Last Fuel-Up")
-                        .font(.system(size: 10))
-                    Text(car.lastFillup == nil ? "0" : "\(car.lastFillup!, formatter: DateFormatter.taskDateFormat)")
-                }
+                Text("\(car.odometer)")
             }
             .font(.system(size: 20))
         }

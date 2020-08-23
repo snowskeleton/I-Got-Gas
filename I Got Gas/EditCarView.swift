@@ -22,17 +22,8 @@ struct EditCarView: View {
     @State private var carVIN: String = ""
     //    @State private var carOdometer: String = ""
     
-    private var years: [String] {
-        var list: [Int] = []
-        for i in 1885...2022 {
-            list.insert(i, at: 0)
-        }
-        let returnlist = list.map { String($0) }
-        return returnlist
-    }
+    var years = yearsPlusTwo()
     @State var selectionIndex = 0
-    
-    
     
     var body: some View {
         VStack {
@@ -46,31 +37,24 @@ struct EditCarView: View {
                                                            text: self.$carYear)
                             TextField("\(car.make!)",
                                       text: $carMake)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
-
                             TextField("\(car.model!)",
                                       text: $carModel)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
-
                             //                            TextField("\(car.odometer)",
                             //                                      text: $carOdometer)
                             //                                .keyboardType(.numberPad)
                             TextField("\(car.plate!)",
                                       text: $carPlate)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
-
                             TextField("\(car.vin!)",
                                       text: $carVIN)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
 
                         }
                     }
+                    .dismissKeyboardOnSwipe()
+                    .dismissKeyboardOnTap()
+
                     Button("Delete Car") {
                         self.moc.delete(car)
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
                 .navigationBarTitle("Repaint the Car!")
