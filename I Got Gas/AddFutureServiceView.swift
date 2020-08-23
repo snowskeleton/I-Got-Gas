@@ -15,6 +15,7 @@ struct AddFutureServiceView: View {
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
         
+    @State private var monthOrWeek: Int = 0
     @State private var today = Date()
     @State private var odometer = ""
     @State private var name = ""
@@ -47,15 +48,20 @@ struct AddFutureServiceView: View {
                             
                             TextField("Service Description", text: self.$name)
                                 .font(.system(size: 30))
+                                .dismissKeyboardOnSwipe()
+                                .dismissKeyboardOnTap()
                             
                             Section(header: Text("Every...")) {
-                                HStack {
                                     TextField("", text: self.$months)
                                         .font(.system(size: 30))
                                         .keyboardType(.numberPad)
-                                    Spacer()
-                                    Text("months")
-                                }
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
+
+                                Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
+                                        Text("Months").tag(0)
+                                        Text("Weeks").tag(1)
+                                    }.pickerStyle(SegmentedPickerStyle())
                             }
                             
                             Section(header: Text("Or...")) {
@@ -63,14 +69,15 @@ struct AddFutureServiceView: View {
                                     TextField("", text: self.$miles)
                                         .font(.system(size: 30))
                                         .keyboardType(.numberPad)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
+
                                     Spacer()
                                     Text("miles")
                                 }
                             }
                             
                         }
-                        .dismissKeyboardOnSwipe()
-                        .dismissKeyboardOnTap()
 
                         Spacer()
                         
