@@ -111,8 +111,8 @@ struct AddFutureServiceView: View {
                                                             ? .month
                                                             : .day),
                                                        value: (monthOrWeek == 0
-                                                                ? Int(self.frequency) ?? 0
-                                                                : (Int(self.frequency) ?? 0 ) * 7 ),
+                                                                ? Int(self.frequency)!
+                                                                : (Int(self.frequency)!) * 7 ),
                                                        to: today)!
         }
         setFutureServiceNotification(futureService)
