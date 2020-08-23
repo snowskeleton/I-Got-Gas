@@ -29,6 +29,9 @@ struct ServiceExpenseBoxView: View {
                     HStack {
                         Text("$\(service.cost, specifier: "%.2f")")
                         Spacer()
+                        Text("\(service.note ?? "")")
+                            .lineLimit(1)
+                        Spacer()
                         Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                     }
                 }
