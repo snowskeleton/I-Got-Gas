@@ -18,6 +18,7 @@ struct FutureServiceView: View {
     @Binding var car: Car
     @State var showAddFutureExpenseView = false
     @State var showAddExpenseView = false
+    @State private var selectedFutureService = -1
     init(carID: String, car: Binding<Car>) {
         self._car = car
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
@@ -29,6 +30,7 @@ struct FutureServiceView: View {
             List {
                 ForEach(futureServices, id: \.self) { futureService in
                     Button(action: {
+                        selectedFutureService = Int(futureServices.firstIndex(of: futureService)!)
                         self.showAddExpenseView = true
                     }) {
                         VStack {
@@ -40,15 +42,18 @@ struct FutureServiceView: View {
                             HStack {
                                 Text("\(futureService.note ?? "")")
                                 Spacer()
-                                Text("\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text(futureService.date == nil ? "" : "\(futureService.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
-                        
                     }
                     .sheet(isPresented: self.$showAddExpenseView) {
-                        AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false))
+                        AddExpenseView(carID: car.id!,
+                                       car: Binding<Car>.constant(car),
+                                       isGas: Binding<Bool>.constant(false),
+                                       inputSelectedFutureService: selectedFutureService)
                             .environment(\.managedObjectContext, self.moc)
                     }
+
                 }.onDelete(perform: loseMemory)
             }
             Spacer()

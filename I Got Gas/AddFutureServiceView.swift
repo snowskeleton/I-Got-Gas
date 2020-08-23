@@ -14,11 +14,11 @@ struct AddFutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
     
     @State private var monthOrWeek: Int = 0
-    @State private var today = Date()
+    @State private var date = Date()
     @State private var odometer = ""
     @State private var name = ""
     @State private var repeating = true
-    @State private var months = ""
+    @State private var frequency = ""
     @State private var miles = ""
     @Binding var car: Car
     
@@ -48,7 +48,7 @@ struct AddFutureServiceView: View {
                             .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
-                            TextField("", text: self.$months)
+                            TextField("3, 6, 12....", text: self.$frequency)
                                 .font(.system(size: 30))
                                 .keyboardType(.numberPad)
                                 .dismissKeyboardOnSwipe()
@@ -62,7 +62,7 @@ struct AddFutureServiceView: View {
                         
                         Section(header: Text("Or...")) {
                             HStack {
-                                TextField("", text: self.$miles)
+                                TextField("3,000, 15,000...", text: self.$miles)
                                     .font(.system(size: 30))
                                     .keyboardType(.numberPad)
                                     .dismissKeyboardOnSwipe()
@@ -71,6 +71,13 @@ struct AddFutureServiceView: View {
                                 Spacer()
                                 Text("miles")
                             }
+                        }
+                        Section(header: Text("Starting...")) {
+                            DatePicker("Date",
+                                       selection: self.$date,
+                                       displayedComponents: .date)
+                                
+                                .labelsHidden()
                         }
                         
                     }
@@ -84,6 +91,19 @@ struct AddFutureServiceView: View {
                 }.navigationBarTitle("")
                 .navigationBarHidden(true)
             }
+        }
+    }
+    
+    public func upDate(_ futureService: FutureService, _ date: Date) {
+        if self.frequency != "" {
+            futureService.date = Calendar.current.date(byAdding:
+                                                        (monthOrWeek == 0
+                                                            ? .month
+                                                            : .day),
+                                                       value: (monthOrWeek == 0
+                                                                ? Int(self.frequency)!
+                                                                : (Int(self.frequency)!) * 7 ),
+                                                       to: date)!
         }
     }
     
@@ -102,17 +122,22 @@ struct AddFutureServiceView: View {
         
         futureService.name = self.name
         futureService.everyXMiles = Int64(self.miles) ?? 0
-        futureService.months = Int64(self.months) ?? 0
+        
+        futureService.frequency = Int64(self.frequency) ?? 0
         futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-        futureService.date = Calendar.current.date(byAdding: .month, value: Int(self.months) ?? 0, to: today)!
+        
+        upDate(futureService, date)
         setFutureServiceNotification(futureService)
         
         try? self.moc.save()
     }
     
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
-        let content = UNMutableNotificationContent()
+        if futureService.date == nil { return }
+        
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
+
+        let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
         content.badge = 1

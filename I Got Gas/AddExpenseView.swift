@@ -16,7 +16,7 @@ struct AddExpenseView: View {
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
-    @State var selectedFutureService: Int = -1
+    @State var selectedFutureService: Int
     
     @State private var expenseDate = Date()
     
@@ -29,9 +29,10 @@ struct AddExpenseView: View {
     @State private var odometer: String = ""
     @State private var isFullTank: Int = 0
     
-    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>) {
+    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>, inputSelectedFutureService: Int) {
         self._isGas = isGas
         self._car = car
+        self._selectedFutureService = State(initialValue: inputSelectedFutureService)
         
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
@@ -169,7 +170,7 @@ struct AddExpenseView: View {
                     AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
             }
-            if service.date! < Date() {
+            if service.date != nil && service.date! < Date() {
                 service.important = true
             }
         }
@@ -178,9 +179,15 @@ struct AddExpenseView: View {
     fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
         if selectedFutureService > -1 {
             let service = futureServices[selectedFutureService]
+            if service.repeating == false {
+                moc.delete(service)
+                return
+            }
             service.important = false
             service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
-            service.date = Calendar.current.date(byAdding: .month, value: Int(service.months), to: expenseDate)!
+            
+            AddFutureServiceView(car: Binding<Car>.constant(car)).upDate(service, expenseDate)
+            
             AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
