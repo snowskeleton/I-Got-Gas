@@ -10,10 +10,10 @@ import SwiftUI
 import UIKit
 
 struct AddCarView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     
-    @Binding var show: Bool
     @State private var buttonEnabled = false
     
     @State private var carYear: String? = ""
@@ -69,6 +69,7 @@ struct AddCarView: View {
             
             Button(action: {
                 self.save()
+                self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Add Vehicle")
             }

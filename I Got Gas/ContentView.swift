@@ -30,7 +30,9 @@ struct ContentView: View {
                                         try? self.moc.save()
                                         self.showOptionsView.toggle()
                                     }) {
-                                        Image(systemName: "gearshape")},
+                                        Image(systemName: "gearshape")
+                                            .sheet(isPresented: $showOptionsView) {
+                                                OptionsView()}},
                                 trailing:
                                     Button(action: {
                                         self.showAddCarView.toggle()
