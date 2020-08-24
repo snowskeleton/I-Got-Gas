@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopDetailView: View {
     @Binding var car: Car
-    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat")!
+    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
     
     init(car: Binding<Car>) {
         self._car = car
