@@ -37,19 +37,19 @@ struct AddFutureServiceView: View {
                         }) {
                             Text( self.repeating ? ("Repeating") : ("One Time"))
                         }
-                        .font(.system(size: 30))
+                        .font(.largeTitle)
                         .padding()
                     }
                     
                     Form {
                         TextField("Service Description", text: self.$name)
-                            .font(.system(size: 30))
+                            .font(.largeTitle)
                             .dismissKeyboardOnSwipe()
                             .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
                             TextField("3, 6, 12....", text: self.$frequency)
-                                .font(.system(size: 30))
+                                .font(.largeTitle)
                                 .keyboardType(.numberPad)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
@@ -63,7 +63,7 @@ struct AddFutureServiceView: View {
                         Section(header: Text("Or...")) {
                             HStack {
                                 TextField("3,000, 15,000...", text: self.$miles)
-                                    .font(.system(size: 30))
+                                    .font(.largeTitle)
                                     .keyboardType(.numberPad)
                                     .dismissKeyboardOnSwipe()
                                     .dismissKeyboardOnTap()

@@ -38,7 +38,7 @@ struct ContentView: View {
                                         self.showAddCarView.toggle()
                                     }) {
                                         Image(systemName: "plus")
-                                            .font(.system(size: 30))
+                                            .font(.largeTitle)
                                     }.padding(.leading)
                                     .sheet(isPresented: $showAddCarView) {
                                         AddCarView()

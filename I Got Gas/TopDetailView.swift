@@ -36,8 +36,8 @@ struct TopDetailView: View {
                 
             }
             .padding(.top)
-            .font(.system(size: 30))
-            
+            .font(.largeTitle)
+
             Text("\(car.odometer)")
         }
     }

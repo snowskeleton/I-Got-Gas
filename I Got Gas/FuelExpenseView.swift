@@ -41,7 +41,7 @@ struct FuelExpenseView: View {
                     ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\(service.fuel?.dpg ?? 0.00, specifier: "%.2f")/g)")
+                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: "%.2f")/g)")
                                 Spacer()
                             }
                             HStack {

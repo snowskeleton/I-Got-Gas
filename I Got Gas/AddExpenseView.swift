@@ -41,7 +41,7 @@ struct AddExpenseView: View {
         
         VStack {
             Text(self.isGas ? "Gas" : "Service")
-                .font(.system(size: 30))
+                .font(.largeTitle)
                 .padding()
             
             NavigationView {
