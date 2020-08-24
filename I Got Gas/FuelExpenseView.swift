@@ -11,6 +11,8 @@ import CoreData
 
 struct FuelExpenseView: View {
     @Environment(\.managedObjectContext) var moc
+    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat")!
+    
     var carFetchRequest: FetchRequest<Car>
     var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     
@@ -41,7 +43,7 @@ struct FuelExpenseView: View {
                     ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: "%.2f")/g)")
+                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
                                 Spacer()
                             }
                             HStack {
