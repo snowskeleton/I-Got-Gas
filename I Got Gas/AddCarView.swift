@@ -115,9 +115,7 @@ struct AddCarView: View {
         car.odometer = Int64(self.carOdometer)!
         car.startingOdometer = Int64(self.carOdometer)!
         car.id = UUID().uuidString
-        try? self.moc.save()
-        
-        self.show = false
+        try? self.moc.save()        
     }
 }
 

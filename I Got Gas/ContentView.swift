@@ -41,7 +41,7 @@ struct ContentView: View {
                                             .font(.system(size: 30))
                                     }.padding(.leading)
                                     .sheet(isPresented: $showAddCarView) {
-                                        AddCarView(show: self.$showAddCarView)
+                                        AddCarView()
                                         
                                     })
         }
