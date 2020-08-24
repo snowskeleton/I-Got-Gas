@@ -27,7 +27,7 @@ struct OptionsView: View {
     var body: some View {
         VStack {
             Form {
-                Picker(selection: $formatSelection, label: Text("My way or the Highway"), content:
+                Picker(selection: $formatSelection, label: Text("$/gal Decimal Length"), content:
                         {
                             ForEach(0 ..< formatList.count) {
                                 Text(self.formatList[$0])
@@ -36,7 +36,7 @@ struct OptionsView: View {
                 
             }
             Text("Hello, World!")
-            Button("Cancel") {
+            Button("Save") {
                 UserDefaults.standard.set(formatList[formatSelection], forKey: "priceFormat")
                 self.presentationMode.wrappedValue.dismiss()
             }
