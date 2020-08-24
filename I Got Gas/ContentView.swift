@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State var showAddCarView = false
+    @State var showOptionsView = false
     
     var body: some View {
         NavigationView {
@@ -27,8 +28,9 @@ struct ContentView: View {
             .navigationBarItems(leading:
                                     Button(action: {
                                         try? self.moc.save()
+                                        self.showOptionsView.toggle()
                                     }) {
-                                        Text("Options")},
+                                        Image(systemName: "gearshape")},
                                 trailing:
                                     Button(action: {
                                         self.showAddCarView.toggle()
