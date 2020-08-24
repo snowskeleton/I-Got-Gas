@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TopDetailView: View {
     @Binding var car: Car
+    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat")!
+    
     init(car: Binding<Car>) {
         self._car = car
     }
@@ -30,7 +32,7 @@ struct TopDetailView: View {
                 VStack {
                     Text("Avg $/gal")
                         .font(.system(size: 10))
-                    Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                    Text("\(car.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))"))/gal")
                 }
                 Spacer()
                 
