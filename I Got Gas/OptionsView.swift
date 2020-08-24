@@ -27,7 +27,7 @@ struct OptionsView: View {
     var body: some View {
         VStack {
             Form {
-                Picker(selection: $formatSelection, label: Text("$/gal Decimal Length"), content:
+                Picker(selection: $formatSelection, label: Text("Fuel Price Decimal Length"), content:
                         {
                             ForEach(0 ..< formatList.count) {
                                 Text(self.formatList[$0])
@@ -44,8 +44,3 @@ struct OptionsView: View {
     }
 }
 
-struct OptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        OptionsView()
-    }
-}
