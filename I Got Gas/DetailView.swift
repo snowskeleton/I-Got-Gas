@@ -66,7 +66,7 @@ struct DetailView: View {
                                 Button("Edit") {
                                     self.showEditCarView.toggle()
                                 }.sheet(isPresented: self.$showEditCarView) {
-                                    EditCarView(car: car)
+                                    EditCarView(car: Binding<Car>.constant(car))
                                 })
     }
 }
