@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
