@@ -44,16 +44,16 @@ struct EditCarView: View {
                                                            placeholder: "* Year",
                                                            selectionIndex: self.$selectionIndex,
                                                            text: self.$carYear)
-                            TextField("\(car.make!)",
+                            TextField("Make",
                                       text: $carMake)
-                            TextField("\(car.model!)",
+                            TextField("Model",
                                       text: $carModel)
                             //                            TextField("\(car.odometer)",
                             //                                      text: $carOdometer)
                             //                                .keyboardType(.numberPad)
-                            TextField("\(car.plate!)",
+                            TextField("Plate",
                                       text: $carPlate)
-                            TextField("\(car.vin!)",
+                            TextField("VIN",
                                       text: $carVIN)
 
                         }
