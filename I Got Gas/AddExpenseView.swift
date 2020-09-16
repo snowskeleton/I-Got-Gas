@@ -114,9 +114,7 @@ struct AddExpenseView: View {
                         }
                     }
                     // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
-                    
-                    Spacer()
-                    
+                                        
                     Button("Save") {
                         if maybeEnableButton() {
                             self.save()
