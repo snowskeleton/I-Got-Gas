@@ -11,6 +11,10 @@ import SwiftUI
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
+    
+    @State private var showFirstConfirmDeleteRequest = false
+    @State private var showSecondConfirmDeleteRequest = false
+    
     @Binding var car: Car
     
     @State private var showsYearPicker = false
@@ -61,23 +65,47 @@ struct EditCarView: View {
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
 
-                    Button("Delete Car") {
-                        self.moc.delete(car)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+                    Button(action: {
+                        self.showFirstConfirmDeleteRequest = true
+                        }) {
+                        Text("Delete Car")
+                            .foregroundColor(Color.red)
+                           
+                    }.alert(isPresented: self.$showFirstConfirmDeleteRequest) {
+                    Alert(title: Text("Delete this Vehicle"),
+                          message: Text("Deleting this vehicle will permanently remove all data."),
+                          primaryButton: .destructive(Text("Delete")) {
+                            self.showSecondConfirmDeleteRequest = true                      },
+                          secondaryButton: .cancel()
+                    )
+                }
                 }
                 .navigationBarTitle("Repaint the Car!")
+                .navigationBarItems(leading:
+                                        Button("Cancel") {
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        },
+                                    trailing: Button("Save") {
+                                        self.save()
+                                        self.presentationMode.wrappedValue.dismiss()
+                                        
+                                    })
+            }.alert(isPresented: self.$showSecondConfirmDeleteRequest) {
+                Alert(title: Text("Are you really sure?"),
+                      message: Text("This action cannot be undone"),
+                      primaryButton: .cancel(),
+                      secondaryButton: .destructive(Text("I'm sure")) {
+                        self.moc.delete(car)
+                        self.presentationMode.wrappedValue.dismiss()
+                      })
             }
+            
+            
             
             Spacer()
             
-            Button(action: {
-                self.save()
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Finalize Rebuild")
-            }
         }
+       
     }
     
     func save() {
