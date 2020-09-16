@@ -16,7 +16,7 @@ struct AddCarView: View {
     
     @State private var buttonEnabled = false
     
-    @State private var carYear: String? = ""
+    @State private var carYear: String = ""
     
     @State private var carMake = ""
     @State private var carModel = ""
@@ -122,11 +122,11 @@ struct AddCarView: View {
 
 struct TextFieldWithPickerAsInputView : UIViewRepresentable {
     
-    var data : [String]
-    var placeholder : String
+    var data: [String]
+    var placeholder: String
     
-    @Binding var selectionIndex : Int
-    @Binding var text : String?
+    @Binding var selectionIndex: Int
+    @Binding var text: String
     
     private let textField = UITextField()
     private let picker = UIPickerView()

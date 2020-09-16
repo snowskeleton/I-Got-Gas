@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OptionsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var formatSelection: Int
+    @State private var formatSelection: Int
     var formatList: [String]
     
     init() {
@@ -22,24 +22,29 @@ struct OptionsView: View {
             _formatSelection = State<Int>(initialValue: formatList.firstIndex(of: priceFormat!)!)
         }
     }
-
-
+    
+    
     var body: some View {
-        VStack {
-            Form {
-                Picker(selection: $formatSelection, label: Text("Fuel Price Decimal Length"), content:
-                        {
-                            ForEach(0 ..< formatList.count) {
-                                Text(self.formatList[$0])
-                            }
-                        }).pickerStyle(SegmentedPickerStyle())
+        NavigationView {
+            VStack {
+                Form {
+                    Section(header: Text("Decimal Length")) {
+                        
+                        Picker(selection: $formatSelection,
+                               label: Text("Fuel Price Decimal Length")) {
+                            ForEach(0 ..< formatList.count) { Text(self.formatList[$0]) }
+                        }.pickerStyle(SegmentedPickerStyle())
+                        .onChange(of: formatSelection) { _ in
+                            UserDefaults.standard.set(formatList[formatSelection],
+                                                      forKey: "priceFormat")
+                        }
+                    }
+                    
+                }
+                
                 
             }
-            Text("Hello, World!")
-            Button("Save") {
-                UserDefaults.standard.set(formatList[formatSelection], forKey: "priceFormat")
-                self.presentationMode.wrappedValue.dismiss()
-            }
+            .navigationBarTitle(Text("Options"))
         }
     }
 }

@@ -19,8 +19,9 @@ struct ContentView: View {
             ScrollView {
                 VStack {
                     ForEach(cars, id: \.self) { car in
-                        CarBoxView(car: car)
-                            .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))))
+                        CarBoxView(car: Binding<Car>.constant(car))
+                            .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))
+                                                            .environment(\.managedObjectContext, self.moc)))
                     }
                 }
             }
@@ -42,6 +43,7 @@ struct ContentView: View {
                                     }.padding(.leading)
                                     .sheet(isPresented: $showAddCarView) {
                                         AddCarView()
+                                            .environment(\.managedObjectContext, self.moc)
                                         
                                     })
         }

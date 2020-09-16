@@ -35,17 +35,20 @@ struct DetailView: View {
                     VStack(spacing: 8) {
                         EmptyView()
                         FuelExpenseBoxView(carID: car.id!)
-                            .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id!)))
+                            .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(carID: car.id!)
+                                                            .environment(\.managedObjectContext, self.moc)))
                         
                         
                         
                         ServiceExpenseBoxView(carID: car.id!)
-                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView( carID: car.id!)))
+                            .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView( carID: car.id!)
+                                                            .environment(\.managedObjectContext, self.moc)))
                         
                         FutureServiceBoxView(carID: car.id!)
                             .groupBoxStyle(DetailBoxStyle(destination: FutureServiceView(
                                                             carID: car.id!,
-                                                            car: Binding<Car>.constant(car))))
+                                                            car: Binding<Car>.constant(car))
+                                                            .environment(\.managedObjectContext, self.moc)))
                         
                         
                     }.padding()
@@ -66,7 +69,8 @@ struct DetailView: View {
                                 Button("Edit") {
                                     self.showEditCarView.toggle()
                                 }.sheet(isPresented: self.$showEditCarView) {
-                                    EditCarView(car: car)
+                                    EditCarView(car: Binding<Car>.constant(car))
+                                        .environment(\.managedObjectContext, self.moc)
                                 })
     }
 }

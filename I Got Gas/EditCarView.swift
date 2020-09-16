@@ -7,23 +7,36 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
-    @State var car: Car
+    
+    @State private var showFirstConfirmDeleteRequest = false
+    @State private var showSecondConfirmDeleteRequest = false
+    
+    @Binding var car: Car
     
     @State private var showsYearPicker = false
-    @State private var carYear: String? = ""
-    @State private var carMake: String = ""
-    @State private var carModel: String = ""
-    @State private var carPlate: String = ""
-    @State private var carVIN: String = ""
-    //    @State private var carOdometer: String = ""
+    @Binding var carYear: String
+    @Binding var carMake: String
+    @Binding var carModel: String
+    @Binding var carPlate: String
+    @Binding var carVIN: String
+//    @Binding var carOdometer: String
     
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
+    
+    init(car: Binding<Car>) {
+        self._car = car
+        self._carYear = Binding<String>(car.year)!
+        self._carMake = Binding<String>(car.make)!
+        self._carModel = Binding<String>(car.model)!
+        self._carPlate = Binding<String>(car.plate)!
+        self._carVIN = Binding<String>(car.vin)!
+//        self._carOdometer = Binding<String>(car.odometer)!
+    }
     
     var body: some View {
         VStack {
@@ -35,16 +48,16 @@ struct EditCarView: View {
                                                            placeholder: "* Year",
                                                            selectionIndex: self.$selectionIndex,
                                                            text: self.$carYear)
-                            TextField("\(car.make!)",
+                            TextField("Make",
                                       text: $carMake)
-                            TextField("\(car.model!)",
+                            TextField("Model",
                                       text: $carModel)
                             //                            TextField("\(car.odometer)",
                             //                                      text: $carOdometer)
                             //                                .keyboardType(.numberPad)
-                            TextField("\(car.plate!)",
+                            TextField("Plate",
                                       text: $carPlate)
-                            TextField("\(car.vin!)",
+                            TextField("VIN",
                                       text: $carVIN)
 
                         }
@@ -52,28 +65,52 @@ struct EditCarView: View {
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
 
-                    Button("Delete Car") {
-                        self.moc.delete(car)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+                    Button(action: {
+                        self.showFirstConfirmDeleteRequest = true
+                        }) {
+                        Text("Delete Car")
+                            .foregroundColor(Color.red)
+                           
+                    }.alert(isPresented: self.$showFirstConfirmDeleteRequest) {
+                    Alert(title: Text("Delete this Vehicle"),
+                          message: Text("Deleting this vehicle will permanently remove all data."),
+                          primaryButton: .destructive(Text("Delete")) {
+                            self.showSecondConfirmDeleteRequest = true                      },
+                          secondaryButton: .cancel()
+                    )
+                }
                 }
                 .navigationBarTitle("Repaint the Car!")
+                .navigationBarItems(leading:
+                                        Button("Cancel") {
+                                            self.presentationMode.wrappedValue.dismiss()
+                                        },
+                                    trailing: Button("Save") {
+                                        self.save()
+                                        self.presentationMode.wrappedValue.dismiss()
+                                        
+                                    })
+            }.alert(isPresented: self.$showSecondConfirmDeleteRequest) {
+                Alert(title: Text("Are you really sure?"),
+                      message: Text("This action cannot be undone"),
+                      primaryButton: .cancel(),
+                      secondaryButton: .destructive(Text("I'm sure")) {
+                        self.moc.delete(car)
+                        self.presentationMode.wrappedValue.dismiss()
+                      })
             }
+            
+            
             
             Spacer()
             
-            Button(action: {
-                self.save()
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Finalize Rebuild")
-            }
         }
+       
     }
     
     func save() {
         if self.carYear != "" {
-            car.year = self.carYear!
+            car.year = self.carYear
         }
         if carMake != "" {
             car.make = self.carMake
