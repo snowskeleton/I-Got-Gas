@@ -9,8 +9,11 @@
 import SwiftUI
 
 struct CarBoxView: View {
-    var car: Car
-    
+    @Binding var car: Car
+    init(car: Binding<Car>) {
+        self._car = car
+    }
+
     var body: some View {
         GroupBox(label: ImageAndTextLable(systemImage: "car", text: "\(car.year!) \(car.make!) \(car.model!) \(car.plate!)")) {
             VStack {
