@@ -40,9 +40,12 @@ struct AddExpenseView: View {
     var body: some View {
         
         VStack {
-            Text(self.isGas ? "Gas" : "Service")
-                .font(.largeTitle)
-                .padding()
+            HStack {
+                Text(self.isGas ? "Gas" : "Service")
+            }
+            .font(.largeTitle)
+            .multilineTextAlignment(.center)
+            .padding(.bottom, -5.0)
             
             NavigationView {
                 VStack {
@@ -112,16 +115,28 @@ struct AddExpenseView: View {
                                     .dismissKeyboardOnTap()
                             }
                         }
+                        
+                        Section {
+                            VStack {
+                                Button(action: {
+                                    if maybeEnableButton() {
+                                        self.save()
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                }) {
+                                    HStack {
+                                        Spacer()
+                                        Text("Add Expense")
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        }
                     }
                     // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
                                         
-                    Button("Save") {
-                        if maybeEnableButton() {
-                            self.save()
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-                }.navigationBarTitle("")
+                    
+                }.navigationBarTitle(self.isGas ? "Gas" : "Service", displayMode: .inline)
                 .navigationBarHidden(true)
             }
         }
