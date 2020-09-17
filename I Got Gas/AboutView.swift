@@ -9,8 +9,77 @@
 import SwiftUI
 
 struct AboutView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var showPrivacyPolicy = false
+    @State var showChangeLog = false
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Text("About")
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .padding(.bottom, -5.0)
+            
+            NavigationView {
+                List {
+                    Section(footer: AboutFooter()) {
+                        
+                        Button(action: { self.showPrivacyPolicy = true })
+                            { ListLabel(text: "Privacy Policy") }
+                            .sheet(isPresented: $showPrivacyPolicy)
+                                { PrivacyPolicyView() }
+                        
+                        Button(action: { self.showChangeLog = true })
+                            { ListLabel(text: "Change Log") }
+                            .sheet(isPresented: $showChangeLog)
+                                { ChangeLogView() }
+                        
+                        HStack {
+                            Text("Version:").fontWeight(.light)
+                            Spacer()
+                            Text("1.5.0").fontWeight(.light)
+                        }
+                        .foregroundColor(colorScheme == .dark
+                                            ? Color.white
+                                            : Color.black)
+                        
+                    }
+                    
+                }
+                .navigationBarHidden(true)
+            }
+        }
     }
 }
 
+struct AboutFooter: View {
+    var body: some View {
+        HStack {
+            Spacer()
+            VStack {
+                Text("By John Isaac Lyons")
+                Text("2020 Blizzard Skeleton, LLC")
+                Text("Made in Georgia")
+            }
+            Spacer()
+        }
+    }
+}
+
+struct ListLabel: View {
+    var text: String
+    var body: some View {
+        HStack {
+            Text("\(text)")
+            Spacer()
+            Image(systemName: "chevron.right")
+        }
+    }
+}
+
+struct AboutView_Previews: PreviewProvider {
+    static var previews: some View {
+        AboutView()
+    }
+}

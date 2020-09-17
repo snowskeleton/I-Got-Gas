@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct OptionsView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @State private var formatSelection: Int
+    @State var showAboutView = false
     var formatList: [String]
     
     init() {
@@ -36,6 +38,20 @@ struct OptionsView: View {
                         .onChange(of: formatSelection) { _ in
                             UserDefaults.standard.set(formatList[formatSelection],
                                                       forKey: "priceFormat")
+                        }
+                    }
+                    Section {
+                        Button(action: {
+                            self.showAboutView = true
+                        }) {
+                            Text("About")
+                                .foregroundColor(colorScheme == .dark
+                                                    ? Color.white
+                                                    : Color.black)
+                                .fontWeight(.light)
+                        }
+                        .sheet(isPresented: $showAboutView) {
+                            AboutView()
                         }
                     }
                     
