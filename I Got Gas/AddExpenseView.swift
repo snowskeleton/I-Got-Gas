@@ -40,19 +40,25 @@ struct AddExpenseView: View {
     var body: some View {
         
         VStack {
-            Text(self.isGas ? "Gas" : "Service")
-                .font(.largeTitle)
-                .padding()
+            HStack {
+                Text(self.isGas ? "Gas" : "Service")
+            }
+            .font(.largeTitle)
+            .multilineTextAlignment(.center)
+            .padding(.bottom, -5.0)
             
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Date")) {
+                        Section {
+                            HStack {
+                                Spacer()
                             DatePicker("Date",
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
-                                
                                 .labelsHidden()
+                                Spacer()
+                            }
                         }
                         if !self.isGas {
                             Picker(selection: self.$selectedFutureService,
@@ -91,7 +97,8 @@ struct AddExpenseView: View {
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
                             }
-                            
+                        }
+                        Section(header: Text("Odometer")) {
                             TextField("\(car.odometer)", text: self.$odometer)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
@@ -112,18 +119,28 @@ struct AddExpenseView: View {
                                     .dismissKeyboardOnTap()
                             }
                         }
-                    }
-                    // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
-                    
-                    Spacer()
-                    
-                    Button("Save") {
-                        if maybeEnableButton() {
-                            self.save()
-                            self.presentationMode.wrappedValue.dismiss()
+                        
+                        Section {
+                            VStack {
+                                Button(action: {
+                                    if maybeEnableButton() {
+                                        self.save()
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                }) {
+                                    HStack {
+                                        Spacer()
+                                        Text("Add Expense")
+                                        Spacer()
+                                    }
+                                }
+                            }
                         }
                     }
-                }.navigationBarTitle("")
+                    // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
+                                        
+                    
+                }.navigationBarTitle(self.isGas ? "Gas" : "Service", displayMode: .inline)
                 .navigationBarHidden(true)
             }
         }

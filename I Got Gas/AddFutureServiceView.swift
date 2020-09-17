@@ -81,9 +81,7 @@ struct AddFutureServiceView: View {
                         }
                         
                     }
-                    
-                    Spacer()
-                    
+                                        
                     Button("Save") {
                         self.save()
                         self.presentationMode.wrappedValue.dismiss()
