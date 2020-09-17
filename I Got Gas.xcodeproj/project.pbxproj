@@ -118,9 +118,7 @@
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				8094975224F3490200E8D6A1 /* OptionsView.swift */,
-				8084DF1C2513B224000F2B0D /* AboutView.swift */,
-				8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */,
-				8084DF242513C6FF000F2B0D /* ChangeLogView.swift */,
+				8084DF272513F6BC000F2B0D /* About */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
 				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
@@ -151,6 +149,16 @@
 				805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8084DF272513F6BC000F2B0D /* About */ = {
+			isa = PBXGroup;
+			children = (
+				8084DF1C2513B224000F2B0D /* AboutView.swift */,
+				8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */,
+				8084DF242513C6FF000F2B0D /* ChangeLogView.swift */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		80A230BB24DB1E9E0081FAD3 /* Long Stuff */ = {
