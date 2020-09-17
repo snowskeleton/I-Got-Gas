@@ -118,10 +118,9 @@
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				8094975224F3490200E8D6A1 /* OptionsView.swift */,
-				8084DF272513F6BC000F2B0D /* About */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
-				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
+				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
@@ -131,6 +130,7 @@
 				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
 				805BAB8224D335E10026FA6F /* Extensions.swift */,
+				8084DF272513F6BC000F2B0D /* About */,
 				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
@@ -439,7 +439,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -460,7 +460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
