@@ -50,12 +50,15 @@ struct AddExpenseView: View {
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Date")) {
+                        Section {
+                            HStack {
+                                Spacer()
                             DatePicker("Date",
                                        selection: self.$expenseDate,
                                        displayedComponents: .date)
-                                
                                 .labelsHidden()
+                                Spacer()
+                            }
                         }
                         if !self.isGas {
                             Picker(selection: self.$selectedFutureService,
@@ -94,7 +97,8 @@ struct AddExpenseView: View {
                                     .keyboardType(.decimalPad)
                                     .font(.largeTitle)
                             }
-                            
+                        }
+                        Section(header: Text("Odometer")) {
                             TextField("\(car.odometer)", text: self.$odometer)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
