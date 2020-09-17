@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CarBoxView: View {
+    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
     @Binding var car: Car
     init(car: Binding<Car>) {
         self._car = car
@@ -29,7 +30,7 @@ struct CarBoxView: View {
                     VStack {
                         Text("Avg $/gal")
                             .font(.system(size: 10))
-                        Text("\(car.costPerGallon, specifier: "%.2f")/gal")
+                        Text("\(car.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))"))/gal")
                     }
                     Spacer()
                     
