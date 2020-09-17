@@ -69,7 +69,14 @@ struct FuelExpenseView: View {
     func loseMemory(at offsets: IndexSet) {
         for index in offsets {
             let service = services[index]
+            let savedCar = service.vehicle
             moc.delete(service)
+            try? self.moc.save()
+            if services.count > 0 {
+                services[0].vehicle?.odometer = services[0].odometer
+            } else {
+                savedCar!.odometer = savedCar!.startingOdometer
+            }
             try? self.moc.save()
             AddExpenseView(carID: cars[0].id!,
                            car: Binding<Car>.constant(cars[0]),
