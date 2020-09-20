@@ -130,7 +130,7 @@ struct AddExpenseView: View {
                                 }) {
                                     HStack {
                                         Spacer()
-                                        Text("Add Expense")
+                                        Text("Save")
                                         Spacer()
                                     }
                                 }

@@ -9,12 +9,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var adOnTop = UserDefaults.standard.bool(forKey: "isAdOnTop")
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State var showAddCarView = false
     @State var showOptionsView = false
     
     var body: some View {
+        VStack {
+            if adOnTop == true {
+                Banner()
+            }
+
         NavigationView {
             ScrollView {
                 VStack {
@@ -46,7 +52,13 @@ struct ContentView: View {
                                             .environment(\.managedObjectContext, self.moc)
                                         
                                     })
+
         }
+            if adOnTop != true {
+                Banner()
+            }
+
+    }
         
     }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>I Got Gas.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>bitcode</key>
+			<true/>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>3838A189714DBBD1B6051CD9E193E6A19DE08560</string>
+				<key>dateExpires</key>
+				<string>8/20/21</string>
+				<key>type</key>
+				<string>Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>PK7HCG46US.com.blizzardskeleton.IGotGas</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>PK7HCG46US</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>PK7HCG46US.com.blizzardskeleton.IGotGas</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>I Got Gas.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>0a3936a0-e9ad-4819-bf2e-d605843feb42</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.blizzardskeleton.IGotGas</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>PK7HCG46US</string>
+				<key>name</key>
+				<string>Isaac Lyons</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

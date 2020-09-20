@@ -138,7 +138,7 @@ struct AddFutureServiceView: View {
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
-        content.badge = 1
+        content.badge = 0
         content.sound = UNNotificationSound.default
         
         if now! {
