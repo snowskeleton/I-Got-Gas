@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,9 +41,12 @@
 		80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */; };
 		80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */; };
 		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
+		80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3DEF22516F56900156737 /* GoogleAdView.swift */; };
+		C44D841CE40E2EA5CF46EE04 /* Pods_I_Got_Gas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.release.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.release.xcconfig"; sourceTree = "<group>"; };
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +83,9 @@
 		80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseBoxView.swift; sourceTree = "<group>"; };
 		80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceBoxView.swift; sourceTree = "<group>"; };
 		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
+		80F3DEF22516F56900156737 /* GoogleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdView.swift; sourceTree = "<group>"; };
+		83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_I_Got_Gas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.debug.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C44D841CE40E2EA5CF46EE04 /* Pods_I_Got_Gas.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +105,8 @@
 			children = (
 				805B413D24CDF04B0085DB47 /* I Got Gas */,
 				805B413C24CDF04B0085DB47 /* Products */,
+				B005929161E840594DC2B274 /* Pods */,
+				C18685B18D3C4E03F1E1D76A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +128,7 @@
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				8094975224F3490200E8D6A1 /* OptionsView.swift */,
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
+				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
@@ -191,6 +201,23 @@
 			path = Boxes;
 			sourceTree = "<group>";
 		};
+		B005929161E840594DC2B274 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */,
+				3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C18685B18D3C4E03F1E1D76A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -198,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 805B415224CDF04E0085DB47 /* Build configuration list for PBXNativeTarget "I Got Gas" */;
 			buildPhases = (
+				274C50710D81E59FB09D9D94 /* [CP] Check Pods Manifest.lock */,
 				805B413724CDF04B0085DB47 /* Sources */,
 				805B413824CDF04B0085DB47 /* Frameworks */,
 				805B413924CDF04B0085DB47 /* Resources */,
+				D8C8A6EB1E8BE0B488EAAB57 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -259,6 +288,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		274C50710D81E59FB09D9D94 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-I Got Gas-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8C8A6EB1E8BE0B488EAAB57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		805B413724CDF04B0085DB47 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -266,6 +337,7 @@
 			files = (
 				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
 				80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */,
+				80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */,
 				80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */,
@@ -428,6 +500,7 @@
 		};
 		805B415324CDF04E0085DB47 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -450,6 +523,7 @@
 		};
 		805B415424CDF04E0085DB47 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
