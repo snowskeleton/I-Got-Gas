@@ -58,7 +58,9 @@ struct FuelExpenseView: View {
                 Spacer()
                 Button("Add Expense") {
                     self.showAddExpenseView = true
-                }.sheet(isPresented: self.$showAddExpenseView) {
+                }
+                .padding(.bottom)
+                .sheet(isPresented: self.$showAddExpenseView) {
                     AddExpenseView(carID: car.id!,
                                    car: Binding<Car>.constant(cars[0]),
                                    isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)

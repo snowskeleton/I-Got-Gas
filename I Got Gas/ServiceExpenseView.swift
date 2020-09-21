@@ -56,7 +56,9 @@ struct ServiceExpenseView: View {
                 Spacer()
                 Button("Add Expense") {
                     self.showAddExpenseView = true
-                }.sheet(isPresented: self.$showAddExpenseView) {
+                }
+                .padding(.bottom)
+                .sheet(isPresented: self.$showAddExpenseView) {
                     AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false), inputSelectedFutureService: -1)
                         .environment(\.managedObjectContext, self.moc)
                 }

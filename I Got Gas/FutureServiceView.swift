@@ -56,10 +56,12 @@ struct FutureServiceView: View {
 
                 }.onDelete(perform: loseMemory)
             }
-            Spacer()
+//            Spacer()
             Button("Schedule Service") {
                 self.showAddFutureExpenseView = true
-            }.sheet(isPresented: self.$showAddFutureExpenseView) {
+            }
+            .padding(.bottom)
+            .sheet(isPresented: self.$showAddFutureExpenseView) {
                 AddFutureServiceView(car: Binding<Car>.constant(car))
             }
         }
