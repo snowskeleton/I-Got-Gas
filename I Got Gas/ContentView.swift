@@ -17,48 +17,42 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            if adOnTop == true {
-                Banner()
-            }
-
-        NavigationView {
-            ScrollView {
-                VStack {
-                    ForEach(cars, id: \.self) { car in
-                        CarBoxView(car: Binding<Car>.constant(car))
-                            .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))
-                                                            .environment(\.managedObjectContext, self.moc)))
+            NavigationView {
+                ScrollView {
+                    VStack {
+                        ForEach(cars, id: \.self) { car in
+                            CarBoxView(car: Binding<Car>.constant(car))
+                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))
+                                                                .environment(\.managedObjectContext, self.moc)))
+                        }
                     }
                 }
+                .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
+                .navigationBarItems(leading:
+                                        Button(action: {
+                                            try? self.moc.save()
+                                            self.showOptionsView.toggle()
+                                        }) {
+                                            Image(systemName: "gearshape")
+                                                .sheet(isPresented: $showOptionsView) {
+                                                    OptionsView()}},
+                                    trailing:
+                                        Button(action: {
+                                            self.showAddCarView.toggle()
+                                        }) {
+                                            Image(systemName: "plus")
+                                                .font(.largeTitle)
+                                        }.padding(.leading)
+                                        .sheet(isPresented: $showAddCarView) {
+                                            AddCarView()
+                                                .environment(\.managedObjectContext, self.moc)
+                                            
+                                        })
+                
             }
-            .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-            .navigationBarItems(leading:
-                                    Button(action: {
-                                        try? self.moc.save()
-                                        self.showOptionsView.toggle()
-                                    }) {
-                                        Image(systemName: "gearshape")
-                                            .sheet(isPresented: $showOptionsView) {
-                                                OptionsView()}},
-                                trailing:
-                                    Button(action: {
-                                        self.showAddCarView.toggle()
-                                    }) {
-                                        Image(systemName: "plus")
-                                            .font(.largeTitle)
-                                    }.padding(.leading)
-                                    .sheet(isPresented: $showAddCarView) {
-                                        AddCarView()
-                                            .environment(\.managedObjectContext, self.moc)
-                                        
-                                    })
-
+            Banner()
+            
         }
-            if adOnTop != true {
-                Banner()
-            }
-
-    }
         
     }
 }
