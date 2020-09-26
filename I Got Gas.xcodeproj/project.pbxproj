@@ -129,29 +129,15 @@
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
-				8094975224F3490200E8D6A1 /* OptionsView.swift */,
-				805B414524CDF04B0085DB47 /* ContentView.swift */,
-				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
-				804B24DA24CE382F009FC038 /* DetailView.swift */,
-				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
-				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
-				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
-				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
-				80802C9D24E8A2B7009DFF25 /* EditCarView.swift */,
-				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
-				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
-				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
-				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
-				805BAB8224D335E10026FA6F /* Extensions.swift */,
-				8084DF272513F6BC000F2B0D /* About */,
+				80776DE3251FC70D008FEE9D /* Main View */,
+				80776DE7251FC7D0008FEE9D /* Pieces */,
+				80E7534A24DE439100277392 /* RequestingFetches.swift */,
 				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
 				805B414924CDF04E0085DB47 /* Preview Content */,
-				80B1D06E24DDE70C0090390E /* Label.swift */,
-				80E7534A24DE439100277392 /* RequestingFetches.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -162,6 +148,59 @@
 				805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		80776DE3251FC70D008FEE9D /* Main View */ = {
+			isa = PBXGroup;
+			children = (
+				80776DE5251FC73E008FEE9D /* Occasional Views */,
+				80776DE4251FC71F008FEE9D /* Car View */,
+				805B414524CDF04B0085DB47 /* ContentView.swift */,
+			);
+			path = "Main View";
+			sourceTree = "<group>";
+		};
+		80776DE4251FC71F008FEE9D /* Car View */ = {
+			isa = PBXGroup;
+			children = (
+				80776DE6251FC76B008FEE9D /* Manipulation Views */,
+				804B24DA24CE382F009FC038 /* DetailView.swift */,
+			);
+			path = "Car View";
+			sourceTree = "<group>";
+		};
+		80776DE5251FC73E008FEE9D /* Occasional Views */ = {
+			isa = PBXGroup;
+			children = (
+				8084DF272513F6BC000F2B0D /* About */,
+				80AF282C24CE03E20050CDA7 /* AddCarView.swift */,
+				8094975224F3490200E8D6A1 /* OptionsView.swift */,
+			);
+			path = "Occasional Views";
+			sourceTree = "<group>";
+		};
+		80776DE6251FC76B008FEE9D /* Manipulation Views */ = {
+			isa = PBXGroup;
+			children = (
+				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
+				80802C9D24E8A2B7009DFF25 /* EditCarView.swift */,
+				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
+				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
+				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
+				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
+			);
+			path = "Manipulation Views";
+			sourceTree = "<group>";
+		};
+		80776DE7251FC7D0008FEE9D /* Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
+				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
+				80B1D06E24DDE70C0090390E /* Label.swift */,
+				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
+			);
+			path = Pieces;
 			sourceTree = "<group>";
 		};
 		8084DF272513F6BC000F2B0D /* About */ = {
@@ -186,6 +225,7 @@
 		80D61B0624EAEFEE007A0C8F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				805BAB8224D335E10026FA6F /* Extensions.swift */,
 				80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */,
 				80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */,
 				80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */,
