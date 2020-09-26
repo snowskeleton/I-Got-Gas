@@ -80,11 +80,19 @@ struct AddFutureServiceView: View {
                                 .labelsHidden()
                         }
                         
-                    }
-                                        
-                    Button("Save") {
-                        self.save()
-                        self.presentationMode.wrappedValue.dismiss()
+                        VStack {
+                            Button(action: {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                HStack {
+                                    Spacer()
+                                    Text("Save")
+                                    Spacer()
+                                }
+                            }
+                        }
+                        
                     }
                 }.navigationBarTitle("")
                 .navigationBarHidden(true)
@@ -131,16 +139,16 @@ struct AddFutureServiceView: View {
     }
     
     public func removeFutureServiceNotification(_ futureServices: FetchedResults<FutureService>.Element) {
-            UNUserNotificationCenter.current()
-                .removePendingNotificationRequests(
-                    withIdentifiers: ["\(String(describing: futureServices.notificationUUID))"])
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(
+                withIdentifiers: ["\(String(describing: futureServices.notificationUUID))"])
     }
     
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
         if futureService.date == nil { return }
         
         removeFutureServiceNotification(futureService)
-
+        
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
