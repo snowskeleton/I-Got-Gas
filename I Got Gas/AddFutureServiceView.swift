@@ -130,10 +130,16 @@ struct AddFutureServiceView: View {
         try? self.moc.save()
     }
     
+    public func removeFutureServiceNotification(_ futureServices: FetchedResults<FutureService>.Element) {
+            UNUserNotificationCenter.current()
+                .removePendingNotificationRequests(
+                    withIdentifiers: ["\(String(describing: futureServices.notificationUUID))"])
+    }
+    
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
         if futureService.date == nil { return }
         
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
+        removeFutureServiceNotification(futureService)
 
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"

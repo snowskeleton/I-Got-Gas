@@ -95,17 +95,15 @@ struct EditCarView: View {
                       message: Text("This action cannot be undone"),
                       primaryButton: .cancel(),
                       secondaryButton: .destructive(Text("I'm sure")) {
+                        for service in car.futureSerevice! {
+                            AddFutureServiceView(car: Binding<Car>.constant(car)).removeFutureServiceNotification(service as! FetchedResults<FutureService>.Element)
+                        }
                         self.moc.delete(car)
                         self.presentationMode.wrappedValue.dismiss()
                       })
             }
-            
-            
-            
             Spacer()
-            
         }
-       
     }
     
     func save() {
