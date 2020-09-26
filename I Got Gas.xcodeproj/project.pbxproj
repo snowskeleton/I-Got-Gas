@@ -19,6 +19,7 @@
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
 		806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */; };
 		8074091824EB7B4A007EC9A8 /* CarBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074091724EB7B4A007EC9A8 /* CarBoxView.swift */; };
+		80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */; };
 		80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802C9D24E8A2B7009DFF25 /* EditCarView.swift */; };
 		8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1C2513B224000F2B0D /* AboutView.swift */; };
 		8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */; };
@@ -62,6 +63,7 @@
 		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseView.swift; sourceTree = "<group>"; };
 		8074091724EB7B4A007EC9A8 /* CarBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBoxView.swift; sourceTree = "<group>"; };
+		80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsPlusTwo.swift; sourceTree = "<group>"; };
 		80802C9D24E8A2B7009DFF25 /* EditCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarView.swift; sourceTree = "<group>"; };
 		8084DF1C2513B224000F2B0D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				80776DE3251FC70D008FEE9D /* Main View */,
 				80776DE7251FC7D0008FEE9D /* Pieces */,
 				80E7534A24DE439100277392 /* RequestingFetches.swift */,
+				80776DE9251FC8F2008FEE9D /* Snippets */,
 				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
@@ -201,6 +204,14 @@
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
 			);
 			path = Pieces;
+			sourceTree = "<group>";
+		};
+		80776DE9251FC8F2008FEE9D /* Snippets */ = {
+			isa = PBXGroup;
+			children = (
+				80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */,
+			);
+			path = Snippets;
 			sourceTree = "<group>";
 		};
 		8084DF272513F6BC000F2B0D /* About */ = {
@@ -388,6 +399,7 @@
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
 				8084DF252513C6FF000F2B0D /* ChangeLogView.swift in Sources */,
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
+				80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */,
 				80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,

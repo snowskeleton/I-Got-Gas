@@ -124,23 +124,3 @@ struct CheckMarkToggleStyle: ToggleStyle {
         .padding(.horizontal)
     }
 }
-
-func yearsPlusTwo() -> [String] {
-    var list: [Int] = []
-    
-    var upperRange: Int {
-        let date = Date()
-        let format = DateFormatter()
-        format.dateFormat = "yyyy"
-        let formattedDate = format.string(from: date)
-        let plusTwo = Int(formattedDate)! + 2
-        return plusTwo
-    }
-    
-    for i in 1885...upperRange {
-        list.insert(i, at: 0)
-    }
-    
-    let returnlist = list.map { String($0) }
-    return returnlist
-}
