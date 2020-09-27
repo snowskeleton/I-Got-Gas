@@ -29,8 +29,8 @@ struct OptionsView: View {
         NavigationView {
             VStack {
                 Form {
+                    
                     Section(header: Text("Decimal Length")) {
-                        
                         Picker(selection: $formatSelection,
                                label: Text("Fuel Price Decimal Length")) {
                             ForEach(0 ..< formatList.count) { Text(self.formatList[$0]) }
@@ -40,6 +40,7 @@ struct OptionsView: View {
                                                       forKey: "priceFormat")
                         }
                     }
+                    
                     Section {
                         Button(action: {
                             self.showAboutView = true
@@ -54,6 +55,7 @@ struct OptionsView: View {
                             AboutView()
                         }
                     }
+                    
                 }
             }
         }
