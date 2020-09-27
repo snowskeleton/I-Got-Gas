@@ -12,16 +12,13 @@ import CoreData
 struct FuelExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-    
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
-    
-    var serviceFetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
-    
-    
     @State var showAddExpenseView = false
-    
+
+    var carFetchRequest: FetchRequest<Car>
+    var serviceFetchRequest: FetchRequest<Service>
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
+        
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
         
