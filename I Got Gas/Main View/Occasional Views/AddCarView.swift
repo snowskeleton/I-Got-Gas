@@ -32,7 +32,7 @@ struct AddCarView: View {
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Vehicle Info")) {
+                        Section(header: Text("Vehicle Info"), footer: Text("\nFor the most accurate results, it's recommended to only add a new car when it has a full tank of gas.")) {
                             
                             TextFieldWithPickerAsInputView(data: self.years,
                                                            placeholder: "* Year",
@@ -62,7 +62,8 @@ struct AddCarView: View {
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
                 }
-                .navigationBarTitle("You get a car!")
+                .navigationBarTitle("Add Car")
+                
             }
             
             Spacer()
