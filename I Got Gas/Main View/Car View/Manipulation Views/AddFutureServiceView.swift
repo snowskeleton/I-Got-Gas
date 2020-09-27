@@ -72,6 +72,7 @@ struct AddFutureServiceView: View {
                                 Text("miles")
                             }
                         }
+                        
                         Section(header: Text("Starting...")) {
                             DatePicker("Date",
                                        selection: self.$date,
@@ -122,7 +123,6 @@ struct AddFutureServiceView: View {
             }
         }
         
-        
         let futureService = FutureService(context: self.moc)
         futureService.vehicle = car
         
@@ -172,6 +172,5 @@ struct AddFutureServiceView: View {
         futureService.notificationUUID = request.identifier
         
         UNUserNotificationCenter.current().add(request)
-        
     }
 }
