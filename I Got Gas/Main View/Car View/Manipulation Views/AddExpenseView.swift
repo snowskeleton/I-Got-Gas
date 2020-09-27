@@ -17,11 +17,9 @@ struct AddExpenseView: View {
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
     @State var selectedFutureService: Int
-    
-    @State private var expenseDate = Date()
-    
     @Binding var isGas: Bool
     @Binding var car: Car
+    @State private var expenseDate = Date()
     @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
@@ -38,7 +36,6 @@ struct AddExpenseView: View {
     }
     
     var body: some View {
-        
         VStack {
             HStack {
                 Text(self.isGas ? "Gas" : "Service")
@@ -53,10 +50,10 @@ struct AddExpenseView: View {
                         Section {
                             HStack {
                                 Spacer()
-                            DatePicker("Date",
-                                       selection: self.$expenseDate,
-                                       displayedComponents: .date)
-                                .labelsHidden()
+                                DatePicker("Date",
+                                           selection: self.$expenseDate,
+                                           displayedComponents: .date)
+                                    .labelsHidden()
                                 Spacer()
                             }
                         }
@@ -74,7 +71,7 @@ struct AddExpenseView: View {
                                 }
                                 
                             }
-
+                            
                         } else {
                             Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {
                                 Text("Full Tank").tag(0)
@@ -138,8 +135,6 @@ struct AddExpenseView: View {
                         }
                     }
                     // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
-                                        
-                    
                 }.navigationBarTitle(self.isGas ? "Gas" : "Service", displayMode: .inline)
                 .navigationBarHidden(true)
             }
