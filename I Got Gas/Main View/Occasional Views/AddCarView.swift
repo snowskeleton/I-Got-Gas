@@ -24,6 +24,8 @@ struct AddCarView: View {
     @State private var carVIN = ""
     @State private var carOdometer = ""
     
+    @State private var somethingorother = ""
+    
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
@@ -40,41 +42,54 @@ struct AddCarView: View {
                                                            text: self.$carYear)
                             
                             TextField("* Make",
-                                      text: self.$carMake,
-                                      onCommit: { self.maybeEnableButton() })
+                                      text: self.$carMake)
+                                .onChange(of: self.carMake) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* Model",
-                                      text: self.$carModel,
-                                      onCommit: { self.maybeEnableButton() })
+                                      text: self.$carModel)
+                                .onChange(of: self.carModel) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* Current Odometer",
-                                      text: self.$carOdometer,
-                                      onCommit: { self.maybeEnableButton() })
+                                      text: self.$carOdometer)
                                 .keyboardType(.numberPad)
+                                .onChange(of: self.carOdometer) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* License Plate",
-                                      text: self.$carPlate,
-                                      onCommit: { self.maybeEnableButton() })
+                                      text: self.$carPlate)
                                 .disableAutocorrection(true)
+                                .onChange(of: self.carPlate) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* VIN",
-                                      text: self.$carVIN,
-                                      onCommit: { self.maybeEnableButton() })
+                                      text: self.$carVIN)
                                 .disableAutocorrection(true)
+                                .onChange(of: self.carVIN) { _ in
+                                    self.maybeEnableButton()
+                                }
+                        }
+                        
+                        Section {
+                            Button(action: {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Text("Add Vehicle")
+                            }
+                            .disabled(!buttonEnabled)
                         }
                     }
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
                 }
                 .navigationBarTitle("Add Car")
-                
             }
-            
-            Spacer()
-            
-            Button(action: {
-                self.save()
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Add Vehicle")
-            }
-            .disabled(!buttonEnabled)
         }
     }
     
@@ -88,14 +103,6 @@ struct AddCarView: View {
             return
         }
         if self.carModel == "" {
-            self.buttonEnabled = false
-            return
-        }
-        if self.carPlate == "" {
-            self.buttonEnabled = false
-            return
-        }
-        if self.carVIN == "" {
             self.buttonEnabled = false
             return
         }
