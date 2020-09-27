@@ -40,6 +40,9 @@ struct AddCarView: View {
                                                            placeholder: "* Year",
                                                            selectionIndex: self.$selectionIndex,
                                                            text: self.$carYear)
+                                .onChange(of: self.carYear) { _ in
+                                    self.maybeEnableButton()
+                                }
                             
                             TextField("* Make",
                                       text: self.$carMake)
