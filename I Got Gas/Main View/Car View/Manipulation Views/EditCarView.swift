@@ -23,7 +23,7 @@ struct EditCarView: View {
     @Binding var carModel: String
     @Binding var carPlate: String
     @Binding var carVIN: String
-//    @Binding var carOdometer: String
+    //    @Binding var carOdometer: String
     
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
@@ -35,7 +35,7 @@ struct EditCarView: View {
         self._carModel = Binding<String>(car.model)!
         self._carPlate = Binding<String>(car.plate)!
         self._carVIN = Binding<String>(car.vin)!
-//        self._carOdometer = Binding<String>(car.odometer)!
+        //        self._carOdometer = Binding<String>(car.odometer)!
     }
     
     var body: some View {
@@ -59,37 +59,49 @@ struct EditCarView: View {
                                       text: $carPlate)
                             TextField("VIN",
                                       text: $carVIN)
-
+                            
+                        }
+                        Section {
+                            Button(action: {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                HStack {
+                                    Spacer()
+                                    Text("Save")
+                                    Spacer()
+                                }
+                            }
+                        }
+                        Section {
+                            Button(action: {
+                                self.showFirstConfirmDeleteRequest = true
+                            }) {
+                                HStack {
+                                    Spacer()
+                                    Text("Delete Car")
+                                        .foregroundColor(Color.red)
+                                    Spacer()
+                                }
+                            }.alert(isPresented: self.$showFirstConfirmDeleteRequest) {
+                                Alert(title: Text("Delete this Vehicle"),
+                                      message: Text("Deleting this vehicle will permanently remove all data."),
+                                      primaryButton: .destructive(Text("Delete")) {
+                                        self.showSecondConfirmDeleteRequest = true
+                                      },
+                                      secondaryButton: .cancel())
+                            }
                         }
                     }
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
-
-                    Button(action: {
-                        self.showFirstConfirmDeleteRequest = true
-                        }) {
-                        Text("Delete Car")
-                            .foregroundColor(Color.red)
-                           
-                    }.alert(isPresented: self.$showFirstConfirmDeleteRequest) {
-                    Alert(title: Text("Delete this Vehicle"),
-                          message: Text("Deleting this vehicle will permanently remove all data."),
-                          primaryButton: .destructive(Text("Delete")) {
-                            self.showSecondConfirmDeleteRequest = true                      },
-                          secondaryButton: .cancel()
-                    )
-                }
+                    
                 }
                 .navigationBarTitle("Repaint the Car!")
                 .navigationBarItems(leading:
                                         Button("Cancel") {
                                             self.presentationMode.wrappedValue.dismiss()
-                                        },
-                                    trailing: Button("Save") {
-                                        self.save()
-                                        self.presentationMode.wrappedValue.dismiss()
-                                        
-                                    })
+                                        })
             }.alert(isPresented: self.$showSecondConfirmDeleteRequest) {
                 Alert(title: Text("Are you really sure?"),
                       message: Text("This action cannot be undone"),
@@ -102,7 +114,6 @@ struct EditCarView: View {
                         self.presentationMode.wrappedValue.dismiss()
                       })
             }
-            Spacer()
         }
     }
     
