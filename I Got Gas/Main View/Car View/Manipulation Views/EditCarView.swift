@@ -23,7 +23,6 @@ struct EditCarView: View {
     @Binding var carModel: String
     @Binding var carPlate: String
     @Binding var carVIN: String
-    //    @Binding var carOdometer: String
     
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
@@ -35,7 +34,6 @@ struct EditCarView: View {
         self._carModel = Binding<String>(car.model)!
         self._carPlate = Binding<String>(car.plate)!
         self._carVIN = Binding<String>(car.vin)!
-        //        self._carOdometer = Binding<String>(car.odometer)!
     }
     
     var body: some View {
@@ -52,9 +50,6 @@ struct EditCarView: View {
                                       text: $carMake)
                             TextField("Model",
                                       text: $carModel)
-                            //                            TextField("\(car.odometer)",
-                            //                                      text: $carOdometer)
-                            //                                .keyboardType(.numberPad)
                             TextField("Plate",
                                       text: $carPlate)
                             TextField("VIN",
@@ -133,9 +128,6 @@ struct EditCarView: View {
         if carVIN != "" {
             car.vin = self.carVIN
         }
-        //        if carOdometer != "" {
-        //            car.odometer = Int64(self.carOdometer)!
-        //        }
         try? self.moc.save()
     }
 }
