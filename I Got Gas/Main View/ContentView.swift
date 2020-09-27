@@ -22,8 +22,10 @@ struct ContentView: View {
                     VStack {
                         ForEach(cars, id: \.self) { car in
                             CarBoxView(car: Binding<Car>.constant(car))
-                                .groupBoxStyle(DetailBoxStyle(destination: DetailView(car: Binding<Car>.constant(car))
-                                                                .environment(\.managedObjectContext, self.moc)))
+                                .groupBoxStyle(DetailBoxStyle(
+                                                destination: DetailView(
+                                                    car: Binding<Car>.constant(car))
+                                                    .environment(\.managedObjectContext, self.moc)))
                         }
                     }
                 }
