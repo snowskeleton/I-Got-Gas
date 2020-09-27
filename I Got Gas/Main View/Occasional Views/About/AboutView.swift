@@ -26,12 +26,12 @@ struct AboutView: View {
                     Section(footer: AboutFooter()) {
                         
                         Button(action: { self.showPrivacyPolicy = true })
-                            { ListLabel(text: "Privacy Policy") }
+                            { ListLabelWithArrow(text: "Privacy Policy") }
                             .sheet(isPresented: $showPrivacyPolicy)
                                 { PrivacyPolicyView() }
                         
                         Button(action: { self.showChangeLog = true })
-                            { ListLabel(text: "Change Log") }
+                            { ListLabelWithArrow(text: "Change Log") }
                             .sheet(isPresented: $showChangeLog)
                                 { ChangeLogView() }
                         
@@ -67,7 +67,7 @@ struct AboutFooter: View {
     }
 }
 
-struct ListLabel: View {
+struct ListLabelWithArrow: View {
     var text: String
     var body: some View {
         HStack {
