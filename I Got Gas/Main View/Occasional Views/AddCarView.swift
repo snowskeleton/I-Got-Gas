@@ -23,9 +23,7 @@ struct AddCarView: View {
     @State private var carPlate = ""
     @State private var carVIN = ""
     @State private var carOdometer = ""
-    
-    @State private var somethingorother = ""
-    
+        
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
@@ -72,7 +70,7 @@ struct AddCarView: View {
                                     self.maybeEnableButton()
                                 }
 
-                            TextField("* License Plate",
+                            TextField("License Plate",
                                       text: self.$carPlate,
                                       onCommit: {
                                         self.maybeEnableButton()
@@ -82,7 +80,7 @@ struct AddCarView: View {
                                     self.maybeEnableButton()
                                 }
 
-                            TextField("* VIN",
+                            TextField("VIN",
                                       text: self.$carVIN,
                                       onCommit: {
                                         self.maybeEnableButton()
@@ -176,9 +174,9 @@ struct TextFieldWithPickerAsInputView : UIViewRepresentable {
     
     class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
         
-        private let parent : TextFieldWithPickerAsInputView
+        private let parent: TextFieldWithPickerAsInputView
         
-        init(textfield : TextFieldWithPickerAsInputView) {
+        init(textfield: TextFieldWithPickerAsInputView) {
             self.parent = textfield
         }
         
