@@ -45,43 +45,48 @@ struct AddCarView: View {
                                 }
                             
                             TextField("* Make",
-                                      text: self.$carMake)
-                                .onChange(of: self.carMake, onCommit: {
-                                    self.maybeEnableButton()
-                                }) { _ in
+                                      text: self.$carMake,
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
+                                .onChange(of: self.carMake) { _ in
                                     self.maybeEnableButton()
                                 }
 
                             TextField("* Model",
-                                      text: self.$carModel, onCommit: {
+                                      text: self.$carModel,
+                                      onCommit: {
                                         self.maybeEnableButton()
-                                      })
+                                    })
                                 .onChange(of: self.carModel) { _ in
                                     self.maybeEnableButton()
                                 }
 
                             TextField("* Current Odometer",
-                                      text: self.$carOdometer, onCommit: {
+                                      text: self.$carOdometer,
+                                      onCommit: {
                                         self.maybeEnableButton()
-                                      })
+                                    })
                                 .keyboardType(.numberPad)
                                 .onChange(of: self.carOdometer) { _ in
                                     self.maybeEnableButton()
                                 }
 
                             TextField("* License Plate",
-                                      text: self.$carPlate, onCommit: {
+                                      text: self.$carPlate,
+                                      onCommit: {
                                         self.maybeEnableButton()
-                                      })
+                                    })
                                 .disableAutocorrection(true)
                                 .onChange(of: self.carPlate) { _ in
                                     self.maybeEnableButton()
                                 }
 
                             TextField("* VIN",
-                                      text: self.$carVIN, onCommit: {
+                                      text: self.$carVIN,
+                                      onCommit: {
                                         self.maybeEnableButton()
-                                      })
+                                    })
                                 .disableAutocorrection(true)
                                 .onChange(of: self.carVIN) { _ in
                                     self.maybeEnableButton()
@@ -93,7 +98,7 @@ struct AddCarView: View {
                                 self.save()
                                 self.presentationMode.wrappedValue.dismiss()
                             }) {
-                                Text("Save Vehicle")
+                                Text("Add Vehicle")
                             }
                             .disabled(!buttonEnabled)
                         }
