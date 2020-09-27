@@ -34,7 +34,7 @@ struct AddCarView: View {
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Vehicle Info"), footer: Text("\nFor the most accurate results, it's recommended to only add a new car when it has a full tank of gas.")) {
+                        Section(header: Text("Vehicle Info"), footer: Text("\nTo increase accuracy of results, it's recommended to only add a new car when it has a full tank of gas.")) {
                             
                             TextFieldWithPickerAsInputView(data: self.years,
                                                            placeholder: "* Year",
