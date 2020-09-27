@@ -32,7 +32,7 @@
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
 		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
-		80B1D06F24DDE70C0090390E /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Labels.swift */; };
+		80B1D06F24DDE70C0090390E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Label.swift */; };
 		80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */; };
 		80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DE24E3813D0005650B /* TopDetailView.swift */; };
 		80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */; };
@@ -79,7 +79,7 @@
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
 		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
-		80B1D06E24DDE70C0090390E /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		80B1D06E24DDE70C0090390E /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseBoxView.swift; sourceTree = "<group>"; };
 		80D4D3DE24E3813D0005650B /* TopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDetailView.swift; sourceTree = "<group>"; };
 		80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseView.swift; sourceTree = "<group>"; };
@@ -208,7 +208,7 @@
 				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
 				80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */,
 				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
-				80B1D06E24DDE70C0090390E /* Labels.swift */,
+				80B1D06E24DDE70C0090390E /* Label.swift */,
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
 			);
 			path = Pieces;
@@ -434,7 +434,7 @@
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */,
 				80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */,
-				80B1D06F24DDE70C0090390E /* Labels.swift in Sources */,
+				80B1D06F24DDE70C0090390E /* Label.swift in Sources */,
 				8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
 				80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */,
