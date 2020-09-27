@@ -48,13 +48,9 @@ struct ContentView: View {
                                         .sheet(isPresented: $showAddCarView) {
                                             AddCarView()
                                                 .environment(\.managedObjectContext, self.moc)
-                                            
                                         })
-                
             }
             Banner()
-            
         }
-        
     }
 }
