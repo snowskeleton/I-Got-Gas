@@ -41,6 +41,7 @@ struct EditCarView: View {
             NavigationView {
                 VStack {
                     Form {
+                        
                         Section(header: Text("Vehicle Info")) {
                             TextFieldWithPickerAsInputView(data: self.years,
                                                            placeholder: "* Year",
@@ -56,6 +57,7 @@ struct EditCarView: View {
                                       text: $carVIN)
                             
                         }
+                        
                         Section {
                             Button(action: {
                                 self.save()
@@ -64,10 +66,13 @@ struct EditCarView: View {
                                 HStack {
                                     Spacer()
                                     Text("Save")
+                                        .foregroundColor(Color.blue)
                                     Spacer()
                                 }
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
+                        
                         Section {
                             Button(action: {
                                 self.showFirstConfirmDeleteRequest = true
@@ -78,7 +83,9 @@ struct EditCarView: View {
                                         .foregroundColor(Color.red)
                                     Spacer()
                                 }
-                            }.alert(isPresented: self.$showFirstConfirmDeleteRequest) {
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .alert(isPresented: self.$showFirstConfirmDeleteRequest) {
                                 Alert(title: Text("Delete this Vehicle"),
                                       message: Text("Deleting this vehicle will permanently remove all data."),
                                       primaryButton: .destructive(Text("Delete")) {
@@ -87,6 +94,7 @@ struct EditCarView: View {
                                       secondaryButton: .cancel())
                             }
                         }
+                        
                     }
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
