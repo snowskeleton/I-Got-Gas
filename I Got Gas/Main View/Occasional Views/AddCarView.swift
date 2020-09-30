@@ -99,6 +99,7 @@ struct AddCarView: View {
                                 Text("Add Vehicle")
                             }
                             .disabled(!buttonEnabled)
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .dismissKeyboardOnSwipe()
