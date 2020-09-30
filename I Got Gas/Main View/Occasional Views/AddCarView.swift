@@ -23,7 +23,7 @@ struct AddCarView: View {
     @State private var carPlate = ""
     @State private var carVIN = ""
     @State private var carOdometer = ""
-    
+        
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
@@ -32,48 +32,81 @@ struct AddCarView: View {
             NavigationView {
                 VStack {
                     Form {
-                        Section(header: Text("Vehicle Info")) {
+                        Section(header: Text("Vehicle Info"), footer: Text("\nTo increase accuracy of results, it's recommended to only add a new car when it has a full tank of gas.")) {
                             
                             TextFieldWithPickerAsInputView(data: self.years,
                                                            placeholder: "* Year",
                                                            selectionIndex: self.$selectionIndex,
                                                            text: self.$carYear)
+                                .onChange(of: self.carYear) { _ in
+                                    self.maybeEnableButton()
+                                }
                             
                             TextField("* Make",
                                       text: self.$carMake,
-                                      onCommit: { self.maybeEnableButton() })
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
+                                .onChange(of: self.carMake) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* Model",
                                       text: self.$carModel,
-                                      onCommit: { self.maybeEnableButton() })
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
+                                .onChange(of: self.carModel) { _ in
+                                    self.maybeEnableButton()
+                                }
+
                             TextField("* Current Odometer",
                                       text: self.$carOdometer,
-                                      onCommit: { self.maybeEnableButton() })
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
                                 .keyboardType(.numberPad)
-                            TextField("* License Plate",
+                                .onChange(of: self.carOdometer) { _ in
+                                    self.maybeEnableButton()
+                                }
+
+                            TextField("License Plate",
                                       text: self.$carPlate,
-                                      onCommit: { self.maybeEnableButton() })
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
                                 .disableAutocorrection(true)
-                            TextField("* VIN",
+                                .onChange(of: self.carPlate) { _ in
+                                    self.maybeEnableButton()
+                                }
+
+                            TextField("VIN",
                                       text: self.$carVIN,
-                                      onCommit: { self.maybeEnableButton() })
+                                      onCommit: {
+                                        self.maybeEnableButton()
+                                    })
                                 .disableAutocorrection(true)
+                                .onChange(of: self.carVIN) { _ in
+                                    self.maybeEnableButton()
+                                }
+                        }
+                        
+                        Section {
+                            Button(action: {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Text("Add Vehicle")
+                            }
+                            .disabled(!buttonEnabled)
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .dismissKeyboardOnSwipe()
                     .dismissKeyboardOnTap()
                 }
-                .navigationBarTitle("You get a car!")
+                .navigationBarTitle("Add Car")
             }
-            
-            Spacer()
-            
-            Button(action: {
-                self.save()
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Add Vehicle")
-            }
-            .disabled(!buttonEnabled)
         }
     }
     
@@ -87,14 +120,6 @@ struct AddCarView: View {
             return
         }
         if self.carModel == "" {
-            self.buttonEnabled = false
-            return
-        }
-        if self.carPlate == "" {
-            self.buttonEnabled = false
-            return
-        }
-        if self.carVIN == "" {
             self.buttonEnabled = false
             return
         }
@@ -150,9 +175,9 @@ struct TextFieldWithPickerAsInputView : UIViewRepresentable {
     
     class Coordinator: NSObject, UIPickerViewDataSource, UIPickerViewDelegate , UITextFieldDelegate {
         
-        private let parent : TextFieldWithPickerAsInputView
+        private let parent: TextFieldWithPickerAsInputView
         
-        init(textfield : TextFieldWithPickerAsInputView) {
+        init(textfield: TextFieldWithPickerAsInputView) {
             self.parent = textfield
         }
         

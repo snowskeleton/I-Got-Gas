@@ -72,6 +72,7 @@ struct AddFutureServiceView: View {
                                 Text("miles")
                             }
                         }
+                        
                         Section(header: Text("Starting...")) {
                             DatePicker("Date",
                                        selection: self.$date,
@@ -80,11 +81,19 @@ struct AddFutureServiceView: View {
                                 .labelsHidden()
                         }
                         
-                    }
-                                        
-                    Button("Save") {
-                        self.save()
-                        self.presentationMode.wrappedValue.dismiss()
+                        VStack {
+                            Button(action: {
+                                self.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                HStack {
+                                    Spacer()
+                                    Text("Save")
+                                    Spacer()
+                                }
+                            }
+                        }
+                        
                     }
                 }.navigationBarTitle("")
                 .navigationBarHidden(true)
@@ -114,7 +123,6 @@ struct AddFutureServiceView: View {
             }
         }
         
-        
         let futureService = FutureService(context: self.moc)
         futureService.vehicle = car
         
@@ -130,11 +138,17 @@ struct AddFutureServiceView: View {
         try? self.moc.save()
     }
     
+    public func removeFutureServiceNotification(_ futureServices: FetchedResults<FutureService>.Element) {
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(
+                withIdentifiers: ["\(String(describing: futureServices.notificationUUID))"])
+    }
+    
     public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
         if futureService.date == nil { return }
         
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["\(String(describing: futureService.notificationUUID))"])
-
+        removeFutureServiceNotification(futureService)
+        
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
         content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
@@ -158,6 +172,5 @@ struct AddFutureServiceView: View {
         futureService.notificationUUID = request.identifier
         
         UNUserNotificationCenter.current().add(request)
-        
     }
 }

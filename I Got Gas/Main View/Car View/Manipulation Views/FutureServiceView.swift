@@ -19,6 +19,7 @@ struct FutureServiceView: View {
     @State var showAddFutureExpenseView = false
     @State var showAddExpenseView = false
     @State private var selectedFutureService = -1
+    
     init(carID: String, car: Binding<Car>) {
         self._car = car
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
@@ -56,7 +57,6 @@ struct FutureServiceView: View {
 
                 }.onDelete(perform: loseMemory)
             }
-//            Spacer()
             Button("Schedule Service") {
                 self.showAddFutureExpenseView = true
             }

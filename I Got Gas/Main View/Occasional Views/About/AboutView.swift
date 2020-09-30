@@ -26,19 +26,19 @@ struct AboutView: View {
                     Section(footer: AboutFooter()) {
                         
                         Button(action: { self.showPrivacyPolicy = true })
-                            { ListLabel(text: "Privacy Policy") }
+                            { ListLabelWithArrow(text: "Privacy Policy") }
                             .sheet(isPresented: $showPrivacyPolicy)
                                 { PrivacyPolicyView() }
                         
                         Button(action: { self.showChangeLog = true })
-                            { ListLabel(text: "Change Log") }
+                            { ListLabelWithArrow(text: "Change Log") }
                             .sheet(isPresented: $showChangeLog)
                                 { ChangeLogView() }
                         
                         HStack {
                             Text("Version:").fontWeight(.light)
                             Spacer()
-                            Text("1.5.0").fontWeight(.light)
+                            Text("1.0.0").fontWeight(.light)
                         }
                         .foregroundColor(colorScheme == .dark
                                             ? Color.white
@@ -67,7 +67,7 @@ struct AboutFooter: View {
     }
 }
 
-struct ListLabel: View {
+struct ListLabelWithArrow: View {
     var text: String
     var body: some View {
         HStack {

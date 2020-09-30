@@ -9,19 +9,15 @@
 import SwiftUI
 import CoreData
 
-struct FuelExpenseView: View {
+struct ServiceExpenseView: View {
     @Environment(\.managedObjectContext) var moc
-    @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-    
-    var carFetchRequest: FetchRequest<Car>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
-    
-    var serviceFetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
-    
-    
     @State var showAddExpenseView = false
-    
+
+    var carFetchRequest: FetchRequest<Car>
+    var serviceFetchRequest: FetchRequest<Service>
+    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
+    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
+        
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
         
@@ -29,7 +25,7 @@ struct FuelExpenseView: View {
                                              carID: carID,
                                              filters: [
                                                 "vehicle.id = '\(carID)'",
-                                                "note = 'Fuel'"
+                                                "note != 'Fuel'"
                                              ])
     }
     
@@ -39,21 +35,22 @@ struct FuelExpenseView: View {
             
             VStack {
                 List {
-                    
                     ForEach(services, id: \.self) { service in
                         VStack {
                             HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
+                                Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
+                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
                             }
                             HStack {
                                 Text("\(service.odometer)")
                                 Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text("\(service.note ?? "")")
+                                Spacer()
+                                Text("\(service.vendor?.name ?? "")")
                             }
                         }
                     }.onDelete(perform: loseMemory)
-                    
                 }
                 Spacer()
                 Button("Add Expense") {
@@ -61,9 +58,8 @@ struct FuelExpenseView: View {
                 }
                 .padding(.bottom)
                 .sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(carID: car.id!,
-                                   car: Binding<Car>.constant(cars[0]),
-                                   isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
+                    AddExpenseView(carID: car.id!, car: Binding<Car>.constant(car), isGas: Binding<Bool>.constant(false), inputSelectedFutureService: -1)
+                        .environment(\.managedObjectContext, self.moc)
                 }
             }
         }
@@ -71,19 +67,9 @@ struct FuelExpenseView: View {
     func loseMemory(at offsets: IndexSet) {
         for index in offsets {
             let service = services[index]
-            let savedCar = service.vehicle
             moc.delete(service)
             try? self.moc.save()
-            if services.count > 0 {
-                services[0].vehicle?.odometer = services[0].odometer
-            } else {
-                savedCar!.odometer = savedCar!.startingOdometer
-            }
-            try? self.moc.save()
-            AddExpenseView(carID: cars[0].id!,
-                           car: Binding<Car>.constant(cars[0]),
-                           isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
-                .updateCarStats(cars[0])
+            AddExpenseView(carID: cars[0].id!, car: Binding<Car>.constant(cars[0]), isGas: Binding<Bool>.constant(false), inputSelectedFutureService: -1).updateCarStats(cars[0])
         }
     }
 }
