@@ -13,12 +13,12 @@ struct FuelExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
     @State var showAddExpenseView = false
-
+    
     var carFetchRequest: FetchRequest<Car>
     var serviceFetchRequest: FetchRequest<Service>
     var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
-        
+    
     init(carID: String) {
         carFetchRequest = Fetch.car(carID: carID)
         
@@ -61,12 +61,13 @@ struct FuelExpenseView: View {
                     AddExpenseView(carID: car.id!,
                                    car: Binding<Car>.constant(cars[0]),
                                    isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
+                        .environment(\.managedObjectContext, self.moc)
                 }
             }
         }
     }
     func loseMemory(at offsets: IndexSet) {
-        for index in offsets {
+        for index in offsets     {
             let service = services[index]
             let savedCar = service.vehicle
             moc.delete(service)
