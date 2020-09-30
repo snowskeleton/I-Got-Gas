@@ -5,5 +5,11 @@ The goal of I Got Gas is to remove obscurity from your vehicle's finances. Now w
 
 Here are some screenshots for your edification
 
- 
+ Home Screen
 ![alt text](https://github.com/snowskeleton/I-Got-Gas/blob/master/Screenshots/Home%20Screen%20-%20iPhone%2011%20Pro%20Max%20-%206.5.png)
+
+Car Details
+![alt text](https://github.com/snowskeleton/I-Got-Gas/blob/master/Screenshots/Detail%20View%20-%20iPhone%2011%20Pro%20Max%20-%206.5.png)
+
+Adding expenses
+![alt text](https://github.com/snowskeleton/I-Got-Gas/blob/master/Screenshots/Add%20Expense%20View%20-%20iPhone%2011%20Pro%20Max%20-%206.5.png)
