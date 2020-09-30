@@ -27,6 +27,16 @@
 		8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1C2513B224000F2B0D /* AboutView.swift */; };
 		8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */; };
 		8084DF252513C6FF000F2B0D /* ChangeLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF242513C6FF000F2B0D /* ChangeLogView.swift */; };
+		808BA0802524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0752524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png */; };
+		808BA0812524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0762524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png */; };
+		808BA0822524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0772524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png */; };
+		808BA0832524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0782524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png */; };
+		808BA0842524E3A9005F7D91 /* Detail View - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0792524E3A9005F7D91 /* Detail View - iPhone 11 Pro Max - 6.5.png */; };
+		808BA0852524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07A2524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png */; };
+		808BA0872524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07C2524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png */; };
+		808BA0882524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07D2524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png */; };
+		808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */; };
+		808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */; };
 		8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094975224F3490200E8D6A1 /* OptionsView.swift */; };
 		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
 		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
@@ -74,6 +84,16 @@
 		8084DF1C2513B224000F2B0D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		8084DF242513C6FF000F2B0D /* ChangeLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLogView.swift; sourceTree = "<group>"; };
+		808BA0752524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fuel Expense View - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
+		808BA0762524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Expense View - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
+		808BA0772524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
+		808BA0782524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Detail View - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
+		808BA0792524E3A9005F7D91 /* Detail View - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Detail View - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
+		808BA07A2524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fuel Expense View - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
+		808BA07C2524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Expense View - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
+		808BA07D2524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home Screen - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
+		808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home Screen - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
+		808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
 		8094975224F3490200E8D6A1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
 		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
@@ -114,6 +134,7 @@
 		805B413224CDF04B0085DB47 = {
 			isa = PBXGroup;
 			children = (
+				808BA0742524E38C005F7D91 /* Screenshots */,
 				805B413D24CDF04B0085DB47 /* I Got Gas */,
 				805B413C24CDF04B0085DB47 /* Products */,
 				B005929161E840594DC2B274 /* Pods */,
@@ -241,6 +262,23 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		808BA0742524E38C005F7D91 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				808BA0762524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png */,
+				808BA07C2524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png */,
+				808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */,
+				808BA0772524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png */,
+				808BA0782524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png */,
+				808BA0792524E3A9005F7D91 /* Detail View - iPhone 11 Pro Max - 6.5.png */,
+				808BA07A2524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png */,
+				808BA0752524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png */,
+				808BA07D2524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png */,
+				808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		80A230BB24DB1E9E0081FAD3 /* Long Stuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,11 +388,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808BA0872524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
 				80A230B824D74C6D0081FAD3 /* Rest Client in Resources */,
+				808BA0812524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png in Resources */,
 				805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */,
+				808BA0882524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png in Resources */,
+				808BA0832524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png in Resources */,
+				808BA0852524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png in Resources */,
 				805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */,
+				808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */,
 				80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */,
+				808BA0802524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
+				808BA0822524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png in Resources */,
+				808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */,
 				805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */,
+				808BA0842524E3A9005F7D91 /* Detail View - iPhone 11 Pro Max - 6.5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
