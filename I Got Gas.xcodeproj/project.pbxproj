@@ -38,9 +38,6 @@
 		808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */; };
 		808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */; };
 		8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094975224F3490200E8D6A1 /* OptionsView.swift */; };
-		80A230B824D74C6D0081FAD3 /* Rest Client in Resources */ = {isa = PBXBuildFile; fileRef = 80A230B724D74C6D0081FAD3 /* Rest Client */; };
-		80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 80A230BC24DB1EC00081FAD3 /* Makes.txt */; };
-		80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
 		80B1D06F24DDE70C0090390E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Label.swift */; };
 		80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */; };
@@ -95,9 +92,6 @@
 		808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home Screen - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
 		808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
 		8094975224F3490200E8D6A1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
-		80A230B724D74C6D0081FAD3 /* Rest Client */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Rest Client"; sourceTree = "<group>"; };
-		80A230BC24DB1EC00081FAD3 /* Makes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makes.txt; sourceTree = "<group>"; };
-		80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMakes.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
 		80B1D06E24DDE70C0090390E /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseBoxView.swift; sourceTree = "<group>"; };
@@ -153,8 +147,6 @@
 		805B413D24CDF04B0085DB47 /* I Got Gas */ = {
 			isa = PBXGroup;
 			children = (
-				80A230BB24DB1E9E0081FAD3 /* Long Stuff */,
-				80A230B724D74C6D0081FAD3 /* Rest Client */,
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
@@ -279,15 +271,6 @@
 			path = Screenshots;
 			sourceTree = "<group>";
 		};
-		80A230BB24DB1E9E0081FAD3 /* Long Stuff */ = {
-			isa = PBXGroup;
-			children = (
-				80A230BC24DB1EC00081FAD3 /* Makes.txt */,
-				80A230BE24DB1F1F0081FAD3 /* FetchMakes.swift */,
-			);
-			path = "Long Stuff";
-			sourceTree = "<group>";
-		};
 		80D61B0624EAEFEE007A0C8F /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				808BA0872524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
-				80A230B824D74C6D0081FAD3 /* Rest Client in Resources */,
 				808BA0812524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png in Resources */,
 				805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */,
 				808BA0882524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png in Resources */,
@@ -397,7 +379,6 @@
 				808BA0852524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png in Resources */,
 				805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */,
 				808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */,
-				80A230BD24DB1EC00081FAD3 /* Makes.txt in Resources */,
 				808BA0802524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
 				808BA0822524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png in Resources */,
 				808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */,
@@ -457,7 +438,6 @@
 			files = (
 				80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */,
 				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
-				80A230BF24DB1F1F0081FAD3 /* FetchMakes.swift in Sources */,
 				80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */,
