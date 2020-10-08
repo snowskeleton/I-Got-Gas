@@ -80,28 +80,6 @@ struct AboutFooter: View {
     }
 }
 
-//import SwiftUI
-import MessageUI
-
-struct EmailView: View {
-
-   @State var result: Result<MFMailComposeResult, Error>? = nil
-   @State var isShowingMailView = false
-
-    var body: some View {
-        Button(action: {
-            self.isShowingMailView.toggle()
-        }) {
-            Text("Tap Me")
-        }
-        .disabled(!MFMailComposeViewController.canSendMail())
-        .sheet(isPresented: $isShowingMailView) {
-            MailView(result: self.$result)
-        }
-    }
-}
-
-
 struct ListLabelWithArrow: View {
     var text: String
     var body: some View {
