@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct AboutView: View {
     @Environment(\.colorScheme) var colorScheme
