@@ -53,6 +53,7 @@ struct MailView: UIViewControllerRepresentable {
         dateFormatter.timeStyle = .short
         vc.setSubject("I Got Gas Support \(dateFormatter.string(from: Date()))")
         vc.setToRecipients(["support@blizzardskeleton.com"])
+        vc.setMessageBody("Issue you're experiecing:\n\n\nSteps to reproduce (if any):\n\n\nAdditional details/comments:\n", isHTML: false)
         return vc
     }
 
