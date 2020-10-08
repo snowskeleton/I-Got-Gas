@@ -18,56 +18,50 @@ struct AboutView: View {
     @State var isShowingMailView = false
     
     var body: some View {
-        VStack {
-            Text("About")
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, -5.0)
-            
-            NavigationView {
-                List {
-                    Section(footer: AboutFooter()) {
-                        
-                        Button(action: { self.showPrivacyPolicy = true })
-                            { ListLabelWithArrow(text: "Privacy Policy") }
-                            .sheet(isPresented: $showPrivacyPolicy)
-                                { PrivacyPolicyView() }
-                        
-                        Button(action: { self.showChangeLog = true })
-                            { ListLabelWithArrow(text: "Change Log") }
-                            .sheet(isPresented: $showChangeLog)
-                                { ChangeLogView() }
+        NavigationView {
+            List {
+                Section(footer: AboutFooter()) {
 
-                        Button(action: {
-                            isShowingMailView.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "envelope.fill")
-                                Text("Feedback")
-                            }
-                            .foregroundColor(colorScheme == .dark
-                                                ? Color.white
-                                                : Color.black)
-                        }
-                        .disabled(!MFMailComposeViewController.canSendMail())
-                        .sheet(isPresented: $isShowingMailView) {
-                            MailView(result: self.$result)
-                        }
-                        
+                    NavigationLink(destination: PrivacyPolicyView()) {
+                        Text("Privacy Policy")
+                    }
+
+                    NavigationLink(destination: ChangeLogView()) {
                         HStack {
-                            Text("Version:").fontWeight(.light)
-                            Spacer()
-                            Text("1.0.0").fontWeight(.light)
+                            Image(systemName: "hammer")
+                            Text("Change Log")
+                        }
+                    }
+
+                    Button(action: {
+                        isShowingMailView.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "envelope")
+                            Text("Feedback")
                         }
                         .foregroundColor(colorScheme == .dark
                                             ? Color.white
                                             : Color.black)
-                        
                     }
-                    
+                    .disabled(!MFMailComposeViewController.canSendMail())
+                    .sheet(isPresented: $isShowingMailView) {
+                        MailView(result: self.$result)
+                    }
+
+                    HStack {
+                        Text("Version:").fontWeight(.light)
+                        Spacer()
+                        Text("1.0.0").fontWeight(.light)
+                    }
+                    .foregroundColor(colorScheme == .dark
+                                        ? Color.white
+                                        : Color.black)
+
                 }
-                .navigationBarHidden(true)
+
             }
+            .navigationBarTitle("About")
         }
     }
 }
