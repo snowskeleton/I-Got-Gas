@@ -34,9 +34,3 @@ struct PrivacyPolicyView: View {
         }
     }
 }
-
-struct PrivacyPolicyView_Previews: PreviewProvider {
-    static var previews: some View {
-        PrivacyPolicyView()
-    }
-}
