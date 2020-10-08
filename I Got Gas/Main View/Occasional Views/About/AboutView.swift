@@ -13,6 +13,9 @@ struct AboutView: View {
     
     @State var showPrivacyPolicy = false
     @State var showChangeLog = false
+
+    @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State var isShowingMailView = false
     
     var body: some View {
         VStack {
@@ -34,6 +37,22 @@ struct AboutView: View {
                             { ListLabelWithArrow(text: "Change Log") }
                             .sheet(isPresented: $showChangeLog)
                                 { ChangeLogView() }
+
+                        Button(action: {
+                            isShowingMailView.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "envelope.fill")
+                                Text("Feedback")
+                            }
+                            .foregroundColor(colorScheme == .dark
+                                                ? Color.white
+                                                : Color.black)
+                        }
+                        .disabled(!MFMailComposeViewController.canSendMail())
+                        .sheet(isPresented: $isShowingMailView) {
+                            MailView(result: self.$result)
+                        }
                         
                         HStack {
                             Text("Version:").fontWeight(.light)
@@ -66,6 +85,28 @@ struct AboutFooter: View {
         }
     }
 }
+
+//import SwiftUI
+import MessageUI
+
+struct EmailView: View {
+
+   @State var result: Result<MFMailComposeResult, Error>? = nil
+   @State var isShowingMailView = false
+
+    var body: some View {
+        Button(action: {
+            self.isShowingMailView.toggle()
+        }) {
+            Text("Tap Me")
+        }
+        .disabled(!MFMailComposeViewController.canSendMail())
+        .sheet(isPresented: $isShowingMailView) {
+            MailView(result: self.$result)
+        }
+    }
+}
+
 
 struct ListLabelWithArrow: View {
     var text: String
