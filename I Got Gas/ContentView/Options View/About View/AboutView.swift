@@ -24,13 +24,18 @@ struct AboutView: View {
                 Section(footer: AboutFooter()) {
 
                     NavigationLink(destination: PrivacyPolicyView()) {
-                        Text("Privacy Policy")
+                        HStack {
+                            Image(systemName: "lock.doc")
+                            Text("Privacy Policy")
+                                .fontWeight(.medium)
+                        }
                     }
 
                     NavigationLink(destination: ChangeLogView()) {
                         HStack {
                             Image(systemName: "hammer")
                             Text("Change Log")
+                                .fontWeight(.medium)
                         }
                     }
 
@@ -40,10 +45,8 @@ struct AboutView: View {
                         HStack {
                             Image(systemName: "envelope")
                             Text("Feedback")
+                                .fontWeight(.medium)
                         }
-                        .foregroundColor(colorScheme == .dark
-                                            ? Color.white
-                                            : Color.black)
                     }
                     .disabled(!MFMailComposeViewController.canSendMail())
                     .sheet(isPresented: $isShowingMailView) {
@@ -55,11 +58,10 @@ struct AboutView: View {
                         Spacer()
                         Text("1.0.0").fontWeight(.light)
                     }
-                    .foregroundColor(colorScheme == .dark
-                                        ? Color.white
-                                        : Color.black)
-
                 }
+                .foregroundColor(colorScheme == .dark
+                                    ? Color.white
+                                    : Color.black)
 
             }
             .navigationBarTitle("About")
