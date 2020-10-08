@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8004A43C252F71FE00E871A2 /* EmailViewController.swift */; };
 		800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */; };
 		804B24DB24CE382F009FC038 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* DetailView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.release.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.release.xcconfig"; sourceTree = "<group>"; };
+		8004A43C252F71FE00E871A2 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -250,6 +252,7 @@
 				8084DF1C2513B224000F2B0D /* AboutView.swift */,
 				8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */,
 				8084DF242513C6FF000F2B0D /* ChangeLogView.swift */,
+				8004A43C252F71FE00E871A2 /* EmailViewController.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */,
 				80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */,
+				8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */,
 				80D4D3E524E45C970005650B /* FutureServiceView.swift in Sources */,
 				80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
