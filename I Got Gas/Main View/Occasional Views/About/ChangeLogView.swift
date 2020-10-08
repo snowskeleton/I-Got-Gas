@@ -22,9 +22,3 @@ struct ChangeLogView: View {
         }
     }
 }
-
-struct ChangeLogView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChangeLogView()
-    }
-}
