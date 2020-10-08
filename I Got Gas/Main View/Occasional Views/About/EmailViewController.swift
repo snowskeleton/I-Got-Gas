@@ -48,11 +48,10 @@ struct MailView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let vc = MFMailComposeViewController()
         vc.mailComposeDelegate = context.coordinator
-        let today = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
-        vc.setSubject("I Got Gas Support \(dateFormatter.string(from: today))")
+        vc.setSubject("I Got Gas Support \(dateFormatter.string(from: Date()))")
         vc.setToRecipients(["support@blizzardskeleton.com"])
         return vc
     }
