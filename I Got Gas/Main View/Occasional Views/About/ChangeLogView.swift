@@ -10,7 +10,11 @@ import SwiftUI
 
 struct ChangeLogView: View {
     var body: some View {
-        Text("No changes")
+        Form {
+            Section(header: Text("Version 1.0.0")) {
+                Text("First public release! More changes to come.\n\nI Got Gas, in its current form, is designed to let you keep track of how much your vehicle is costing you mile by mile. Future releases will make it even more granular and add new features.")
+            }
+        }
     }
 }
 
