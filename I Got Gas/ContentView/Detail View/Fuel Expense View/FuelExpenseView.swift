@@ -58,9 +58,7 @@ struct FuelExpenseView: View {
                 }
                 .padding(.bottom)
                 .sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(carID: car.id!,
-                                   car: Binding<Car>.constant(cars[0]),
-                                   isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
+                    AddExpenseView(car: Binding<Car>.constant(cars[0]))
                         .environment(\.managedObjectContext, self.moc)
                 }
             }
@@ -78,9 +76,7 @@ struct FuelExpenseView: View {
                 savedCar!.odometer = savedCar!.startingOdometer
             }
             try? self.moc.save()
-            AddExpenseView(carID: cars[0].id!,
-                           car: Binding<Car>.constant(cars[0]),
-                           isGas: Binding<Bool>.constant(true), inputSelectedFutureService: -1)
+            AddExpenseView(car: Binding<Car>.constant(cars[0]))
                 .updateCarStats(cars[0])
         }
     }

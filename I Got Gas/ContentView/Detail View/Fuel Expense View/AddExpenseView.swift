@@ -17,7 +17,7 @@ struct AddExpenseView: View {
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
     
     @State var selectedFutureService: Int
-    @Binding var isGas: Bool
+    @State var isGas: Bool = true
     @Binding var car: Car
     @State private var expenseDate = Date()
     @State private var totalPrice: Double?
@@ -27,14 +27,23 @@ struct AddExpenseView: View {
     @State private var odometer: String = ""
     @State private var isFullTank: Int = 0
     
-    init(carID: String, car: Binding<Car>, isGas: Binding<Bool>, inputSelectedFutureService: Int) {
-        self._isGas = isGas
-        self._car = car
+    init(car: Binding<Car>, inputSelectedFutureService: Int) {
+        self.init(car: car) //this has to go first, since we're overwriting values next
+        self._isGas = State(initialValue: false)
         self._selectedFutureService = State(initialValue: inputSelectedFutureService)
-        
-        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
     }
-    
+
+    init(car: Binding<Car>, isGas: State<Bool>) {
+        self.init(car: car) //this has to go first, since we're overwriting values next
+        self._isGas = isGas
+    }
+
+    init(car: Binding<Car>) {
+        self._car = car
+        self._selectedFutureService = State(initialValue: -1)
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: car.id.wrappedValue!)
+    }
+
     var body: some View {
         VStack {
             HStack {
@@ -60,7 +69,9 @@ struct AddExpenseView: View {
                         if !self.isGas {
                             Picker(selection: self.$selectedFutureService,
                                    label: Text("Scheduled Service")) {
-                                Text("").tag(-1)
+                                Text("None")
+                                    .italic()
+                                    .tag(-1)
                                 ForEach(0 ..< futureServices.count) {
                                     Text("\(futureServices[$0].name!)")
                                         .foregroundColor(futureServices[$0].important
@@ -69,9 +80,7 @@ struct AddExpenseView: View {
                                                                 ? Color.white
                                                                 : Color.black))
                                 }
-                                
                             }
-                            
                         } else {
                             Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {
                                 Text("Full Tank").tag(0)
@@ -81,11 +90,9 @@ struct AddExpenseView: View {
                         
                         Section(header: Text("Details")) {
                             
-                            
                             CurrencyTextField("Price", value: self.$totalPrice)
                                 .font(.largeTitle)
                                 .multilineTextAlignment(TextAlignment.leading)
-                            
                             
                             if self.isGas {
                                 TextField("Gallons", text: self.$gallonsOfGas)
@@ -95,6 +102,7 @@ struct AddExpenseView: View {
                                     .font(.largeTitle)
                             }
                         }
+
                         Section(header: Text("Odometer")) {
                             TextField("\(car.odometer)", text: self.$odometer)
                                 .dismissKeyboardOnSwipe()
@@ -109,11 +117,11 @@ struct AddExpenseView: View {
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
                                 .font(.largeTitle)
-                            
                             if !self.isGas {
                                 TextField("Service Notes", text: self.$note)
                                     .dismissKeyboardOnSwipe()
                                     .dismissKeyboardOnTap()
+                                    .font(.largeTitle)
                             }
                         }
                         
@@ -133,6 +141,7 @@ struct AddExpenseView: View {
                                 }
                             }
                         }
+
                     }
                     // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
                 }.navigationBarTitle(self.isGas ? "Gas" : "Service", displayMode: .inline)
