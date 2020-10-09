@@ -19,7 +19,7 @@ struct ContentView: View {
         VStack {
             NavigationView {
                 ScrollView {
-                    VStack {
+                    VStack(spacing: 25) {
                         ForEach(cars, id: \.self) { car in
                             CarBoxView(car: Binding<Car>.constant(car))
                                 .groupBoxStyle(DetailBoxStyle(
@@ -28,6 +28,7 @@ struct ContentView: View {
                                                     .environment(\.managedObjectContext, self.moc)))
                         }
                     }
+                    .padding()
                 }
                 .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
                 .navigationBarItems(leading:
@@ -37,7 +38,9 @@ struct ContentView: View {
                                         }) {
                                             Image(systemName: "gearshape")
                                                 .sheet(isPresented: $showOptionsView) {
-                                                    OptionsView()}},
+                                                    OptionsView()
+                                                }
+                                        },
                                     trailing:
                                         Button(action: {
                                             self.showAddCarView.toggle()

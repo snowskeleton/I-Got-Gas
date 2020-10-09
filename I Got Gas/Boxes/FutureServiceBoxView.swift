@@ -42,5 +42,6 @@ struct FutureServiceBoxView: View {
                     }
                 }
             }
+            .shadow(radius: 5.0)
     }
 }

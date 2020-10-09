@@ -36,5 +36,6 @@ struct FuelExpenseBoxView: View {
                 }
             }
         }
+        .shadow(radius: 5.0)
     }
 }

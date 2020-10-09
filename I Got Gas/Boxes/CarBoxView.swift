@@ -46,5 +46,6 @@ struct CarBoxView: View {
             }
             .font(.system(size: 20))
         }
+        .shadow(radius: 5.0)
     }
 }

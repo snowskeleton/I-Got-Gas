@@ -27,13 +27,9 @@ struct DetailView: View {
         
         VStack {
             TopDetailView(car: Binding<Car>.constant(car))
-            
-            Spacer()
-            
             VStack {
                 ScrollView {
-                    VStack(spacing: 8) {
-                        EmptyView()
+                    VStack(spacing: 25) {
                         FuelExpenseBoxView(carID: car.id!)
                             .groupBoxStyle(DetailBoxStyle(destination: FuelExpenseView(
                                                             car: Binding<Car>.constant(car))
