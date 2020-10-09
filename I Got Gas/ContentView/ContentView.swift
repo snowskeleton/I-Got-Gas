@@ -22,12 +22,15 @@ struct ContentView: View {
                     VStack(spacing: 25) {
                         ForEach(cars, id: \.self) { car in
                             CarBoxView(car: Binding<Car>.constant(car))
+
                                 .groupBoxStyle(DetailBoxStyle(
                                                 destination: DetailView(
                                                     car: Binding<Car>.constant(car))
                                                     .environment(\.managedObjectContext, self.moc)))
                         }
                     }
+                    .clipped()
+                    .shadow(radius: 5.0)
                     .padding()
                 }
                 .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)

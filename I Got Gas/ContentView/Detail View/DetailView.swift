@@ -48,7 +48,10 @@ struct DetailView: View {
                         
                     }.padding()
                 }
-            }.background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
+            }
+            .clipped()
+            .shadow(radius: 5.0)
+            .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
             
             Spacer()
             

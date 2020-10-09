@@ -37,6 +37,5 @@ struct ServiceExpenseBoxView: View {
                 }
             }
         }
-        .shadow(radius: 5.0)
     }
 }

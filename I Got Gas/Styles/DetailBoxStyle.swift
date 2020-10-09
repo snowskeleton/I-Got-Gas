@@ -19,7 +19,9 @@ struct DetailBoxStyle<V: View>: GroupBoxStyle {
             GroupBox(label: HStack {
                 configuration.label
                 Spacer()
-                Image(systemName: "chevron.right").foregroundColor(Color(.systemGray4)).imageScale(.small)
+                Image(systemName: "chevron.right.circle")
+                    .foregroundColor(Color(.systemGray4))
+                    .imageScale(.large)
             }) {
                 configuration.content.padding(.top)
             }
