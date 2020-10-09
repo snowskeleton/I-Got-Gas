@@ -13,54 +13,50 @@ struct FuelExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
     @State var showAddExpenseView = false
-    
-    var carFetchRequest: FetchRequest<Car>
+
+    @Binding var car: Car
+
     var serviceFetchRequest: FetchRequest<Service>
-    var cars: FetchedResults<Car> { carFetchRequest.wrappedValue }
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
     
-    init(carID: String) {
-        carFetchRequest = Fetch.car(carID: carID)
-        
+    init(car: Binding<Car>) {
+        self._car = car
         serviceFetchRequest = Fetch.services(howMany: 0,
-                                             carID: carID,
+                                             carID: car.id.wrappedValue!,
                                              filters: [
-                                                "vehicle.id = '\(carID)'",
+                                                "vehicle.id = '\(car.id.wrappedValue!)'",
                                                 "note = 'Fuel'"
                                              ])
     }
     
     
     var body: some View {
-        ForEach(cars, id: \.self) { car in
-            
-            VStack {
-                List {
-                    
-                    ForEach(services, id: \.self) { service in
-                        VStack {
-                            HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
-                                Spacer()
-                            }
-                            HStack {
-                                Text("\(service.odometer)")
-                                Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
-                            }
+        VStack {
+            List {
+
+                ForEach(services, id: \.self) { service in
+                    VStack {
+                        HStack {
+                            Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
+                            Spacer()
                         }
-                    }.onDelete(perform: loseMemory)
-                    
-                }
-                Spacer()
-                Button("Add Expense") {
-                    self.showAddExpenseView = true
-                }
-                .padding(.bottom)
-                .sheet(isPresented: self.$showAddExpenseView) {
-                    AddExpenseView(car: Binding<Car>.constant(cars[0]))
-                        .environment(\.managedObjectContext, self.moc)
-                }
+                        HStack {
+                            Text("\(service.odometer)")
+                            Spacer()
+                            Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                        }
+                    }
+                }.onDelete(perform: loseMemory)
+
+            }
+            Spacer()
+            Button("Add Expense") {
+                self.showAddExpenseView = true
+            }
+            .padding(.bottom)
+            .sheet(isPresented: self.$showAddExpenseView) {
+                AddExpenseView(car: Binding<Car>.constant(car))
+                    .environment(\.managedObjectContext, self.moc)
             }
         }
     }
@@ -76,8 +72,8 @@ struct FuelExpenseView: View {
                 savedCar!.odometer = savedCar!.startingOdometer
             }
             try? self.moc.save()
-            AddExpenseView(car: Binding<Car>.constant(cars[0]))
-                .updateCarStats(cars[0])
+            AddExpenseView(car: Binding<Car>.constant(car))
+                .updateCarStats(car)
         }
     }
 }

@@ -20,11 +20,10 @@ struct FutureServiceView: View {
     @State var showAddExpenseView = false
     @State private var selectedFutureService = -1
     
-    init(carID: String, car: Binding<Car>) {
+    init(car: Binding<Car>) {
         self._car = car
-        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: carID)
+        futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: car.id.wrappedValue!)
     }
-    
     
     var body: some View {
         VStack {

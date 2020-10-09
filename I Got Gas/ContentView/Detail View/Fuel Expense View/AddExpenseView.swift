@@ -40,6 +40,7 @@ struct AddExpenseView: View {
 
     init(car: Binding<Car>) {
         self._car = car
+        self._odometer = State(initialValue: "\(car.odometer.wrappedValue)")
         self._selectedFutureService = State(initialValue: -1)
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: car.id.wrappedValue!)
     }
