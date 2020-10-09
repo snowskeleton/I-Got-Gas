@@ -22,7 +22,6 @@
 		8074091824EB7B4A007EC9A8 /* CarBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074091724EB7B4A007EC9A8 /* CarBoxView.swift */; };
 		80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */; };
 		80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */; };
-		80776DF4251FC99B008FEE9D /* CheckMarkToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DF3251FC99B008FEE9D /* CheckMarkToggleStyle.swift */; };
 		80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */; };
 		80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802C9D24E8A2B7009DFF25 /* EditCarView.swift */; };
 		8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1C2513B224000F2B0D /* AboutView.swift */; };
@@ -77,7 +76,6 @@
 		8074091724EB7B4A007EC9A8 /* CarBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBoxView.swift; sourceTree = "<group>"; };
 		80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsPlusTwo.swift; sourceTree = "<group>"; };
 		80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoxStyle.swift; sourceTree = "<group>"; };
-		80776DF3251FC99B008FEE9D /* CheckMarkToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkToggleStyle.swift; sourceTree = "<group>"; };
 		80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableWheelPicker.swift; sourceTree = "<group>"; };
 		80802C9D24E8A2B7009DFF25 /* EditCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarView.swift; sourceTree = "<group>"; };
 		8084DF1C2513B224000F2B0D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */,
-				80776DF3251FC99B008FEE9D /* CheckMarkToggleStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -472,7 +469,6 @@
 				80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */,
 				80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */,
 				80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */,
-				80776DF4251FC99B008FEE9D /* CheckMarkToggleStyle.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */,
 				80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */,
