@@ -44,7 +44,7 @@ struct EditCarView: View {
                         
                         Section(header: Text("Vehicle Info")) {
                             TextFieldWithPickerAsInputView(data: self.years,
-                                                           placeholder: "* Year",
+                                                           placeholder: "Year",
                                                            selectionIndex: self.$selectionIndex,
                                                            text: self.$carYear)
                             TextField("Make",
@@ -100,7 +100,7 @@ struct EditCarView: View {
                     .dismissKeyboardOnTap()
                     
                 }
-                .navigationBarTitle("Repaint the Car!")
+                .navigationBarTitle("Update Details")
                 .navigationBarItems(leading:
                                         Button("Cancel") {
                                             self.presentationMode.wrappedValue.dismiss()
@@ -115,6 +115,7 @@ struct EditCarView: View {
                         }
                         self.moc.delete(car)
                         self.presentationMode.wrappedValue.dismiss()
+                        try? self.moc.save()
                       })
             }
         }
