@@ -15,7 +15,7 @@ struct ChangeLogView: View {
         Form {
 
             Section(header: Text("Version 1.0.1")) {
-                Text("- Added a Support button that will let you send me an email.\n\n- Made the change log pretty (can you tell?).\n\n- Prevented random elements from turning blue for no reason.\n\n- Gave all the boxes a shadow to help them stand out. Also added some spacing to give them room to breathe.")
+                Text("- Added a Support button that will let you send me an email.\n\n- Made the change log pretty (can you tell?).\n\n- Prevented random elements from turning blue for no reason")
                     .fontWeight(.light)
             }
 
