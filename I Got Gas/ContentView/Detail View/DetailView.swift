@@ -39,8 +39,6 @@ struct DetailView: View {
                                                             car: Binding<Car>.constant(car))
                                                             .environment(\.managedObjectContext, self.moc)))
                         
-                        
-                        
                         ServiceExpenseBoxView(carID: car.id!)
                             .groupBoxStyle(DetailBoxStyle(destination: ServiceExpenseView(
                                                             car: Binding<Car>.constant(car))
