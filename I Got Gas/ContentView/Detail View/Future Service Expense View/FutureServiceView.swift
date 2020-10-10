@@ -17,7 +17,7 @@ struct FutureServiceView: View {
     
     @Binding var car: Car
     @State var showAddFutureExpenseView = false
-    @State var showAddExpenseView = false
+    @State var editSelectedExpense = false
     @State private var selectedFutureService = -1
     
     init(car: Binding<Car>) {
@@ -31,7 +31,7 @@ struct FutureServiceView: View {
                 ForEach(futureServices, id: \.self) { futureService in
                     Button(action: {
                         selectedFutureService = Int(futureServices.firstIndex(of: futureService)!)
-                        self.showAddExpenseView = true
+                        self.editSelectedExpense = true
                     }) {
                         VStack {
                             HStack {
@@ -46,7 +46,7 @@ struct FutureServiceView: View {
                             }
                         }
                     }
-                    .sheet(isPresented: self.$showAddExpenseView) {
+                    .sheet(isPresented: self.$editSelectedExpense) {
                         AddFutureServiceView(car: Binding<Car>.constant(car),
                                              futureService: Binding<FutureService>.constant(futureService))
                             .environment(\.managedObjectContext, self.moc)
