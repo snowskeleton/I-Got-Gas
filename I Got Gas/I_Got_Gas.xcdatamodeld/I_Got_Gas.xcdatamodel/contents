@@ -19,6 +19,7 @@
     </entity>
     <entity name="Fuel" representedClassName="Fuel" parentEntity="Service" syncable="YES" codeGenerationType="class">
         <attribute name="dpg" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="isFullTank" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="numberOfGallons" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalPrice" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="service" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Service" inverseName="fuel" inverseEntity="Service"/>
@@ -54,7 +55,7 @@
     </entity>
     <elements>
         <element name="Car" positionX="-63" positionY="-18" width="140.8359375" height="268"/>
-        <element name="Fuel" positionX="250.9375" positionY="245.19140625" width="128" height="103"/>
+        <element name="Fuel" positionX="250.9375" positionY="245.19140625" width="128" height="118"/>
         <element name="FutureService" positionX="88.66015625" positionY="-4.24609375" width="128" height="223"/>
         <element name="Service" positionX="251.203125" positionY="-12.3125" width="128" height="148"/>
         <element name="Vendor" positionX="-55.9609375" positionY="249.03125" width="128" height="103"/>
