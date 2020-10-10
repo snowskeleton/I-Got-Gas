@@ -170,7 +170,6 @@ struct AddExpenseView: View {
     }
     
     fileprivate func maybeEnableButton() -> Bool {
-        print(totalPrice)
         if self.totalPrice == "" {
             return false
         }
