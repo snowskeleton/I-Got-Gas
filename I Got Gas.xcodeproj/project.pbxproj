@@ -23,6 +23,7 @@
 		80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */; };
 		80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */; };
 		80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */; };
+		807853222532049B0051DB30 /* TextFieldWithPickerAsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */; };
 		80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802C9D24E8A2B7009DFF25 /* EditCarView.swift */; };
 		8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1C2513B224000F2B0D /* AboutView.swift */; };
 		8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */; };
@@ -77,6 +78,7 @@
 		80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsPlusTwo.swift; sourceTree = "<group>"; };
 		80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoxStyle.swift; sourceTree = "<group>"; };
 		80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableWheelPicker.swift; sourceTree = "<group>"; };
+		807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPickerAsInput.swift; sourceTree = "<group>"; };
 		80802C9D24E8A2B7009DFF25 /* EditCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarView.swift; sourceTree = "<group>"; };
 		8084DF1C2513B224000F2B0D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
+				807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */,
 				80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */,
 				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				80B1D06E24DDE70C0090390E /* Label.swift */,
@@ -463,6 +466,7 @@
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */,
 				80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */,
+				807853222532049B0051DB30 /* TextFieldWithPickerAsInput.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
@@ -625,7 +629,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -634,7 +638,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -648,7 +652,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -657,7 +661,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
