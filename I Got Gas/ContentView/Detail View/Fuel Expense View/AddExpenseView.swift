@@ -78,7 +78,7 @@ struct AddExpenseView: View {
                                 Text("None")
                                     .italic()
                                     .tag(-1)
-                                ForEach(0 ..< futureServices.count) {
+                                ForEach(0 ..< futureServices.count, id: \.self) {
                                     Text("\(futureServices[$0].name!)")
                                         .foregroundColor(futureServices[$0].important
                                                             ? Color.red
