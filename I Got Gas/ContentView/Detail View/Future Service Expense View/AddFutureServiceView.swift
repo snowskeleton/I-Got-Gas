@@ -13,17 +13,33 @@ struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
     
-    @State private var monthOrWeek: Int = 0
-    @State private var date = Date()
-    @State private var odometer = ""
-    @State private var name = ""
-    @State private var repeating = true
-    @State private var frequency = ""
-    @State private var miles = ""
+    @State private var monthOrWeek: Int
+    @State private var date: Date
+    @State private var name: String
+    @State private var repeating: Bool
+    @State private var frequency: String
+    @State private var miles: String
     @Binding var car: Car
+    @State private var futureService: FutureService?
     
     init(car: Binding<Car>) {
-        self._car = car
+        _car = car
+        _monthOrWeek = State<Int>(initialValue: 0)
+        _date = State<Date>(initialValue: Date())
+        _name = State<String>(initialValue: "")
+        _repeating = State<Bool>(initialValue: true)
+        _frequency = State<String>(initialValue: "")
+        _miles = State<String>(initialValue: "")
+    }
+
+    init(car: Binding<Car>, futureService: Binding<FutureService>) {
+        self.init(car: car)
+        _futureService = State(initialValue: futureService.wrappedValue)
+        _monthOrWeek = State<Int>(initialValue: (Int(futureService.monthsOrWeeks.wrappedValue)))
+        _name = State<String>(initialValue: futureService.name.wrappedValue!)
+        _repeating = State<Bool>(initialValue: futureService.repeating.wrappedValue)
+        _frequency = State<String>(initialValue: "\(futureService.frequency.wrappedValue)")
+        _miles = State<String>(initialValue: "\(futureService.everyXMiles.wrappedValue)")
     }
     
     var body: some View {
@@ -34,6 +50,7 @@ struct AddFutureServiceView: View {
                     HStack {
                         Button(action: {
                             self.repeating.toggle()
+                            print(repeating)
                         }) {
                             HStack {
                                 Text( self.repeating ? ("Repeating") : ("One Time"))
@@ -130,18 +147,24 @@ struct AddFutureServiceView: View {
                 print(error.localizedDescription)
             }
         }
+
+
+        let futureService = ( self.futureService == nil
+                                ? FutureService(context: self.moc)
+                                : self.futureService
+        )
+
+        futureService!.vehicle = car
         
-        let futureService = FutureService(context: self.moc)
-        futureService.vehicle = car
+        futureService!.name = self.name
+        futureService!.repeating = repeating
+        futureService!.everyXMiles = Int64(self.miles) ?? 0
         
-        futureService.name = self.name
-        futureService.everyXMiles = Int64(self.miles) ?? 0
+        futureService!.frequency = Int64(self.frequency) ?? 0
+        futureService!.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
         
-        futureService.frequency = Int64(self.frequency) ?? 0
-        futureService.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-        
-        upDate(futureService, date)
-        setFutureServiceNotification(futureService)
+        upDate(futureService!, date)
+        setFutureServiceNotification(futureService!)
         
         try? self.moc.save()
     }

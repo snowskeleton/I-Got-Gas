@@ -221,6 +221,7 @@ struct AddExpenseView: View {
             let service = futureServices[selectedFutureService]
             if service.repeating == false {
                 moc.delete(service)
+                try? self.moc.save()
                 return
             }
             service.important = false
