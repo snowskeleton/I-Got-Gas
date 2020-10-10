@@ -35,7 +35,11 @@ struct AddFutureServiceView: View {
                         Button(action: {
                             self.repeating.toggle()
                         }) {
-                            Text( self.repeating ? ("Repeating") : ("One Time"))
+                            HStack {
+                                Text( self.repeating ? ("Repeating") : ("One Time"))
+                                Image(systemName: "arrowtriangle.down.fill")
+                                    .font(.system(size: 12))
+                            }
                         }
                         .font(.largeTitle)
                         .padding()
