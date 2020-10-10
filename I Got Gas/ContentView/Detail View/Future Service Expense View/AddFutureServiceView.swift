@@ -74,11 +74,15 @@ struct AddFutureServiceView: View {
                         }
                         
                         Section(header: Text("Starting...")) {
-                            DatePicker("Date",
-                                       selection: self.$date,
-                                       displayedComponents: .date)
-                                
-                                .labelsHidden()
+                            HStack {
+                                Spacer()
+                                DatePicker("Date",
+                                           selection: self.$date,
+                                           displayedComponents: .date)
+
+                                    .labelsHidden()
+                                Spacer()
+                            }
                         }
                         
                         VStack {
