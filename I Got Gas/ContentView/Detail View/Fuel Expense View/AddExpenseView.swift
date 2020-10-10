@@ -20,12 +20,17 @@ struct AddExpenseView: View {
     @State var isGas: Bool = true
     @Binding var car: Car
     @State private var expenseDate = Date()
-    @State private var totalPrice: Double?
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
     @State private var odometer: String = ""
     @State private var isFullTank: Int = 0
+
+    @State private var totalPrice = ""
+    var totalNumberFormatted: Double {
+        return (Double(totalPrice) ?? 0) / 100
+    }
+
     
     init(car: Binding<Car>, inputSelectedFutureService: Int) {
         self.init(car: car) //this has to go first, since we're overwriting values next
@@ -90,11 +95,24 @@ struct AddExpenseView: View {
                         }
                         
                         Section(header: Text("Details")) {
-                            
-                            CurrencyTextField("Price", value: self.$totalPrice)
-                                .font(.largeTitle)
-                                .multilineTextAlignment(TextAlignment.leading)
-                            
+
+                            ZStack(alignment: .leading) {
+                                HStack {
+                                    Text("$")
+                                        .font(.largeTitle)
+                                    Text("\(totalNumberFormatted, specifier: "%.2f")")
+                                        .font(.largeTitle)
+                                        .multilineTextAlignment(TextAlignment.leading)
+                                }
+                                TextField("", text: $totalPrice)
+                                    .keyboardType(.numberPad)
+                                    .foregroundColor(.clear)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                                    .disableAutocorrection(true)
+                                    .accentColor(.clear)
+
+                            }
+
                             if self.isGas {
                                 TextField("Gallons", text: self.$gallonsOfGas)
                                     .dismissKeyboardOnSwipe()
@@ -152,7 +170,8 @@ struct AddExpenseView: View {
     }
     
     fileprivate func maybeEnableButton() -> Bool {
-        if self.totalPrice == nil {
+        print(totalPrice)
+        if self.totalPrice == "" {
             return false
         }
         if self.odometer == "" {
@@ -226,7 +245,7 @@ struct AddExpenseView: View {
             service.note = "Fuel"
             service.fuel = Fuel(context: self.moc)
             service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-            service.fuel?.dpg = ((self.totalPrice!) / (Double(self.gallonsOfGas) ?? 0.00))
+            service.fuel?.dpg = (totalNumberFormatted / (Double(self.gallonsOfGas) ?? 0.00))
         } else {
             service.note = self.note
         }
@@ -254,7 +273,7 @@ struct AddExpenseView: View {
         service.date = self.expenseDate
         service.vehicle?.lastFillup = self.expenseDate
         
-        service.cost = self.totalPrice!
+        service.cost = totalNumberFormatted
         service.odometer = Int64(self.odometer)!
     }
     
