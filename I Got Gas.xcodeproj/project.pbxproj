@@ -189,7 +189,7 @@
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
-				80776DE3251FC70D008FEE9D /* ContentView */,
+				80776DE3251FC70D008FEE9D /* Content View */,
 				80776DE7251FC7D0008FEE9D /* Pieces */,
 				80776DEE251FC968008FEE9D /* Styles */,
 				80776DE9251FC8F2008FEE9D /* Snippets */,
@@ -212,7 +212,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		80776DE3251FC70D008FEE9D /* ContentView */ = {
+		80776DE3251FC70D008FEE9D /* Content View */ = {
 			isa = PBXGroup;
 			children = (
 				805B414524CDF04B0085DB47 /* ContentView.swift */,
@@ -220,7 +220,7 @@
 				80776DE4251FC71F008FEE9D /* Detail View */,
 				8084DF272513F6BC000F2B0D /* Options View */,
 			);
-			path = ContentView;
+			path = "Content View";
 			sourceTree = "<group>";
 		};
 		80776DE4251FC71F008FEE9D /* Detail View */ = {
