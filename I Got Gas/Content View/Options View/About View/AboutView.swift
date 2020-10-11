@@ -68,7 +68,7 @@ struct AboutView: View {
                     HStack {
                         Text("Version:").fontWeight(.light)
                         Spacer()
-                        Text("1.0.1 (Beta)").fontWeight(.light)
+                        Text("1.0.2").fontWeight(.light)
                     }
                 }
                 .foregroundColor(colorScheme == .dark
