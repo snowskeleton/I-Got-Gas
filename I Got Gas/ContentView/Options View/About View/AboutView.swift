@@ -26,6 +26,7 @@ struct AboutView: View {
                     NavigationLink(destination: PrivacyPolicyView()) {
                         HStack {
                             Image(systemName: "lock.doc")
+                                .font(.system(size: 30))
                             Text("Privacy Policy")
                                 .fontWeight(.medium)
                         }
@@ -34,6 +35,7 @@ struct AboutView: View {
                     NavigationLink(destination: ChangeLogView()) {
                         HStack {
                             Image(systemName: "hammer")
+                                .font(.system(size: 28))
                             Text("Change Log")
                                 .fontWeight(.medium)
                         }
@@ -44,6 +46,7 @@ struct AboutView: View {
                     }) {
                         HStack {
                             Image(systemName: "envelope")
+                                .font(.system(size: 28))
                             Text("Feedback")
                                 .fontWeight(.medium)
                         }
@@ -51,6 +54,15 @@ struct AboutView: View {
                     .disabled(!MFMailComposeViewController.canSendMail())
                     .sheet(isPresented: $isShowingMailView) {
                         MailView(result: self.$result)
+                    }
+
+                    Link(destination: URL(string: "https://www.apple.com")!) {
+                        HStack {
+                            Image(colorScheme == .dark ? "GitHub.dark" : "GitHub")
+                            Text("View this project on Github")
+                                .fontWeight(.medium)
+                        }
+
                     }
 
                     HStack {
