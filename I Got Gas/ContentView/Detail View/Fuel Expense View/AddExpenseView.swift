@@ -25,6 +25,7 @@ struct AddExpenseView: View {
     @State private var note = ""
     @State private var odometer: String = ""
     @State private var isFullTank: Int = 0
+    @State var service: Service?
 
     @State private var totalPrice = ""
     var totalNumberFormatted: Double {
@@ -41,6 +42,26 @@ struct AddExpenseView: View {
     init(car: Binding<Car>, isGas: State<Bool>) {
         self.init(car: car) //this has to go first, since we're overwriting values next
         self._isGas = isGas
+    }
+
+    init(car: Binding<Car>, service: Binding<Service>) {
+        self.init(car: car)
+        _service = State(initialValue: service.wrappedValue)
+        _totalPrice = State(initialValue: "\(service.cost.wrappedValue * 100)") // * 100 to cancel out the / 100 done elsewhere during initialization
+        _expenseDate = State(initialValue: service.date.wrappedValue!)
+        _note = State(initialValue: service.note.wrappedValue!)
+        _odometer = State(initialValue: "\(service.odometer.wrappedValue)")
+
+        if let vendor = service.vendor.wrappedValue {
+            _vendorName = State(initialValue: "\(vendor.name ?? "")")
+        }
+
+        if let fuel = service.fuel.wrappedValue {
+            _gallonsOfGas = State(initialValue: "\(fuel.numberOfGallons)")
+            _isFullTank = State(initialValue: ( fuel.isFullTank == true ? 0 : 1 ))
+        } else {
+            self._isGas = State(initialValue: false)
+        }
     }
 
     init(car: Binding<Car>) {
@@ -183,8 +204,15 @@ struct AddExpenseView: View {
     }
     
     fileprivate func save() -> Void {
-        let service = Service(context: self.moc)
-        service.vendor = Vendor(context: self.moc)
+        var service: Service
+        service = ( (self.service == nil
+                        ? Service(context: self.moc)
+                        : self.service)!
+        )
+        service.vendor = ( self.service?.vendor == nil
+                            ? Vendor(context: self.moc)
+                            : self.service?.vendor
+        )
         service.vehicle = car
         
         updateFutureServices(car)
@@ -244,6 +272,7 @@ struct AddExpenseView: View {
             car.lastFillup = self.expenseDate
             service.note = "Fuel"
             service.fuel = Fuel(context: self.moc)
+            service.fuel?.isFullTank = ( isFullTank == 0 ? true : false )
             service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
             service.fuel?.dpg = (totalNumberFormatted / (Double(self.gallonsOfGas) ?? 0.00))
         } else {

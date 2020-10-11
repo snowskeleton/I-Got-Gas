@@ -48,7 +48,7 @@ struct FutureServiceView: View {
                     }
                     .sheet(isPresented: self.$editSelectedExpense) {
                         AddFutureServiceView(car: Binding<Car>.constant(car),
-                                             futureService: Binding<FutureService>.constant(futureService))
+                                             futureService: Binding<FutureService>.constant(futureServices[selectedFutureService]))
                             .environment(\.managedObjectContext, self.moc)
                     }
 

@@ -13,7 +13,9 @@ struct ServiceExpenseView: View {
     @Environment(\.managedObjectContext) var moc
 
     @State var showAddExpenseView = false
+    @State private var editSelectedExpense = false
     @Binding var car: Car
+    @State private var selectedService = 0
 
     var serviceFetchRequest: FetchRequest<Service>
     var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
@@ -33,25 +35,36 @@ struct ServiceExpenseView: View {
         VStack {
             List {
                 ForEach(services, id: \.self) { service in
-                    VStack {
-                        HStack {
-                            Text("$\(service.cost, specifier: "%.2f")")
-                            Spacer()
-                            Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                    Button(action: {
+                        selectedService = Int(services.firstIndex(of: service)!)
+                        if (selectedService >= 0) && (selectedService <= services.count - 1) {
+                            editSelectedExpense.toggle()
                         }
-                        HStack {
-                            Text("\(service.odometer)")
-                            Spacer()
-                            Text("\(service.note ?? "")")
-                            Spacer()
-                            Text("\(service.vendor?.name ?? "")")
+                    }) {
+                        VStack {
+                            HStack {
+                                Text("$\(service.cost, specifier: "%.2f")")
+                                Spacer()
+                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                            }
+                            HStack {
+                                Text("\(service.odometer)")
+                                Spacer()
+                                Text("\(service.note ?? "")")
+                                Spacer()
+                                Text("\(service.vendor?.name ?? "")")
+                            }
                         }
+                    }
+                    .sheet(isPresented: self.$editSelectedExpense) {
+                        AddExpenseView(car: Binding<Car>.constant(car), service: Binding<Service>.constant(services[selectedService]))
+                            .environment(\.managedObjectContext, self.moc)
                     }
                 }.onDelete(perform: loseMemory)
             }
             Spacer()
             Button("Add Expense") {
-                self.showAddExpenseView = true
+                self.showAddExpenseView.toggle()
             }
             .padding(.bottom)
             .sheet(isPresented: self.$showAddExpenseView) {
