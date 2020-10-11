@@ -58,8 +58,8 @@ struct OptionsView: View {
                     
                 }
             }
-        }
-        .navigationBarTitle(Text("Options"))
+            .navigationBarTitle(Text("Options"))
+        }   
     }
 }
 
