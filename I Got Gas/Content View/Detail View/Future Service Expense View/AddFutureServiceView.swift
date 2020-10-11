@@ -50,7 +50,6 @@ struct AddFutureServiceView: View {
                     HStack {
                         Button(action: {
                             self.repeating.toggle()
-                            print(repeating)
                         }) {
                             HStack {
                                 Text( self.repeating ? ("Repeating") : ("One Time"))
@@ -69,12 +68,19 @@ struct AddFutureServiceView: View {
                             .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
-                            TextField("3, 6, 12....", text: self.$frequency)
-                                .font(.largeTitle)
-                                .keyboardType(.numberPad)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
-                            
+                            ZStack(alignment: .leading) {
+                                HStack {
+                                    Spacer()
+                                    Text(monthOrWeek == 0 ? "months" : "weeks")
+                                        .foregroundColor(.gray)
+                                }
+                                TextField("3, 6, 12....", text: self.$frequency)
+                                    .font(.largeTitle)
+                                    .keyboardType(.numberPad)
+                                    .dismissKeyboardOnSwipe()
+                                    .dismissKeyboardOnTap()
+                            }
+
                             Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
                                 Text("Months").tag(0)
                                 Text("Weeks").tag(1)
@@ -82,15 +88,17 @@ struct AddFutureServiceView: View {
                         }
                         
                         Section(header: Text("Or...")) {
-                            HStack {
+                            ZStack(alignment: .leading) {
+                                HStack {
+                                    Spacer()
+                                    Text("miles")
+                                        .foregroundColor(.gray)
+                                }
                                 TextField("3,000, 15,000...", text: self.$miles)
                                     .font(.largeTitle)
                                     .keyboardType(.numberPad)
                                     .dismissKeyboardOnSwipe()
                                     .dismissKeyboardOnTap()
-                                
-                                Spacer()
-                                Text("miles")
                             }
                         }
                         
