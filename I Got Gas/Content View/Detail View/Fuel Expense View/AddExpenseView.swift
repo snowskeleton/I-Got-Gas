@@ -47,7 +47,7 @@ struct AddExpenseView: View {
     init(car: Binding<Car>, service: Binding<Service>) {
         self.init(car: car)
         _service = State(initialValue: service.wrappedValue)
-        _totalPrice = State(initialValue: "\(service.cost.wrappedValue * 100)") // * 100 to cancel out the / 100 done elsewhere during initialization
+        _totalPrice = State(initialValue: String(format: "%.0f", service.cost.wrappedValue * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
         _expenseDate = State(initialValue: service.date.wrappedValue!)
         _note = State(initialValue: service.note.wrappedValue!)
         _odometer = State(initialValue: "\(service.odometer.wrappedValue)")
