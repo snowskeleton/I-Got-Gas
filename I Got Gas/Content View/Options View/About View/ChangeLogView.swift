@@ -15,7 +15,7 @@ struct ChangeLogView: View {
         Form {
 
             Section(header: Text("Version 1.0.2")) {
-                Text("- The price field in the Add Expense page now automatically adds a decimal point for you.\n\n- Centered a label that should have been centered.\n\n- Added an arrow to the Repeating/One Time toggle in the Futre Expense scheduler. Hopefully this makes it obvious that it's a toggle\n\n- You can now edit expenses! Didn't get the price quite right? Want to add a note? Now you can!\n\n- Added a link to GitHub where you can view this project. Check it out! Feel free to open a pull request, too!")
+                Text("- The price field in the Add Expense page now automatically adds a decimal point for you.\n\n- Centered a label that should have been centered.\n\n- Added an arrow to the Repeating/One Time toggle in the Future Expense scheduler. Hopefully this makes it obvious that it's a toggle\n\n- You can now edit expenses! Didn't get the price quite right? Want to add a note? Now you can!\n\n- Added a link to GitHub where you can view this project. Check it out! Feel free to open a pull request, too!")
                     .fontWeight(.light)
             }
 

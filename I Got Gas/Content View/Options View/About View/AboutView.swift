@@ -56,7 +56,7 @@ struct AboutView: View {
                         MailView(result: self.$result)
                     }
 
-                    Link(destination: URL(string: "https://www.apple.com")!) {
+                    Link(destination: URL(string: "https://www.github.com/snowskeleton/I-Got-Gas")!) {
                         HStack {
                             Image(colorScheme == .dark ? "GitHub.dark" : "GitHub")
                             Text("View this project on Github")
