@@ -60,7 +60,7 @@ struct AddExpenseView: View {
         }
 
         if let fuel = service.fuel.wrappedValue {
-            _gallonsOfGas = State(initialValue: "\(fuel.numberOfGallons)")
+            _gallonsOfGas = State(initialValue: String(format: "%.0f", fuel.numberOfGallons * 1000))
             _isFullTank = State(initialValue: ( fuel.isFullTank == true ? 0 : 1 ))
         } else {
             _isGas = State(initialValue: false)
