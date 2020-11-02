@@ -18,7 +18,7 @@ final private class BannerVC: UIViewControllerRepresentable  {
         let view = GADBannerView(adSize: kGADAdSizeBanner)
 
         let viewController = UIViewController()
-        view.adUnitID = "ca-app-pub-9439230748590313/8805824698"
+        view.adUnitID = "ca-app-pub-3940256099942544/6300978111"
         view.rootViewController = viewController
         viewController.view.addSubview(view)
         viewController.view.frame = CGRect(origin: .zero, size: kGADAdSizeBanner.size)

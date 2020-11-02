@@ -223,6 +223,9 @@ struct AddExpenseView: View {
         try? self.moc.save()
         
         setFuelDetails(car, service)
+        if isFullTank == 0 { //0 is true, 1 is false. Selected by Picker.
+            updateCarStats(car)
+        }
         try? self.moc.save()
     }
     
@@ -277,25 +280,22 @@ struct AddExpenseView: View {
         }
     }
     
-//    public func updateCarStats(_ car: FetchedResults<Car>.Element) {
-//
-//        car.updateDPG()
-//        return
-//
-//        var totalCost = 0.00
-//        var fuelCost = 0.00
-//
-//        for service in car.services! {
-//            totalCost += ((service as AnyObject).cost)
-//
-//            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
-//                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
-//            }
-//        }
-//        car.costPerGallon = fuelCost / Double(car.services!.count)
-//        car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-//        try? self.moc.save()
-//    }
+    public func updateCarStats(_ car: FetchedResults<Car>.Element) {
+        
+        var totalCost = 0.00
+        var fuelCost = 0.00
+        
+        for service in car.services! {
+            totalCost += ((service as AnyObject).cost)
+            
+            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
+                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
+            }
+        }
+        car.costPerGallon = fuelCost / Double(car.services!.count)
+        car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
+        try? self.moc.save()
+    }
     
     fileprivate func setServiceStats(_ service: Service) {
         service.vendor?.name = self.vendorName

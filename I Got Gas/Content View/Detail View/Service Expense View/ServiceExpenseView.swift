@@ -79,6 +79,7 @@ struct ServiceExpenseView: View {
             let service = services[index]
             moc.delete(service)
             try? self.moc.save()
+            AddExpenseView(car: Binding<Car>.constant(car)).updateCarStats(car)
         }
     }
 }

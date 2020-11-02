@@ -85,6 +85,8 @@ struct FuelExpenseView: View {
                 savedCar!.odometer = savedCar!.startingOdometer
             }
             try? self.moc.save()
+            AddExpenseView(car: Binding<Car>.constant(car))
+                .updateCarStats(car)
         }
     }
 }
