@@ -12,36 +12,39 @@ struct AddExpenseView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
-    
+
     var futureServicesFetchRequest: FetchRequest<FutureService>
     var futureServices: FetchedResults<FutureService> { futureServicesFetchRequest.wrappedValue }
-    
+
     @State var selectedFutureService: Int
-    @State var isGas: Bool = true
+    @State var isGas = true
     @Binding var car: Car
     @State private var expenseDate = Date()
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
     @State private var note = ""
-    @State private var odometer: String = ""
-    @State private var isFullTank: Int = 0
+    @State private var odometer = ""
+    @State private var isFullTank = 0
     @State var service: Service?
 
     @State private var totalPrice = ""
     var totalNumberFormatted: Double {
         return (Double(totalPrice) ?? 0) / 100
     }
+    var gallonsOfGasFormatted: Double {
+        return (Double(gallonsOfGas) ?? 0) / 1000
+    }
 
-    
+
     init(car: Binding<Car>, inputSelectedFutureService: Int) {
         self.init(car: car) //this has to go first, since we're overwriting values next
-        self._isGas = State(initialValue: false)
-        self._selectedFutureService = State(initialValue: inputSelectedFutureService)
+        _isGas = State(initialValue: false)
+        _selectedFutureService = State(initialValue: inputSelectedFutureService)
     }
 
     init(car: Binding<Car>, isGas: State<Bool>) {
         self.init(car: car) //this has to go first, since we're overwriting values next
-        self._isGas = isGas
+        _isGas = isGas
     }
 
     init(car: Binding<Car>, service: Binding<Service>) {
@@ -60,26 +63,26 @@ struct AddExpenseView: View {
             _gallonsOfGas = State(initialValue: "\(fuel.numberOfGallons)")
             _isFullTank = State(initialValue: ( fuel.isFullTank == true ? 0 : 1 ))
         } else {
-            self._isGas = State(initialValue: false)
+            _isGas = State(initialValue: false)
         }
     }
 
     init(car: Binding<Car>) {
-        self._car = car
-        self._odometer = State(initialValue: "\(car.odometer.wrappedValue)")
-        self._selectedFutureService = State(initialValue: -1)
+        _car = car
+        _odometer = State(initialValue: "\(car.odometer.wrappedValue)")
+        _selectedFutureService = State(initialValue: -1)
         futureServicesFetchRequest = Fetch.futureServices(howMany: 0, carID: car.id.wrappedValue!)
     }
 
     var body: some View {
         VStack {
             HStack {
-                Text(self.isGas ? "Gas" : "Service")
+                Text(isGas ? "Gas" : "Service")
             }
             .font(.largeTitle)
             .multilineTextAlignment(.center)
             .padding(.bottom, -5.0)
-            
+
             NavigationView {
                 VStack {
                     Form {
@@ -87,14 +90,14 @@ struct AddExpenseView: View {
                             HStack {
                                 Spacer()
                                 DatePicker("Date",
-                                           selection: self.$expenseDate,
+                                           selection: $expenseDate,
                                            displayedComponents: .date)
                                     .labelsHidden()
                                 Spacer()
                             }
                         }
-                        if !self.isGas {
-                            Picker(selection: self.$selectedFutureService,
+                        if !isGas {
+                            Picker(selection: $selectedFutureService,
                                    label: Text("Scheduled Service")) {
                                 Text("None")
                                     .italic()
@@ -109,13 +112,13 @@ struct AddExpenseView: View {
                                 }
                             }
                         } else {
-                            Picker(selection: self.$isFullTank, label: Text("Full Tank?")) {
+                            Picker(selection: $isFullTank, label: Text("Full Tank?")) {
                                 Text("Full Tank").tag(0)
                                 Text("Partial tank").tag(1)
                             }.pickerStyle(SegmentedPickerStyle())
                         }
-                        
-                        Section(header: Text("Details")) {
+
+                        Section(header: Text("Price")) {
 
                             ZStack(alignment: .leading) {
                                 HStack {
@@ -131,46 +134,56 @@ struct AddExpenseView: View {
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .disableAutocorrection(true)
                                     .accentColor(.clear)
+                            }
 
                             }
 
-                            if self.isGas {
-                                TextField("Gallons", text: self.$gallonsOfGas)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
-                                    .keyboardType(.decimalPad)
-                                    .font(.largeTitle)
+                            if isGas {
+                                Section(header: Text("Gallons")) {
+                                ZStack(alignment: .leading) {
+                                    Text("\(gallonsOfGasFormatted, specifier: "%.3f")")
+                                        .font(.largeTitle)
+                                        .multilineTextAlignment(TextAlignment.leading)
+                                    TextField("", text: $gallonsOfGas)
+                                        .dismissKeyboardOnSwipe()
+                                        .dismissKeyboardOnTap()
+                                        .foregroundColor(.clear)
+                                        .textFieldStyle(PlainTextFieldStyle())
+                                        .disableAutocorrection(true)
+                                        .accentColor(.clear)
+                                        .keyboardType(.decimalPad)
+                                }
                             }
                         }
 
                         Section(header: Text("Odometer")) {
-                            TextField("\(car.odometer)", text: self.$odometer)
+                            TextField("\(car.odometer)", text: $odometer)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
                                 .font(.largeTitle)
-                            
+
                         }
-                        
+
                         Section(header: Text("Vendor")) {
-                            TextField("Vendor name", text: self.$vendorName)
+                            TextField("Vendor name", text: $vendorName)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
                                 .font(.largeTitle)
-                            if !self.isGas {
-                                TextField("Service Notes", text: self.$note)
+                            if !isGas {
+                                TextField("Service Notes", text: $note)
                                     .dismissKeyboardOnSwipe()
                                     .dismissKeyboardOnTap()
                                     .font(.largeTitle)
                             }
                         }
-                        
+
                         Section {
                             VStack {
                                 Button(action: {
                                     if maybeEnableButton() {
-                                        self.save()
-                                        self.presentationMode.wrappedValue.dismiss()
+                                        save()
+                                        presentationMode.wrappedValue.dismiss()
                                     }
                                 }) {
                                     HStack {
@@ -184,25 +197,25 @@ struct AddExpenseView: View {
 
                     }
                     // you're gonna want to move the keyboard options down here. Don't do it! It slows down the toggle.
-                }.navigationBarTitle(self.isGas ? "Gas" : "Service", displayMode: .inline)
+                }.navigationBarTitle(isGas ? "Gas" : "Service", displayMode: .inline)
                 .navigationBarHidden(true)
             }
         }
     }
-    
+
     fileprivate func maybeEnableButton() -> Bool {
-        if self.totalPrice == "" {
+        if totalPrice == "" {
             return false
         }
-        if self.odometer == "" {
+        if odometer == "" {
             return false
         }
-        if isGas && self.gallonsOfGas == "" {
+        if isGas && gallonsOfGas == "" {
             return false
         }
         return true
     }
-    
+
     fileprivate func save() -> Void {
         var service: Service
         service = ( (self.service == nil
@@ -214,26 +227,23 @@ struct AddExpenseView: View {
                             : self.service?.vendor
         )
         service.vehicle = car
-        
+
         updateFutureServices(car)
         setFutureInStone(car)
         updateCarOdometer(car)
         setServiceStats(service)
-        
+
         try? self.moc.save()
-        
+
         setFuelDetails(car, service)
-        if isFullTank == 0 { //0 is true, 1 is false. Selected by Picker.
-            updateCarStats(car)
-        }
         try? self.moc.save()
     }
-    
+
     fileprivate func updateFutureServices(_ car: FetchedResults<Car>.Element) {
-        
+
         for service in futureServices {
             if service.everyXMiles != 0 {
-                if service.targetOdometer <= Int64(self.odometer)! {
+                if service.targetOdometer <= Int64(odometer)! {
                     service.important = true
                     AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
@@ -243,7 +253,7 @@ struct AddExpenseView: View {
             }
         }
     }
-    
+
     fileprivate func setFutureInStone(_ car: FetchedResults<Car>.Element) {
         if selectedFutureService > -1 {
             let service = futureServices[selectedFutureService]
@@ -253,57 +263,40 @@ struct AddExpenseView: View {
                 return
             }
             service.important = false
-            service.targetOdometer = (Int64(self.odometer)! + service.everyXMiles)
-            
+            service.targetOdometer = (Int64(odometer)! + service.everyXMiles)
+
             AddFutureServiceView(car: Binding<Car>.constant(car)).upDate(service, expenseDate)
-            
+
             AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
-    
+
     fileprivate func updateCarOdometer(_ car: FetchedResults<Car>.Element) {
-        if Int64(self.odometer)! > car.odometer {
-            car.odometer = Int64(self.odometer)!
+        if Int64(odometer)! > car.odometer {
+            car.odometer = Int64(odometer)!
         }
     }
-    
+
     fileprivate func setFuelDetails(_ car: FetchedResults<Car>.Element, _ service: Service) {
         if isGas {
-            car.lastFillup = self.expenseDate
+            car.lastFillup = expenseDate
             service.note = "Fuel"
             service.fuel = Fuel(context: self.moc)
             service.fuel?.isFullTank = ( isFullTank == 0 ? true : false )
-            service.fuel?.numberOfGallons = Double(self.gallonsOfGas) ?? 0.00
-            service.fuel?.dpg = (totalNumberFormatted / (Double(self.gallonsOfGas) ?? 0.00))
+            service.fuel?.numberOfGallons = Double(gallonsOfGas) ?? 0.00
+            service.fuel?.dpg = (totalNumberFormatted / (Double(gallonsOfGas) ?? 0.00))
         } else {
-            service.note = self.note
+            service.note = note
         }
     }
-    
-    public func updateCarStats(_ car: FetchedResults<Car>.Element) {
-        
-        var totalCost = 0.00
-        var fuelCost = 0.00
-        
-        for service in car.services! {
-            totalCost += ((service as AnyObject).cost)
-            
-            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
-                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
-            }
-        }
-        car.costPerGallon = fuelCost / Double(car.services!.count)
-        car.costPerMile = totalCost / (Double(car.odometer) - Double(car.startingOdometer))
-        try? self.moc.save()
-    }
-    
+
     fileprivate func setServiceStats(_ service: Service) {
-        service.vendor?.name = self.vendorName
-        service.date = self.expenseDate
-        service.vehicle?.lastFillup = self.expenseDate
-        
+        service.vendor?.name = vendorName
+        service.date = expenseDate
+        service.vehicle?.lastFillup = expenseDate
+
         service.cost = totalNumberFormatted
-        service.odometer = Int64(self.odometer)!
+        service.odometer = Int64(odometer)!
     }
-    
+
 }
