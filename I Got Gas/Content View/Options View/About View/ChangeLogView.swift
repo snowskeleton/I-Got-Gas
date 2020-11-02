@@ -14,6 +14,16 @@ struct ChangeLogView: View {
     var body: some View {
         Form {
 
+            Section(header: Text("Version 1.0.4")) {
+                Text("-n Fixed a bug with the Average Cost Per Gallon field. It was incorrectly calculating based on non-fuel expenses.")
+                    .fontWeight(.light)
+            }
+
+            Section(header: Text("Version 1.0.3")) {
+                Text("- Fixed a bug in the Email template. \n\n -Fixed a bug with the Github link.")
+                    .fontWeight(.light)
+            }
+
             Section(header: Text("Version 1.0.2")) {
                 Text("- The price field in the Add Expense page now automatically adds a decimal point for you.\n\n- Centered a label that should have been centered.\n\n- Added an arrow to the Repeating/One Time toggle in the Future Expense scheduler. Hopefully this makes it obvious that it's a toggle\n\n- You can now edit expenses! Didn't get the price quite right? Want to add a note? Now you can!\n\n- Added a link to GitHub where you can view this project. Check it out! Feel free to open a pull request, too!")
                     .fontWeight(.light)
