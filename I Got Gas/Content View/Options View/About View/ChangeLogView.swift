@@ -14,8 +14,13 @@ struct ChangeLogView: View {
     var body: some View {
         Form {
 
+            Section(header: Text("Version 1.0.5")) {
+                Text("- Fixed a bug with how gallons were saved in exenses. Updated previous expenses retroactively.\n\n- Backend changes.")
+                    .fontWeight(.light)
+            }
+
             Section(header: Text("Version 1.0.4")) {
-                Text("-n Fixed a bug with the Average Cost Per Gallon field. It was incorrectly calculating based on non-fuel expenses.")
+                Text("- Fixed a bug with the Average Cost Per Gallon field. It was incorrectly calculating based on non-fuel expenses.")
                     .fontWeight(.light)
             }
 

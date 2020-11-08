@@ -14,7 +14,7 @@ struct ContentView: View {
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State var showAddCarView = false
     @State var showOptionsView = false
-    
+
     var body: some View {
         VStack {
             NavigationView {

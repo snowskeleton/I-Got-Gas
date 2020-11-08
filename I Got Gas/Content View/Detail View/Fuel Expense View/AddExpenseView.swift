@@ -60,7 +60,7 @@ struct AddExpenseView: View {
         }
 
         if let fuel = service.fuel.wrappedValue {
-            _gallonsOfGas = State(initialValue: String(format: "%.0f", fuel.numberOfGallons * 1000))
+            _gallonsOfGas = State(initialValue: String(format: "%.0f", (fuel.numberOfGallons * 1000 > 50 ? fuel.numberOfGallons * 10 : fuel.numberOfGallons * 1000))) //this ternary should be removed later.
             _isFullTank = State(initialValue: ( fuel.isFullTank == true ? 0 : 1 ))
         } else {
             _isGas = State(initialValue: false)
@@ -283,8 +283,8 @@ struct AddExpenseView: View {
             service.note = "Fuel"
             service.fuel = Fuel(context: self.moc)
             service.fuel?.isFullTank = ( isFullTank == 0 ? true : false )
-            service.fuel?.numberOfGallons = Double(gallonsOfGas) ?? 0.00
-            service.fuel?.dpg = (totalNumberFormatted / (Double(gallonsOfGas) ?? 0.00))
+            service.fuel?.numberOfGallons = gallonsOfGasFormatted
+            service.fuel?.dpg = (totalNumberFormatted / gallonsOfGasFormatted)
         } else {
             service.note = note
         }
