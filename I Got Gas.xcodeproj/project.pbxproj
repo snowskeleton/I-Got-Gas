@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8004A43C252F71FE00E871A2 /* EmailViewController.swift */; };
 		800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */; };
+		800F271B25587849004807B2 /* Version Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800F271A25587849004807B2 /* Version Number.swift */; };
 		804B24DB24CE382F009FC038 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* DetailView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
@@ -62,6 +63,7 @@
 		3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.release.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.release.xcconfig"; sourceTree = "<group>"; };
 		8004A43C252F71FE00E871A2 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		800F271A25587849004807B2 /* Version Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Version Number.swift"; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				805BAB8224D335E10026FA6F /* Extensions.swift */,
+				800F271A25587849004807B2 /* Version Number.swift */,
 				80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */,
 				80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */,
 				80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */,
@@ -472,6 +475,7 @@
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
 				80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */,
 				80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */,
+				800F271B25587849004807B2 /* Version Number.swift in Sources */,
 				80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */,
@@ -629,7 +633,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -638,7 +642,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -652,7 +656,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -661,7 +665,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
