@@ -27,6 +27,14 @@ struct AddExpenseView: View {
     @State private var isFullTank = 0
     @State var service: Service?
 
+    @State private var editingPrice = false
+    private var bluePipe = Text("|")
+        .foregroundColor(Color.blue)
+        .font(.largeTitle)
+        .fontWeight(.light)
+    private var emptyText = Text("")
+    @State private var editingGallons = false
+
     @State private var totalPrice = ""
     var totalNumberFormatted: Double {
         return (Double(totalPrice) ?? 0) / 100
@@ -60,7 +68,7 @@ struct AddExpenseView: View {
         }
 
         if let fuel = service.fuel.wrappedValue {
-            _gallonsOfGas = State(initialValue: String(format: "%.0f", (fuel.numberOfGallons * 1000 > 50 ? fuel.numberOfGallons * 10 : fuel.numberOfGallons * 1000))) //this ternary should be removed later.
+            _gallonsOfGas = State(initialValue: String(format: "%.0f", fuel.numberOfGallons * 1000))
             _isFullTank = State(initialValue: ( fuel.isFullTank == true ? 0 : 1 ))
         } else {
             _isGas = State(initialValue: false)
@@ -124,11 +132,14 @@ struct AddExpenseView: View {
                                 HStack {
                                     Text("$")
                                         .font(.largeTitle)
-                                    Text("\(totalNumberFormatted, specifier: "%.2f")")
-                                        .font(.largeTitle)
-                                        .multilineTextAlignment(TextAlignment.leading)
+                                    HStack(spacing: 0) {
+                                        Text("\(totalNumberFormatted, specifier: "%.2f")")
+                                            .font(.largeTitle)
+                                            .multilineTextAlignment(TextAlignment.leading)
+                                        Text("\(editingPrice == true ? bluePipe : emptyText)")
+                                    }
                                 }
-                                TextField("", text: $totalPrice)
+                                TextField("", text: $totalPrice, onEditingChanged: {_ in editingPrice.toggle()})
                                     .keyboardType(.numberPad)
                                     .foregroundColor(.clear)
                                     .textFieldStyle(PlainTextFieldStyle())
@@ -141,10 +152,10 @@ struct AddExpenseView: View {
                             if isGas {
                                 Section(header: Text("Gallons")) {
                                 ZStack(alignment: .leading) {
-                                    Text("\(gallonsOfGasFormatted, specifier: "%.3f")")
+                                    Text("\(gallonsOfGasFormatted, specifier: "%.3f")\(editingGallons == true ? bluePipe : emptyText)")
                                         .font(.largeTitle)
                                         .multilineTextAlignment(TextAlignment.leading)
-                                    TextField("", text: $gallonsOfGas)
+                                    TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
                                         .dismissKeyboardOnSwipe()
                                         .dismissKeyboardOnTap()
                                         .foregroundColor(.clear)
