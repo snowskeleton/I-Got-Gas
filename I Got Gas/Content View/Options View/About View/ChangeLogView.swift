@@ -15,7 +15,7 @@ struct ChangeLogView: View {
         Form {
 
             Section(header: Text("Version 1.0.5")) {
-                Text("- Fixed a bug with how gallons were saved in exenses. Updated previous expenses retroactively.\n\n- Backend changes.")
+                Text("- Fixed a bug with how gallons were saved in exenses.\n\n- Added an indicator when typing price/gallons to show which field you are editing.\n\n- Backend changes.")
                     .fontWeight(.light)
             }
 
