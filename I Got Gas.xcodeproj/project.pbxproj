@@ -42,6 +42,7 @@
 		8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094975224F3490200E8D6A1 /* OptionsView.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
 		80B1D06F24DDE70C0090390E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Label.swift */; };
+		80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */; };
 		80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */; };
 		80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DE24E3813D0005650B /* TopDetailView.swift */; };
 		80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */; };
@@ -98,6 +99,7 @@
 		8094975224F3490200E8D6A1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
 		80B1D06E24DDE70C0090390E /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Car+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseBoxView.swift; sourceTree = "<group>"; };
 		80D4D3DE24E3813D0005650B /* TopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDetailView.swift; sourceTree = "<group>"; };
 		80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		805B413D24CDF04B0085DB47 /* I Got Gas */ = {
 			isa = PBXGroup;
 			children = (
+				80CEAA2A256DD74A00996EEB /* DM */,
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
@@ -291,6 +294,15 @@
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
+		};
+		80CEAA2A256DD74A00996EEB /* DM */ = {
+			isa = PBXGroup;
+			children = (
+				80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */,
+			);
+			name = DM;
+			path = "I Got Gas/DM";
+			sourceTree = SOURCE_ROOT;
 		};
 		80D61B0624EAEFEE007A0C8F /* extensions */ = {
 			isa = PBXGroup;
@@ -466,6 +478,7 @@
 				80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
 				8084DF252513C6FF000F2B0D /* ChangeLogView.swift in Sources */,
+				80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */,
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */,
 				80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */,
@@ -633,7 +646,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -642,7 +655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -656,7 +669,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
@@ -665,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
