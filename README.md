@@ -1,6 +1,6 @@
 # I-Got-Gas
 
-[Link to App Store](https://www.igotgas.app "I Got Gas")
+[Link to App Store](https://apps.apple.com/us/app/i-got-gas/id1528580218 "I Got Gas")
 
 Are you curious how much your car is really costing you? Do you have an innate desire to track your expenses? Are you trying to figure out how much you should charge your friends for a ride? If you answered Yes to any of these questions, I Got Gas is for you.
 
