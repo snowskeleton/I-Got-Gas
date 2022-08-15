@@ -33,7 +33,8 @@ struct OptionsView: View {
                     Section(header: Text("Decimal Length")) {
                         Picker(selection: $formatSelection,
                                label: Text("Fuel Price Decimal Length")) {
-                            ForEach(0 ..< formatList.count) { Text(self.formatList[$0]) }
+                            ForEach(0..<formatList.count, id: \.self)
+                            { Text(self.formatList[$0]) }
                         }.pickerStyle(SegmentedPickerStyle())
                         .onChange(of: formatSelection) { _ in
                             UserDefaults.standard.set(formatList[formatSelection],

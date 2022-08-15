@@ -56,7 +56,7 @@ struct ContentView: View {
                                                 .environment(\.managedObjectContext, self.moc)
                                         })
             }
-            Banner()
+//            Banner()
         }
     }
 }

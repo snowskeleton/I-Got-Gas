@@ -214,6 +214,7 @@ struct AddExpenseView: View {
         }
     }
 
+    // programatically determine if enough information is provided
     fileprivate func maybeEnableButton() -> Bool {
         if totalPrice == "" {
             return false
@@ -221,12 +222,13 @@ struct AddExpenseView: View {
         if odometer == "" {
             return false
         }
-        if isGas && gallonsOfGas == "" {
+        if isGas && gallonsOfGas == "" { //second is only valid if first is true
             return false
         }
-        return true
+        return true //if you got here, you're good to go
     }
 
+    // save info as new expense entry.
     fileprivate func save() -> Void {
         var service: Service
         service = ( (self.service == nil

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -57,7 +57,6 @@
 		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
 		80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3DEF22516F56900156737 /* GoogleAdView.swift */; };
 		80F3DEFD2519750200156737 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F3DEFC2519750200156737 /* StoreKit.framework */; };
-		C44D841CE40E2EA5CF46EE04 /* Pods_I_Got_Gas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,7 +113,6 @@
 		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
 		80F3DEF22516F56900156737 /* GoogleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdView.swift; sourceTree = "<group>"; };
 		80F3DEFC2519750200156737 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_I_Got_Gas.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.debug.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,7 +121,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C44D841CE40E2EA5CF46EE04 /* Pods_I_Got_Gas.framework in Frameworks */,
 				80F3DEFD2519750200156737 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				80F3DEFC2519750200156737 /* StoreKit.framework */,
-				83795BFEA8926ED86C684CC7 /* Pods_I_Got_Gas.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -356,7 +352,6 @@
 				805B413724CDF04B0085DB47 /* Sources */,
 				805B413824CDF04B0085DB47 /* Frameworks */,
 				805B413924CDF04B0085DB47 /* Resources */,
-				D8C8A6EB1E8BE0B488EAAB57 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -373,6 +368,7 @@
 		805B413324CDF04B0085DB47 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Blizzard Skeleton";
@@ -444,23 +440,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D8C8A6EB1E8BE0B488EAAB57 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-I Got Gas/Pods-I Got Gas-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -574,7 +553,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -629,10 +608,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -651,6 +630,7 @@
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -674,6 +654,7 @@
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

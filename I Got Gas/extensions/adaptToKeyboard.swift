@@ -44,7 +44,7 @@ public struct AdaptToSoftwareKeyboard: ViewModifier {
         content
             .padding(.bottom, currentHeight)
             .edgesIgnoringSafeArea(.bottom)
-            .animation(.spring())
+            .animation(.spring(), value: true)
             .onAppear(perform: subscribeToKeyboardEvents)
     }
     
