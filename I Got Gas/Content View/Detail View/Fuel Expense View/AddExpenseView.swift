@@ -216,9 +216,9 @@ struct AddExpenseView: View {
 
     // programatically determine if enough information is provided
     fileprivate func maybeEnableButton() -> Bool {
-        if totalPrice == "" {
-            return false
-        }
+//        if totalPrice == "" {
+//            return false
+//        }
         if odometer == "" {
             return false
         }
