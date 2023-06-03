@@ -136,14 +136,15 @@ struct AddFutureServiceView: View {
     
     public func upDate(_ futureService: FutureService, _ date: Date) {
         if self.frequency != "" {
-            futureService.date = Calendar.current.date(byAdding:
-                                                        (monthOrWeek == 0
-                                                            ? .month
-                                                            : .day),
-                                                       value: (monthOrWeek == 0
-                                                                ? Int(self.frequency)!
-                                                                : (Int(self.frequency)!) * 7 ),
-                                                       to: date)!
+            futureService.date = Calendar.current.date(
+                byAdding:
+                    (monthOrWeek == 0
+                      ? .month
+                      : .day),
+                value: ( monthOrWeek == 0
+                         ? Int(self.frequency)!
+                         : (Int(self.frequency)!) * 7 ),
+                to: date)!
         }
     }
     

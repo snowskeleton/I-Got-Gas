@@ -23,19 +23,19 @@ struct FuelExpenseView: View {
     
     init(car: Binding<Car>) {
         self._car = car
-        serviceFetchRequest = Fetch.services(howMany: 0,
-                                             carID: car.id.wrappedValue!,
-                                             filters: [
-                                                "vehicle.id = '\(car.id.wrappedValue!)'",
-                                                "note = 'Fuel'"
-                                             ])
+        serviceFetchRequest = Fetch.services(
+            howMany: 0,
+            carID: car.id.wrappedValue!,
+            filters: [
+                "vehicle.id = '\(car.id.wrappedValue!)'",
+                "note = 'Fuel'"
+            ])
     }
     
     
     var body: some View {
         VStack {
             List {
-
                 ForEach(services, id: \.self) { service in
                     Button(action: {
                         selectedService = Int(services.firstIndex(of: service)!)

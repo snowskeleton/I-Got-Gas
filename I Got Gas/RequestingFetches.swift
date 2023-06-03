@@ -49,7 +49,12 @@ struct Fetch {
         return fetchRequest
     }
     
-    static func futureServices(howMany: Int, carID: String, important: Bool? = false) -> FetchRequest<FutureService> {
+    static func futureServices(
+        howMany: Int,
+        carID: String,
+        important: Bool? = false
+    ) -> FetchRequest<FutureService> {
+        
         let fetchRequest: FetchRequest<FutureService>
         let request: NSFetchRequest<FutureService> = FutureService.fetchRequest()
         var services: FetchedResults<FutureService> { fetchRequest.wrappedValue }
