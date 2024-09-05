@@ -30,7 +30,7 @@ struct AddExpenseView: View {
     @State private var editingPrice = false
     private var bluePipe = Text("|")
         .foregroundColor(Color.blue)
-        .font(.largeTitle)
+//        .font(.largeTitle)
         .fontWeight(.light)
     private var emptyText = Text("")
     @State private var editingGallons = false
@@ -131,10 +131,11 @@ struct AddExpenseView: View {
                             ZStack(alignment: .leading) {
                                 HStack {
                                     Text("$")
-                                    HStack(spacing: 0) {
+                                    HStack {
                                         Text("\(totalNumberFormatted, specifier: "%.2f")")
                                             .multilineTextAlignment(TextAlignment.leading)
                                         Text("\(editingPrice == true ? bluePipe : emptyText)")
+                                        
                                     }
                                 }
                                 TextField("", text: $totalPrice, onEditingChanged: {_ in editingPrice.toggle()})
@@ -150,8 +151,11 @@ struct AddExpenseView: View {
                             if isGas {
                                 Section(header: Text("Gallons")) {
                                 ZStack(alignment: .leading) {
-                                    Text("\(gallonsOfGasFormatted, specifier: "%.3f")\(editingGallons == true ? bluePipe : emptyText)")
-                                        .multilineTextAlignment(TextAlignment.leading)
+                                    HStack {
+                                        Text("\(gallonsOfGasFormatted, specifier: "%.3f")")
+                                            .multilineTextAlignment(TextAlignment.leading)
+                                        Text("\(editingGallons == true ? bluePipe : emptyText)")
+                                    }
                                     TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
                                         .foregroundColor(.clear)
                                         .textFieldStyle(PlainTextFieldStyle())
