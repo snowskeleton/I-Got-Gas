@@ -73,6 +73,14 @@ struct OptionsView: View {
                     } footer: {
                         Text("\(disableAnalytics ? "No" : "Only") app usage is tracked. No personally identifible information is saved. No information is sold to or used by third parties.")
                     }
+                
+//                    Section {
+//                        NavigationLink {
+//                            ExportDataView()
+//                        } label: {
+//                            Text("Import/Export")
+//                        }
+//                    }
                 }
             }
             .navigationBarTitle(Text("Options"))
