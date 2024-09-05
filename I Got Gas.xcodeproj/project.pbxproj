@@ -11,6 +11,9 @@
 		800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */; };
 		800F271B25587849004807B2 /* Version Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800F271A25587849004807B2 /* Version Number.swift */; };
 		804B24DB24CE382F009FC038 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* DetailView.swift */; };
+		80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80582ECA2C8A48F30056C421 /* Aptabase */; };
+		80582ECD2C8A49040056C421 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ECC2C8A49040056C421 /* Analytics.swift */; };
+		80582ECF2C8A49EE0056C421 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ECE2C8A49EE0056C421 /* Secrets.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
 		805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */; };
@@ -65,6 +68,8 @@
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		800F271A25587849004807B2 /* Version Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Version Number.swift"; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		80582ECC2C8A49040056C421 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		80582ECE2C8A49EE0056C421 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		805B414024CDF04B0085DB47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F3DEFD2519750200156737 /* StoreKit.framework in Frameworks */,
+				80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +196,9 @@
 				80CEAA2A256DD74A00996EEB /* DM */,
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
+				80582ECE2C8A49EE0056C421 /* Secrets.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
+				80582ECC2C8A49040056C421 /* Analytics.swift */,
 				80776DE3251FC70D008FEE9D /* Content View */,
 				80776DE7251FC7D0008FEE9D /* Pieces */,
 				80776DEE251FC968008FEE9D /* Styles */,
@@ -387,6 +395,9 @@
 				Base,
 			);
 			mainGroup = 805B413224CDF04B0085DB47;
+			packageReferences = (
+				80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */,
+			);
 			productRefGroup = 805B413C24CDF04B0085DB47 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -468,6 +479,7 @@
 				80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */,
 				80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */,
 				800F271B25587849004807B2 /* Version Number.swift in Sources */,
+				80582ECF2C8A49EE0056C421 /* Secrets.swift in Sources */,
 				80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */,
 				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */,
@@ -477,6 +489,7 @@
 				80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */,
+				80582ECD2C8A49040056C421 /* Analytics.swift in Sources */,
 				80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */,
 				80B1D06F24DDE70C0090390E /* Label.swift in Sources */,
 				8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */,
@@ -689,6 +702,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aptabase/aptabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.10;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		80582ECA2C8A48F30056C421 /* Aptabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */;
+			productName = Aptabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */ = {

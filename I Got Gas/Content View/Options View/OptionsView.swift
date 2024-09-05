@@ -15,6 +15,8 @@ struct OptionsView: View {
     @State var showAboutView = false
     var formatList: [String]
     
+    @AppStorage("isAnalyticsDisabled") var disableAnalytics = false
+
     init() {
         formatList = ["%.3f", "%.2f"]
         let priceFormat = UserDefaults.standard.string(forKey: "priceFormat")
@@ -36,10 +38,10 @@ struct OptionsView: View {
                             ForEach(0..<formatList.count, id: \.self)
                             { Text(self.formatList[$0]) }
                         }.pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: formatSelection) { _ in
-                            UserDefaults.standard.set(formatList[formatSelection],
-                                                      forKey: "priceFormat")
-                        }
+                            .onChange(of: formatSelection) { _ in
+                                UserDefaults.standard.set(formatList[formatSelection],
+                                                          forKey: "priceFormat")
+                            }
                     }
                     
                     Section {
@@ -48,8 +50,8 @@ struct OptionsView: View {
                         }) {
                             Text("About")
                                 .foregroundColor(colorScheme == .dark
-                                                    ? Color.white
-                                                    : Color.black)
+                                                 ? Color.white
+                                                 : Color.black)
                                 .fontWeight(.light)
                         }
                         .sheet(isPresented: $showAboutView) {
@@ -57,6 +59,20 @@ struct OptionsView: View {
                         }
                     }
                     
+                    Section {
+                        Toggle("Enable Analytics", isOn: Binding(
+                            get: { !disableAnalytics },
+                            set: {
+                                Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
+                                disableAnalytics  = !$0
+                                Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
+                            }
+                        ))
+                    } header: {
+                        Text("Analytics")
+                    } footer: {
+                        Text("\(disableAnalytics ? "No" : "Only") app usage is tracked. No personally identifible information is saved. No information is sold to or used by third parties.")
+                    }
                 }
             }
             .navigationBarTitle(Text("Options"))
