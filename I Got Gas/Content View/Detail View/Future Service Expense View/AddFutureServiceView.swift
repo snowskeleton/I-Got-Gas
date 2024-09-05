@@ -63,7 +63,6 @@ struct AddFutureServiceView: View {
                     
                     Form {
                         TextField("Service Description", text: self.$name)
-                            .font(.largeTitle)
                         
                         Section(header: Text("Every...")) {
                             ZStack(alignment: .leading) {
@@ -73,7 +72,6 @@ struct AddFutureServiceView: View {
                                         .foregroundColor(.gray)
                                 }
                                 TextField("3, 6, 12....", text: self.$frequency)
-                                    .font(.largeTitle)
                                     .keyboardType(.numberPad)
                             }
 
@@ -91,7 +89,6 @@ struct AddFutureServiceView: View {
                                         .foregroundColor(.gray)
                                 }
                                 TextField("3,000, 15,000...", text: self.$miles)
-                                    .font(.largeTitle)
                                     .keyboardType(.numberPad)
                             }
                         }
