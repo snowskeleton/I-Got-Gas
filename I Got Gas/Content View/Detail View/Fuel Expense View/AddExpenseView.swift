@@ -131,10 +131,8 @@ struct AddExpenseView: View {
                             ZStack(alignment: .leading) {
                                 HStack {
                                     Text("$")
-                                        .font(.largeTitle)
                                     HStack(spacing: 0) {
                                         Text("\(totalNumberFormatted, specifier: "%.2f")")
-                                            .font(.largeTitle)
                                             .multilineTextAlignment(TextAlignment.leading)
                                         Text("\(editingPrice == true ? bluePipe : emptyText)")
                                     }
@@ -153,7 +151,6 @@ struct AddExpenseView: View {
                                 Section(header: Text("Gallons")) {
                                 ZStack(alignment: .leading) {
                                     Text("\(gallonsOfGasFormatted, specifier: "%.3f")\(editingGallons == true ? bluePipe : emptyText)")
-                                        .font(.largeTitle)
                                         .multilineTextAlignment(TextAlignment.leading)
                                     TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
                                         .dismissKeyboardOnSwipe()
@@ -172,7 +169,6 @@ struct AddExpenseView: View {
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
-                                .font(.largeTitle)
 
                         }
 
@@ -180,12 +176,10 @@ struct AddExpenseView: View {
                             TextField("Vendor name", text: $vendorName)
                                 .dismissKeyboardOnSwipe()
                                 .dismissKeyboardOnTap()
-                                .font(.largeTitle)
                             if !isGas {
                                 TextField("Service Notes", text: $note)
                                     .dismissKeyboardOnSwipe()
                                     .dismissKeyboardOnTap()
-                                    .font(.largeTitle)
                             }
                         }
 
