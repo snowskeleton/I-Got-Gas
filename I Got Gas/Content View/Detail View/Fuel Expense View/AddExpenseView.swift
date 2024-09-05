@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AddExpenseView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -235,6 +236,7 @@ struct AddExpenseView: View {
         setFutureInStone(car)
         updateCarOdometer(car)
         setServiceStats(service)
+        updateCostPerMile(for: car)
 
         try? self.moc.save()
 
@@ -302,4 +304,30 @@ struct AddExpenseView: View {
         service.odometer = Int64(odometer)!
     }
 
+    fileprivate func updateCostPerMile(for car: FetchedResults<Car>.Element) {
+        // Fetch all related services and fuel from the car
+        let fetchRequest: NSFetchRequest<Service> = Service.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "vehicle == %@", car)
+        
+        do {
+            let allServicesAndFuel = try self.moc.fetch(fetchRequest)
+            
+            // Calculate the total cost of all services and fuel
+            let totalCost = allServicesAndFuel.reduce(0.0) { result, service in
+                let serviceCost = service.cost
+//                let fuelCost = (service.fuel?.numberOfGallons ?? 0) * (service.fuel?.dpg ?? 0)
+                return result + serviceCost // + fuelCost
+            }
+            
+            // Calculate the total miles traveled
+            let milesTraveled = Double(car.odometer - car.startingOdometer)
+            
+            // Calculate cost per mile
+            if milesTraveled > 0 {
+                car.costPerMile = totalCost / milesTraveled
+            }
+        } catch {
+            print("Failed to fetch services and fuels: \(error)")
+        }
+    }
 }

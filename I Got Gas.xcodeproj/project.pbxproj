@@ -14,6 +14,7 @@
 		80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80582ECA2C8A48F30056C421 /* Aptabase */; };
 		80582ECD2C8A49040056C421 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ECC2C8A49040056C421 /* Analytics.swift */; };
 		80582ECF2C8A49EE0056C421 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ECE2C8A49EE0056C421 /* Secrets.swift */; };
+		80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ED02C8A519B0056C421 /* ExportDataView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
 		805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */; };
@@ -70,6 +71,7 @@
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		80582ECC2C8A49040056C421 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		80582ECE2C8A49EE0056C421 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		80582ED02C8A519B0056C421 /* ExportDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		805B414024CDF04B0085DB47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				8094975224F3490200E8D6A1 /* OptionsView.swift */,
+				80582ED02C8A519B0056C421 /* ExportDataView.swift */,
 				8004A441252F9EBE00E871A2 /* About View */,
 			);
 			path = "Options View";
@@ -464,6 +467,7 @@
 				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
 				80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
+				80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */,
 				8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */,
 				80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
