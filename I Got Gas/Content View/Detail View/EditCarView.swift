@@ -96,9 +96,6 @@ struct EditCarView: View {
                         }
                         
                     }
-                    .dismissKeyboardOnSwipe()
-                    .dismissKeyboardOnTap()
-                    
                 }
                 .navigationBarTitle("Update Details")
                 .navigationBarItems(leading:

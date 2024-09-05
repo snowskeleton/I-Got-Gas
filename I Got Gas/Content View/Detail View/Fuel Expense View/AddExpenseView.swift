@@ -153,8 +153,6 @@ struct AddExpenseView: View {
                                     Text("\(gallonsOfGasFormatted, specifier: "%.3f")\(editingGallons == true ? bluePipe : emptyText)")
                                         .multilineTextAlignment(TextAlignment.leading)
                                     TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
-                                        .dismissKeyboardOnSwipe()
-                                        .dismissKeyboardOnTap()
                                         .foregroundColor(.clear)
                                         .textFieldStyle(PlainTextFieldStyle())
                                         .disableAutocorrection(true)
@@ -166,20 +164,14 @@ struct AddExpenseView: View {
 
                         Section(header: Text("Odometer")) {
                             TextField("\(car.odometer)", text: $odometer)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                                 .keyboardType(.numberPad)
 
                         }
 
                         Section(header: Text("Vendor")) {
                             TextField("Vendor name", text: $vendorName)
-                                .dismissKeyboardOnSwipe()
-                                .dismissKeyboardOnTap()
                             if !isGas {
                                 TextField("Service Notes", text: $note)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
                             }
                         }
 

@@ -64,8 +64,6 @@ struct AddFutureServiceView: View {
                     Form {
                         TextField("Service Description", text: self.$name)
                             .font(.largeTitle)
-                            .dismissKeyboardOnSwipe()
-                            .dismissKeyboardOnTap()
                         
                         Section(header: Text("Every...")) {
                             ZStack(alignment: .leading) {
@@ -77,8 +75,6 @@ struct AddFutureServiceView: View {
                                 TextField("3, 6, 12....", text: self.$frequency)
                                     .font(.largeTitle)
                                     .keyboardType(.numberPad)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
                             }
 
                             Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
@@ -97,8 +93,6 @@ struct AddFutureServiceView: View {
                                 TextField("3,000, 15,000...", text: self.$miles)
                                     .font(.largeTitle)
                                     .keyboardType(.numberPad)
-                                    .dismissKeyboardOnSwipe()
-                                    .dismissKeyboardOnTap()
                             }
                         }
                         

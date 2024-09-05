@@ -102,8 +102,6 @@ struct AddCarView: View {
                             .buttonStyle(PlainButtonStyle())
                         }
                     }
-                    .dismissKeyboardOnSwipe()
-                    .dismissKeyboardOnTap()
                 }
                 .navigationBarTitle("Add Car")
             }
