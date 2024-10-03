@@ -118,23 +118,6 @@
 			path = "About View";
 			sourceTree = "<group>";
 		};
-		8004A444252F9F2100E871A2 /* Future Service Expense View */ = {
-			isa = PBXGroup;
-			children = (
-				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
-				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
-			);
-			path = "Future Service Expense View";
-			sourceTree = "<group>";
-		};
-		8004A446252F9F5300E871A2 /* Service Expense View */ = {
-			isa = PBXGroup;
-			children = (
-				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
-			);
-			path = "Service Expense View";
-			sourceTree = "<group>";
-		};
 		805B413224CDF04B0085DB47 = {
 			isa = PBXGroup;
 			children = (
@@ -189,9 +172,10 @@
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
+				80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */,
+				80D4D3E424E45C970005650B /* FutureServiceView.swift */,
+				80D4D3E224E459460005650B /* AddFutureServiceView.swift */,
 				80802C9D24E8A2B7009DFF25 /* EditCarView.swift */,
-				8004A446252F9F5300E871A2 /* Service Expense View */,
-				8004A444252F9F2100E871A2 /* Future Service Expense View */,
 			);
 			path = "Detail View";
 			sourceTree = "<group>";
