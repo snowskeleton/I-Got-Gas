@@ -22,11 +22,11 @@ struct ContentView: View {
                     VStack(spacing: 25) {
                         ForEach(cars, id: \.self) { car in
                             CarBoxView(car: Binding<Car>.constant(car))
-
+                            
                                 .groupBoxStyle(DetailBoxStyle(
-                                                destination: DetailView(
-                                                    car: Binding<Car>.constant(car))
-                                                    .environment(\.managedObjectContext, self.moc)))
+                                    destination: DetailView(
+                                        car: Binding<Car>.constant(car))
+                                    .environment(\.managedObjectContext, self.moc)))
                         }
                     }
                     .clipped()
@@ -34,27 +34,28 @@ struct ContentView: View {
                     .padding()
                 }
                 .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-                .navigationBarItems(leading:
-                                        Button(action: {
-                                            try? self.moc.save()
-                                            self.showOptionsView.toggle()
-                                        }) {
-                                            Image(systemName: "gearshape")
-                                                .sheet(isPresented: $showOptionsView) {
-                                                    OptionsView()
-                                                }
-                                        },
-                                    trailing:
-                                        Button(action: {
-                                            self.showAddCarView.toggle()
-                                        }) {
-                                            Image(systemName: "plus")
-                                                .font(.largeTitle)
-                                        }.padding(.leading)
-                                        .sheet(isPresented: $showAddCarView) {
-                                            AddCarView()
-                                                .environment(\.managedObjectContext, self.moc)
-                                        })
+                .navigationBarItems(
+                    leading:
+                        Button(action: {
+                            try? self.moc.save()
+                            self.showOptionsView.toggle()
+                        }) {
+                            Image(systemName: "gearshape")
+                                .sheet(isPresented: $showOptionsView) {
+                                    OptionsView()
+                                }
+                        },
+                    trailing:
+                        Button(action: {
+                            self.showAddCarView.toggle()
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.largeTitle)
+                        }.padding(.leading)
+                        .sheet(isPresented: $showAddCarView) {
+                            AddCarView()
+                                .environment(\.managedObjectContext, self.moc)
+                        })
             }
         }
     }
