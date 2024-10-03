@@ -16,7 +16,7 @@ struct CarBoxView: View {
     }
 
     var body: some View {
-        GroupBox(label: ImageAndTextLable(systemImage: "car", text: "\(car.year!) \(car.make!) \(car.model!) \(car.plate!)")) {
+        GroupBox(label: Label("\(car.year!) \(car.make!) \(car.model!) \(car.plate!)", systemImage: "car")) {
             VStack {
                 HStack {
                     VStack {

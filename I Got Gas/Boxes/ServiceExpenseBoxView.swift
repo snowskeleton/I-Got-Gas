@@ -23,7 +23,8 @@ struct ServiceExpenseBoxView: View {
     }
     
     var body: some View {
-        GroupBox(label: ImageAndTextLable(systemImage: "wrench", text: "Services")) {
+        GroupBox(label: Label("Services", systemImage: "wrench")) {
+//            GroupBox(label: ImageAndTextLable(systemImage: "wrench", text: "Services")) {
             VStack(alignment: .leading) {
                 ForEach(services, id: \.self) { service in
                     HStack {

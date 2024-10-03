@@ -20,7 +20,7 @@ struct FutureServiceBoxView: View {
     
     
     var body: some View {
-            GroupBox(label: ImageAndTextLable(systemImage: "clock", text: "Future Service")) {
+            GroupBox(label: Label("Future Services", systemImage: "clock")) {
                 VStack(alignment: .leading) {
                     ForEach(futureServices, id: \.self) { futureService in
                         VStack {

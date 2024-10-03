@@ -43,7 +43,6 @@
 		808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */; };
 		8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094975224F3490200E8D6A1 /* OptionsView.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
-		80B1D06F24DDE70C0090390E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B1D06E24DDE70C0090390E /* Label.swift */; };
 		80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */; };
 		80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */; };
 		80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DE24E3813D0005650B /* TopDetailView.swift */; };
@@ -57,7 +56,6 @@
 		80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */; };
 		80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */; };
 		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
-		80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3DEF22516F56900156737 /* GoogleAdView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,7 +96,6 @@
 		808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
 		8094975224F3490200E8D6A1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
-		80B1D06E24DDE70C0090390E /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Car+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseBoxView.swift; sourceTree = "<group>"; };
 		80D4D3DE24E3813D0005650B /* TopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDetailView.swift; sourceTree = "<group>"; };
@@ -112,7 +109,6 @@
 		80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseBoxView.swift; sourceTree = "<group>"; };
 		80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceBoxView.swift; sourceTree = "<group>"; };
 		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
-		80F3DEF22516F56900156737 /* GoogleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,15 +132,6 @@
 				8004A43C252F71FE00E871A2 /* EmailViewController.swift */,
 			);
 			path = "About View";
-			sourceTree = "<group>";
-		};
-		8004A443252F9F0C00E871A2 /* Fuel Expense View */ = {
-			isa = PBXGroup;
-			children = (
-				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
-				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
-			);
-			path = "Fuel Expense View";
 			sourceTree = "<group>";
 		};
 		8004A444252F9F2100E871A2 /* Future Service Expense View */ = {
@@ -218,8 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
+				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
+				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
 				80802C9D24E8A2B7009DFF25 /* EditCarView.swift */,
-				8004A443252F9F0C00E871A2 /* Fuel Expense View */,
 				8004A446252F9F5300E871A2 /* Service Expense View */,
 				8004A444252F9F2100E871A2 /* Future Service Expense View */,
 			);
@@ -229,11 +217,9 @@
 		80776DE7251FC7D0008FEE9D /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
-				80F3DEF22516F56900156737 /* GoogleAdView.swift */,
 				807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */,
 				80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */,
 				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
-				80B1D06E24DDE70C0090390E /* Label.swift */,
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
 			);
 			path = Pieces;
@@ -399,7 +385,6 @@
 			files = (
 				80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */,
 				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
-				80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */,
 				8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */,
@@ -429,7 +414,6 @@
 				80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */,
 				80582ECD2C8A49040056C421 /* Analytics.swift in Sources */,
 				80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */,
-				80B1D06F24DDE70C0090390E /* Label.swift in Sources */,
 				8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */,
 				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
 				80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */,
