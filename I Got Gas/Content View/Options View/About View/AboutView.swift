@@ -66,9 +66,8 @@ struct AboutView: View {
                     }
 
                     HStack {
-                        Text("Version:").fontWeight(.light)
-                        Spacer()
-                        Text("\(UIApplication.appVersion ?? "")").fontWeight(.light)
+                        Text("Version: \(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))")
+                            .fontWeight(.light)
                     }
                 }
                 .foregroundColor(colorScheme == .dark

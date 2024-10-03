@@ -16,35 +16,3 @@ extension DateFormatter {
         return formatter
     }()
 }
-
-extension NumberFormatter {
-    static var decimal: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }
-    static var currency: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }
-}
-
-extension Formatter {
-    static let withSeparator: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
-    static let withCommaSeparator: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ","
-        return formatter
-    }()
-}
-
-extension Numeric {
-    var formattedWithoutSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
-}
