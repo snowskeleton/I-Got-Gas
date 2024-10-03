@@ -25,8 +25,6 @@
 		8074091824EB7B4A007EC9A8 /* CarBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074091724EB7B4A007EC9A8 /* CarBoxView.swift */; };
 		80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */; };
 		80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */; };
-		80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */; };
-		807853222532049B0051DB30 /* TextFieldWithPickerAsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */; };
 		80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80802C9D24E8A2B7009DFF25 /* EditCarView.swift */; };
 		8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1C2513B224000F2B0D /* AboutView.swift */; };
 		8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */; };
@@ -78,8 +76,6 @@
 		8074091724EB7B4A007EC9A8 /* CarBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarBoxView.swift; sourceTree = "<group>"; };
 		80776DEA251FC905008FEE9D /* YearsPlusTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsPlusTwo.swift; sourceTree = "<group>"; };
 		80776DEF251FC97B008FEE9D /* DetailBoxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBoxStyle.swift; sourceTree = "<group>"; };
-		80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableWheelPicker.swift; sourceTree = "<group>"; };
-		807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithPickerAsInput.swift; sourceTree = "<group>"; };
 		80802C9D24E8A2B7009DFF25 /* EditCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCarView.swift; sourceTree = "<group>"; };
 		8084DF1C2513B224000F2B0D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		8084DF1F2513B411000F2B0D /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
@@ -204,6 +200,7 @@
 		80776DE4251FC71F008FEE9D /* Detail View */ = {
 			isa = PBXGroup;
 			children = (
+				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				804B24DA24CE382F009FC038 /* DetailView.swift */,
 				806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */,
 				800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */,
@@ -217,9 +214,6 @@
 		80776DE7251FC7D0008FEE9D /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
-				807853212532049A0051DB30 /* TextFieldWithPickerAsInput.swift */,
-				80776DF6251FC9C8008FEE9D /* CollapsableWheelPicker.swift */,
-				80D4D3DE24E3813D0005650B /* TopDetailView.swift */,
 				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
 			);
 			path = Pieces;
@@ -383,7 +377,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80776DF7251FC9C8008FEE9D /* CollapsableWheelPicker.swift in Sources */,
 				80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */,
 				800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */,
 				80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */,
@@ -395,7 +388,6 @@
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */,
 				80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */,
-				807853222532049B0051DB30 /* TextFieldWithPickerAsInput.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,

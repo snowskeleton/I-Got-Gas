@@ -18,22 +18,30 @@ struct EditCarView: View {
     @Binding var car: Car
     
     @State private var showsYearPicker = false
-    @Binding var carYear: String
-    @Binding var carMake: String
-    @Binding var carModel: String
-    @Binding var carPlate: String
-    @Binding var carVIN: String
+    @State var carYear: String
+    @State var carMake: String
+    @State var carModel: String
+    @State var carPlate: String
+    @State var carVIN: String
     
     var years = yearsPlusTwo()
     @State var selectionIndex = 0
     
+    let yearRange: [String]
+
     init(car: Binding<Car>) {
         self._car = car
-        self._carYear = Binding<String>(car.year)!
-        self._carMake = Binding<String>(car.make)!
-        self._carModel = Binding<String>(car.model)!
-        self._carPlate = Binding<String>(car.plate)!
-        self._carVIN = Binding<String>(car.vin)!
+        let workingCar = car.wrappedValue
+        
+        let currentYear = Int(car.year.wrappedValue!)!
+        self.yearRange = (1990...currentYear+2).map { String($0) }.reversed()
+        
+        _carYear = .init(initialValue: workingCar.year ?? currentYear.description)
+        _carMake = .init(initialValue: workingCar.make ?? "")
+        _carModel = .init(initialValue: workingCar.model ?? "")
+        _carPlate = .init(initialValue: workingCar.plate ?? "")
+        _carVIN = .init(initialValue: workingCar.vin ?? "")
+        
     }
     
     var body: some View {
@@ -43,10 +51,12 @@ struct EditCarView: View {
                     Form {
                         
                         Section(header: Text("Vehicle Info")) {
-                            TextFieldWithPickerAsInputView(data: self.years,
-                                                           placeholder: "Year",
-                                                           selectionIndex: self.$selectionIndex,
-                                                           text: self.$carYear)
+                            Picker("Year", selection: $carYear) {
+                                ForEach(yearRange, id: \.self) { year in
+                                    Text(year).tag(year)
+                                }
+                            }
+
                             TextField("Make",
                                       text: $carMake)
                             TextField("Model",
