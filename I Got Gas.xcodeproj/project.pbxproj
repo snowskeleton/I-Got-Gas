@@ -47,7 +47,6 @@
 		80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */; };
 		80D4D3E324E459460005650B /* AddFutureServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E224E459460005650B /* AddFutureServiceView.swift */; };
 		80D4D3E524E45C970005650B /* FutureServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E424E45C970005650B /* FutureServiceView.swift */; };
-		80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */; };
 		80D61B0A24EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */; };
 		80D61B0B24EAEFEF007A0C8F /* adaptToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */; };
 		80D61B0C24EAEFEF007A0C8F /* dismissKeyboardOnTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */; };
@@ -98,7 +97,6 @@
 		80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseView.swift; sourceTree = "<group>"; };
 		80D4D3E224E459460005650B /* AddFutureServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFutureServiceView.swift; sourceTree = "<group>"; };
 		80D4D3E424E45C970005650B /* FutureServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceView.swift; sourceTree = "<group>"; };
-		80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
 		80D61B0724EAEFEE007A0C8F /* dismissKeyboardOnSwipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dismissKeyboardOnSwipe.swift; sourceTree = "<group>"; };
 		80D61B0824EAEFEE007A0C8F /* adaptToKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adaptToKeyboard.swift; sourceTree = "<group>"; };
 		80D61B0924EAEFEE007A0C8F /* dismissKeyboardOnTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dismissKeyboardOnTap.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
 				80582ECC2C8A49040056C421 /* Analytics.swift */,
 				80776DE3251FC70D008FEE9D /* Content View */,
-				80776DE7251FC7D0008FEE9D /* Pieces */,
 				80776DEE251FC968008FEE9D /* Styles */,
 				80776DE9251FC8F2008FEE9D /* Snippets */,
 				80D61B0624EAEFEE007A0C8F /* extensions */,
@@ -209,14 +206,6 @@
 				8004A444252F9F2100E871A2 /* Future Service Expense View */,
 			);
 			path = "Detail View";
-			sourceTree = "<group>";
-		};
-		80776DE7251FC7D0008FEE9D /* Pieces */ = {
-			isa = PBXGroup;
-			children = (
-				80D61B0024EA36C8007A0C8F /* CurrencyTextField.swift */,
-			);
-			path = Pieces;
 			sourceTree = "<group>";
 		};
 		80776DE9251FC8F2008FEE9D /* Snippets */ = {
@@ -387,7 +376,6 @@
 				80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */,
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				80776DEB251FC905008FEE9D /* YearsPlusTwo.swift in Sources */,
-				80D61B0124EA36C8007A0C8F /* CurrencyTextField.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
