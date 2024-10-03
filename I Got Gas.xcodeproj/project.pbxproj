@@ -20,8 +20,6 @@
 		805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */; };
 		805B414624CDF04B0085DB47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414524CDF04B0085DB47 /* ContentView.swift */; };
 		805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414724CDF04E0085DB47 /* Assets.xcassets */; };
-		805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */; };
-		805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
 		806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */; };
 		8074091824EB7B4A007EC9A8 /* CarBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8074091724EB7B4A007EC9A8 /* CarBoxView.swift */; };
@@ -60,11 +58,9 @@
 		80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */; };
 		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
 		80F3DEF32516F56900156737 /* GoogleAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F3DEF22516F56900156737 /* GoogleAdView.swift */; };
-		80F3DEFD2519750200156737 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F3DEFC2519750200156737 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.release.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.release.xcconfig"; sourceTree = "<group>"; };
 		8004A43C252F71FE00E871A2 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		800F271A25587849004807B2 /* Version Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Version Number.swift"; sourceTree = "<group>"; };
@@ -78,8 +74,6 @@
 		805B414324CDF04B0085DB47 /* I_Got_Gas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = I_Got_Gas.xcdatamodel; sourceTree = "<group>"; };
 		805B414524CDF04B0085DB47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		805B414724CDF04E0085DB47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		805B414D24CDF04E0085DB47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		806FC50A24D72D0C0016AF62 /* FuelExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseView.swift; sourceTree = "<group>"; };
@@ -119,8 +113,6 @@
 		80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceBoxView.swift; sourceTree = "<group>"; };
 		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
 		80F3DEF22516F56900156737 /* GoogleAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAdView.swift; sourceTree = "<group>"; };
-		80F3DEFC2519750200156737 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-I Got Gas.debug.xcconfig"; path = "Target Support Files/Pods-I Got Gas/Pods-I Got Gas.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +120,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80F3DEFD2519750200156737 /* StoreKit.framework in Frameworks */,
 				80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,8 +170,6 @@
 				808BA0742524E38C005F7D91 /* Screenshots */,
 				805B413D24CDF04B0085DB47 /* I Got Gas */,
 				805B413C24CDF04B0085DB47 /* Products */,
-				B005929161E840594DC2B274 /* Pods */,
-				C18685B18D3C4E03F1E1D76A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,20 +197,10 @@
 				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				80E7534A24DE439100277392 /* RequestingFetches.swift */,
-				805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
 				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
-				805B414924CDF04E0085DB47 /* Preview Content */,
 			);
 			path = "I Got Gas";
-			sourceTree = "<group>";
-		};
-		805B414924CDF04E0085DB47 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				805B414A24CDF04E0085DB47 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		80776DE3251FC70D008FEE9D /* Content View */ = {
@@ -335,23 +314,6 @@
 			path = Boxes;
 			sourceTree = "<group>";
 		};
-		B005929161E840594DC2B274 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */,
-				3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		C18685B18D3C4E03F1E1D76A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				80F3DEFC2519750200156737 /* StoreKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -359,7 +321,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 805B415224CDF04E0085DB47 /* Build configuration list for PBXNativeTarget "I Got Gas" */;
 			buildPhases = (
-				274C50710D81E59FB09D9D94 /* [CP] Check Pods Manifest.lock */,
 				805B413724CDF04B0085DB47 /* Sources */,
 				805B413824CDF04B0085DB47 /* Frameworks */,
 				805B413924CDF04B0085DB47 /* Resources */,
@@ -417,11 +378,9 @@
 			files = (
 				808BA0872524E3A9005F7D91 /* Add Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
 				808BA0812524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png in Resources */,
-				805B414E24CDF04E0085DB47 /* LaunchScreen.storyboard in Resources */,
 				808BA0882524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png in Resources */,
 				808BA0832524E3A9005F7D91 /* Detail View - iPhone 8 Plus - 5.5.png in Resources */,
 				808BA0852524E3A9005F7D91 /* Fuel Expense View - iPhone 8 Plus - 5.5.png in Resources */,
-				805B414B24CDF04E0085DB47 /* Preview Assets.xcassets in Resources */,
 				808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */,
 				808BA0802524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png in Resources */,
 				808BA0822524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png in Resources */,
@@ -432,31 +391,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		274C50710D81E59FB09D9D94 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-I Got Gas-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		805B413724CDF04B0085DB47 /* Sources */ = {
@@ -506,17 +440,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		805B414C24CDF04E0085DB47 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				805B414D24CDF04E0085DB47 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		805B415024CDF04E0085DB47 /* Debug */ = {
@@ -638,12 +561,10 @@
 		};
 		805B415324CDF04E0085DB47 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA5BE7F5A0A768CE9BC4D3AC /* Pods-I Got Gas.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
@@ -662,12 +583,10 @@
 		};
 		805B415424CDF04E0085DB47 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BB4D8051287BC89CA9650DE /* Pods-I Got Gas.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"I Got Gas/Preview Content\"";
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
