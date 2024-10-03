@@ -24,9 +24,6 @@ struct EditCarView: View {
     @State var carPlate: String
     @State var carVIN: String
     
-    var years = yearsPlusTwo()
-    @State var selectionIndex = 0
-    
     let yearRange: [String]
 
     init(car: Binding<Car>) {
