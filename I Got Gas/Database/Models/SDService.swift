@@ -18,11 +18,17 @@ class SDService: Identifiable {
     var datePurchased = Date()
     var dateCompleted = Date()
     var note: String = ""
-    var odometer: String?
+    var odometer: Int?
+    
+    var isFuel: Bool = false
+    var costPerGallon: Double = 0.0
+    var isFullTank: Bool = true
+    var gallons: Double = 0.0
     
     @Relationship
     var vendor: SDVendor?
     
+    @Relationship
     var car: SDCar?
     
     init(
@@ -30,7 +36,7 @@ class SDService: Identifiable {
         datePurchased: Date,
         dateCompleted: Date,
         note: String,
-        odometer: String
+        odometer: Int
     ) {
         self.cost = cost
         self.datePurchased = datePurchased

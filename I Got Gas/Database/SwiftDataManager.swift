@@ -27,6 +27,7 @@ public class SwiftDataManager {
         )
         
         do {
+//            try ModelContainer().deleteAllData()
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
             do {

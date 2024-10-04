@@ -20,7 +20,7 @@ class SDCar: Identifiable {
     var plate: String = ""
     var vin: String = ""
     var year: String = ""
-    var startingOdometer: String = "0"
+    var startingOdometer: Int = 0
     
     @Relationship
     var services: [SDService] = []
@@ -32,7 +32,7 @@ class SDCar: Identifiable {
         plate: String,
         vin: String,
         year: String,
-        startingOdometer: String
+        startingOdometer: Int
     ) {
         self.make = make
         self.model = model
@@ -43,7 +43,7 @@ class SDCar: Identifiable {
         self.startingOdometer = startingOdometer
     }
     
-    var odometer: String {
+    var odometer: Int {
         return startingOdometer
     }
     var costPerGallon: Double {

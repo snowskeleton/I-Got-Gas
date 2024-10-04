@@ -24,21 +24,20 @@ class SDScheduledService: Identifiable {
     var frequencyMiles: Int = 0
     
     var frequencyDays: Int = 0
+    //        https://www.britannica.com/science/time/Lengths-of-years-and-months
     var frequencyWeeks: Int {
         return frequencyDays / 7
     }
     var frequencyMonths: Int {
-        return frequencyWeeks / 4
+        return Int(Double(frequencyDays) / 30.437)
     }
     var frequencyYears: Int {
-        return frequencyMonths / 12
+        return Int(Double(frequencyDays) / 365.25)
     }
     
     var car: SDCar?
     
     init(
-        localId: String,
-        icloudId: String,
         frequencyMiles: Int,
         frequencyDays: Int
     ) {
