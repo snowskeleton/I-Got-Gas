@@ -25,7 +25,7 @@ struct FuelExpenseBoxView: View {
     }
     
     var body: some View {
-        GroupBox(label: Label("Fuel", systemImage: (colorScheme == .dark ? "gasHandleDarkMode" : "gasHandle"))) {
+        GroupBox(label: Label("Fuel", systemImage: "fuelpump")) {
             VStack(alignment: .leading) {
                 ForEach(services, id: \.self) { service in
                     HStack {
