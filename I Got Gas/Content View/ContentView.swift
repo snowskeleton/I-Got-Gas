@@ -34,28 +34,30 @@ struct ContentView: View {
             }
             .listStyle(.inset)
             .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-            .navigationBarItems(
-                leading:
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
-                        try? self.moc.save()
                         self.showOptionsView.toggle()
                     }) {
                         Image(systemName: "gearshape")
-                            .sheet(isPresented: $showOptionsView) {
-                                OptionsView()
-                            }
-                    },
-                trailing:
+                    }
+                    .sheet(isPresented: $showOptionsView) {
+                        OptionsView()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         self.showAddCarView.toggle()
                     }) {
                         Image(systemName: "plus")
-                            .font(.largeTitle)
-                    }.padding(.leading)
+                            .font(.headline)
+                    }
                     .sheet(isPresented: $showAddCarView) {
                         AddCarView()
                             .environment(\.managedObjectContext, self.moc)
-                    })
+                    }
+                }
+            }
         }
         .onAppear {
             if migrated { return }
