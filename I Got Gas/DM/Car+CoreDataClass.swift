@@ -13,17 +13,16 @@ import SwiftUI
 @objc(Car)
 public class Car: NSManagedObject {
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-
+    
     var dpg: String {
-        var fuelCost = 0.00
-        var fuelExpenseCount = 0.0
+        let fuelCosts = services?.compactMap { ($0 as AnyObject).fuel?.dpg as? Double } ?? []
+        let totalFuelCost = fuelCosts.reduce(0, +)
+        let fuelExpenseCount = Double(fuelCosts.count)
         
-        for service in services! {
-            if ((service as AnyObject).fuel as AnyObject).dpg != nil {
-                fuelCost += ((service as AnyObject).fuel as AnyObject).dpg
-                fuelExpenseCount += 1
-            }
+        guard fuelExpenseCount > 0 else {
+            return "0.000/gal"
         }
-        return String(format: "%.3f/gal", fuelCost / fuelExpenseCount)
+        
+        return String(format: "%.3f/gal", totalFuelCost / fuelExpenseCount)
     }
 }
