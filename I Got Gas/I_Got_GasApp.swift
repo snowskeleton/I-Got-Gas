@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import CoreData
 
 @main
@@ -17,14 +18,14 @@ struct I_Got_GasApp: App {
     
     var body: some Scene {
         WindowGroup {
-            // Provide the managed object context to the SwiftUI view hierarchy
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        .modelContainer(SwiftDataManager.shared.container)
         .onChange(of: scenePhase) { _, newScenePhase in
             switch newScenePhase {
             case .background:
-                persistenceController.saveContext() // Save context when entering background
+                persistenceController.saveContext()
             default:
                 break
             }

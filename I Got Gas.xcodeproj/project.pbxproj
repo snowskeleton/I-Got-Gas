@@ -14,7 +14,6 @@
 		80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80582ECA2C8A48F30056C421 /* Aptabase */; };
 		80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ED02C8A519B0056C421 /* ExportDataView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
-		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
 		805B414624CDF04B0085DB47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414524CDF04B0085DB47 /* ContentView.swift */; };
 		805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414724CDF04E0085DB47 /* Assets.xcassets */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
@@ -44,7 +43,6 @@
 		80D4D3E524E45C970005650B /* FutureServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E424E45C970005650B /* FutureServiceView.swift */; };
 		80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */; };
 		80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */; };
-		80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E7534A24DE439100277392 /* RequestingFetches.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +53,6 @@
 		80582ED02C8A519B0056C421 /* ExportDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		805B414024CDF04B0085DB47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		805B414524CDF04B0085DB47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		805B414724CDF04E0085DB47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,7 +83,6 @@
 		80D4D3E424E45C970005650B /* FutureServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceView.swift; sourceTree = "<group>"; };
 		80E7534624DE3B5C00277392 /* FuelExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelExpenseBoxView.swift; sourceTree = "<group>"; };
 		80E7534824DE3BA200277392 /* FutureServiceBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureServiceBoxView.swift; sourceTree = "<group>"; };
-		80E7534A24DE439100277392 /* RequestingFetches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestingFetches.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -141,14 +137,12 @@
 				8057A4672CAF33BD00BC6C3D /* Configuration */,
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
-				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
+				8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */,
 				80776DE3251FC70D008FEE9D /* Content View */,
 				80776DEE251FC968008FEE9D /* Styles */,
 				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
-				80E7534A24DE439100277392 /* RequestingFetches.swift */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
-				8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -336,12 +330,10 @@
 				80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */,
 				8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */,
 				80D4D3E524E45C970005650B /* FutureServiceView.swift in Sources */,
-				80E7534B24DE439100277392 /* RequestingFetches.swift in Sources */,
 				805B414624CDF04B0085DB47 /* ContentView.swift in Sources */,
 				80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */,
 				80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */,
 				8084DF1D2513B224000F2B0D /* AboutView.swift in Sources */,
-				805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */,
 				80776DF0251FC97B008FEE9D /* DetailBoxStyle.swift in Sources */,
 				80802C9E24E8A2B7009DFF25 /* EditCarView.swift in Sources */,
 				8074091824EB7B4A007EC9A8 /* CarBoxView.swift in Sources */,
