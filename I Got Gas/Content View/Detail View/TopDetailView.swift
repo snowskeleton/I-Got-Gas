@@ -32,7 +32,7 @@ struct TopDetailView: View {
                 VStack {
                     Text("Avg $/gal")
                         .font(.system(size: 10))
-                    car.dpg() // Text view
+                    Text(car.dpg)
                 }
                 Spacer()
                 

@@ -30,7 +30,7 @@ struct CarBoxView: View {
                     VStack {
                         Text("Avg $/gal")
                             .font(.system(size: 10))
-                        car.dpg()
+                        Text(car.dpg)
                     }
                     Spacer()
                     
