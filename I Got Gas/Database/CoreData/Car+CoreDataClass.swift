@@ -20,9 +20,9 @@ public class Car: NSManagedObject {
         let fuelExpenseCount = Double(fuelCosts.count)
         
         guard fuelExpenseCount > 0 else {
-            return "0.000/gal"
+            return "$0.000/gal"
         }
         
-        return String(format: "%.3f/gal", totalFuelCost / fuelExpenseCount)
+        return String(format: "$%.3f/gal", totalFuelCost / fuelExpenseCount)
     }
 }

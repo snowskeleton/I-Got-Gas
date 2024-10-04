@@ -25,12 +25,36 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(cars, id: \.self) { car in
-                CarBoxView(car: Binding<Car>.constant(car))
-                    .groupBoxStyle(DetailBoxStyle(
-                        destination: DetailView(
-                            car: Binding<Car>.constant(car))
-                        .environment(\.managedObjectContext, self.moc)))
-                    .shadow(radius: 5.0)
+                NavigationLink {
+                    DetailView(car: Binding<Car>.constant(car))
+                } label: {
+                    VStack {
+                        HStack {
+                            HStack {
+                                Text(car.year ?? "")
+                                Text(car.make ?? "")
+                                Text(car.model ?? "")
+                            }
+                            .fontWeight(.bold)
+                            Spacer()
+                            Text(car.plate ?? "")
+                        }
+                        HStack {
+                            Spacer()
+                            Text("$\(car.costPerMile, specifier: "%.2f")/mile")
+                            Spacer()
+                            Text(car.dpg)
+                            Spacer()
+                        }
+                        HStack {
+                            Text(car.odometer.description)
+                            Text("miles")
+                            Spacer()
+                            Text("Last filled:")
+                            Text(car.lastFuelDate?.description ?? "never")
+                        }
+                    }
+                }
             }
             .listStyle(.inset)
             .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
