@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Aptabase
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 

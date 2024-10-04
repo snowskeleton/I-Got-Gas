@@ -10,11 +10,11 @@
 		8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8004A43C252F71FE00E871A2 /* EmailViewController.swift */; };
 		800906CB24CFB82A00B3DF44 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */; };
 		804B24DB24CE382F009FC038 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B24DA24CE382F009FC038 /* DetailView.swift */; };
+		8057A47E2CB0367800BC6C3D /* I_Got_GasApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */; };
 		80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80582ECA2C8A48F30056C421 /* Aptabase */; };
 		80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80582ED02C8A519B0056C421 /* ExportDataView.swift */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414124CDF04B0085DB47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414024CDF04B0085DB47 /* SceneDelegate.swift */; };
-		805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */; };
 		805B414624CDF04B0085DB47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B414524CDF04B0085DB47 /* ContentView.swift */; };
 		805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414724CDF04E0085DB47 /* Assets.xcassets */; };
 		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
@@ -37,7 +37,6 @@
 		808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */; };
 		8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8094975224F3490200E8D6A1 /* OptionsView.swift */; };
 		80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AF282C24CE03E20050CDA7 /* AddCarView.swift */; };
-		80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */; };
 		80D4D3DB24E312490005650B /* ServiceExpenseBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */; };
 		80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3DE24E3813D0005650B /* TopDetailView.swift */; };
 		80D4D3E124E38DB90005650B /* ServiceExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */; };
@@ -52,11 +51,11 @@
 		8004A43C252F71FE00E871A2 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		800906CA24CFB82A00B3DF44 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		804B24DA24CE382F009FC038 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = I_Got_GasApp.swift; sourceTree = "<group>"; };
 		80582ED02C8A519B0056C421 /* ExportDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataView.swift; sourceTree = "<group>"; };
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		805B414024CDF04B0085DB47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		805B414324CDF04B0085DB47 /* I_Got_Gas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = I_Got_Gas.xcdatamodel; sourceTree = "<group>"; };
 		805B414524CDF04B0085DB47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		805B414724CDF04E0085DB47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
 		8094975224F3490200E8D6A1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		80AF282C24CE03E20050CDA7 /* AddCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCarView.swift; sourceTree = "<group>"; };
-		80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Car+CoreDataClass.swift"; sourceTree = "<group>"; };
 		80D4D3DA24E312490005650B /* ServiceExpenseBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseBoxView.swift; sourceTree = "<group>"; };
 		80D4D3DE24E3813D0005650B /* TopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopDetailView.swift; sourceTree = "<group>"; };
 		80D4D3E024E38DB90005650B /* ServiceExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceExpenseView.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			children = (
 				8057A46D2CB0222000BC6C3D /* Database */,
 				8057A4672CAF33BD00BC6C3D /* Configuration */,
-				80CEAA2A256DD74A00996EEB /* DM */,
 				80E7534524DE3B4400277392 /* Boxes */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
 				805B414024CDF04B0085DB47 /* SceneDelegate.swift */,
@@ -151,7 +148,7 @@
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				80E7534A24DE439100277392 /* RequestingFetches.swift */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
-				805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */,
+				8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */,
 			);
 			path = "I Got Gas";
 			sourceTree = "<group>";
@@ -216,15 +213,6 @@
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
-		};
-		80CEAA2A256DD74A00996EEB /* DM */ = {
-			isa = PBXGroup;
-			children = (
-				80CEAA2D256DD74A00996EEB /* Car+CoreDataClass.swift */,
-			);
-			name = DM;
-			path = "I Got Gas/DM";
-			sourceTree = SOURCE_ROOT;
 		};
 		80D61B0624EAEFEE007A0C8F /* extensions */ = {
 			isa = PBXGroup;
@@ -336,15 +324,14 @@
 				80582ED12C8A519B0056C421 /* ExportDataView.swift in Sources */,
 				8094975324F3490200E8D6A1 /* OptionsView.swift in Sources */,
 				80E7534924DE3BA200277392 /* FutureServiceBoxView.swift in Sources */,
+				8057A47E2CB0367800BC6C3D /* I_Got_GasApp.swift in Sources */,
 				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
 				8084DF252513C6FF000F2B0D /* ChangeLogView.swift in Sources */,
-				80CEAA30256DD74A00996EEB /* Car+CoreDataClass.swift in Sources */,
 				806FC50B24D72D0C0016AF62 /* FuelExpenseView.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 				80AF282D24CE03E20050CDA7 /* AddCarView.swift in Sources */,
 				804B24DB24CE382F009FC038 /* DetailView.swift in Sources */,
 				80E7534724DE3B5C00277392 /* FuelExpenseBoxView.swift in Sources */,
-				805B414424CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld in Sources */,
 				8084DF202513B411000F2B0D /* PrivacyPolicyView.swift in Sources */,
 				80D4D3DF24E3813D0005650B /* TopDetailView.swift in Sources */,
 				8004A43D252F71FE00E871A2 /* EmailViewController.swift in Sources */,
@@ -567,19 +554,6 @@
 			productName = Aptabase;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		805B414224CDF04B0085DB47 /* I_Got_Gas.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				805B414324CDF04B0085DB47 /* I_Got_Gas.xcdatamodel */,
-			);
-			currentVersion = 805B414324CDF04B0085DB47 /* I_Got_Gas.xcdatamodel */;
-			path = I_Got_Gas.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 805B413324CDF04B0085DB47 /* Project object */;
 }
