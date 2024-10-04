@@ -47,7 +47,15 @@ class SDCar: Identifiable {
         return startingOdometer
     }
     var costPerGallon: Double {
-        return 0.0
+        let fuelCosts = services.compactMap { ($0 as AnyObject).fuel?.dpg as? Double }
+        let totalFuelCost = fuelCosts.reduce(0, +)
+        let fuelExpenseCount = Double(fuelCosts.count)
+        
+        guard fuelExpenseCount > 0 else {
+            return 0.0
+        }
+        
+        return (totalFuelCost / fuelExpenseCount)
     }
     var costPerMile: Double {
         return 0.0
