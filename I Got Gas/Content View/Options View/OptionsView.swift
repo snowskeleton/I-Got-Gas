@@ -16,6 +16,7 @@ struct OptionsView: View {
     var formatList: [String]
     
     @AppStorage("isAnalyticsDisabled") var disableAnalytics = false
+    @AppStorage("useSwiftData") var useSwiftData: Bool = false
 
     init() {
         formatList = ["%.3f", "%.2f"]
@@ -32,6 +33,7 @@ struct OptionsView: View {
             VStack {
                 Form {
                     
+                    Toggle("SwiftData", isOn: $useSwiftData)
                     Section(header: Text("Decimal Length")) {
                         Picker(selection: $formatSelection,
                                label: Text("Fuel Price Decimal Length")) {

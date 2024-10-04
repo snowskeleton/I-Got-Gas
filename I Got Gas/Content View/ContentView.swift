@@ -20,57 +20,46 @@ struct ContentView: View {
 
     @Query(sort: \SDCar.make) var sdcars: [SDCar]
     
-    @AppStorage("useSwiftData") var useSwiftData: Bool = false
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
 
     var body: some View {
-        VStack {
-            NavigationView {
-                ScrollView {
-                    Toggle("SwiftData", isOn: $useSwiftData)
-                    VStack(spacing: 25) {
-                        ForEach(cars, id: \.self) { car in
-                            CarBoxView(car: Binding<Car>.constant(car))
-                            
-                                .groupBoxStyle(DetailBoxStyle(
-                                    destination: DetailView(
-                                        car: Binding<Car>.constant(car))
-                                    .environment(\.managedObjectContext, self.moc)))
-                        }
-                    }
-                    .clipped()
+        NavigationView {
+            List(cars, id: \.self) { car in
+                CarBoxView(car: Binding<Car>.constant(car))
+                    .groupBoxStyle(DetailBoxStyle(
+                        destination: DetailView(
+                            car: Binding<Car>.constant(car))
+                        .environment(\.managedObjectContext, self.moc)))
                     .shadow(radius: 5.0)
-                    .padding()
-                }
-                .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
-                .navigationBarItems(
-                    leading:
-                        Button(action: {
-                            try? self.moc.save()
-                            self.showOptionsView.toggle()
-                        }) {
-                            Image(systemName: "gearshape")
-                                .sheet(isPresented: $showOptionsView) {
-                                    OptionsView()
-                                }
-                        },
-                    trailing:
-                        Button(action: {
-                            self.showAddCarView.toggle()
-                        }) {
-                            Image(systemName: "plus")
-                                .font(.largeTitle)
-                        }.padding(.leading)
-                        .sheet(isPresented: $showAddCarView) {
-                            AddCarView()
-                                .environment(\.managedObjectContext, self.moc)
-                        })
             }
+            .listStyle(.inset)
+            .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
+            .navigationBarItems(
+                leading:
+                    Button(action: {
+                        try? self.moc.save()
+                        self.showOptionsView.toggle()
+                    }) {
+                        Image(systemName: "gearshape")
+                            .sheet(isPresented: $showOptionsView) {
+                                OptionsView()
+                            }
+                    },
+                trailing:
+                    Button(action: {
+                        self.showAddCarView.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.largeTitle)
+                    }.padding(.leading)
+                    .sheet(isPresented: $showAddCarView) {
+                        AddCarView()
+                            .environment(\.managedObjectContext, self.moc)
+                    })
         }
         .onAppear {
             if migrated { return }
             for car in cars {
-//                print(car.model)
                 let sdcar = SDCar(
                     make: car.make ?? "",
                     model: car.model ?? "",
@@ -124,7 +113,6 @@ struct ContentView: View {
                     sdscheduledService.odometerFirstOccurance = Int(workingService.targetOdometer)
                     sdscheduledService.car = sdcar
                 }
-//                print(sdcar.model)
                 context.insert(sdcar)
             }
             migrated = true
