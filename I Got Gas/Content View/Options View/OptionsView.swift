@@ -17,6 +17,7 @@ struct OptionsView: View {
     
     @AppStorage("isAnalyticsDisabled") var disableAnalytics = false
     @AppStorage("useSwiftData") var useSwiftData: Bool = false
+    @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
 
     init() {
         formatList = ["%.3f", "%.2f"]
@@ -34,6 +35,7 @@ struct OptionsView: View {
                 Form {
                     
                     Toggle("SwiftData", isOn: $useSwiftData)
+                    Toggle("2.0 Migration Complete", isOn: $migrated)
                     Section(header: Text("Decimal Length")) {
                         Picker(selection: $formatSelection,
                                label: Text("Fuel Price Decimal Length")) {

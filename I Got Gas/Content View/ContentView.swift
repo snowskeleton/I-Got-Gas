@@ -12,7 +12,6 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var context
 
-    @State private var adOnTop = UserDefaults.standard.bool(forKey: "isAdOnTop")
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State var showAddCarView = false
@@ -24,31 +23,31 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(cars, id: \.self) { car in
+            List(sdcars, id: \.self) { car in
                 NavigationLink {
-                    DetailView(car: Binding<Car>.constant(car))
+//                    DetailView(car: Binding<Car>.constant(car))
                 } label: {
                     VStack {
                         HStack {
                             HStack {
-                                Text(car.year ?? "")
-                                Text(car.make ?? "")
-                                Text(car.model ?? "")
+                                Text(car.year)
+                                Text(car.make)
+                                Text(car.model)
                             }
                             .fontWeight(.bold)
                             Spacer()
-                            Text(car.plate ?? "")
+                            Text(car.plate)
                         }
                         HStack {
                             Spacer()
                             Text("$\(car.costPerMile, specifier: "%.2f")/mile")
                             Spacer()
-                            Text(car.dpg)
+                            Text("$\(car.costPerGallon, specifier: "%.3f")/gal)")
                             Spacer()
                         }
                         HStack {
+                            Text("Miles:")
                             Text(car.odometer.description)
-                            Text("miles")
                             Spacer()
                             Text("Last filled:")
                             Text(car.lastFuelDate?.description ?? "never")
