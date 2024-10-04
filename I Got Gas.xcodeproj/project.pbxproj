@@ -93,6 +93,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8057A4672CAF33BD00BC6C3D /* Configuration */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Configuration; sourceTree = "<group>"; };
+		8057A46D2CB0222000BC6C3D /* Database */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Database; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 		805B413D24CDF04B0085DB47 /* I Got Gas */ = {
 			isa = PBXGroup;
 			children = (
+				8057A46D2CB0222000BC6C3D /* Database */,
 				8057A4672CAF33BD00BC6C3D /* Configuration */,
 				80CEAA2A256DD74A00996EEB /* DM */,
 				80E7534524DE3B4400277392 /* Boxes */,
@@ -260,6 +262,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8057A4672CAF33BD00BC6C3D /* Configuration */,
+				8057A46D2CB0222000BC6C3D /* Database */,
 			);
 			name = "I Got Gas";
 			productName = "I Got Gas";
