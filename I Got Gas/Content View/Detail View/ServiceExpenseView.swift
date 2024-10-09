@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import CoreData
 
 struct ServiceExpenseView: View {
@@ -14,20 +15,36 @@ struct ServiceExpenseView: View {
 
     @State var showAddExpenseView = false
     @State private var editSelectedExpense = false
-    @Binding var car: Car
+    @Binding var car: SDCar
     @State private var selectedService = 0
 
-    var serviceFetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
+//    var serviceFetchRequest: FetchRequest<Service>
+//    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
 
-    init(car: Binding<Car>) {
+    @Query var services: [SDService]
+    
+    init(car: Binding<SDCar>) {
         self._car = car
-        serviceFetchRequest = Fetch.services(howMany: 0,
-                                             carID: car.id.wrappedValue!,
-                                             filters: [
-                                                "vehicle.id = '\(car.id.wrappedValue!)'",
-                                                "note != 'Fuel'"
-                                             ])
+        let searchId = car.wrappedValue.localId
+        let predicate = #Predicate<SDService> {
+            $0.car?.localId == searchId &&
+            $0.isFuel == false
+        }
+        let descriptor = FetchDescriptor<SDService>(
+            predicate: predicate,
+            sortBy: [SortDescriptor(\.datePurchased)]
+        )
+        //        descriptor.fetchLimit = 5
+        _services = Query(descriptor)
+
+//    init(car: Binding<SDCar>) {
+//        self._car = car
+//        serviceFetchRequest = Fetch.services(howMany: 0,
+//                                             carID: car.id.wrappedValue!,
+//                                             filters: [
+//                                                "vehicle.id = '\(car.id.wrappedValue!)'",
+//                                                "note != 'Fuel'"
+//                                             ])
     }
     
     
@@ -45,40 +62,41 @@ struct ServiceExpenseView: View {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text("\(service.dateCompleted!, formatter: DateFormatter.taskDateFormat)")
                             }
                             HStack {
-                                Text("\(service.odometer)")
+                                Text("\(service.odometer!)")
                                 Spacer()
-                                Text("\(service.note ?? "")")
+                                Text(service.note)
                                 Spacer()
-                                Text("\(service.vendor?.name ?? "")")
+                                Text(service.vendor?.name ?? "")
                             }
                         }
                     }
-                    .sheet(isPresented: self.$editSelectedExpense) {
-                        AddExpenseView(car: Binding<Car>.constant(car), service: Binding<Service>.constant(services[selectedService]))
-                            .environment(\.managedObjectContext, self.moc)
-                    }
-                }.onDelete(perform: loseMemory)
+//                    .sheet(isPresented: self.$editSelectedExpense) {
+//                        AddExpenseView(car: Binding<SDCar>.constant(car), service: Binding<Service>.constant(services[selectedService]))
+//                            .environment(\.managedObjectContext, self.moc)
+//                    }
+                }
+                //.onDelete(perform: loseMemory)
             }
             Spacer()
             Button("Add Expense") {
                 self.showAddExpenseView.toggle()
             }
             .padding(.bottom)
-            .sheet(isPresented: self.$showAddExpenseView) {
-                AddExpenseView(car: Binding<Car>.constant(car),
-                               isGas: State(initialValue: false))
-                    .environment(\.managedObjectContext, self.moc)
-            }
+//            .sheet(isPresented: self.$showAddExpenseView) {
+//                AddExpenseView(car: Binding<Car>.constant(car),
+//                               isGas: State(initialValue: false))
+//                    .environment(\.managedObjectContext, self.moc)
+//            }
         }
     }
-    func loseMemory(at offsets: IndexSet) {
-        for index in offsets {
-            let service = services[index]
-            moc.delete(service)
-            try? self.moc.save()
-        }
-    }
+//    func loseMemory(at offsets: IndexSet) {
+//        for index in offsets {
+//            let service = services[index]
+//            moc.delete(service)
+//            try? self.moc.save()
+//        }
+//    }
 }

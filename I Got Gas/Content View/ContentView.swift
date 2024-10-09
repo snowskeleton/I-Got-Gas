@@ -25,7 +25,7 @@ struct ContentView: View {
         NavigationView {
             List(sdcars, id: \.self) { car in
                 NavigationLink {
-//                    DetailView(car: Binding<Car>.constant(car))
+                    DetailView(car: Binding<SDCar>.constant(car))
                 } label: {
                     VStack {
                         HStack {
@@ -42,7 +42,7 @@ struct ContentView: View {
                             Spacer()
                             Text("$\(car.costPerMile, specifier: "%.2f")/mile")
                             Spacer()
-                            Text("$\(car.costPerGallon, specifier: "%.3f")/gal)")
+                            Text("$\(car.costPerGallon, specifier: "%.3f")/gal")
                             Spacer()
                         }
                         HStack {

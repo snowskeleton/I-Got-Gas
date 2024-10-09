@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import CoreData
 
 struct FuelExpenseView: View {
@@ -16,20 +17,23 @@ struct FuelExpenseView: View {
     @State private var editSelectedExpense = false
     @State private var selectedService = 0
 
-    @Binding var car: Car
+    @Binding var car: SDCar
 
-    var serviceFetchRequest: FetchRequest<Service>
-    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
+    @Query var services: [SDService]
     
-    init(car: Binding<Car>) {
+    init(car: Binding<SDCar>) {
         self._car = car
-        serviceFetchRequest = Fetch.services(
-            howMany: 0,
-            carID: car.id.wrappedValue!,
-            filters: [
-                "vehicle.id = '\(car.id.wrappedValue!)'",
-                "note = 'Fuel'"
-            ])
+        let searchId = car.wrappedValue.localId
+        let predicate = #Predicate<SDService> {
+            $0.car?.localId == searchId &&
+            $0.isFuel == true
+        }
+        let descriptor = FetchDescriptor<SDService>(
+            predicate: predicate,
+            sortBy: [SortDescriptor(\.datePurchased)]
+        )
+//        descriptor.fetchLimit = 5
+        _services = Query(descriptor)
     }
     
     
@@ -45,20 +49,19 @@ struct FuelExpenseView: View {
                     }) {
                         VStack {
                             HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\((service.fuel?.dpg)!, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
+                                Text("$\(service.cost, specifier: "%.2f")($\(service.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
                                 Spacer()
                             }
                             HStack {
-                                Text("\(service.odometer)")
+                                Text("\(service.odometer?.description ?? "")")
                                 Spacer()
-                                Text("\(service.date!, formatter: DateFormatter.taskDateFormat)")
+                                Text("\((service.dateCompleted ?? service.datePurchased), formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                     }
-                    .sheet(isPresented: self.$editSelectedExpense) {
-                        AddExpenseView(car: Binding<Car>.constant(car), service: Binding<Service>.constant(services[selectedService]))
-                            .environment(\.managedObjectContext, self.moc)
-                    }
+//                    .sheet(isPresented: self.$editSelectedExpense) {
+//                        AddExpenseView(car: Binding<SDCar>.constant(car), service: Binding<SDService>.constant(services[selectedService]))
+//                    }
                 }.onDelete(perform: loseMemory)
 
             }
@@ -67,24 +70,23 @@ struct FuelExpenseView: View {
                 self.showAddExpenseView.toggle()
             }
             .padding(.bottom)
-            .sheet(isPresented: self.$showAddExpenseView) {
-                AddExpenseView(car: Binding<Car>.constant(car))
-                    .environment(\.managedObjectContext, self.moc)
-            }
+//            .sheet(isPresented: self.$showAddExpenseView) {
+//                AddExpenseView(car: Binding<SDCar>.constant(car))
+//            }
         }
     }
     func loseMemory(at offsets: IndexSet) {
-        for index in offsets     {
-            let service = services[index]
-            let savedCar = service.vehicle
-            moc.delete(service)
-            try? self.moc.save()
-            if services.count > 0 {
-                services[0].vehicle?.odometer = services[0].odometer
-            } else {
-                savedCar!.odometer = savedCar!.startingOdometer
-            }
-            try? self.moc.save()
-        }
+//        for index in offsets     {
+//            let service = services[index]
+//            let savedCar = service.vehicle
+//            moc.delete(service)
+//            try? self.moc.save()
+//            if services.count > 0 {
+//                services[0].vehicle?.odometer = services[0].odometer
+//            } else {
+//                savedCar!.odometer = savedCar!.startingOdometer
+//            }
+//            try? self.moc.save()
+//        }
     }
 }

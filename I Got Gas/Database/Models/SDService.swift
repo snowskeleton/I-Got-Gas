@@ -16,7 +16,7 @@ class SDService: Identifiable {
     var icloudId: String = UUID().uuidString
     var cost: Double = 0.0
     var datePurchased = Date()
-    var dateCompleted = Date()
+    var dateCompleted: Date?
     var note: String = ""
     var odometer: Int?
     
@@ -34,7 +34,7 @@ class SDService: Identifiable {
     init(
         cost: Double,
         datePurchased: Date,
-        dateCompleted: Date,
+        dateCompleted: Date?,
         note: String,
         odometer: Int
     ) {
