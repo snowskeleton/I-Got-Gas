@@ -28,16 +28,16 @@ struct AddFutureServiceView: View {
         _car = car
     }
 
-    init(car: Binding<SDCar>, futureService: Binding<SDScheduledService>) {
+    init(car: Binding<SDCar>, futureService: SDScheduledService) {
         _car = car
-        _futureService = .init(initialValue: futureService.wrappedValue)
-        _name = .init(initialValue: futureService.name.wrappedValue)
-        _notes = .init(initialValue: futureService.notes.wrappedValue)
-        _repeating = .init(initialValue: futureService.repeating.wrappedValue)
-        _date = .init(initialValue: futureService.frequencyTimeStart.wrappedValue)
-        _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval.wrappedValue)
-        _frequencyTime = .init(initialValue: futureService.frequencyTime.wrappedValue)
-        _frequencyMiles = .init(initialValue: futureService.frequencyMiles.wrappedValue)
+        _futureService = .init(initialValue: futureService)
+        _name = .init(initialValue: futureService.name)
+        _notes = .init(initialValue: futureService.notes)
+        _repeating = .init(initialValue: futureService.repeating)
+        _date = .init(initialValue: futureService.frequencyTimeStart)
+        _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval)
+        _frequencyTime = .init(initialValue: futureService.frequencyTime)
+        _frequencyMiles = .init(initialValue: futureService.frequencyMiles)
     }
     
     var body: some View {

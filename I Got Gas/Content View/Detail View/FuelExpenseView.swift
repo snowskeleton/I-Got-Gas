@@ -39,10 +39,7 @@ struct FuelExpenseView: View {
             List {
                 ForEach(services, id: \.self) { service in
                     NavigationLink {
-                        AddExpenseView(
-                            car: Binding<SDCar>.constant(car),
-                            service: Binding<SDService>.constant(service)
-                        )
+                        AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
                     } label: {
                         VStack {
                             HStack {

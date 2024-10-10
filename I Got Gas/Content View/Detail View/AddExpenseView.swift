@@ -61,19 +61,19 @@ struct AddExpenseView: View {
         _serviceType = State(initialValue: isGas ? "Gas" : "Service")
     }
 
-    init(car: Binding<SDCar>, service: Binding<SDService>) {
+    init(car: Binding<SDCar>, service: SDService) {
         self.init(car: car)
-        _service = State(initialValue: service.wrappedValue)
-        _totalPrice = State(initialValue: String(format: "%.0f", service.cost.wrappedValue * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
-        _expenseDate = State(initialValue: service.datePurchased.wrappedValue)
-        _note = State(initialValue: service.note.wrappedValue)
-        _odometer = State(initialValue: service.odometer.wrappedValue)
+        _service = State(initialValue: service)
+        _totalPrice = State(initialValue: String(format: "%.0f", service.cost * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
+        _expenseDate = State(initialValue: service.datePurchased)
+        _note = State(initialValue: service.note)
+        _odometer = State(initialValue: service.odometer)
 
-        _vendorName = State(initialValue: service.vendorName.wrappedValue)
+        _vendorName = State(initialValue: service.vendorName)
 
-        if service.wrappedValue.isFuel {
-            _gallonsOfGas = State(initialValue: String(format: "%.0f", service.wrappedValue.gallons * 1000))
-            _isFullTank = State(initialValue: ( service.wrappedValue.isFullTank == true ? 0 : 1 ))
+        if service.isFuel {
+            _gallonsOfGas = State(initialValue: String(format: "%.0f", service.gallons * 1000))
+            _isFullTank = State(initialValue: ( service.isFullTank == true ? 0 : 1 ))
         } else {
             _serviceType = .init(initialValue: "Service")
         }

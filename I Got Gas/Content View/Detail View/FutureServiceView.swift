@@ -34,8 +34,7 @@ struct FutureServiceView: View {
         VStack {
                 List(futureServices, id: \.self) { futureService in
                     NavigationLink {
-                        AddFutureServiceView(car: Binding<SDCar>.constant(car),
-                                             futureService: Binding<SDScheduledService>.constant(futureService))
+                        AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: futureService)
                     } label: {
                         VStack {
                             HStack {

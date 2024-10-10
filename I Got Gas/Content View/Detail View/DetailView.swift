@@ -75,10 +75,14 @@ struct DetailView: View {
             List {
                 Section {
                     ForEach(fuelServices, id: \.self) { service in
-                        HStack {
-                            Text("$\(service.cost, specifier: "%.2f")")
-                            Spacer()
-                            Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)")
+                        NavigationLink {
+                            AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
+                        } label: {
+                            HStack {
+                                Text("$\(service.cost, specifier: "%.2f")")
+                                Spacer()
+                                Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)")
+                            }
                         }
                     }
                     NavigationLink {
@@ -101,14 +105,18 @@ struct DetailView: View {
                 
                 Section {
                     ForEach(services, id: \.self) { service in
-                        HStack {
-                            Text("$\(service.cost, specifier: "%.2f")")
-                            Spacer()
-                            Text(service.note)
-                                .lineLimit(1)
-                            Spacer()
-                            Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)"
-                            )
+                        NavigationLink {
+                            AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
+                        } label: {
+                            HStack {
+                                Text("$\(service.cost, specifier: "%.2f")")
+                                Spacer()
+                                Text(service.note)
+                                    .lineLimit(1)
+                                Spacer()
+                                Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)"
+                                )
+                            }
                         }
                     }
                     NavigationLink {
@@ -131,16 +139,20 @@ struct DetailView: View {
                 
                 Section {
                     ForEach(scheduledServices, id: \.self) { service in
-                        VStack {
-                            HStack {
-                                Text(service.name)
-                                    .foregroundColor(service.pastDue ? Color.red : Color.primary)
-                                Spacer()
-                                Text("\(service.odometerFirstOccurance - service.car!.odometer)/\(service.frequencyMiles)")
-                            }
-                            HStack {
-                                Spacer()
-                                Text(service.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: service.frequencyTimeInterval.calendarComponent, value: service.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
+                        NavigationLink {
+                            AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: service)
+                        } label: {
+                            VStack {
+                                HStack {
+                                    Text(service.name)
+                                        .foregroundColor(service.pastDue ? Color.red : Color.primary)
+                                    Spacer()
+                                    Text("\(service.odometerFirstOccurance - service.car!.odometer)/\(service.frequencyMiles)")
+                                }
+                                HStack {
+                                    Spacer()
+                                    Text(service.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: service.frequencyTimeInterval.calendarComponent, value: service.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
+                                }
                             }
                         }
                     }

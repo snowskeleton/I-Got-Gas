@@ -59,9 +59,22 @@ class SDCar: Identifiable {
         
         return (totalFuelCost / fuelExpenseCount)
     }
+    
     var costPerMile: Double {
-        return 0.0
+        let validServices = services.filter { $0.odometer > startingOdometer && ($0.dateCompleted == nil || ($0.dateCompleted != nil && !$0.pendingCompletion)) }
+        
+        let totalCost = validServices.reduce(0.0) { $0 + $1.cost }
+        let highestOdometer = validServices.map { $0.odometer }.max() ?? startingOdometer
+        let milesDriven = highestOdometer - startingOdometer
+        
+        // Prevent division by zero
+        guard milesDriven > 0 else {
+            return 0.0
+        }
+        
+        return totalCost / Double(milesDriven)
     }
+    
     var lastFillup: Date? {
         return services.filter { $0.isFuel }
             .max(by: { $0.odometer < $1.odometer } )?
