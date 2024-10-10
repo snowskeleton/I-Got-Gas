@@ -36,61 +36,47 @@ struct ServiceExpenseView: View {
         )
         //        descriptor.fetchLimit = 5
         _services = Query(descriptor)
-
-//    init(car: Binding<SDCar>) {
-//        self._car = car
-//        serviceFetchRequest = Fetch.services(howMany: 0,
-//                                             carID: car.id.wrappedValue!,
-//                                             filters: [
-//                                                "vehicle.id = '\(car.id.wrappedValue!)'",
-//                                                "note != 'Fuel'"
-//                                             ])
     }
     
     
     var body: some View {
         VStack {
-            List {
-                ForEach(services, id: \.self) { service in
-                    Button(action: {
-                        selectedService = Int(services.firstIndex(of: service)!)
-                        if (selectedService >= 0) && (selectedService <= services.count - 1) {
-                            editSelectedExpense.toggle()
+            List(services, id: \.self) { service in
+                NavigationLink {
+                    AddExpenseView(
+                        car: Binding<SDCar>.constant(car),
+                        service: Binding<SDService>.constant(service)
+                    )
+                } label: {
+                    VStack {
+                        HStack {
+                            Text("$\(service.cost, specifier: "%.2f")")
+                            Spacer()
+                            Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)")
                         }
-                    }) {
-                        VStack {
-                            HStack {
-                                Text("$\(service.cost, specifier: "%.2f")")
-                                Spacer()
-                                Text("\(service.dateCompleted!, formatter: DateFormatter.taskDateFormat)")
-                            }
-                            HStack {
-                                Text("\(service.odometer!)")
-                                Spacer()
-                                Text(service.note)
-                                Spacer()
-                                Text(service.vendor?.name ?? "")
-                            }
+                        HStack {
+                            Text("\(service.odometer)")
+                            Spacer()
+                            Text(service.note)
+                            Spacer()
+                            Text(service.vendorName)
                         }
                     }
-//                    .sheet(isPresented: self.$editSelectedExpense) {
-//                        AddExpenseView(car: Binding<SDCar>.constant(car), service: Binding<Service>.constant(services[selectedService]))
-//                            .environment(\.managedObjectContext, self.moc)
-//                    }
                 }
-                //.onDelete(perform: loseMemory)
             }
+            //.onDelete(perform: loseMemory)
             Spacer()
-            Button("Add Expense") {
-                self.showAddExpenseView.toggle()
+            NavigationLink {
+                AddExpenseView(
+                    car: Binding<SDCar>.constant(car),
+                    isGas: State(initialValue: false)
+                )
+            } label: {
+                Text("Add Expense")
             }
             .padding(.bottom)
-//            .sheet(isPresented: self.$showAddExpenseView) {
-//                AddExpenseView(car: Binding<Car>.constant(car),
-//                               isGas: State(initialValue: false))
-//                    .environment(\.managedObjectContext, self.moc)
-//            }
         }
+        .navigationTitle("Services")
     }
 //    func loseMemory(at offsets: IndexSet) {
 //        for index in offsets {

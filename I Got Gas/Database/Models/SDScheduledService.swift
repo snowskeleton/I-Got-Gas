@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftData
+import UserNotifications
 
 @Model
 class SDScheduledService: Identifiable {
@@ -15,15 +16,30 @@ class SDScheduledService: Identifiable {
     var localId: String = UUID().uuidString
     var icloudId: String = UUID().uuidString
     
-    var important: Bool = false
+    @available(*, deprecated, message: "Use `pastDue` instead")
+    var important: Bool { return pastDue }
+    var pastDue: Bool {
+        if let nextDueDate = Calendar.current.date(byAdding: frequencyTimeInterval.calendarComponent, value: frequencyTime, to: frequencyTimeStart) {
+            return Date() > nextDueDate
+        }
+        return false
+    }
+    
     var name: String = ""
     var notes: String = ""
     var notificationUUID: String = UUID().uuidString
     var repeating: Bool = false
+    
+    @available(*, deprecated, message: "use `odometerFirstOccurance` instead")
+    var targetOdometer: Int = 0
     var odometerFirstOccurance: Int = 0
+    
+    @available(*, deprecated, message: "use `frequencyMiles` instead")
+    var everyXMiles: Int = 0
     var frequencyMiles: Int = 0
     var frequencyTime: Int = 0
     var frequencyTimeInterval: FrequencyTimeInterval = FrequencyTimeInterval.month
+    var frequencyTimeStart: Date = Date()
 
     var car: SDCar?
     
@@ -37,6 +53,40 @@ class SDScheduledService: Identifiable {
     init() {
         self.localId = localId
         self.icloudId = icloudId
+    }
+    
+    func scheduleNotification(now: Bool? = false) {
+        //        if futureService.date == nil { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "\(self.name)"
+        content.body = "Your \(car!.make) \(car!.model) \(name) is due."
+        content.badge = 0
+        content.sound = UNNotificationSound.default
+        
+        if now! {
+            // this sets a 30 second delay because IGG doesn't handle notificaions in the foreground.
+            // Can't we just handle those?
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            notificationUUID = request.identifier
+            UNUserNotificationCenter.current().add(request)
+            return
+        }
+        
+        if frequencyTime > 0 {
+            let futureDate = Calendar.current.date(byAdding: frequencyTimeInterval.calendarComponent, value: frequencyTime, to: Date())!
+            
+            var triggerDate = Calendar.current.dateComponents([.year, .month, .day], from: futureDate)
+            triggerDate.hour = 8
+            triggerDate.minute = 15
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            notificationUUID = request.identifier
+            
+            UNUserNotificationCenter.current().add(request)
+        }
     }
 }
 

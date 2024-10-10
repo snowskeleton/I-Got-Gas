@@ -44,10 +44,12 @@ class SDCar: Identifiable {
     }
     
     var odometer: Int {
-        return startingOdometer
+        let odometerValues = services.map { $0.odometer }
+        return max(odometerValues.max() ?? 0, startingOdometer)
     }
+    
     var costPerGallon: Double {
-        let fuelCosts = services.compactMap { ($0 as AnyObject).fuel?.dpg as? Double }
+        let fuelCosts = services.compactMap { ($0 as AnyObject).costPerGallon }
         let totalFuelCost = fuelCosts.reduce(0, +)
         let fuelExpenseCount = Double(fuelCosts.count)
         
@@ -61,8 +63,11 @@ class SDCar: Identifiable {
         return 0.0
     }
     var lastFillup: Date? {
-        return Date()
+        return services.filter { $0.isFuel }
+            .max(by: { $0.odometer < $1.odometer } )?
+            .datePurchased
     }
+    @available(*, deprecated, message: "use `lastFillup` instead")
     var lastFuelDate: Date? {
         return Date()
     }

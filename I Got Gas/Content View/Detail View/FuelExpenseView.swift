@@ -53,7 +53,7 @@ struct FuelExpenseView: View {
                                 Spacer()
                             }
                             HStack {
-                                Text("\(service.odometer?.description ?? "")")
+                                Text(service.odometer.description)
                                 Spacer()
                                 Text("\((service.dateCompleted ?? service.datePurchased), formatter: DateFormatter.taskDateFormat)")
                             }

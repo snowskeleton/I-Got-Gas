@@ -17,20 +17,25 @@ class SDService: Identifiable {
     var cost: Double = 0.0
     var datePurchased = Date()
     var dateCompleted: Date?
+    var pendingCompletion: Bool = false
     var note: String = ""
-    var odometer: Int?
+    var odometer: Int = 0
     
     var isFuel: Bool = false
     var costPerGallon: Double = 0.0
     var isFullTank: Bool = true
     var gallons: Double = 0.0
     
+    var vendorName = ""
+    
+    @available(*, deprecated, message: "use `vendorName` instead")
     @Relationship
     var vendor: SDVendor?
     
     @Relationship
     var car: SDCar?
     
+    init() { }
     init(
         cost: Double,
         datePurchased: Date,

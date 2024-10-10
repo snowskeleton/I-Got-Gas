@@ -34,6 +34,7 @@ struct AddFutureServiceView: View {
         _name = .init(initialValue: futureService.name.wrappedValue)
         _notes = .init(initialValue: futureService.notes.wrappedValue)
         _repeating = .init(initialValue: futureService.repeating.wrappedValue)
+        _date = .init(initialValue: futureService.frequencyTimeStart.wrappedValue)
         _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval.wrappedValue)
         _frequencyTime = .init(initialValue: futureService.frequencyTime.wrappedValue)
         _frequencyMiles = .init(initialValue: futureService.frequencyMiles.wrappedValue)
@@ -127,44 +128,12 @@ struct AddFutureServiceView: View {
         hydratedService.frequencyMiles = frequencyMiles
         hydratedService.frequencyTime = frequencyTime
         hydratedService.frequencyTimeInterval = frequencyTimeInterval
+        hydratedService.frequencyTimeStart = date
         hydratedService.odometerFirstOccurance = car.odometer
         
         context.insert(hydratedService)
         
-        setFutureServiceNotification(hydratedService)
-    }
-    
-    public func setFutureServiceNotification(_ futureService: SDScheduledService, now: Bool? = false) {
-//        if futureService.date == nil { return }
-        
-        let content = UNMutableNotificationContent()
-        content.title = "\(self.name)"
-        content.body = "Your \(futureService.car!.make) \(futureService.car!.model) \(self.name) is due."
-        content.badge = 0
-        content.sound = UNNotificationSound.default
-        
-        if now! {
-            // this sets a 30 second delay because IGG doesn't handle notificaions in the foreground.
-            // Can't we just handle those?
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            futureService.notificationUUID = request.identifier
-            UNUserNotificationCenter.current().add(request)
-            return
-        }
-        
-        if futureService.frequencyTime > 0 {
-            let futureDate = Calendar.current.date(byAdding: futureService.frequencyTimeInterval.calendarComponent, value: futureService.frequencyTime, to: Date())!
-
-            var triggerDate = Calendar.current.dateComponents([.year, .month, .day], from: futureDate)
-            triggerDate.hour = 8
-            triggerDate.minute = 15
-            
-            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            futureService.notificationUUID = request.identifier
-            
-            UNUserNotificationCenter.current().add(request)
-        }
+        hydratedService.scheduleNotification()
+        presentationMode.wrappedValue.dismiss()
     }
 }

@@ -50,7 +50,7 @@ struct ContentView: View {
                             Text(car.odometer.description)
                             Spacer()
                             Text("Last filled:")
-                            Text(car.lastFuelDate?.description ?? "never")
+                            Text(car.lastFillup?.description ?? "never")
                         }
                     }
                 }
@@ -112,14 +112,7 @@ struct ContentView: View {
                         
                     }
                     if let vendor = workingService.vendor {
-                        //monthsOrWeeks: 0 is months, 1 is weeks
-                        
-                        let sdvendor = SDVendor(
-                            name: vendor.name ?? "",
-                            longitude: vendor.longitude,
-                            latitude: vendor.latitude
-                        )
-                        sdservice.vendor = sdvendor
+                        sdservice.vendorName = vendor.name ?? ""
                     }
                     context.insert(sdservice)
                 }
@@ -130,7 +123,7 @@ struct ContentView: View {
                     sdscheduledService.frequencyMiles = Int(workingService.everyXMiles)
                     sdscheduledService.frequencyTime = serviceIntervalInDays
                     sdscheduledService.frequencyTimeInterval = .day
-                    sdscheduledService.important = workingService.important
+//                    sdscheduledService.pastDue = workingService.important
                     sdscheduledService.name = workingService.name ?? ""
                     sdscheduledService.notes = workingService.note ?? ""
                     sdscheduledService.notificationUUID = workingService.notificationUUID ?? ""
