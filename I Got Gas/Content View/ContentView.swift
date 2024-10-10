@@ -13,8 +13,6 @@ struct ContentView: View {
     @Environment(\.modelContext) private var context
 
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-    @State var showAddCarView = false
-    @State var showOptionsView = false
 
     @Query(sort: \SDCar.make) var sdcars: [SDCar]
     
@@ -58,24 +56,17 @@ struct ContentView: View {
             .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        self.showOptionsView.toggle()
-                    }) {
-                        Image(systemName: "gearshape")
-                    }
-                    .sheet(isPresented: $showOptionsView) {
+                    NavigationLink {
                         OptionsView()
+                    } label: {
+                        Image(systemName: "gearshape")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        self.showAddCarView.toggle()
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.headline)
-                    }
-                    .sheet(isPresented: $showAddCarView) {
+                    NavigationLink {
                         AddCarView()
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }

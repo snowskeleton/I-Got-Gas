@@ -25,6 +25,7 @@ class SDCar: Identifiable {
     @Relationship
     var services: [SDService] = []
     
+    init() { }
     init(
         make: String,
         model: String,

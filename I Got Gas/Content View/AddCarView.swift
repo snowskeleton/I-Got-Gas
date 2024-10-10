@@ -10,85 +10,70 @@ import SwiftUI
 
 struct AddCarView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
+    @Environment(\.modelContext) var context
     
     @State private var carMake = ""
     @State private var carModel = ""
     @State private var carPlate = ""
     @State private var carVIN = ""
-    @State private var carOdometer = ""
-        
-    @State var carYear: String
-    let yearRange: [String]
+    @State private var carOdometer: Int?
+    @State private var carYear: Int?
     
     var buttonDisabled: Bool {
         carMake.isEmpty ||
         carModel.isEmpty ||
         carPlate.isEmpty ||
         carVIN.isEmpty ||
-        carOdometer.isEmpty
+        carYear == nil ||
+        carOdometer == nil
     }
 
-    init() {
-        let currentYear = Calendar.current.component(.year, from: Date())
-        _carYear = .init(initialValue: currentYear.description)
-        self.yearRange = (1990...currentYear+2).map { String($0) }.reversed()
-    }
-    
     var body: some View {
         VStack {
-            NavigationView {
-                VStack {
-                    Form {
-                        Section(
-                            header: Text("Vehicle Info"),
-                            footer: Text("\nTo increase accuracy of results, it's recommended to only add a new car when it has a full tank of gas.")
-                        ) {
-                            Picker("Year", selection: $carYear) {
-                                ForEach(yearRange, id: \.self) { year in
-                                    Text(year).tag(year)
-                                }
-                            }
-
-                            TextField("Make", text: $carMake)
-
-                            TextField("Model", text: $carModel)
-
-                            TextField("Current Odometer", text: self.$carOdometer)
-                                .keyboardType(.numberPad)
-
-                            TextField("License Plate (Optional)", text: self.$carPlate)
-                                .disableAutocorrection(true)
-
-                            TextField("VIN (Optional)", text: self.$carVIN)
-                                .disableAutocorrection(true)
-                        }
-                        
-                        Section {
-                            Button("Add Vehicle") {
-                                save()
-                            }
-                            .disabled(buttonDisabled)
-                        }
-                    }
+            Form {
+                Section(
+                    header: Text("Vehicle Info"),
+                    footer: Text("\nTo increase accuracy of results, it's recommended to only add a new car when it has a full tank of gas.")
+                ) {
+                    TextField("Year", value: $carYear, formatter: NumberFormatter())
+                    
+                    TextField("Make", text: $carMake)
+                    
+                    TextField("Model", text: $carModel)
+                    
+                    TextField("Current Odometer", value: self.$carOdometer, formatter: NumberFormatter())
+                        .keyboardType(.numberPad)
+                    
+                    TextField("License Plate (Optional)", text: self.$carPlate)
+                        .disableAutocorrection(true)
+                    
+                    TextField("VIN (Optional)", text: self.$carVIN)
+                        .disableAutocorrection(true)
                 }
-                .navigationBarTitle("Add Car")
+                
+                Section {
+                    Button("Add Vehicle") {
+                        save()
+                    }
+                    .disabled(buttonDisabled)
+                }
             }
         }
+        .navigationBarTitle("Add Car")
     }
     
     func save() {
-        let car = Car(context: moc)
-        car.year = carYear
+        let car = SDCar()
+        
+        car.year = carYear!.description
         car.make = carMake
         car.model = carModel
         car.plate = carPlate
         car.vin = carVIN
-        car.odometer = Int64(carOdometer)!
-        car.startingOdometer = Int64(carOdometer)!
-        car.id = UUID().uuidString
-        try? moc.save()
+        car.startingOdometer = carOdometer!
+        
+        context.insert(car)
+        
         presentationMode.wrappedValue.dismiss()
     }
 }
