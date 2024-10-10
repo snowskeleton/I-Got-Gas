@@ -250,7 +250,7 @@ struct AddExpenseView: View {
             if service.everyXMiles != 0 {
                 if service.targetOdometer <= Int64(odometer)! {
                     service.important = true
-                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
+//                    AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service, now: true)
                 }
             }
             if service.date != nil && service.date! < Date() {
@@ -270,9 +270,9 @@ struct AddExpenseView: View {
             service.important = false
             service.targetOdometer = (Int64(odometer)! + service.everyXMiles)
 
-            AddFutureServiceView(car: Binding<Car>.constant(car)).upDate(service, expenseDate)
+//            AddFutureServiceView(car: Binding<Car>.constant(car)).upDate(service, expenseDate)
 
-            AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
+//            AddFutureServiceView(car: Binding<Car>.constant(car)).setFutureServiceNotification(service)
         }
     }
 

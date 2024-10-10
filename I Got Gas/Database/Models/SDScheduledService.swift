@@ -22,29 +22,21 @@ class SDScheduledService: Identifiable {
     var repeating: Bool = false
     var odometerFirstOccurance: Int = 0
     var frequencyMiles: Int = 0
-    
-    var frequencyDays: Int = 0
-    //        https://www.britannica.com/science/time/Lengths-of-years-and-months
-    var frequencyWeeks: Int {
-        return frequencyDays / 7
-    }
-    var frequencyMonths: Int {
-        return Int(Double(frequencyDays) / 30.437)
-    }
-    var frequencyYears: Int {
-        return Int(Double(frequencyDays) / 365.25)
-    }
-    
+    var frequencyTime: Int = 0
+    var frequencyTimeInterval: FrequencyTimeInterval = FrequencyTimeInterval.month
+
     var car: SDCar?
     
-    init(
-        frequencyMiles: Int,
-        frequencyDays: Int
-    ) {
+//    var nextFireDate: Date? {
+//        return Calendar.current.date(
+//            byAdding: frequencyTimeInterval.calendarComponent,
+//            value: frequencyTime,
+//            to: Date())!
+//    }
+    
+    init() {
         self.localId = localId
         self.icloudId = icloudId
-        self.frequencyMiles = frequencyMiles
-        self.frequencyDays = frequencyDays
     }
 }
 
@@ -52,4 +44,26 @@ enum UrgencyLevel {
     case low
     case medium
     case high
+}
+
+enum FrequencyTimeInterval: CaseIterable, Codable {
+    case day
+    case month
+    case year
+    
+    var calendarComponent: Calendar.Component {
+        switch self {
+        case .day: return Calendar.Component.day
+        case .month: return Calendar.Component.month
+        case .year: return Calendar.Component.year
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .day: return "Days"
+        case .month: return "Months"
+        case .year: return "Years"
+        }
+    }
 }

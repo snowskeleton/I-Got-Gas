@@ -12,131 +12,96 @@ import UserNotifications
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var context
     
-    @State private var monthOrWeek: Int
-    @State private var date: Date
-    @State private var name: String
-    @State private var repeating: Bool
-    @State private var frequency: String
-    @State private var miles: String
-    @Binding var car: Car
-    @State private var futureService: FutureService?
+    @State private var frequencyTimeInterval: FrequencyTimeInterval = .month
+    @State private var date: Date = Date()
+    @State private var name: String = ""
+    @State private var notes: String = ""
+    @State private var repeating: Bool = true
+    @State private var frequencyTime: Int = 30
+    @State private var frequencyMiles: Int = 5000
+    @Binding var car: SDCar
+    @State private var futureService: SDScheduledService?
     
-    init(car: Binding<Car>) {
+    init(car: Binding<SDCar>) {
         _car = car
-        _monthOrWeek = State<Int>(initialValue: 0)
-        _date = State<Date>(initialValue: Date())
-        _name = State<String>(initialValue: "")
-        _repeating = State<Bool>(initialValue: true)
-        _frequency = State<String>(initialValue: "")
-        _miles = State<String>(initialValue: "")
     }
 
-    init(car: Binding<Car>, futureService: Binding<FutureService>) {
-        self.init(car: car)
-        _futureService = State(initialValue: futureService.wrappedValue)
-        _monthOrWeek = State<Int>(initialValue: (Int(futureService.monthsOrWeeks.wrappedValue)))
-        _name = State<String>(initialValue: futureService.name.wrappedValue!)
-        _repeating = State<Bool>(initialValue: futureService.repeating.wrappedValue)
-        _frequency = State<String>(initialValue: "\(futureService.frequency.wrappedValue)")
-        _miles = State<String>(initialValue: "\(futureService.everyXMiles.wrappedValue)")
+    init(car: Binding<SDCar>, futureService: Binding<SDScheduledService>) {
+        _car = car
+        _futureService = .init(initialValue: futureService.wrappedValue)
+        _name = .init(initialValue: futureService.name.wrappedValue)
+        _notes = .init(initialValue: futureService.notes.wrappedValue)
+        _repeating = .init(initialValue: futureService.repeating.wrappedValue)
+        _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval.wrappedValue)
+        _frequencyTime = .init(initialValue: futureService.frequencyTime.wrappedValue)
+        _frequencyMiles = .init(initialValue: futureService.frequencyMiles.wrappedValue)
     }
     
     var body: some View {
         VStack {
-            NavigationView {
-                VStack {
-                    
+            HStack {
+                Button(action: {
+                    self.repeating.toggle()
+                }) {
                     HStack {
-                        Button(action: {
-                            self.repeating.toggle()
-                        }) {
-                            HStack {
-                                Text( self.repeating ? ("Repeating") : ("One Time"))
-                                Image(systemName: "arrowtriangle.down.fill")
-                                    .font(.system(size: 12))
-                            }
+                        Text( self.repeating ? ("Repeating") : ("One Time"))
+                        Image(systemName: "arrowtriangle.down.fill")
+                            .font(.system(size: 12))
+                    }
+                }
+                .font(.largeTitle)
+                .padding()
+            }
+            
+            Form {
+                TextField("Service Description", text: self.$name)
+                
+                Section(header: Text("Every...")) {
+                    ZStack(alignment: .leading) {
+                        HStack {
+                            Spacer()
+                            Text(frequencyTimeInterval.description)
+                                .foregroundColor(.gray)
                         }
-                        .font(.largeTitle)
-                        .padding()
+                        TextField("3, 6, 12...", value: self.$frequencyTime, formatter: NumberFormatter())
+                            .keyboardType(.numberPad)
                     }
                     
-                    Form {
-                        TextField("Service Description", text: self.$name)
-                        
-                        Section(header: Text("Every...")) {
-                            ZStack(alignment: .leading) {
-                                HStack {
-                                    Spacer()
-                                    Text(monthOrWeek == 0 ? "months" : "weeks")
-                                        .foregroundColor(.gray)
-                                }
-                                TextField("3, 6, 12....", text: self.$frequency)
-                                    .keyboardType(.numberPad)
-                            }
-
-                            Picker(selection: self.$monthOrWeek, label: Text("Interval")) {
-                                Text("Months").tag(0)
-                                Text("Weeks").tag(1)
-                            }.pickerStyle(SegmentedPickerStyle())
+                    Picker(selection: $frequencyTimeInterval, label: Text("Interval")) {
+                        ForEach(FrequencyTimeInterval.allCases, id: \.self) {
+                            Text($0.description).tag($0)
                         }
-                        
-                        Section(header: Text("Or...")) {
-                            ZStack(alignment: .leading) {
-                                HStack {
-                                    Spacer()
-                                    Text("miles")
-                                        .foregroundColor(.gray)
-                                }
-                                TextField("3,000, 15,000...", text: self.$miles)
-                                    .keyboardType(.numberPad)
-                            }
+                    }.pickerStyle(SegmentedPickerStyle())
+                }
+                
+                Section(header: Text("Or...")) {
+                    ZStack(alignment: .leading) {
+                        HStack {
+                            Spacer()
+                            Text("miles")
+                                .foregroundColor(.gray)
                         }
-                        
-                        Section(header: Text("Starting...")) {
-                            HStack {
-                                Spacer()
-                                DatePicker("Date",
-                                           selection: self.$date,
-                                           displayedComponents: .date)
-
-                                    .labelsHidden()
-                                Spacer()
-                            }
-                        }
-                        
-                        VStack {
-                            Button(action: {
-                                self.save()
-                                self.presentationMode.wrappedValue.dismiss()
-                            }) {
-                                HStack {
-                                    Spacer()
-                                    Text("Save")
-                                    Spacer()
-                                }
-                            }
-                        }
-                        
+                        TextField("3,000, 15,000...", value: self.$frequencyMiles, formatter: NumberFormatter())
+                            .keyboardType(.numberPad)
                     }
-                }.navigationBarTitle("")
-                .navigationBarHidden(true)
+                }
+                
+                Section(header: Text("Starting...")) {
+                    DatePicker("Date",
+                               selection: self.$date,
+                               displayedComponents: .date)
+                    
+                    .labelsHidden()
+                }
+                Button("Save") {
+                    self.save()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }
         }
-    }
-    
-    public func upDate(_ futureService: FutureService, _ date: Date) {
-        if self.frequency != "" {
-            futureService.date = Calendar.current.date(
-                byAdding:
-                    (monthOrWeek == 0
-                      ? .month
-                      : .day),
-                value: ( monthOrWeek == 0
-                         ? Int(self.frequency)!
-                         : (Int(self.frequency)!) * 7 ),
-                to: date)!
-        }
+        .navigationBarTitle("Schedule Service")
     }
     
     func save() -> Void {
@@ -147,46 +112,40 @@ struct AddFutureServiceView: View {
                 print(error.localizedDescription)
             }
         }
+        
+        var hydratedService: SDScheduledService
+        if futureService == nil {
+            hydratedService = SDScheduledService()
+            hydratedService.car = car
+        } else {
+            hydratedService = futureService!
+        }
 
-
-        let futureService = ( self.futureService == nil
-                                ? FutureService(context: self.moc)
-                                : self.futureService
-        )
-
-        futureService!.vehicle = car
+        hydratedService.name = name
+        hydratedService.notes = notes
+        hydratedService.repeating = repeating
+        hydratedService.frequencyMiles = frequencyMiles
+        hydratedService.frequencyTime = frequencyTime
+        hydratedService.frequencyTimeInterval = frequencyTimeInterval
+        hydratedService.odometerFirstOccurance = car.odometer
         
-        futureService!.name = self.name
-        futureService!.repeating = repeating
-        futureService!.everyXMiles = Int64(self.miles) ?? 0
+        context.insert(hydratedService)
         
-        futureService!.frequency = Int64(self.frequency) ?? 0
-        futureService!.targetOdometer = (car.odometer + (Int64(self.miles) ?? 0))
-        
-        upDate(futureService!, date)
-        setFutureServiceNotification(futureService!)
-        
-        try? self.moc.save()
+        setFutureServiceNotification(hydratedService)
     }
     
-    public func removeFutureServiceNotification(_ futureServices: FetchedResults<FutureService>.Element) {
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(
-                withIdentifiers: ["\(String(describing: futureServices.notificationUUID))"])
-    }
-    
-    public func setFutureServiceNotification(_ futureService: FetchedResults<FutureService>.Element, now: Bool? = false) {
-        if futureService.date == nil { return }
-        
-        removeFutureServiceNotification(futureService)
+    public func setFutureServiceNotification(_ futureService: SDScheduledService, now: Bool? = false) {
+//        if futureService.date == nil { return }
         
         let content = UNMutableNotificationContent()
         content.title = "\(self.name)"
-        content.body = "You're \(futureService.vehicle!.make!) \(futureService.vehicle!.model!) \(self.name) is due."
+        content.body = "Your \(futureService.car!.make) \(futureService.car!.model) \(self.name) is due."
         content.badge = 0
         content.sound = UNNotificationSound.default
         
         if now! {
+            // this sets a 30 second delay because IGG doesn't handle notificaions in the foreground.
+            // Can't we just handle those?
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             futureService.notificationUUID = request.identifier
@@ -194,14 +153,18 @@ struct AddFutureServiceView: View {
             return
         }
         
-        let date = futureService.date
-        var triggerDate = Calendar.current.dateComponents([.year, .month, .day,], from: date!)
-        triggerDate.hour = 8
-        triggerDate.minute = 15
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        futureService.notificationUUID = request.identifier
-        
-        UNUserNotificationCenter.current().add(request)
+        if futureService.frequencyTime > 0 {
+            let futureDate = Calendar.current.date(byAdding: futureService.frequencyTimeInterval.calendarComponent, value: futureService.frequencyTime, to: Date())!
+
+            var triggerDate = Calendar.current.dateComponents([.year, .month, .day], from: futureDate)
+            triggerDate.hour = 8
+            triggerDate.minute = 15
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+            futureService.notificationUUID = request.identifier
+            
+            UNUserNotificationCenter.current().add(request)
+        }
     }
 }

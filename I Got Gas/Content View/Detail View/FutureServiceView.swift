@@ -14,7 +14,6 @@ struct FutureServiceView: View {
     @Environment(\.managedObjectContext) var moc
     
     @Binding var car: SDCar
-    @State var showAddFutureExpenseView = false
     
     @Query var futureServices: [SDScheduledService]
     
@@ -26,7 +25,7 @@ struct FutureServiceView: View {
         }
         let descriptor = FetchDescriptor<SDScheduledService>(
             predicate: predicate,
-            sortBy: [SortDescriptor(\.frequencyDays, order: .forward)]
+            sortBy: [SortDescriptor(\.frequencyTime, order: .forward)]
         )
         _futureServices = Query(descriptor)
     }
@@ -35,8 +34,8 @@ struct FutureServiceView: View {
         VStack {
                 List(futureServices, id: \.self) { futureService in
                     NavigationLink {
-//                        AddFutureServiceView(car: Binding<SDCar>.constant(car),
-//                                             futureService: Binding<SDScheduledService>.constant(futureService))
+                        AddFutureServiceView(car: Binding<SDCar>.constant(car),
+                                             futureService: Binding<SDScheduledService>.constant(futureService))
                     } label: {
                         VStack {
                             HStack {
@@ -47,20 +46,19 @@ struct FutureServiceView: View {
                             HStack {
                                 Text("\(futureService.notes)")
                                 Spacer()
-                                Text(futureService.frequencyDays == 0 ? "" : "\(Calendar.current.date(byAdding: .day, value: futureService.frequencyDays, to: Date())!, formatter: DateFormatter.taskDateFormat)")
+                                Text(futureService.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: futureService.frequencyTimeInterval.calendarComponent, value: futureService.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                     }
                 }
                 //.onDelete(perform: loseMemory)
 //            }
-            Button("Schedule Service") {
-                self.showAddFutureExpenseView = true
+            NavigationLink {
+                AddFutureServiceView(car: Binding<SDCar>.constant(car))
+            } label: {
+                Text("Schedule Service")
             }
             .padding(.bottom)
-//            .sheet(isPresented: self.$showAddFutureExpenseView) {
-//                AddFutureServiceView(car: Binding<Car>.constant(car))
-//            }
         }
     }
     

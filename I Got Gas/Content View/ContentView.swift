@@ -126,10 +126,10 @@ struct ContentView: View {
                 car.futureSerevice?.forEach { fservice in
                     let workingService = fservice as! FutureService
                     let serviceIntervalInDays = Int(Double(workingService.frequency) * (workingService.monthsOrWeeks == 0 ? 30.437 : 7))
-                    let sdscheduledService = SDScheduledService(
-                        frequencyMiles: Int(workingService.everyXMiles),
-                        frequencyDays: serviceIntervalInDays
-                        )
+                    let sdscheduledService = SDScheduledService()
+                    sdscheduledService.frequencyMiles = Int(workingService.everyXMiles)
+                    sdscheduledService.frequencyTime = serviceIntervalInDays
+                    sdscheduledService.frequencyTimeInterval = .day
                     sdscheduledService.important = workingService.important
                     sdscheduledService.name = workingService.name ?? ""
                     sdscheduledService.notes = workingService.note ?? ""
