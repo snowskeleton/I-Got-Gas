@@ -42,24 +42,13 @@ struct AddFutureServiceView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    self.repeating.toggle()
-                }) {
-                    HStack {
-                        Text( self.repeating ? ("Repeating") : ("One Time"))
-                        Image(systemName: "arrowtriangle.down.fill")
-                            .font(.system(size: 12))
-                    }
-                }
-                .font(.largeTitle)
-                .padding()
-            }
-            
             Form {
                 TextField("Service Description", text: self.$name)
                 
-                Section(header: Text("Every...")) {
+                Section {
+                    Toggle("Repeating", isOn: $repeating)
+                }
+                Section(repeating ? "Every..." : "In...") {
                     ZStack(alignment: .leading) {
                         HStack {
                             Spacer()
