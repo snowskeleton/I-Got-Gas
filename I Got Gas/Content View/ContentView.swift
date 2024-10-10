@@ -112,7 +112,6 @@ struct ContentView: View {
                     sdscheduledService.frequencyMiles = Int(workingService.everyXMiles)
                     sdscheduledService.frequencyTime = serviceIntervalInDays
                     sdscheduledService.frequencyTimeInterval = .day
-//                    sdscheduledService.pastDue = workingService.important
                     sdscheduledService.name = workingService.name ?? ""
                     sdscheduledService.notes = workingService.note ?? ""
                     sdscheduledService.notificationUUID = workingService.notificationUUID ?? ""

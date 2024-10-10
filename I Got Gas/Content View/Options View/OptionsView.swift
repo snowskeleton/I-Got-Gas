@@ -16,7 +16,6 @@ struct OptionsView: View {
     var formatList: [String]
     
     @AppStorage("isAnalyticsDisabled") var disableAnalytics = false
-    @AppStorage("useSwiftData") var useSwiftData: Bool = false
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
 
     init() {
@@ -33,7 +32,6 @@ struct OptionsView: View {
         VStack {
             Form {
                 
-                Toggle("SwiftData", isOn: $useSwiftData)
                 Toggle("2.0 Migration Complete", isOn: $migrated)
                 Section(header: Text("Decimal Length")) {
                     Picker(selection: $formatSelection,
