@@ -12,7 +12,6 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var context
 
-    @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @State var showAddCarView = false
     @State var showOptionsView = false
@@ -77,7 +76,6 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $showAddCarView) {
                         AddCarView()
-                            .environment(\.managedObjectContext, self.moc)
                     }
                 }
             }

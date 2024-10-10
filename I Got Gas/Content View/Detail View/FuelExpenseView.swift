@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SwiftData
-import CoreData
 
 struct FuelExpenseView: View {
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""

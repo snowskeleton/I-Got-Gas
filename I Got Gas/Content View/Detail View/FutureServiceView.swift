@@ -8,11 +8,8 @@
 
 import SwiftUI
 import SwiftData
-import CoreData
 
 struct FutureServiceView: View {
-    @Environment(\.managedObjectContext) var moc
-    
     @Binding var car: SDCar
     
     @Query var futureServices: [SDScheduledService]

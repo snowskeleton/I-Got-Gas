@@ -8,14 +8,8 @@
 
 import SwiftUI
 import SwiftData
-import CoreData
 
 struct DetailView: View {
-    @Environment(\.managedObjectContext) var moc
-    
-    @State var showAddExpenseView = false
-    @State var showFuelExpenseView = false
-    
     @State private var showEditCarView = false
     
     @Binding var car: SDCar

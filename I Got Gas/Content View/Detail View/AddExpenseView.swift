@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SwiftData
-import CoreData
 
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode

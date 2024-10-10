@@ -11,7 +11,6 @@ import UserNotifications
 
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var moc
     @Environment(\.modelContext) var context
     
     @State private var frequencyTimeInterval: FrequencyTimeInterval = .month
@@ -123,6 +122,5 @@ struct AddFutureServiceView: View {
         context.insert(hydratedService)
         
         hydratedService.scheduleNotification()
-        presentationMode.wrappedValue.dismiss()
     }
 }
