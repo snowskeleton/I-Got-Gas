@@ -42,7 +42,7 @@ struct OptionsView: View {
                             ForEach(0..<formatList.count, id: \.self)
                             { Text(self.formatList[$0]) }
                         }.pickerStyle(SegmentedPickerStyle())
-                            .onChange(of: formatSelection) { _ in
+                            .onChange(of: formatSelection) { _, _ in
                                 UserDefaults.standard.set(formatList[formatSelection],
                                                           forKey: "priceFormat")
                             }
