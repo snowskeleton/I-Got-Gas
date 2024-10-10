@@ -56,9 +56,9 @@ struct AddExpenseView: View {
         _selectedFutureService = State(initialValue: inputSelectedFutureService)
     }
 
-    init(car: Binding<SDCar>, isGas: State<Bool>) {
+    init(car: Binding<SDCar>, isGas: Bool) {
         self.init(car: car) //this has to go first, since we're overwriting values next
-        _serviceType = State(initialValue: isGas.wrappedValue ? "Gas" : "Service")
+        _serviceType = State(initialValue: isGas ? "Gas" : "Service")
     }
 
     init(car: Binding<SDCar>, service: Binding<SDService>) {

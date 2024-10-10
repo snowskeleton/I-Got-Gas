@@ -13,13 +13,7 @@ import CoreData
 struct ServiceExpenseView: View {
     @Environment(\.managedObjectContext) var moc
 
-    @State var showAddExpenseView = false
-    @State private var editSelectedExpense = false
     @Binding var car: SDCar
-    @State private var selectedService = 0
-
-//    var serviceFetchRequest: FetchRequest<Service>
-//    var services: FetchedResults<Service> { serviceFetchRequest.wrappedValue }
 
     @Query var services: [SDService]
     
@@ -34,7 +28,6 @@ struct ServiceExpenseView: View {
             predicate: predicate,
             sortBy: [SortDescriptor(\.datePurchased)]
         )
-        //        descriptor.fetchLimit = 5
         _services = Query(descriptor)
     }
     
@@ -69,7 +62,7 @@ struct ServiceExpenseView: View {
             NavigationLink {
                 AddExpenseView(
                     car: Binding<SDCar>.constant(car),
-                    isGas: State(initialValue: false)
+                    isGas: false
                 )
             } label: {
                 Text("Add Expense")
