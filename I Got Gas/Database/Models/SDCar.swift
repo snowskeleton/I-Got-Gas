@@ -49,7 +49,7 @@ class SDCar: Identifiable {
     }
     
     var costPerGallon: Double {
-        let fuelCosts = services.compactMap { ($0 as AnyObject).costPerGallon }
+        let fuelCosts = services.compactMap { $0.costPerGallon }
         let totalFuelCost = fuelCosts.reduce(0, +)
         let fuelExpenseCount = Double(fuelCosts.count)
         

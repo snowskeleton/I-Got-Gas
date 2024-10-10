@@ -22,17 +22,17 @@ struct TopDetailView: View {
                 Spacer()
                 
                 VStack {
-                    Text("Cost Per Mile")
+                    Text("Cost/Mile")
                         .font(.system(size: 10))
-                    Text("\(car.costPerMile, specifier: "%.2f")/m")
+                    Text("$\(car.costPerMile, specifier: priceFormat)")
                 }.padding(.leading)
                 
                 Spacer()
                 
                 VStack {
-                    Text("Avg $/gal")
+                    Text("Cost/Gal")
                         .font(.system(size: 10))
-                    Text(car.costPerGallon.description)
+                    Text("$\(car.costPerGallon, specifier: priceFormat)")
                 }
                 Spacer()
                 
