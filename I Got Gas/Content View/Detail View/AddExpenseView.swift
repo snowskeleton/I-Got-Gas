@@ -230,6 +230,7 @@ struct AddExpenseView: View {
         }
         
         if serviceType == "Gas" {
+            hydratedService.isFuel = true
             hydratedService.note = "Fuel"
             hydratedService.isFullTank = ( isFullTank == 0 ? true : false )
             hydratedService.gallons = gallonsOfGasFormatted

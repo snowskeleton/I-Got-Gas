@@ -11,11 +11,7 @@ import SwiftData
 import CoreData
 
 struct FuelExpenseView: View {
-    @Environment(\.managedObjectContext) var moc
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-    @State var showAddExpenseView = false
-    @State private var editSelectedExpense = false
-    @State private var selectedService = 0
 
     @Binding var car: SDCar
 
@@ -30,23 +26,24 @@ struct FuelExpenseView: View {
         }
         let descriptor = FetchDescriptor<SDService>(
             predicate: predicate,
-            sortBy: [SortDescriptor(\.datePurchased)]
+            sortBy: [
+                SortDescriptor(\.odometer, order: .reverse),
+                SortDescriptor(\.datePurchased, order: .reverse)
+            ]
         )
-//        descriptor.fetchLimit = 5
         _services = Query(descriptor)
     }
-    
     
     var body: some View {
         VStack {
             List {
                 ForEach(services, id: \.self) { service in
-                    Button(action: {
-                        selectedService = Int(services.firstIndex(of: service)!)
-                        if (selectedService >= 0) && (selectedService <= services.count - 1) {
-                            editSelectedExpense.toggle()
-                        }
-                    }) {
+                    NavigationLink {
+                        AddExpenseView(
+                            car: Binding<SDCar>.constant(car),
+                            service: Binding<SDService>.constant(service)
+                        )
+                    } label: {
                         VStack {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")($\(service.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
@@ -59,20 +56,16 @@ struct FuelExpenseView: View {
                             }
                         }
                     }
-//                    .sheet(isPresented: self.$editSelectedExpense) {
-//                        AddExpenseView(car: Binding<SDCar>.constant(car), service: Binding<SDService>.constant(services[selectedService]))
-//                    }
                 }.onDelete(perform: loseMemory)
 
             }
             Spacer()
-            Button("Add Expense") {
-                self.showAddExpenseView.toggle()
+            NavigationLink {
+                AddExpenseView(car: Binding<SDCar>.constant(car))
+            } label: {
+                Text("Add Expense")
             }
             .padding(.bottom)
-//            .sheet(isPresented: self.$showAddExpenseView) {
-//                AddExpenseView(car: Binding<SDCar>.constant(car))
-//            }
         }
     }
     func loseMemory(at offsets: IndexSet) {
