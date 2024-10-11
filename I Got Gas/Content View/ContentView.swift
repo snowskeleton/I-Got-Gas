@@ -14,46 +14,97 @@ struct ContentView: View {
 
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
 
-    @Query(sort: \SDCar.make) var sdcars: [SDCar]
-    
+    @Query var pinnedCars: [SDCar]
+    @Query var sdcars: [SDCar]
+    @Query var oldCars: [SDCar]
+
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
 
+    init() {
+        let newCarPredicate = #Predicate<SDCar> {
+            $0.deleted == false &&
+            $0.pinned == false
+        }
+        let newCarDescriptors = FetchDescriptor<SDCar>(
+            predicate: newCarPredicate,
+            sortBy: [
+                SortDescriptor(\.year, order: .reverse),
+                SortDescriptor(\.make),
+                SortDescriptor(\.model)
+            ]
+        )
+        _sdcars = Query(newCarDescriptors)
+        
+        let pinnedCarPredicate = #Predicate<SDCar> {
+            $0.deleted == false &&
+            $0.pinned == true
+        }
+        let pinnedCarDescriptors = FetchDescriptor<SDCar>(
+            predicate: pinnedCarPredicate,
+            sortBy: [
+                SortDescriptor(\.year, order: .reverse),
+                SortDescriptor(\.make),
+                SortDescriptor(\.model)
+            ]
+        )
+        
+        _pinnedCars = Query(pinnedCarDescriptors)
+        
+        let oldCarPredicate = #Predicate<SDCar> { $0.deleted == true }
+        let oldCarDescriptors = FetchDescriptor<SDCar>(
+            predicate: oldCarPredicate,
+            sortBy: [
+                SortDescriptor(\.year, order: .reverse),
+                SortDescriptor(\.make),
+                SortDescriptor(\.model)
+            ]
+        )
+        _oldCars = Query(oldCarDescriptors)
+    }
+    
     var body: some View {
         NavigationView {
-            List(sdcars, id: \.self) { car in
-                NavigationLink {
-                    DetailView(car: Binding<SDCar>.constant(car))
-                } label: {
-                    VStack {
-                        HStack {
-                            HStack {
-                                Text(car.year)
-                                Text(car.make)
-                                Text(car.model)
+            List {
+                if !pinnedCars.isEmpty {
+                    ForEach(pinnedCars, id: \.self) { car in
+                        ContentViewItem(car: Binding<SDCar>.constant(car))
+                            .swipeActions {
+                                Button("Un-Pin") {
+                                    car.pinned = false
+                                }
+                                .tint(.yellow)
                             }
-                            .fontWeight(.bold)
-                            Spacer()
-                            Text(car.plate)
+                        Divider()
+                    }
+                }
+                
+                ForEach(sdcars, id: \.self) { car in
+                    ContentViewItem(car: Binding<SDCar>.constant(car))
+                        .swipeActions {
+                            Button("Pin") {
+                                car.pinned = true
+                            }
+                            .tint(.yellow)
+                            Button("Archive", role: .destructive) {
+                                car.deleted = true
+                            }
                         }
-                        HStack {
-                            Spacer()
-                            Text("$\(car.costPerMile, specifier: "%.2f")/mile")
-                            Spacer()
-                            Text("$\(car.costPerGallon, specifier: "%.3f")/gal")
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Miles:")
-                            Text(car.odometer.description)
-                            Spacer()
-                            Text("Last filled:")
-                            Text(car.lastFillup?.description ?? "never")
+                }
+                if !oldCars.isEmpty {
+                    Section {
+                        DisclosureGroup("Archived") {
+                            ForEach(oldCars, id: \.self) { car in
+                                ContentViewItem(car: Binding<SDCar>.constant(car))
+                                    .swipeActions(allowsFullSwipe: false) {
+                                        Button("Un-Archive") {
+                                            car.deleted = true
+                                        }
+                                    }
+                            }
                         }
                     }
                 }
             }
-            .listStyle(.inset)
-            .background(Color(.systemGroupedBackground)).edgesIgnoringSafeArea(.bottom)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
@@ -80,7 +131,7 @@ struct ContentView: View {
                     name: car.name ?? "",
                     plate: car.plate ?? "",
                     vin: car.vin ?? "",
-                    year: car.year ?? "",
+                    year: Int(car.year ?? ""),
                     startingOdometer: Int(car.startingOdometer)
                 )
                 car.services?.forEach { service in
@@ -125,3 +176,40 @@ struct ContentView: View {
         }
     }
 }
+
+struct ContentViewItem: View {
+    @Binding var car: SDCar
+    var body: some View {
+        NavigationLink {
+            DetailView(car: Binding<SDCar>.constant(car))
+        } label: {
+            VStack {
+                HStack {
+                    HStack {
+                        Text(car.year?.description ?? "")
+                        Text(car.make)
+                        Text(car.model)
+                    }
+                    .fontWeight(.bold)
+                    Spacer()
+                    Text(car.plate)
+                }
+                HStack {
+                    Spacer()
+                    Text("$\(car.costPerMile, specifier: "%.2f")/mile")
+                    Spacer()
+                    Text("$\(car.costPerGallon, specifier: "%.3f")/gal")
+                    Spacer()
+                }
+                HStack {
+                    Text("Miles:")
+                    Text(car.odometer.description)
+                    Spacer()
+                    Text("Last filled:")
+                    Text(car.lastFillup?.description ?? "never")
+                }
+            }
+        }
+    }
+}
+

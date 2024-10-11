@@ -166,16 +166,16 @@ struct DetailView: View {
             Spacer()
         }
         .navigationBarTitle(
-            Text("\(car.year) \(car.make) \(car.model)"),
+            Text("\(car.year != nil ? car.year!.description : "") \(car.make) \(car.model)"),
             displayMode: .inline)
-        .navigationBarItems(trailing:
-                                Button("Edit") {
-            self.showEditCarView.toggle()
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    EditCarView(car: Binding<SDCar>.constant(car))
+                } label: {
+                    Text("Edit")
+                }
+            }
         }
-//            .sheet(isPresented: self.$showEditCarView) {
-//                EditCarView(car: Binding<Car>.constant(car))
-//                    .environment(\.managedObjectContext, self.moc)
-//            }
-        )
     }
 }

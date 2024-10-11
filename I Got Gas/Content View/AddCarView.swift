@@ -65,7 +65,7 @@ struct AddCarView: View {
     func save() {
         let car = SDCar()
         
-        car.year = carYear!.description
+        car.year = carYear
         car.make = carMake
         car.model = carModel
         car.plate = carPlate

@@ -19,8 +19,10 @@ class SDCar: Identifiable {
     var name: String = ""
     var plate: String = ""
     var vin: String = ""
-    var year: String = ""
+    var year: Int?
     var startingOdometer: Int = 0
+    var pinned: Bool = false
+    var deleted: Bool = false
     
     @Relationship
     var services: [SDService] = []
@@ -32,7 +34,7 @@ class SDCar: Identifiable {
         name: String,
         plate: String,
         vin: String,
-        year: String,
+        year: Int?,
         startingOdometer: Int
     ) {
         self.make = make

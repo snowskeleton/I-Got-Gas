@@ -11,34 +11,28 @@ import SwiftUI
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.modelContext) var context
     
     @State private var showFirstConfirmDeleteRequest = false
     @State private var showSecondConfirmDeleteRequest = false
     
-    @Binding var car: Car
+    @Binding var car: SDCar
     
-    @State private var showsYearPicker = false
-    @State var carYear: String
+    @State var carYear: Int?
     @State var carMake: String
     @State var carModel: String
     @State var carPlate: String
     @State var carVIN: String
     
-    let yearRange: [String]
-
-    init(car: Binding<Car>) {
+    init(car: Binding<SDCar>) {
         self._car = car
         let workingCar = car.wrappedValue
         
-        let currentYear = Int(car.year.wrappedValue!)!
-        self.yearRange = (1990...currentYear+2).map { String($0) }.reversed()
-        
-        _carYear = .init(initialValue: workingCar.year ?? currentYear.description)
-        _carMake = .init(initialValue: workingCar.make ?? "")
-        _carModel = .init(initialValue: workingCar.model ?? "")
-        _carPlate = .init(initialValue: workingCar.plate ?? "")
-        _carVIN = .init(initialValue: workingCar.vin ?? "")
-        
+        _carYear = .init(initialValue: workingCar.year)
+        _carMake = .init(initialValue: workingCar.make)
+        _carModel = .init(initialValue: workingCar.model)
+        _carPlate = .init(initialValue: workingCar.plate)
+        _carVIN = .init(initialValue: workingCar.vin)
     }
     
     var body: some View {
@@ -46,52 +40,24 @@ struct EditCarView: View {
             NavigationView {
                 VStack {
                     Form {
-                        
-                        Section(header: Text("Vehicle Info")) {
-                            Picker("Year", selection: $carYear) {
-                                ForEach(yearRange, id: \.self) { year in
-                                    Text(year).tag(year)
-                                }
-                            }
-
-                            TextField("Make",
-                                      text: $carMake)
-                            TextField("Model",
-                                      text: $carModel)
-                            TextField("Plate",
-                                      text: $carPlate)
-                            TextField("VIN",
-                                      text: $carVIN)
-                            
+                        Section {
+                            TextField("Year", value: $carYear, formatter: NumberFormatter())
+                            TextField("Make", text: $carMake)
+                            TextField("Model", text: $carModel)
+                            TextField("Plate", text: $carPlate)
+                            TextField("VIN", text: $carVIN)
                         }
                         
                         Section {
-                            Button(action: {
-                                self.save()
+                            Button("Save") {
                                 self.presentationMode.wrappedValue.dismiss()
-                            }) {
-                                HStack {
-                                    Spacer()
-                                    Text("Save")
-                                        .foregroundColor(Color.blue)
-                                    Spacer()
-                                }
                             }
-                            .buttonStyle(PlainButtonStyle())
                         }
                         
                         Section {
-                            Button(action: {
+                            Button("Delete", role: .destructive) {
                                 self.showFirstConfirmDeleteRequest = true
-                            }) {
-                                HStack {
-                                    Spacer()
-                                    Text("Delete Car")
-                                        .foregroundColor(Color.red)
-                                    Spacer()
-                                }
                             }
-                            .buttonStyle(PlainButtonStyle())
                             .alert(isPresented: self.$showFirstConfirmDeleteRequest) {
                                 Alert(title: Text("Delete this Vehicle"),
                                       message: Text("Deleting this vehicle will permanently remove all data."),
@@ -117,16 +83,16 @@ struct EditCarView: View {
 //                        for service in car.futureSerevice! {
                             // cancel notifications
 //                        }
-                        self.moc.delete(car)
-                        self.presentationMode.wrappedValue.dismiss()
-                        try? self.moc.save()
-                      })
+                    
+                    car.deleted = true
+                      }
+                )
             }
         }
     }
     
     func save() {
-        if self.carYear != "" {
+        if self.carYear != nil {
             car.year = self.carYear
         }
         if carMake != "" {
@@ -141,6 +107,5 @@ struct EditCarView: View {
         if carVIN != "" {
             car.vin = self.carVIN
         }
-        try? self.moc.save()
     }
 }
