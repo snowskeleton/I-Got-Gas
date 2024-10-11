@@ -66,15 +66,16 @@ struct ContentView: View {
         NavigationView {
             List {
                 if !pinnedCars.isEmpty {
-                    ForEach(pinnedCars, id: \.self) { car in
-                        ContentViewItem(car: Binding<SDCar>.constant(car))
-                            .swipeActions {
-                                Button("Un-Pin") {
-                                    car.pinned = false
+                    Section("Pinned") {
+                        ForEach(pinnedCars, id: \.self) { car in
+                            ContentViewItem(car: Binding<SDCar>.constant(car))
+                                .swipeActions {
+                                    Button("Un-Pin") {
+                                        car.pinned = false
+                                    }
+                                    .tint(.yellow)
                                 }
-                                .tint(.yellow)
-                            }
-                        Divider()
+                        }
                     }
                 }
                 

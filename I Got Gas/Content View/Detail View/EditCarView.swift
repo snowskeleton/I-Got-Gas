@@ -55,6 +55,9 @@ struct EditCarView: View {
                         }
                         
                         Section {
+                            Button("Archive", role: .destructive) {
+                                car.deleted = true
+                            }
                             Button("Delete", role: .destructive) {
                                 self.showFirstConfirmDeleteRequest = true
                             }
@@ -62,8 +65,8 @@ struct EditCarView: View {
                                 Alert(title: Text("Delete this Vehicle"),
                                       message: Text("Deleting this vehicle will permanently remove all data."),
                                       primaryButton: .destructive(Text("Delete")) {
-                                        self.showSecondConfirmDeleteRequest = true
-                                      },
+                                    self.showSecondConfirmDeleteRequest = true
+                                },
                                       secondaryButton: .cancel())
                             }
                         }
@@ -73,19 +76,22 @@ struct EditCarView: View {
                 .navigationBarTitle("Update Details")
                 .navigationBarItems(leading:
                                         Button("Cancel") {
-                                            self.presentationMode.wrappedValue.dismiss()
-                                        })
+                    self.presentationMode.wrappedValue.dismiss()
+                })
             }.alert(isPresented: self.$showSecondConfirmDeleteRequest) {
                 Alert(title: Text("Are you really sure?"),
                       message: Text("This action cannot be undone"),
                       primaryButton: .cancel(),
                       secondaryButton: .destructive(Text("I'm sure")) {
-//                        for service in car.futureSerevice! {
-                            // cancel notifications
-//                        }
+                    //                        for service in car.futureSerevice! {
+                    // cancel notifications
+                    //                        }
                     
-                    car.deleted = true
-                      }
+                    do {
+                        let carId = car.localId
+                        try context.delete(model: SDCar.self, where: #Predicate<SDCar> { $0.localId == carId })
+                    } catch { }
+                }
                 )
             }
         }
