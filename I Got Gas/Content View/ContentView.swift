@@ -12,13 +12,17 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var context
 
-    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
-
     @Query var pinnedCars: [SDCar]
     @Query var sdcars: [SDCar]
     @Query var oldCars: [SDCar]
 
+    // 1.x - 2.0 migration migration
+    @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
+    @State private var showAlert = false
+    @State private var alertTitle = "Default title"
+    @State private var alertMessage = "Default message"
+    // end migration
 
     init() {
         let newCarPredicate = #Predicate<SDCar> {
@@ -98,7 +102,7 @@ struct ContentView: View {
                                 ContentViewItem(car: Binding<SDCar>.constant(car))
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button("Un-Archive") {
-                                            car.deleted = true
+                                            car.deleted = false
                                         }
                                     }
                             }
@@ -122,6 +126,14 @@ struct ContentView: View {
                     }
                 }
             }
+        }
+        // 1.x - 2.0 migration migration
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("Quit")) { exit(0) }
+            )
         }
         .onAppear {
             if migrated { return }
@@ -173,8 +185,16 @@ struct ContentView: View {
                 }
                 context.insert(sdcar)
             }
-            migrated = true
+            do {
+                try context.save()
+                migrated = true
+            } catch {
+                alertTitle = "Migration failed"
+                alertMessage = "Please close app and try again"
+                showAlert = true
+            }
         }
+        // end migration
     }
 }
 
