@@ -9,6 +9,7 @@
 import SwiftUI
 import SwiftData
 import CoreData
+import Aptabase
 
 @main
 struct I_Got_GasApp: App {
@@ -16,6 +17,13 @@ struct I_Got_GasApp: App {
     @Environment(\.scenePhase) var scenePhase
     let persistenceController = PersistenceController.shared
     
+    init() {
+        Aptabase.shared.initialize(
+            appKey: AptabaseSecrets.appKey,
+            with: InitOptions(host: AptabaseSecrets.host)
+        )
+        Analytics.track(.appLaunch)
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
