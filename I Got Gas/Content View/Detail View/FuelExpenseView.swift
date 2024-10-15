@@ -40,15 +40,16 @@ struct FuelExpenseView: View {
                     NavigationLink {
                         AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
                     } label: {
-                        VStack {
-                            HStack {
-                                Text("$\(service.cost, specifier: "%.2f")($\(service.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))")))/g)")
-                                Spacer()
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("$\(service.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))"))/gal")
+                                Text("\(service.gallons.description) gal")
+                                Text("$\(service.cost, specifier: "%.2f")")
                             }
-                            HStack {
-                                Text(service.odometer.description)
-                                Spacer()
+                            Spacer()
+                            VStack(alignment: .trailing) {
                                 Text("\((service.dateCompleted ?? service.datePurchased), formatter: DateFormatter.taskDateFormat)")
+                                Text("\(service.odometer.description)")
                             }
                         }
                     }

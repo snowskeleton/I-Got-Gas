@@ -233,7 +233,7 @@ struct AddExpenseView: View {
             hydratedService.note = "Fuel"
             hydratedService.isFullTank = ( isFullTank == 0 ? true : false )
             hydratedService.gallons = gallonsOfGasFormatted
-            hydratedService.costPerGallon = (totalNumberFormatted / gallonsOfGasFormatted)
+//            hydratedService.costPerGallon = (totalNumberFormatted / gallonsOfGasFormatted)
         } else {
             hydratedService.note = note
         }

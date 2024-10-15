@@ -22,7 +22,7 @@ class SDService: Identifiable {
     var odometer: Int = 0
     
     var isFuel: Bool = false
-    var costPerGallon: Double = 0.0
+//    var costPerGallon: Double = 0.0
     var isFullTank: Bool = true
     var gallons: Double = 0.0
     
@@ -48,5 +48,9 @@ class SDService: Identifiable {
         self.dateCompleted = dateCompleted
         self.note = note
         self.odometer = odometer
+    }
+    
+    var costPerGallon: Double {
+        cost / gallons
     }
 }

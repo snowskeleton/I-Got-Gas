@@ -159,7 +159,6 @@ struct ContentView: View {
                         
                     if let fuel = workingService.fuel {
                         sdservice.isFuel = true
-                        sdservice.costPerGallon = fuel.dpg
                         sdservice.isFullTank = fuel.isFullTank
                         sdservice.gallons = fuel.numberOfGallons
                         
