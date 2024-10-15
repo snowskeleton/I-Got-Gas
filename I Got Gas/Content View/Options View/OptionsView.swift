@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OptionsView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -32,6 +33,7 @@ struct OptionsView: View {
         VStack {
             Form {
                 
+                Button("Drop all tables", role: .destructive) { try? ModelContainer().deleteAllData() }
                 Toggle("2.0 Migration Complete", isOn: $migrated)
                 Section(header: Text("Decimal Length")) {
                     Picker(selection: $formatSelection,
