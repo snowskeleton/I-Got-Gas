@@ -19,6 +19,7 @@ struct EditCarView: View {
     @Binding var car: SDCar
     
     @State var carYear: Int?
+    @State var carName: String
     @State var carMake: String
     @State var carModel: String
     @State var carPlate: String
@@ -28,6 +29,7 @@ struct EditCarView: View {
         self._car = car
         let workingCar = car.wrappedValue
         
+        _carName = .init(initialValue: workingCar.name)
         _carYear = .init(initialValue: workingCar.year)
         _carMake = .init(initialValue: workingCar.make)
         _carModel = .init(initialValue: workingCar.model)
@@ -36,82 +38,69 @@ struct EditCarView: View {
     }
     
     var body: some View {
-        VStack {
-            NavigationView {
-                VStack {
-                    Form {
-                        Section {
-                            TextField("Year", value: $carYear, formatter: NumberFormatter())
-                            TextField("Make", text: $carMake)
-                            TextField("Model", text: $carModel)
-                            TextField("Plate", text: $carPlate)
-                            TextField("VIN", text: $carVIN)
-                        }
-                        
-                        Section {
-                            Button("Save") {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }
-                        }
-                        
-                        Section {
-                            Button("Archive", role: .destructive) {
-                                car.deleted = true
-                            }
-                            Button("Delete", role: .destructive) {
-                                self.showFirstConfirmDeleteRequest = true
-                            }
-                            .alert(isPresented: self.$showFirstConfirmDeleteRequest) {
-                                Alert(title: Text("Delete this Vehicle"),
-                                      message: Text("Deleting this vehicle will permanently remove all data."),
-                                      primaryButton: .destructive(Text("Delete")) {
-                                    self.showSecondConfirmDeleteRequest = true
-                                },
-                                      secondaryButton: .cancel())
-                            }
-                        }
-                        
-                    }
-                }
-                .navigationBarTitle("Update Details")
-                .navigationBarItems(leading:
-                                        Button("Cancel") {
-                    self.presentationMode.wrappedValue.dismiss()
-                })
-            }.alert(isPresented: self.$showSecondConfirmDeleteRequest) {
-                Alert(title: Text("Are you really sure?"),
-                      message: Text("This action cannot be undone"),
-                      primaryButton: .cancel(),
-                      secondaryButton: .destructive(Text("I'm sure")) {
-                    //                        for service in car.futureSerevice! {
-                    // cancel notifications
-                    //                        }
-                    
-                    do {
-                        let carId = car.localId
-                        try context.delete(model: SDCar.self, where: #Predicate<SDCar> { $0.localId == carId })
-                    } catch { }
-                }
-                )
+        Form {
+            Section {
+                TextField("Year", value: $carYear, formatter: NumberFormatter())
+                TextField("Make", text: $carMake)
+                TextField("Model", text: $carModel)
+                TextField("Name", text: $carName)
+                TextField("Plate", text: $carPlate)
+                TextField("VIN", text: $carVIN)
             }
+            
+            Section {
+                Button("Cancel", role: .cancel) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                Button("Update") {
+                    save()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            }
+            
+            Section {
+                Button("Archive", role: .destructive) {
+                    car.deleted = true
+                }
+                Button("Delete", role: .destructive) {
+                    self.showFirstConfirmDeleteRequest = true
+                }
+                .alert(isPresented: self.$showFirstConfirmDeleteRequest) {
+                    Alert(title: Text("Delete this Vehicle"),
+                          message: Text("Deleting this vehicle will permanently remove all data."),
+                          primaryButton: .destructive(Text("Delete")) {
+                        self.showSecondConfirmDeleteRequest = true
+                    },
+                          secondaryButton: .cancel())
+                }
+            }
+            
+        }
+        .navigationBarTitle("Update Details")
+        .alert(isPresented: self.$showSecondConfirmDeleteRequest) {
+            Alert(title: Text("Are you really sure?"),
+                  message: Text("This action cannot be undone"),
+                  primaryButton: .cancel(),
+                  secondaryButton: .destructive(Text("I'm sure")) {
+                //                        for service in car.futureSerevice! {
+                // cancel notifications
+                //                        }
+                
+                do {
+                    let carId = car.localId
+                    try context.delete(model: SDCar.self, where: #Predicate<SDCar> { $0.localId == carId })
+                } catch { }
+            }
+            )
         }
     }
     
     func save() {
-        if self.carYear != nil {
-            car.year = self.carYear
-        }
-        if carMake != "" {
-            car.make = self.carMake
-        }
-        if carModel != "" {
-            car.model = self.carModel
-        }
-        if carPlate != "" {
-            car.plate = self.carPlate
-        }
-        if carVIN != "" {
-            car.vin = self.carVIN
-        }
+        car.year = carYear
+        car.make = carMake
+        car.model = carModel
+        car.name = carName
+        car.plate = carPlate
+        car.vin = carVIN
     }
 }

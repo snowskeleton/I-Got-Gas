@@ -14,7 +14,6 @@ class SDCar: Identifiable {
     @Attribute(.unique)
     var localId: String = UUID().uuidString
     var icloudId: String = UUID().uuidString
-    var nickname: String = ""
     var make: String = ""
     var model: String = ""
     var name: String = ""
@@ -45,6 +44,14 @@ class SDCar: Identifiable {
         self.vin = vin
         self.year = year
         self.startingOdometer = startingOdometer
+    }
+    
+    var visualName: String {
+        if name.isEmpty {
+            return [year?.description ?? "", make, model].joined(separator: " ")
+        } else {
+            return name
+        }
     }
     
     var odometer: Int {

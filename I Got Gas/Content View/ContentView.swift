@@ -206,13 +206,7 @@ struct ContentViewItem: View {
         } label: {
             VStack {
                 HStack {
-                    if !car.nickname.isEmpty {
-                        Text(car.nickname)
-                    } else {
-                        Text(car.year?.description ?? "")
-                        Text(car.make)
-                        Text(car.model)
-                    }
+                    Text(car.visualName)
                     Spacer()
                 }
                 .fontWeight(.bold)

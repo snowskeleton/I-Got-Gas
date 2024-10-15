@@ -166,7 +166,7 @@ struct DetailView: View {
             Spacer()
         }
         .navigationBarTitle(
-            Text("\(car.year != nil ? car.year!.description : "") \(car.make) \(car.model)"),
+            Text(car.visualName),
             displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
