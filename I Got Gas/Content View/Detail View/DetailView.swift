@@ -150,6 +150,11 @@ struct DetailView: View {
                             }
                         }
                     }
+                    NavigationLink {
+                        FutureServiceView(car: Binding<SDCar>.constant(car))
+                    } label: {
+                        Text("All")
+                    }
                 } header: {
                     NavigationLink {
                         AddFutureServiceView(car: Binding<SDCar>.constant(car))
