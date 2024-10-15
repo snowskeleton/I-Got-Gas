@@ -18,7 +18,9 @@ class SDService: Identifiable {
     var datePurchased = Date()
     var dateCompleted: Date?
     var pendingCompletion: Bool = false
-    var note: String = ""
+    @Attribute(originalName: "note")
+    var name: String = ""
+    var fullDescription: String = ""
     var odometer: Int = 0
     
     var isFuel: Bool = false
@@ -40,13 +42,13 @@ class SDService: Identifiable {
         cost: Double,
         datePurchased: Date,
         dateCompleted: Date?,
-        note: String,
+        name: String,
         odometer: Int
     ) {
         self.cost = cost
         self.datePurchased = datePurchased
         self.dateCompleted = dateCompleted
-        self.note = note
+        self.name = name
         self.odometer = odometer
     }
     

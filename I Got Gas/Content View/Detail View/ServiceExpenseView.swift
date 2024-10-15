@@ -37,16 +37,18 @@ struct ServiceExpenseView: View {
                 } label: {
                     VStack {
                         HStack {
-                            Text("$\(service.cost, specifier: "%.2f")")
+                            VStack(alignment: .leading) {
+                                Text(service.name)
+                                Text("$\(service.cost, specifier: "%.2f")")
+                            }
                             Spacer()
-                            Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)")
+                            VStack(alignment: .trailing) {
+                                Text(service.datePurchased, formatter: DateFormatter.taskDateFormat)
+                                Text(service.odometer.description)
+                            }
                         }
-                        HStack {
-                            Text("\(service.odometer)")
-                            Spacer()
-                            Text(service.note)
-                            Spacer()
-                            Text(service.vendorName)
+                        if !service.fullDescription.isEmpty {
+                            Text(service.fullDescription)
                         }
                     }
                 }

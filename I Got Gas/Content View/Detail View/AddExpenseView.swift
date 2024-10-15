@@ -20,7 +20,7 @@ struct AddExpenseView: View {
     @State private var expenseDate = Date()
     @State private var gallonsOfGas = ""
     @State private var vendorName = ""
-    @State private var note = ""
+    @State private var name = ""
     @State private var odometer: Int = 0
     @State private var isFullTank = 0
     @State var service: SDService?
@@ -65,7 +65,7 @@ struct AddExpenseView: View {
         _service = State(initialValue: service)
         _totalPrice = State(initialValue: String(format: "%.0f", service.cost * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
         _expenseDate = State(initialValue: service.datePurchased)
-        _note = State(initialValue: service.note)
+        _name = State(initialValue: service.name)
         _odometer = State(initialValue: service.odometer)
 
         _vendorName = State(initialValue: service.vendorName)
@@ -189,7 +189,7 @@ struct AddExpenseView: View {
                     Section(header: Text("Vendor")) {
                         TextField("Vendor name", text: $vendorName)
                         if serviceType != "Gas"  {
-                            TextField("Service Notes", text: $note)
+                            TextField("Service Notes", text: $name)
                         }
                     }
                     
@@ -230,12 +230,12 @@ struct AddExpenseView: View {
         
         if serviceType == "Gas" {
             hydratedService.isFuel = true
-            hydratedService.note = "Fuel"
+            hydratedService.name = "Fuel"
             hydratedService.isFullTank = ( isFullTank == 0 ? true : false )
             hydratedService.gallons = gallonsOfGasFormatted
 //            hydratedService.costPerGallon = (totalNumberFormatted / gallonsOfGasFormatted)
         } else {
-            hydratedService.note = note
+            hydratedService.name = name
         }
         
         if !isCompletedDifferentDay || (isCompletedDifferentDay && isCompleted) {

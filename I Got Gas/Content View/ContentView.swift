@@ -153,7 +153,7 @@ struct ContentView: View {
                         cost: workingService.cost,
                         datePurchased: workingService.date ?? Date(),
                         dateCompleted: workingService.date ?? Date(),
-                        note: workingService.note ?? "",
+                        name: workingService.note ?? "",
                         odometer: Int(workingService.odometer)
                     )
                         

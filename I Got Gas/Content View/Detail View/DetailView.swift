@@ -105,7 +105,7 @@ struct DetailView: View {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
-                                Text(service.note)
+                                Text(service.name)
                                     .lineLimit(1)
                                 Spacer()
                                 Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)"
