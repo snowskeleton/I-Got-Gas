@@ -19,7 +19,8 @@ struct ContentView: View {
     // 1.x - 2.0 migration migration
     @FetchRequest(entity: Car.entity(), sortDescriptors: []) var cars: FetchedResults<Car>
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
-    @State private var showAlert = false
+    @State private var showQuitAlert = false
+    @State private var showProgressAlert = false
     @State private var alertTitle = "Default title"
     @State private var alertMessage = "Default message"
     // end migration
@@ -128,16 +129,28 @@ struct ContentView: View {
             }
         }
         // 1.x - 2.0 migration migration
-        .alert(isPresented: $showAlert) {
+        .alert(isPresented: $showQuitAlert) {
             Alert(
                 title: Text(alertTitle),
                 message: Text(alertMessage),
                 dismissButton: .default(Text("Quit")) { exit(0) }
             )
         }
+        .alert(isPresented: $showQuitAlert) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage)
+            )
+        }
         .onAppear {
             if migrated { return }
+            var carCount = 0
             for car in cars {
+                carCount += 1
+                alertTitle = "Migrating \(carCount) of \(cars.count)"
+                alertMessage = ""
+                showProgressAlert = true
+
                 let sdcar = SDCar(
                     make: car.make ?? "",
                     model: car.model ?? "",
@@ -147,26 +160,33 @@ struct ContentView: View {
                     year: Int(car.year ?? ""),
                     startingOdometer: Int(car.startingOdometer)
                 )
-                car.services?.forEach { service in
-                    let workingService = service as! Service
-                    let sdservice = SDService(
-                        cost: workingService.cost,
-                        datePurchased: workingService.date ?? Date(),
-                        dateCompleted: workingService.date ?? Date(),
-                        name: workingService.note ?? "",
-                        odometer: Int(workingService.odometer)
-                    )
+                var serviceCount = 0
+                let totalServices = (car.services ?? [])
+                for service in totalServices {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        //                car.services?.forEach { service in
+                        serviceCount += 1
+                        alertMessage = "Migrating service \(serviceCount)/\(totalServices.count)"
+                        let workingService = service as! Service
+                        let sdservice = SDService(
+                            cost: workingService.cost,
+                            datePurchased: workingService.date ?? Date(),
+                            dateCompleted: workingService.date ?? Date(),
+                            name: workingService.note ?? "",
+                            odometer: Int(workingService.odometer)
+                        )
                         
-                    if let fuel = workingService.fuel {
-                        sdservice.isFuel = true
-                        sdservice.isFullTank = fuel.isFullTank
-                        sdservice.gallons = fuel.numberOfGallons
-                        
+                        if let fuel = workingService.fuel {
+                            sdservice.isFuel = true
+                            sdservice.isFullTank = fuel.isFullTank
+                            sdservice.gallons = fuel.numberOfGallons
+                            
+                        }
+                        if let vendor = workingService.vendor {
+                            sdservice.vendorName = vendor.name ?? ""
+                        }
+                        context.insert(sdservice)
                     }
-                    if let vendor = workingService.vendor {
-                        sdservice.vendorName = vendor.name ?? ""
-                    }
-                    context.insert(sdservice)
                 }
                 car.futureSerevice?.forEach { fservice in
                     let workingService = fservice as! FutureService
@@ -190,7 +210,7 @@ struct ContentView: View {
             } catch {
                 alertTitle = "Migration failed"
                 alertMessage = "Please close app and try again"
-                showAlert = true
+                showQuitAlert = true
             }
         }
         // end migration
