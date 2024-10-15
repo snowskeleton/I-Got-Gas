@@ -136,15 +136,12 @@ struct DetailView: View {
                         NavigationLink {
                             AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: service)
                         } label: {
-                            VStack {
-                                HStack {
-                                    Text(service.name)
-                                        .foregroundColor(service.pastDue ? Color.red : Color.primary)
-                                    Spacer()
+                            HStack {
+                                Text(service.name)
+                                    .foregroundColor(service.pastDue ? Color.red : Color.primary)
+                                Spacer()
+                                VStack {
                                     Text("\(service.odometerFirstOccurance - service.car!.odometer)/\(service.frequencyMiles)")
-                                }
-                                HStack {
-                                    Spacer()
                                     Text(service.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: service.frequencyTimeInterval.calendarComponent, value: service.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
                                 }
                             }

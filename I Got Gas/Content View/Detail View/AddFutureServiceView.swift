@@ -16,7 +16,7 @@ struct AddFutureServiceView: View {
     @State private var frequencyTimeInterval: FrequencyTimeInterval = .month
     @State private var date: Date = Date()
     @State private var name: String = ""
-    @State private var notes: String = ""
+    @State private var fullDescription: String = ""
     @State private var repeating: Bool = true
     @State private var frequencyTime: Int = 30
     @State private var frequencyMiles: Int = 5000
@@ -31,7 +31,7 @@ struct AddFutureServiceView: View {
         _car = car
         _futureService = .init(initialValue: futureService)
         _name = .init(initialValue: futureService.name)
-        _notes = .init(initialValue: futureService.notes)
+        _fullDescription = .init(initialValue: futureService.fullDescription)
         _repeating = .init(initialValue: futureService.repeating)
         _date = .init(initialValue: futureService.frequencyTimeStart)
         _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval)
@@ -42,8 +42,13 @@ struct AddFutureServiceView: View {
     var body: some View {
         VStack {
             Form {
-                TextField("Service Description", text: self.$name)
-                
+                Section {
+                    TextField("Name", text: $name)
+                }
+                Section {
+                    TextField("Description", text: $fullDescription, axis: .vertical)
+                }
+
                 Section {
                     Toggle("Repeating", isOn: $repeating)
                 }
@@ -54,7 +59,7 @@ struct AddFutureServiceView: View {
                             Text(frequencyTimeInterval.description)
                                 .foregroundColor(.gray)
                         }
-                        TextField("3, 6, 12...", value: self.$frequencyTime, formatter: NumberFormatter())
+                        TextField("3, 6, 12...", value: $frequencyTime, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
                     
@@ -72,21 +77,21 @@ struct AddFutureServiceView: View {
                             Text("miles")
                                 .foregroundColor(.gray)
                         }
-                        TextField("3,000, 15,000...", value: self.$frequencyMiles, formatter: NumberFormatter())
+                        TextField("3,000, 15,000...", value: $frequencyMiles, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
                     }
                 }
                 
                 Section(header: Text("Starting...")) {
                     DatePicker("Date",
-                               selection: self.$date,
+                               selection: $date,
                                displayedComponents: .date)
                     
                     .labelsHidden()
                 }
                 Button("Save") {
-                    self.save()
-                    self.presentationMode.wrappedValue.dismiss()
+                    save()
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
         }
@@ -111,7 +116,7 @@ struct AddFutureServiceView: View {
         }
 
         hydratedService.name = name
-        hydratedService.notes = notes
+        hydratedService.fullDescription = fullDescription
         hydratedService.repeating = repeating
         hydratedService.frequencyMiles = frequencyMiles
         hydratedService.frequencyTime = frequencyTime

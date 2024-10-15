@@ -29,26 +29,27 @@ struct FutureServiceView: View {
     
     var body: some View {
         VStack {
-                List(futureServices, id: \.self) { futureService in
-                    NavigationLink {
-                        AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: futureService)
-                    } label: {
-                        VStack {
-                            HStack {
-                                Text("\(futureService.name)")
-                                Spacer()
-                                Text("\(futureService.odometerFirstOccurance - car.odometer)/\(futureService.frequencyMiles)")
-                            }
-                            HStack {
-                                Text("\(futureService.notes)")
-                                Spacer()
+            List(futureServices, id: \.self) { futureService in
+                NavigationLink {
+                    AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: futureService)
+                } label: {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(futureService.name)
+                            Spacer()
+                            VStack {
                                 Text(futureService.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: futureService.frequencyTimeInterval.calendarComponent, value: futureService.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
+                                Text(futureService.odometerFirstOccurance.description)
                             }
+                        }
+                        if !futureService.fullDescription.isEmpty {
+                            Text(futureService.fullDescription)
+                                .font(.subheadline)
                         }
                     }
                 }
-                //.onDelete(perform: loseMemory)
-//            }
+            }
+            //.onDelete(perform: loseMemory)
             NavigationLink {
                 AddFutureServiceView(car: Binding<SDCar>.constant(car))
             } label: {

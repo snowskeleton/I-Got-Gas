@@ -26,7 +26,7 @@ class SDScheduledService: Identifiable {
     }
     
     var name: String = ""
-    var notes: String = ""
+    var fullDescription: String = ""
     var notificationUUID: String = UUID().uuidString
     var repeating: Bool = false
     
