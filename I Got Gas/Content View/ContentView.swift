@@ -206,28 +206,21 @@ struct ContentViewItem: View {
         } label: {
             VStack {
                 HStack {
-                    HStack {
+                    if !car.nickname.isEmpty {
+                        Text(car.nickname)
+                    } else {
                         Text(car.year?.description ?? "")
                         Text(car.make)
                         Text(car.model)
                     }
-                    .fontWeight(.bold)
                     Spacer()
-                    Text(car.plate)
                 }
+                .fontWeight(.bold)
                 HStack {
-                    Spacer()
                     Text("$\(car.costPerMile, specifier: "%.2f")/mile")
                     Spacer()
-                    Text("$\(car.costPerGallon, specifier: "%.3f")/gal")
-                    Spacer()
-                }
-                HStack {
-                    Text("Miles:")
-                    Text(car.odometer.description)
-                    Spacer()
                     Text("Last filled:")
-                    Text(car.lastFillup?.description ?? "never")
+                    Text(car.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
                 }
             }
         }

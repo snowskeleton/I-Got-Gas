@@ -14,6 +14,7 @@ class SDCar: Identifiable {
     @Attribute(.unique)
     var localId: String = UUID().uuidString
     var icloudId: String = UUID().uuidString
+    var nickname: String = ""
     var make: String = ""
     var model: String = ""
     var name: String = ""
