@@ -10,7 +10,6 @@ import SwiftUI
 
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var moc
     @Environment(\.modelContext) var context
     
     @State private var showFirstConfirmDeleteRequest = false
