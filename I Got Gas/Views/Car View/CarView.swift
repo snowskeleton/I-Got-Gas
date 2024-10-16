@@ -114,7 +114,7 @@ struct CarView: View {
                         }
                     }
                     NavigationLink {
-                        ServiceExpenseView(car: Binding<SDCar>.constant(car))
+                        MaintenanceExpenseView(car: Binding<SDCar>.constant(car))
                     } label: {
                         Text("All")
                     }

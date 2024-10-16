@@ -70,7 +70,7 @@
 				"Views/Car View/Graphs/ChartsView.swift",
 				"Views/Car View/Graphs/FuelChart90DayView.swift",
 				"Views/Car View/Graphs/MaintenenceChart90DayView.swift",
-				"Views/Car View/ServiceExpenseView.swift",
+				"Views/Car View/MaintenanceExpenseView.swift",
 				Views/ContentView.swift,
 				Views/Settings/Private/DeveloperMenuView.swift,
 				Views/Settings/Private/NotificationPermissionsView.swift,

@@ -1,5 +1,5 @@
 //
-//  TestView.swift
+//  MaintenanceExpenseView.swift
 //  I Got Gas
 //
 //  Created by Isaac Lyons on 8/2/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-struct ServiceExpenseView: View {
+struct MaintenanceExpenseView: View {
     @Binding var car: SDCar
 
     @Query var services: [SDService]
