@@ -20,10 +20,11 @@ struct ChartsView: View {
         TabView(selection: $selectedTab) {
             FuelChart90DayView(car: Binding<SDCar>.constant(car))
                 .tag("Default")
-            
+
             MaintenenceChart90DayView(car: Binding<SDCar>.constant(car))
                 .tag("Optional")
         }
         .tabViewStyle(.page)
+//        .indexViewStyle(.page(backgroundDisplayMode: .always))
     }
 }

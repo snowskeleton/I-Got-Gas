@@ -22,7 +22,7 @@ struct SettingsView: View {
                         AboutView()
                     } label: {
                         HStack {
-                            Image(systemName: "list.clipboard")
+                            Image(systemName: "list.clipboard.fill")
                             Text("About")
                         }
                     }
@@ -63,7 +63,7 @@ struct SettingsView: View {
                         AnalyticsView()
                     } label: {
                         HStack {
-                            Image(systemName: "chart.bar")
+                            Image(systemName: "chart.bar.fill")
                             Text("Analytics")
                         }
                     }
@@ -75,7 +75,7 @@ struct SettingsView: View {
                             DeveloperMenuView()
                         } label: {
                             HStack {
-                                Image(systemName: "hammer")
+                                Image(systemName: "hammer.fill")
                                 Text("Developer")
                             }
                         }

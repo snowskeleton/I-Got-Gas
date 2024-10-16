@@ -65,8 +65,12 @@ struct CarView: View {
     
     var body: some View {
         VStack {
-            ChartsView(car: Binding<SDCar>.constant(car))
             List {
+                ChartsView(car: Binding<SDCar>.constant(car))
+                    .frame(maxWidth: .infinity, minHeight: 300)  // Set the desired height for the chart
+
+                    .listRowInsets(EdgeInsets()) // Remove default list insets
+
                 Section {
                     ForEach(fuelServices, id: \.self) { service in
                         NavigationLink {
