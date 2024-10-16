@@ -65,7 +65,7 @@ struct CarView: View {
     
     var body: some View {
         VStack {
-            CarHeaderView(car: Binding<SDCar>.constant(car))
+            ChartsView(car: Binding<SDCar>.constant(car))
             List {
                 Section {
                     ForEach(fuelServices, id: \.self) { service in
@@ -123,7 +123,7 @@ struct CarView: View {
                         AddExpenseView(car: Binding<SDCar>.constant(car), isGas: false)
                     } label: {
                         HStack {
-                            Text("Service")
+                            Text("Maintenance")
                             Image(systemName: "wrench")
                             Spacer()
                             Image(systemName: "plus")

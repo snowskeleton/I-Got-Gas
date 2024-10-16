@@ -18,7 +18,7 @@ public class SwiftDataManager {
             SDCar.self,
             SDService.self,
             SDScheduledService.self,
-            SDVendor.self,
+//            SDVendor.self,
         ])
         
         let modelConfiguration = ModelConfiguration(

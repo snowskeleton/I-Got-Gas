@@ -65,7 +65,7 @@ struct ServiceExpenseView: View {
             }
             .padding(.bottom)
         }
-        .navigationTitle("Services")
+        .navigationTitle("Maintencance")
     }
 //    func loseMemory(at offsets: IndexSet) {
 //        for index in offsets {
