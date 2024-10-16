@@ -143,9 +143,7 @@ struct ContentView: View {
             )
         }
         .onAppear {
-//            print("Checking migration")
-//            if migrated { return }
-            print("We're migrating")
+            if migrated { return }
             var carCount = 0
             for car in cars {
                 carCount += 1
