@@ -67,7 +67,6 @@
 				"Views/Detail View/ServiceExpenseView.swift",
 				"Views/Detail View/TopDetailView.swift",
 				"Views/Options View/AboutView.swift",
-				"Views/Options View/ChangeLogView.swift",
 				"Views/Options View/EmailViewController.swift",
 				"Views/Options View/ExportDataView.swift",
 				"Views/Options View/OptionsView.swift",

@@ -31,15 +31,6 @@ struct AboutView: View {
                     }
                 }
                 
-                NavigationLink(destination: ChangeLogView()) {
-                    HStack {
-                        Image(systemName: "hammer")
-                            .font(.system(size: 28))
-                        Text("Change Log")
-                            .fontWeight(.medium)
-                    }
-                }
-                
                 Button(action: {
                     isShowingMailView.toggle()
                 }) {
