@@ -11,7 +11,7 @@
 		80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */ = {isa = PBXBuildFile; productRef = 80582ECA2C8A48F30056C421 /* Aptabase */; };
 		805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805B413E24CDF04B0085DB47 /* AppDelegate.swift */; };
 		805B414824CDF04E0085DB47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 805B414724CDF04E0085DB47 /* Assets.xcassets */; };
-		805BAB8324D335E10026FA6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* Extensions.swift */; };
+		805BAB8324D335E10026FA6F /* extension DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805BAB8224D335E10026FA6F /* extension DateFormatter.swift */; };
 		808BA0802524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0752524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png */; };
 		808BA0812524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0762524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png */; };
 		808BA0822524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA0772524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png */; };
@@ -30,7 +30,7 @@
 		805B413E24CDF04B0085DB47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		805B414724CDF04E0085DB47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		805B414F24CDF04E0085DB47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		805BAB8224D335E10026FA6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		805BAB8224D335E10026FA6F /* extension DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension DateFormatter.swift"; sourceTree = "<group>"; };
 		808BA0752524E3A9005F7D91 /* Fuel Expense View - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Fuel Expense View - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
 		808BA0762524E3A9005F7D91 /* Add Expense View - iPhone 8 Plus - 5.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Expense View - iPhone 8 Plus - 5.5.png"; sourceTree = "<group>"; };
 		808BA0772524E3A9005F7D91 /* Add Future Expense - iPhone 11 Pro Max - 6.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add Future Expense - iPhone 11 Pro Max - 6.5.png"; sourceTree = "<group>"; };
@@ -84,9 +84,9 @@
 				8057A46D2CB0222000BC6C3D /* Database */,
 				8057A4672CAF33BD00BC6C3D /* Configuration */,
 				805B413E24CDF04B0085DB47 /* AppDelegate.swift */,
+				805BAB8224D335E10026FA6F /* extension DateFormatter.swift */,
 				8057A47D2CB0367800BC6C3D /* I_Got_GasApp.swift */,
 				80A3BB102CC00B0900186286 /* Views */,
-				80D61B0624EAEFEE007A0C8F /* extensions */,
 				805B414724CDF04E0085DB47 /* Assets.xcassets */,
 				805B414F24CDF04E0085DB47 /* Info.plist */,
 			);
@@ -108,14 +108,6 @@
 				808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */,
 			);
 			path = Screenshots;
-			sourceTree = "<group>";
-		};
-		80D61B0624EAEFEE007A0C8F /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-				805BAB8224D335E10026FA6F /* Extensions.swift */,
-			);
-			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,7 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8057A47E2CB0367800BC6C3D /* I_Got_GasApp.swift in Sources */,
-				805BAB8324D335E10026FA6F /* Extensions.swift in Sources */,
+				805BAB8324D335E10026FA6F /* extension DateFormatter.swift in Sources */,
 				805B413F24CDF04B0085DB47 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
