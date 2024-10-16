@@ -1,5 +1,5 @@
 //
-//  AddEntryView.swift
+//  CarView.swift
 //  I Got Gas
 //
 //  Created by Isaac Lyons on 7/26/20.
