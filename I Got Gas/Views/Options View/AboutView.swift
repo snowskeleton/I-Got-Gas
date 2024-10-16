@@ -19,64 +19,62 @@ struct AboutView: View {
     @State var isShowingMailView = false
     
     var body: some View {
-        NavigationView {
-            List {
-                Section(footer: AboutFooter()) {
-
-                    NavigationLink(destination: PrivacyPolicyView()) {
-                        HStack {
-                            Image(systemName: "lock.doc")
-                                .font(.system(size: 30))
-                            Text("Privacy Policy")
-                                .fontWeight(.medium)
-                        }
-                    }
-
-                    NavigationLink(destination: ChangeLogView()) {
-                        HStack {
-                            Image(systemName: "hammer")
-                                .font(.system(size: 28))
-                            Text("Change Log")
-                                .fontWeight(.medium)
-                        }
-                    }
-
-                    Button(action: {
-                        isShowingMailView.toggle()
-                    }) {
-                        HStack {
-                            Image(systemName: "envelope")
-                                .font(.system(size: 28))
-                            Text("Feedback")
-                                .fontWeight(.medium)
-                        }
-                    }
-                    .disabled(!MFMailComposeViewController.canSendMail())
-                    .sheet(isPresented: $isShowingMailView) {
-                        MailView(result: self.$result)
-                    }
-
-                    Link(destination: URL(string: "https://www.github.com/snowskeleton/I-Got-Gas")!) {
-                        HStack {
-                            Image(colorScheme == .dark ? "GitHub.dark" : "GitHub")
-                            Text("View this project on Github")
-                                .fontWeight(.medium)
-                        }
-
-                    }
-
+        List {
+            Section(footer: AboutFooter()) {
+                
+                NavigationLink(destination: PrivacyPolicyView()) {
                     HStack {
-                        Text("Version: \(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))")
-                            .fontWeight(.light)
+                        Image(systemName: "lock.doc")
+                            .font(.system(size: 30))
+                        Text("Privacy Policy")
+                            .fontWeight(.medium)
                     }
                 }
-                .foregroundColor(colorScheme == .dark
-                                    ? Color.white
-                                    : Color.black)
-
+                
+                NavigationLink(destination: ChangeLogView()) {
+                    HStack {
+                        Image(systemName: "hammer")
+                            .font(.system(size: 28))
+                        Text("Change Log")
+                            .fontWeight(.medium)
+                    }
+                }
+                
+                Button(action: {
+                    isShowingMailView.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: "envelope")
+                            .font(.system(size: 28))
+                        Text("Feedback")
+                            .fontWeight(.medium)
+                    }
+                }
+                .disabled(!MFMailComposeViewController.canSendMail())
+                .sheet(isPresented: $isShowingMailView) {
+                    MailView(result: self.$result)
+                }
+                
+                Link(destination: URL(string: "https://www.github.com/snowskeleton/I-Got-Gas")!) {
+                    HStack {
+                        Image(colorScheme == .dark ? "GitHub.dark" : "GitHub")
+                        Text("View this project on Github")
+                            .fontWeight(.medium)
+                    }
+                    
+                }
+                
+                HStack {
+                    Text("Version: \(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))")
+                        .fontWeight(.light)
+                }
             }
-            .navigationBarTitle("About")
+            .foregroundColor(colorScheme == .dark
+                             ? Color.white
+                             : Color.black)
+            
         }
+        .navigationBarTitle("About")
     }
 }
 

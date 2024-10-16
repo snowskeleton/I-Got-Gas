@@ -30,63 +30,58 @@ struct OptionsView: View {
     }
     
     var body: some View {
-        VStack {
-            Form {
-                
-                Button("Drop all tables", role: .destructive) { try? ModelContainer().deleteAllData() }
-                Toggle("2.0 Migration Complete", isOn: $migrated)
-                Section(header: Text("Decimal Length")) {
-                    Picker(selection: $formatSelection,
-                           label: Text("Fuel Price Decimal Length")) {
-                        ForEach(0..<formatList.count, id: \.self)
-                        { Text(self.formatList[$0]) }
-                    }.pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: formatSelection) { _, _ in
-                            UserDefaults.standard.set(formatList[formatSelection],
-                                                      forKey: "priceFormat")
-                        }
-                }
-                
-                Section {
-                    Button(action: {
-                        self.showAboutView = true
-                    }) {
-                        Text("About")
-                            .foregroundColor(colorScheme == .dark
-                                             ? Color.white
-                                             : Color.black)
-                            .fontWeight(.light)
+        NavigationStack {
+            VStack {
+                Form {
+                    
+                    Button("Drop all tables", role: .destructive) { try? ModelContainer().deleteAllData() }
+                    Toggle("2.0 Migration Complete", isOn: $migrated)
+                    Section(header: Text("Decimal Length")) {
+                        Picker(selection: $formatSelection,
+                               label: Text("Fuel Price Decimal Length")) {
+                            ForEach(0..<formatList.count, id: \.self)
+                            { Text(self.formatList[$0]) }
+                        }.pickerStyle(SegmentedPickerStyle())
+                            .onChange(of: formatSelection) { _, _ in
+                                UserDefaults.standard.set(formatList[formatSelection],
+                                                          forKey: "priceFormat")
+                            }
                     }
-                    .sheet(isPresented: $showAboutView) {
-                        AboutView()
-                    }
-                }
-                
-                Section {
-                    Toggle("Enable Analytics", isOn: Binding(
-                        get: { !disableAnalytics },
-                        set: {
-                            Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
-                            disableAnalytics  = !$0
-                            Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
+                    
+                    Section {
+                        NavigationLink {
+                            AboutView()
+                        } label: {
+                            Text("About")
                         }
-                    ))
-                } header: {
-                    Text("Analytics")
-                } footer: {
-                    Text("\(disableAnalytics ? "No" : "Only") app usage is tracked. No personally identifible information is saved. No information is sold to or used by third parties.")
+                    }
+                    
+                    Section {
+                        Toggle("Enable Analytics", isOn: Binding(
+                            get: { !disableAnalytics },
+                            set: {
+                                Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
+                                disableAnalytics  = !$0
+                                Analytics.track(!$0 ? .analyticsDisabled : .analyticsEnabled)
+                            }
+                        ))
+                    } header: {
+                        Text("Analytics")
+                    } footer: {
+                        Text("\(disableAnalytics ? "No" : "Only") app usage is tracked. No personally identifible information is saved. No information is sold to or used by third parties.")
+                    }
+                    
+                    //                    Section {
+                    //                        NavigationLink {
+                    //                            ExportDataView()
+                    //                        } label: {
+                    //                            Text("Import/Export")
+                    //                        }
+                    //                    }
                 }
-                
-                //                    Section {
-                //                        NavigationLink {
-                //                            ExportDataView()
-                //                        } label: {
-                //                            Text("Import/Export")
-                //                        }
-                //                    }
             }
+            .navigationBarTitle(Text("Options"))
         }
-        .navigationBarTitle(Text("Options"))
     }
 }
 
