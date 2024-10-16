@@ -30,9 +30,9 @@ class SDService: Identifiable {
     
     var vendorName = ""
     
-    @available(*, deprecated, message: "use `vendorName` instead")
-    @Relationship
-    var vendor: SDVendor?
+//    @available(*, deprecated, message: "use `vendorName` instead")
+//    @Relationship
+//    var vendor: SDVendor?
     
     @Relationship
     var car: SDCar?

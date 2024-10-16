@@ -30,12 +30,12 @@ class SDScheduledService: Identifiable {
     var notificationUUID: String = UUID().uuidString
     var repeating: Bool = false
     
-    @available(*, deprecated, message: "use `odometerFirstOccurance` instead")
-    var targetOdometer: Int = 0
+//    @available(*, deprecated, message: "use `odometerFirstOccurance` instead")
+//    var targetOdometer: Int = 0
     var odometerFirstOccurance: Int = 0
     
-    @available(*, deprecated, message: "use `frequencyMiles` instead")
-    var everyXMiles: Int = 0
+//    @available(*, deprecated, message: "use `frequencyMiles` instead")
+//    var everyXMiles: Int = 0
     var frequencyMiles: Int = 0
     var frequencyTime: Int = 0
     var frequencyTimeInterval: FrequencyTimeInterval = FrequencyTimeInterval.month
