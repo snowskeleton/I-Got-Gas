@@ -26,6 +26,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2024</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

@@ -18,6 +18,7 @@
 		808BA0882524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07D2524E3A9005F7D91 /* Home Screen - iPhone 8 Plus - 5.5.png */; };
 		808BA0892524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07E2524E3A9005F7D91 /* Home Screen - iPhone 11 Pro Max - 6.5.png */; };
 		808BA08A2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 808BA07F2524E3A9005F7D91 /* Add Future Expense - iPhone 8 Plus - 5.5.png */; };
+		80A3BB652CC00F3500186286 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80A3BB642CC00F3500186286 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,8 @@
 				Database/SwiftDataManager.swift,
 				"extension DateFormatter.swift",
 				I_Got_GasApp.swift,
+				LICENSE.md,
+				PRIVACY_POLICY.md,
 				Views/AddCarView.swift,
 				Views/AllCarsView.swift,
 				Views/ContentView.swift,
@@ -67,10 +70,17 @@
 				"Views/Detail View/ServiceExpenseView.swift",
 				"Views/Detail View/TopDetailView.swift",
 				"Views/Options View/AboutView.swift",
+				"Views/Options View/AnalyticsView.swift",
 				"Views/Options View/EmailViewController.swift",
 				"Views/Options View/ExportDataView.swift",
+				"Views/Options View/LicenseView.swift",
+				"Views/Options View/Markdownview.swift",
 				"Views/Options View/OptionsView.swift",
 				"Views/Options View/PrivacyPolicyView.swift",
+				"Views/Options View/Private/DeveloperMenuView.swift",
+				"Views/Options View/Private/NotificationPermissionsView.swift",
+				"Views/Options View/Private/PendingNotificationsView.swift",
+				"Views/Options View/SettingsView.swift",
 			);
 			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
 		};
@@ -96,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80582ECB2C8A48F30056C421 /* Aptabase in Frameworks */,
+				80A3BB652CC00F3500186286 /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +193,7 @@
 			mainGroup = 805B413224CDF04B0085DB47;
 			packageReferences = (
 				80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */,
+				80A3BB632CC00F3500186286 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
 			preferredProjectObjectVersion = 50;
 			productRefGroup = 805B413C24CDF04B0085DB47 /* Products */;
@@ -419,6 +431,14 @@
 				minimumVersion = 0.3.10;
 			};
 		};
+		80A3BB632CC00F3500186286 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -426,6 +446,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */;
 			productName = Aptabase;
+		};
+		80A3BB642CC00F3500186286 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80A3BB632CC00F3500186286 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

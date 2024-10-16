@@ -27,7 +27,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Vehicles", systemImage: "car.side")
                 }
-            OptionsView()
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }

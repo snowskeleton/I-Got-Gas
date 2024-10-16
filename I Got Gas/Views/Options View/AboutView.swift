@@ -7,89 +7,41 @@
 //
 
 import SwiftUI
-import MessageUI
 
 struct AboutView: View {
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State var showPrivacyPolicy = false
-    @State var showChangeLog = false
-
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State var isShowingMailView = false
-    
     var body: some View {
-        List {
-            Section(footer: AboutFooter()) {
-                
-                NavigationLink(destination: PrivacyPolicyView()) {
+        VStack {
+            Text(Bundle.main.appName)
+                .font(.largeTitle)
+                .bold()
+            Text("Version: \(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))")
+            Text("By Isaac Lyons")
+            Text(Bundle.main.copyright)
+            List {
+                NavigationLink {
+                    MarkdownView(markdownFile: "PRIVACY_POLICY.md", title: "Privacy Policy")
+                } label: {
                     HStack {
-                        Image(systemName: "lock.doc")
-                            .font(.system(size: 30))
+                        Image(systemName: "checkmark.shield")
                         Text("Privacy Policy")
-                            .fontWeight(.medium)
                     }
                 }
-                
-                Button(action: {
-                    isShowingMailView.toggle()
-                }) {
+                NavigationLink {
+                    LicenseView()
+                } label: {
                     HStack {
-                        Image(systemName: "envelope")
-                            .font(.system(size: 28))
-                        Text("Feedback")
-                            .fontWeight(.medium)
+                        Image(systemName: "doc.text")
+                        Text("Licenses & Libraries")
                     }
                 }
-                .disabled(!MFMailComposeViewController.canSendMail())
-                .sheet(isPresented: $isShowingMailView) {
-                    MailView(result: self.$result)
-                }
-                
-                Link(destination: URL(string: "https://www.github.com/snowskeleton/I-Got-Gas")!) {
-                    HStack {
-                        Image(colorScheme == .dark ? "GitHub.dark" : "GitHub")
-                        Text("View this project on Github")
-                            .fontWeight(.medium)
-                    }
-                    
-                }
-                
                 HStack {
-                    Text("Version: \(Bundle.main.appVersionLong) (\(Bundle.main.appBuild))")
-                        .fontWeight(.light)
+                    Image(systemName: "scroll")
+                    Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
+                        Text("Terms of Use")
+                    }
                 }
             }
-            .foregroundColor(colorScheme == .dark
-                             ? Color.white
-                             : Color.black)
-            
         }
-        .navigationBarTitle("About")
-    }
-}
-
-struct AboutFooter: View {
-    var body: some View {
-        HStack {
-            Spacer()
-            VStack {
-                Text("By John Isaac Lyons")
-                Text("2020 Blizzard Skeleton, LLC")
-                Text("Made in Georgia")
-            }
-            Spacer()
-        }
-    }
-}
-
-struct ListLabelWithArrow: View {
-    var text: String
-    var body: some View {
-        HStack {
-            Text("\(text)")
-            Spacer()
-            Image(systemName: "chevron.right")
-        }
+        .navigationTitle("About")
     }
 }

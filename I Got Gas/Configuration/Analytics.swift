@@ -13,6 +13,8 @@ enum AnalyticEvent: String {
     
     case analyticsDisabled
     case analyticsEnabled
+    
+    case openedSettingsView
 }
 
 class Analytics {
