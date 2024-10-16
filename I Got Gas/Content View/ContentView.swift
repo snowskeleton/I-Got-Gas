@@ -136,14 +136,16 @@ struct ContentView: View {
                 dismissButton: .default(Text("Quit")) { exit(0) }
             )
         }
-        .alert(isPresented: $showQuitAlert) {
+        .alert(isPresented: $showProgressAlert) {
             Alert(
                 title: Text(alertTitle),
                 message: Text(alertMessage)
             )
         }
         .onAppear {
-            if migrated { return }
+//            print("Checking migration")
+//            if migrated { return }
+            print("We're migrating")
             var carCount = 0
             for car in cars {
                 carCount += 1
@@ -162,31 +164,30 @@ struct ContentView: View {
                 )
                 var serviceCount = 0
                 let totalServices = (car.services ?? [])
+                print(totalServices.count)
                 for service in totalServices {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        //                car.services?.forEach { service in
-                        serviceCount += 1
-                        alertMessage = "Migrating service \(serviceCount)/\(totalServices.count)"
-                        let workingService = service as! Service
-                        let sdservice = SDService(
-                            cost: workingService.cost,
-                            datePurchased: workingService.date ?? Date(),
-                            dateCompleted: workingService.date ?? Date(),
-                            name: workingService.note ?? "",
-                            odometer: Int(workingService.odometer)
-                        )
+                    serviceCount += 1
+                    alertMessage = "Migrating service \(serviceCount)/\(totalServices.count)"
+                    let workingService = service as! Service
+                    let sdservice = SDService(
+                        cost: workingService.cost,
+                        datePurchased: workingService.date ?? Date(),
+                        dateCompleted: workingService.date ?? Date(),
+                        name: workingService.note ?? "",
+                        odometer: Int(workingService.odometer)
+                    )
+                    
+                    if let fuel = workingService.fuel {
+                        sdservice.isFuel = true
+                        sdservice.isFullTank = fuel.isFullTank
+                        sdservice.gallons = fuel.numberOfGallons
                         
-                        if let fuel = workingService.fuel {
-                            sdservice.isFuel = true
-                            sdservice.isFullTank = fuel.isFullTank
-                            sdservice.gallons = fuel.numberOfGallons
-                            
-                        }
-                        if let vendor = workingService.vendor {
-                            sdservice.vendorName = vendor.name ?? ""
-                        }
-                        context.insert(sdservice)
                     }
+                    if let vendor = workingService.vendor {
+                        sdservice.vendorName = vendor.name ?? ""
+                    }
+                    sdservice.car = sdcar
+                    context.insert(sdservice)
                 }
                 car.futureSerevice?.forEach { fservice in
                     let workingService = fservice as! FutureService
