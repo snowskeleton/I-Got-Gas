@@ -23,7 +23,7 @@ struct ServiceExpenseView: View {
         }
         let descriptor = FetchDescriptor<SDService>(
             predicate: predicate,
-            sortBy: [SortDescriptor(\.datePurchased)]
+            sortBy: [SortDescriptor(\.datePurchased, order: .reverse)]
         )
         _services = Query(descriptor)
     }
