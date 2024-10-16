@@ -12,6 +12,8 @@ import SwiftData
 struct CarView: View {
     @Binding var car: SDCar
     
+    @State private var showInfoSheet = false
+    
     @Query var fuelServices: [SDService]
     @Query var services: [SDService]
     @Query var scheduledServices: [SDScheduledService]
@@ -170,12 +172,15 @@ struct CarView: View {
             displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    EditCarView(car: Binding<SDCar>.constant(car))
+                Button {
+                    showInfoSheet = true
                 } label: {
-                    Text("Edit")
+                    Image(systemName: "info.circle")
                 }
             }
+        }
+        .sheet(isPresented: $showInfoSheet) {
+            CarInfoView(car: $car)
         }
     }
 }

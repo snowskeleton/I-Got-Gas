@@ -46,9 +46,13 @@ class SDCar: Identifiable {
         self.startingOdometer = startingOdometer
     }
     
+    var joinedModel: String {
+        return [year?.description ?? "", make, model].joined(separator: " ")
+    }
+    
     var visualName: String {
         if name.isEmpty {
-            return [year?.description ?? "", make, model].joined(separator: " ")
+            return joinedModel
         } else {
             return name
         }

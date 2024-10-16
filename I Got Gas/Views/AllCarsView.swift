@@ -101,13 +101,6 @@ struct AllCarsView: View {
                 }
             }
             .toolbar {
-//                ToolbarItem(placement: .topBarLeading) {
-//                    NavigationLink {
-//                        OptionsView()
-//                    } label: {
-//                        Image(systemName: "gearshape")
-//                    }
-//                }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         AddCarView()
@@ -116,6 +109,7 @@ struct AllCarsView: View {
                     }
                 }
             }
+            .navigationTitle("Vehicles")
         }
     }
 }

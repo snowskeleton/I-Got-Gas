@@ -63,6 +63,7 @@
 				"Views/Car View/AddExpenseView.swift",
 				"Views/Car View/AddFutureServiceView.swift",
 				"Views/Car View/CarHeaderView.swift",
+				"Views/Car View/CarInfoView.swift",
 				"Views/Car View/CarView.swift",
 				"Views/Car View/EditCarView.swift",
 				"Views/Car View/FuelExpenseView.swift",
