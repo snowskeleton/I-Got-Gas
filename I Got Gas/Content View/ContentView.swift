@@ -206,6 +206,7 @@ struct ContentView: View {
             do {
                 try context.save()
                 migrated = true
+                showProgressAlert = false
             } catch {
                 alertTitle = "Migration failed"
                 alertMessage = "Please close app and try again"
