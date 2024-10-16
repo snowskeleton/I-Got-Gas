@@ -108,7 +108,6 @@
 			children = (
 				80A3BB132CC00BFD00186286 /* I Got Gas */,
 				808BA0742524E38C005F7D91 /* Screenshots */,
-				805B413D24CDF04B0085DB47 /* I Got Gas group */,
 				805B413C24CDF04B0085DB47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,13 +118,6 @@
 				805B413B24CDF04B0085DB47 /* I Got Gas.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		805B413D24CDF04B0085DB47 /* I Got Gas group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "I Got Gas group";
 			sourceTree = "<group>";
 		};
 		808BA0742524E38C005F7D91 /* Screenshots */ = {
