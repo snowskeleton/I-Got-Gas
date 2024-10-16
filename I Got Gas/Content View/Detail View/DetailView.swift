@@ -10,8 +10,6 @@ import SwiftUI
 import SwiftData
 
 struct DetailView: View {
-    @State private var showEditCarView = false
-    
     @Binding var car: SDCar
     
     @Query var fuelServices: [SDService]
