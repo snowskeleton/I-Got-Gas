@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-struct DetailView: View {
+struct CarView: View {
     @Binding var car: SDCar
     
     @Query var fuelServices: [SDService]
@@ -63,7 +63,7 @@ struct DetailView: View {
     
     var body: some View {
         VStack {
-            TopDetailView(car: Binding<SDCar>.constant(car))
+            CarHeaderView(car: Binding<SDCar>.constant(car))
             List {
                 Section {
                     ForEach(fuelServices, id: \.self) { service in

@@ -124,7 +124,7 @@ struct CarLineItemView: View {
     @Binding var car: SDCar
     var body: some View {
         NavigationLink {
-            DetailView(car: Binding<SDCar>.constant(car))
+            CarView(car: Binding<SDCar>.constant(car))
         } label: {
             VStack {
                 HStack {

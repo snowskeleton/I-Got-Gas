@@ -1,5 +1,5 @@
 //
-//  TopDetailView.swift
+//  CarHeaderView.swift
 //  I Got Gas
 //
 //  Created by Isaac Lyons on 8/11/20.
@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 import Charts
 
-struct TopDetailView: View {
+struct CarHeaderView: View {
     @Binding var car: SDCar
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
     
