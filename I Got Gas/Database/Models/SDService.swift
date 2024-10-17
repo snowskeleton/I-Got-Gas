@@ -17,6 +17,8 @@ class SDService: Identifiable {
     var cost: Double = 0.0
     @Attribute(originalName: "datePurchased")
     var date = Date()
+    @Attribute(originalName: "isCompleted")
+    var pending: Bool = false
     @Attribute(originalName: "note")
     var name: String = ""
     var fullDescription: String = ""

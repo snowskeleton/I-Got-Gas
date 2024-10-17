@@ -25,9 +25,7 @@ struct AddExpenseView: View {
     @State private var isFullTank = 0
     @State var service: SDService?
     @State private var serviceType = "Gas"
-    @State private var isCompletedDifferentDay = false
-    @State private var isCompleted = false
-    @State private var completedDate = Date()
+    @State private var pending: Bool = false
 
     @State private var editingPrice = false
     private var bluePipe = Text("|")
@@ -64,6 +62,7 @@ struct AddExpenseView: View {
         self.init(car: car)
         _service = State(initialValue: service)
         _totalPrice = State(initialValue: String(format: "%.0f", service.cost * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
+        _pending = .init(initialValue: service.pending)
         _expenseDate = State(initialValue: service.date)
         _name = State(initialValue: service.name)
         _odometer = State(initialValue: service.odometer)
@@ -110,17 +109,10 @@ struct AddExpenseView: View {
                                    selection: $expenseDate,
                                    displayedComponents: .date)
                         if serviceType != "Gas"  {
-                            Toggle("Completed different day", isOn: $isCompletedDifferentDay)
-                            if isCompletedDifferentDay {
-                                Toggle("Completed", isOn: $isCompleted)
-                                if isCompleted {
-                                    DatePicker("Completed",
-                                               selection: $completedDate,
-                                               displayedComponents: .date)
-                                }
-                            }
+                            Toggle("Pending", isOn: $pending)
                         }
                     }
+                    
                     if serviceType != "Gas"  {
                         Picker("Scheduled Service", selection: $selectedFutureService) {
                             Text("None")
@@ -220,6 +212,7 @@ struct AddExpenseView: View {
         hydratedService.odometer = odometer
         
         hydratedService.date = expenseDate
+        hydratedService.pending = pending
         
         if serviceType == "Gas" {
             hydratedService.isFuel = true
@@ -230,7 +223,7 @@ struct AddExpenseView: View {
             hydratedService.name = name
         }
         
-        if !isCompletedDifferentDay || (isCompletedDifferentDay && isCompleted) {
+        if !pending {
             if let service = selectedFutureService {
                 if service.repeating == false {
                     //delete scheduled service
