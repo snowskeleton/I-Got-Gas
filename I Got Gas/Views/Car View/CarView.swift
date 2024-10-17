@@ -19,6 +19,11 @@ struct CarView: View {
     @Query var scheduledServices: [SDScheduledService]
 
     init(car: Binding<SDCar>) {
+        var fetchLimit = UserDefaults.standard.integer(forKey: "itemCountOnCarView")
+        if fetchLimit == 0 {
+            fetchLimit = 3
+        }
+        print(fetchLimit)
         _car = car
         let carId = car.wrappedValue.localId
         let fuelPredicate = #Predicate<SDService> {
@@ -32,7 +37,7 @@ struct CarView: View {
                 SortDescriptor(\.datePurchased, order: .reverse)
             ]
         )
-        fuelDescriptor.fetchLimit = 3
+        fuelDescriptor.fetchLimit = fetchLimit
         _fuelServices = Query(fuelDescriptor)
         
         let servicePredicate = #Predicate<SDService> {
@@ -46,7 +51,7 @@ struct CarView: View {
                 SortDescriptor(\.datePurchased, order: .reverse)
             ]
         )
-        serviceDescriptor.fetchLimit = 3
+        serviceDescriptor.fetchLimit = fetchLimit
         _services = Query(serviceDescriptor)
 
         let scheduledDredicate = #Predicate<SDScheduledService> {
@@ -59,7 +64,7 @@ struct CarView: View {
                 SortDescriptor(\.frequencyTime, order: .reverse)
             ]
         )
-        scheduledDescriptor.fetchLimit = 3
+        scheduledDescriptor.fetchLimit = fetchLimit
         _scheduledServices = Query(scheduledDescriptor)
     }
     

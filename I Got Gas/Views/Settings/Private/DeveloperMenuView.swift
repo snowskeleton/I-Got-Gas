@@ -14,6 +14,7 @@ struct DeveloperMenuView: View {
     @AppStorage("showDebugValues") var showDebugValues = false
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
     @AppStorage("priceFormat") var priceFormat = "%.3f"
+    @AppStorage("itemCountOnCarView") var itemCountOnCarView: Int = 3
 
     var body: some View {
         List {
@@ -26,6 +27,12 @@ struct DeveloperMenuView: View {
                     Text("3").tag("%.3f")
                 }
                 .pickerStyle(SegmentedPickerStyle())
+            }
+            
+            Section {
+                TextField("Service Count", value: $itemCountOnCarView, formatter: NumberFormatter())
+            } footer: {
+                Text("Requires app restart")
             }
 
             Section("Troubleshooting") {
