@@ -29,10 +29,7 @@ struct FuelChart90DayView: View {
     var dataPoints: [(odometer: Int, costPerMile: Double)] {
         var points: [(odometer: Int, costPerMile: Double)] = []
         
-        let validServices = services.filter {
-            $0.isFuel &&
-            $0.odometer > car.startingOdometer
-        }
+        let validServices = services.filter { $0.isFuel && !$0.pending }
         
         // Step 1: Use a dictionary to accumulate costs by odometer
         var mileageCostDict: [Int: Double] = [:]
