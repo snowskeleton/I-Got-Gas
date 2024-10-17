@@ -23,7 +23,6 @@ struct CarView: View {
         if fetchLimit == 0 {
             fetchLimit = 3
         }
-        print(fetchLimit)
         _car = car
         let carId = car.wrappedValue.localId
         let fuelPredicate = #Predicate<SDService> {
