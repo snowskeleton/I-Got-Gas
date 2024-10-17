@@ -73,8 +73,7 @@ struct ContentView: View {
                     let workingService = service as! Service
                     let sdservice = SDService(
                         cost: workingService.cost,
-                        datePurchased: workingService.date ?? Date(),
-                        dateCompleted: workingService.date ?? Date(),
+                        date: workingService.date ?? Date(),
                         name: workingService.note ?? "",
                         odometer: Int(workingService.odometer)
                     )

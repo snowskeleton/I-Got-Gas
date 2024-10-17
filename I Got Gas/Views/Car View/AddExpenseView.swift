@@ -64,7 +64,7 @@ struct AddExpenseView: View {
         self.init(car: car)
         _service = State(initialValue: service)
         _totalPrice = State(initialValue: String(format: "%.0f", service.cost * 100)) //this looks weird because service.cost.wrappedValue is a Double, but we need to convert it to a String, but display it as a Double again.
-        _expenseDate = State(initialValue: service.datePurchased)
+        _expenseDate = State(initialValue: service.date)
         _name = State(initialValue: service.name)
         _odometer = State(initialValue: service.odometer)
 
@@ -219,21 +219,13 @@ struct AddExpenseView: View {
         hydratedService.cost = totalNumberFormatted
         hydratedService.odometer = odometer
         
-        hydratedService.datePurchased = expenseDate
-        if isCompletedDifferentDay {
-            hydratedService.pendingCompletion = true
-            if isCompleted {
-                hydratedService.pendingCompletion = false
-                hydratedService.dateCompleted = completedDate
-            }
-        }
+        hydratedService.date = expenseDate
         
         if serviceType == "Gas" {
             hydratedService.isFuel = true
             hydratedService.name = "Fuel"
             hydratedService.isFullTank = ( isFullTank == 0 ? true : false )
             hydratedService.gallons = gallonsOfGasFormatted
-//            hydratedService.costPerGallon = (totalNumberFormatted / gallonsOfGasFormatted)
         } else {
             hydratedService.name = name
         }

@@ -76,10 +76,8 @@ class SDCar: Identifiable {
     }
     
     var costPerMile: Double {
-        let validServices = services.filter { $0.odometer > startingOdometer && ($0.dateCompleted == nil || ($0.dateCompleted != nil && !$0.pendingCompletion)) }
-        
-        let totalCost = validServices.reduce(0.0) { $0 + $1.cost }
-        let highestOdometer = validServices.map { $0.odometer }.max() ?? startingOdometer
+        let totalCost = services.reduce(0.0) { $0 + $1.cost }
+        let highestOdometer = services.map { $0.odometer }.max() ?? startingOdometer
         let milesDriven = highestOdometer - startingOdometer
         
         // Prevent division by zero
@@ -93,7 +91,7 @@ class SDCar: Identifiable {
     var lastFillup: Date? {
         return services.filter { $0.isFuel }
             .max(by: { $0.odometer < $1.odometer } )?
-            .datePurchased
+            .date
     }
     @available(*, deprecated, message: "use `lastFillup` instead")
     var lastFuelDate: Date? {

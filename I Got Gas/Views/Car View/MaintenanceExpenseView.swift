@@ -23,7 +23,7 @@ struct MaintenanceExpenseView: View {
         }
         let descriptor = FetchDescriptor<SDService>(
             predicate: predicate,
-            sortBy: [SortDescriptor(\.datePurchased, order: .reverse)]
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
         _services = Query(descriptor)
     }
@@ -43,7 +43,7 @@ struct MaintenanceExpenseView: View {
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text(service.datePurchased, formatter: DateFormatter.taskDateFormat)
+                                Text(service.date, formatter: DateFormatter.taskDateFormat)
                                 Text(service.odometer.description)
                             }
                         }

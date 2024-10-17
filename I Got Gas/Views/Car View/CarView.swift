@@ -33,7 +33,7 @@ struct CarView: View {
             predicate: fuelPredicate,
             sortBy: [
                 SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.datePurchased, order: .reverse)
+                SortDescriptor(\.date, order: .reverse)
             ]
         )
         fuelDescriptor.fetchLimit = fetchLimit
@@ -47,7 +47,7 @@ struct CarView: View {
             predicate: servicePredicate,
             sortBy: [
                 SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.datePurchased, order: .reverse)
+                SortDescriptor(\.date, order: .reverse)
             ]
         )
         serviceDescriptor.fetchLimit = fetchLimit
@@ -83,7 +83,7 @@ struct CarView: View {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
-                                Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)")
+                                Text("\(service.date, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                     }
@@ -116,7 +116,7 @@ struct CarView: View {
                                 Text(service.name)
                                     .lineLimit(1)
                                 Spacer()
-                                Text("\(service.datePurchased, formatter: DateFormatter.taskDateFormat)"
+                                Text("\(service.date, formatter: DateFormatter.taskDateFormat)"
                                 )
                             }
                         }

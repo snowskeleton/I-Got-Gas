@@ -15,24 +15,18 @@ class SDService: Identifiable {
     var localId: String = UUID().uuidString
     var icloudId: String = UUID().uuidString
     var cost: Double = 0.0
-    var datePurchased = Date()
-    var dateCompleted: Date?
-    var pendingCompletion: Bool = false
+    @Attribute(originalName: "datePurchased")
+    var date = Date()
     @Attribute(originalName: "note")
     var name: String = ""
     var fullDescription: String = ""
     var odometer: Int = 0
     
     var isFuel: Bool = false
-//    var costPerGallon: Double = 0.0
     var isFullTank: Bool = true
     var gallons: Double = 0.0
     
     var vendorName = ""
-    
-//    @available(*, deprecated, message: "use `vendorName` instead")
-//    @Relationship
-//    var vendor: SDVendor?
     
     @Relationship
     var car: SDCar?
@@ -40,14 +34,12 @@ class SDService: Identifiable {
     init() { }
     init(
         cost: Double,
-        datePurchased: Date,
-        dateCompleted: Date?,
+        date: Date,
         name: String,
         odometer: Int
     ) {
         self.cost = cost
-        self.datePurchased = datePurchased
-        self.dateCompleted = dateCompleted
+        self.date = date
         self.name = name
         self.odometer = odometer
     }

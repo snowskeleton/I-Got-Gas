@@ -31,8 +31,7 @@ struct MaintenenceChart90DayView: View {
         
         let validServices = services.filter {
             !$0.isFuel &&
-            $0.odometer > car.startingOdometer &&
-            ($0.dateCompleted == nil || ($0.dateCompleted != nil && !$0.pendingCompletion))
+            $0.odometer > car.startingOdometer
         }
         
         // Step 1: Use a dictionary to accumulate costs by odometer

@@ -27,7 +27,7 @@ struct FuelExpenseView: View {
             predicate: predicate,
             sortBy: [
                 SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.datePurchased, order: .reverse)
+                SortDescriptor(\.date, order: .reverse)
             ]
         )
         _services = Query(descriptor)
@@ -48,7 +48,7 @@ struct FuelExpenseView: View {
                             }
                             Spacer()
                             VStack(alignment: .trailing) {
-                                Text("\((service.dateCompleted ?? service.datePurchased), formatter: DateFormatter.taskDateFormat)")
+                                Text("\((service.date), formatter: DateFormatter.taskDateFormat)")
                                 Text("\(service.odometer.description)")
                             }
                         }
