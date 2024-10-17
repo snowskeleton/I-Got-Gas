@@ -14,15 +14,27 @@ struct ChartsView: View {
     @Binding var car: SDCar
     @AppStorage("priceFormat") var priceFormat = "%.3f"
     
-    @State private var selectedTab = "Default"
+    @State private var selectedTab = "Fuel"
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            FuelChart90DayView(car: Binding<SDCar>.constant(car))
-                .tag("Default")
+            GenericChartView(
+                title: "Fuel Expenses",
+                services: car.completedFuelServices
+            )
+            .tag("Fuel")
 
-            MaintenenceChart90DayView(car: Binding<SDCar>.constant(car))
-                .tag("Optional")
+            GenericChartView(
+                title: "Maintenence Expenses",
+                services: car.completedMaintenenceServices
+            )
+            .tag("Maintenence")
+            
+            GenericChartView(
+                title: "All Expenses",
+                services: car.services
+            )
+            .tag("All")
         }
         .tabViewStyle(.page)
 //        .indexViewStyle(.page(backgroundDisplayMode: .always))
