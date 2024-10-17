@@ -97,28 +97,4 @@ class SDCar: Identifiable {
     var lastFuelDate: Date? {
         return Date()
     }
-    
-    var completedFuelServices: [SDService] {
-        services.filter { $0.isFuel && !$0.pending }
-    }
-    
-    var completedMaintenenceServices: [SDService] {
-        services.filter { !$0.isFuel && !$0.pending }
-    }
-    
-    var pendingFuelServices: [SDService] {
-        services.filter { $0.isFuel && $0.pending }
-    }
-    
-    var pendingMaintenenceServices: [SDService] {
-        services.filter { !$0.isFuel && $0.pending }
-    }
-
-    var allFuelServices: [SDService] {
-        services.filter { $0.isFuel }
-    }
-    
-    var allMaintenenceServices: [SDService] {
-        services.filter { !$0.isFuel }
-    }
 }

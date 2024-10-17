@@ -20,13 +20,13 @@ struct ChartsView: View {
         TabView(selection: $selectedTab) {
             GenericChartView(
                 title: "Fuel Expenses",
-                services: car.completedFuelServices
+                services: car.services.completed().fuel()
             )
             .tag("Fuel")
 
             GenericChartView(
                 title: "Maintenence Expenses",
-                services: car.completedMaintenenceServices
+                services: car.services.completed().maintenance()
             )
             .tag("Maintenence")
             

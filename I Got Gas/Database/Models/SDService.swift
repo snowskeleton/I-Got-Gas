@@ -50,3 +50,24 @@ class SDService: Identifiable {
         cost / gallons
     }
 }
+
+extension Array where Element == SDService {
+    // call with
+    //services.fuel().pending(), etc
+    
+    func fuel() -> [SDService] {
+        return self.filter { $0.isFuel }
+    }
+    
+    func maintenance() -> [SDService] {
+        return self.filter { !$0.isFuel }
+    }
+    
+    func pending() -> [SDService] {
+        return self.filter { $0.pending }
+    }
+    
+    func completed() -> [SDService] {
+        return self.filter { !$0.pending }
+    }
+}
