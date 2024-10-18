@@ -110,6 +110,9 @@ struct AllCarsView: View {
                 }
             }
             .navigationTitle("Vehicles")
+            .navigationViewStyle(.columns)
+
+            Text("Select a Vehicle")
         }
     }
 }

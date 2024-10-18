@@ -32,6 +32,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
         }
+//        .environment(\.horizontalSizeClass, .compact)
         // 1.x - 2.0 migration migration
         .alert(isPresented: $showQuitAlert) {
             Alert(
