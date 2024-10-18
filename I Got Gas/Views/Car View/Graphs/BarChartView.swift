@@ -37,9 +37,9 @@ struct BarChartView: View {
     var body: some View {
         VStack {
             Text(title)
-            if dataPoints.isEmpty {
+            if dataPoints.count < 2 {
                 Spacer()
-                Text("No data yet.")
+                Text("Not enough data yet.")
                 Text("Add some expenses!")
                 Spacer()
             } else {
