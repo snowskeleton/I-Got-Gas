@@ -15,7 +15,7 @@ struct ChartsView: View {
     @Binding var car: SDCar
     @AppStorage("priceFormat") var priceFormat = "%.3f"
     
-    @State private var selectedTab = "MPG"
+    @AppStorage("selectedChart") var selectedTab = "MPG"
     @State private var showFilterSheet = false
     @AppStorage("chartHistory") var range: Int = 90
     
