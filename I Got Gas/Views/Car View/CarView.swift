@@ -70,10 +70,9 @@ struct CarView: View {
     var body: some View {
         VStack {
             List {
-                ChartsView(car: Binding<SDCar>.constant(car))
-                    .frame(maxWidth: .infinity, minHeight: 300)  // Set the desired height for the chart
-
-                    .listRowInsets(EdgeInsets()) // Remove default list insets
+                ChartTabView(car: Binding<SDCar>.constant(car))
+                    .frame(maxWidth: .infinity, minHeight: 300)
+                    .listRowInsets(EdgeInsets())
 
                 Section {
                     ForEach(fuelServices, id: \.self) { service in

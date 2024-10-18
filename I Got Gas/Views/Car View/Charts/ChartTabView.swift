@@ -1,5 +1,5 @@
 //
-//  ChartsView.swift
+//  ChartTabView.swift
 //  I Got Gas
 //
 //  Created by snow on 10/16/24.
@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 import Charts
 
-struct ChartsView: View {
+struct ChartTabView: View {
     @Environment(\.presentationMode) var mode
     @Binding var car: SDCar
     var services: [SDService] {
@@ -25,27 +25,31 @@ struct ChartsView: View {
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
-                BarChartView(
+                ChartView(
                     title: "MPG",
-                    services: services.fuel().time(.days(range))
+                    mpg: services.fuel().time(.days(range)),
+                    isCurrency: false
                 )
                 .tag("MPG")
                 
-                LineChartView(
+                ChartView(
                     title: "Fuel Expenses",
-                    services: services.completed().fuel().time(.days(range))
+                    costs: services.completed().fuel().time(.days(range)),
+                    isCurrency: true
                 )
                 .tag("Fuel")
                 
-                LineChartView(
+                ChartView(
                     title: "Maintenence Expenses",
-                    services: services.completed().maintenance().time(.days(range))
+                    costs: services.completed().maintenance().time(.days(range)),
+                    isCurrency: true
                 )
                 .tag("Maintenence")
                 
-                LineChartView(
+                ChartView(
                     title: "All Expenses",
-                    services: services.time(.days(range))
+                    costs: services.time(.days(range)),
+                    isCurrency: true
                 )
                 .tag("All")
             }
