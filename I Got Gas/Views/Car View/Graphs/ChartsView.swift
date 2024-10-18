@@ -68,6 +68,7 @@ struct ChartsView: View {
                     Text("3 months").tag(90)
                     Text("6 months").tag(180)
                     Text("1 year").tag(365)
+                    Text("2 year").tag(730)
                 }
             }
             .presentationDetents([.medium])
