@@ -21,7 +21,9 @@ class SDCar: Identifiable {
     var year: Int?
     var startingOdometer: Int = 0
     var pinned: Bool = false
+//    @Attribute(originalName: "deleted")
     var deleted: Bool = false
+    var archived: Bool = false
     
     @Relationship
     var services: [SDService]? = []

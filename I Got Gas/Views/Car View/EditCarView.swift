@@ -59,7 +59,7 @@ struct EditCarView: View {
             
             Section {
                 Button("Archive", role: .destructive) {
-                    car.deleted = true
+                    car.archived = true
                 }
                 Button("Delete", role: .destructive) {
                     self.showFirstConfirmDeleteRequest = true

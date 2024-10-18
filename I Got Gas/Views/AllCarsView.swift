@@ -16,7 +16,7 @@ struct AllCarsView: View {
     
     init() {
         let newCarPredicate = #Predicate<SDCar> {
-            $0.deleted == false &&
+            $0.archived == false &&
             $0.pinned == false
         }
         let newCarDescriptors = FetchDescriptor<SDCar>(
@@ -30,7 +30,7 @@ struct AllCarsView: View {
         _sdcars = Query(newCarDescriptors)
         
         let pinnedCarPredicate = #Predicate<SDCar> {
-            $0.deleted == false &&
+            $0.archived == false &&
             $0.pinned == true
         }
         let pinnedCarDescriptors = FetchDescriptor<SDCar>(
@@ -44,7 +44,7 @@ struct AllCarsView: View {
         
         _pinnedCars = Query(pinnedCarDescriptors)
         
-        let oldCarPredicate = #Predicate<SDCar> { $0.deleted == true }
+        let oldCarPredicate = #Predicate<SDCar> { $0.archived == true }
         let oldCarDescriptors = FetchDescriptor<SDCar>(
             predicate: oldCarPredicate,
             sortBy: [
@@ -81,7 +81,7 @@ struct AllCarsView: View {
                             }
                             .tint(.yellow)
                             Button("Archive", role: .destructive) {
-                                car.deleted = true
+                                car.archived = true
                             }
                         }
                 }
@@ -92,7 +92,7 @@ struct AllCarsView: View {
                                 CarLineItemView(car: Binding<SDCar>.constant(car))
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button("Un-Archive") {
-                                            car.deleted = false
+                                            car.archived = false
                                         }
                                     }
                             }
