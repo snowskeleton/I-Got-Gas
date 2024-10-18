@@ -22,6 +22,12 @@ struct ChartsView: View {
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
+                BarChartView(
+                    title: "MPG",
+                    services: car.services.fuel().time(.days(range))
+                )
+                .tag("MPG")
+                
                 LineChartView(
                     title: "Fuel Expenses",
                     services: car.services.completed().fuel().time(.days(range))
@@ -39,12 +45,6 @@ struct ChartsView: View {
                     services: car.services.time(.days(range))
                 )
                 .tag("All")
-                
-                BarChartView(
-                    title: "MPG",
-                    services: car.services.fuel().time(.days(range))
-                )
-                .tag("MPG")
             }
             .tabViewStyle(.page)
             //        .indexViewStyle(.page(backgroundDisplayMode: .always))
