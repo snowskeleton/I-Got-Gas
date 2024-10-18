@@ -11,9 +11,8 @@ import SwiftData
 
 @Model
 class SDCar: Identifiable {
-    @Attribute(.unique)
-    var localId: String = UUID().uuidString
-    var icloudId: String = UUID().uuidString
+    @Attribute(originalName: "localId")
+    var id: String = UUID().uuidString
     var make: String = ""
     var model: String = ""
     var name: String = ""
@@ -25,8 +24,11 @@ class SDCar: Identifiable {
     var deleted: Bool = false
     
     @Relationship
-    var services: [SDService] = []
+    var services: [SDService]? = []
     
+    @Relationship
+    var scheduledServices: [SDScheduledService]? = []
+
     init() { }
     init(
         make: String,
@@ -59,12 +61,12 @@ class SDCar: Identifiable {
     }
     
     var odometer: Int {
-        let odometerValues = services.map { $0.odometer }
+        let odometerValues = services?.map { $0.odometer } ?? []
         return max(odometerValues.max() ?? 0, startingOdometer)
     }
     
     var costPerGallon: Double {
-        let fuelCosts = services.compactMap { $0.costPerGallon }
+        let fuelCosts = services?.compactMap { $0.costPerGallon } ?? []
         let totalFuelCost = fuelCosts.reduce(0, +)
         let fuelExpenseCount = Double(fuelCosts.count)
         
@@ -76,8 +78,8 @@ class SDCar: Identifiable {
     }
     
     var costPerMile: Double {
-        let totalCost = services.reduce(0.0) { $0 + $1.cost }
-        let highestOdometer = services.map { $0.odometer }.max() ?? startingOdometer
+        let totalCost = services?.reduce(0.0) { $0 + $1.cost } ?? 0.0
+        let highestOdometer = services?.map { $0.odometer }.max() ?? startingOdometer
         let milesDriven = highestOdometer - startingOdometer
         
         // Prevent division by zero
@@ -89,7 +91,7 @@ class SDCar: Identifiable {
     }
     
     var lastFillup: Date? {
-        return services.filter { $0.isFuel }
+        return services?.filter { $0.isFuel }
             .max(by: { $0.odometer < $1.odometer } )?
             .date
     }

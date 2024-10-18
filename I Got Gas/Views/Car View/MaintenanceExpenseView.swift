@@ -16,9 +16,9 @@ struct MaintenanceExpenseView: View {
     
     init(car: Binding<SDCar>) {
         self._car = car
-        let searchId = car.wrappedValue.localId
+        let searchId = car.wrappedValue.id
         let predicate = #Predicate<SDService> {
-            $0.car?.localId == searchId &&
+            $0.car?.id == searchId &&
             $0.isFuel == false
         }
         let descriptor = FetchDescriptor<SDService>(

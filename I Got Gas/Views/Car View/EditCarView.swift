@@ -86,8 +86,8 @@ struct EditCarView: View {
                 //                        }
                 
                 do {
-                    let carId = car.localId
-                    try context.delete(model: SDCar.self, where: #Predicate<SDCar> { $0.localId == carId })
+                    let carId = car.id
+                    try context.delete(model: SDCar.self, where: #Predicate<SDCar> { $0.id == carId })
                 } catch { }
             }
             )

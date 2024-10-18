@@ -24,9 +24,9 @@ struct CarView: View {
             fetchLimit = 3
         }
         _car = car
-        let carId = car.wrappedValue.localId
+        let carId = car.wrappedValue.id
         let fuelPredicate = #Predicate<SDService> {
-            $0.car?.localId == carId &&
+            $0.car?.id == carId &&
             $0.isFuel
         }
         var fuelDescriptor = FetchDescriptor<SDService>(
@@ -40,7 +40,7 @@ struct CarView: View {
         _fuelServices = Query(fuelDescriptor)
         
         let servicePredicate = #Predicate<SDService> {
-            $0.car?.localId == carId &&
+            $0.car?.id == carId &&
             !$0.isFuel
         }
         var serviceDescriptor = FetchDescriptor<SDService>(
@@ -54,7 +54,7 @@ struct CarView: View {
         _services = Query(serviceDescriptor)
 
         let scheduledDredicate = #Predicate<SDScheduledService> {
-            $0.car?.localId == carId
+            $0.car?.id == carId
         }
         var scheduledDescriptor = FetchDescriptor<SDScheduledService>(
             predicate: scheduledDredicate,

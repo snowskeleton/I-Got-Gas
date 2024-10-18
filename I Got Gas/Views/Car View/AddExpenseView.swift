@@ -81,9 +81,9 @@ struct AddExpenseView: View {
         _car = car
         _odometer = State(initialValue: car.wrappedValue.odometer)
         
-        let carId = car.wrappedValue.localId
+        let carId = car.wrappedValue.id
         let predicate = #Predicate<SDScheduledService> {
-            $0.car?.localId == carId
+            $0.car?.id == carId
         }
         let descriptor = FetchDescriptor<SDScheduledService>(
             predicate: predicate,

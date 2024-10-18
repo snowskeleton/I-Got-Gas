@@ -13,6 +13,9 @@ import Charts
 struct ChartsView: View {
     @Environment(\.presentationMode) var mode
     @Binding var car: SDCar
+    var services: [SDService] {
+        car.services ?? []
+    }
     
     @State private var showFilterSheet = false
     
@@ -24,25 +27,25 @@ struct ChartsView: View {
             TabView(selection: $selectedTab) {
                 BarChartView(
                     title: "MPG",
-                    services: car.services.fuel().time(.days(range))
+                    services: services.fuel().time(.days(range))
                 )
                 .tag("MPG")
                 
                 LineChartView(
                     title: "Fuel Expenses",
-                    services: car.services.completed().fuel().time(.days(range))
+                    services: services.completed().fuel().time(.days(range))
                 )
                 .tag("Fuel")
                 
                 LineChartView(
                     title: "Maintenence Expenses",
-                    services: car.services.completed().maintenance().time(.days(range))
+                    services: services.completed().maintenance().time(.days(range))
                 )
                 .tag("Maintenence")
                 
                 LineChartView(
                     title: "All Expenses",
-                    services: car.services.time(.days(range))
+                    services: services.time(.days(range))
                 )
                 .tag("All")
             }

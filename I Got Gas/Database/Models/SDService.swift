@@ -11,9 +11,9 @@ import SwiftData
 
 @Model
 class SDService: Identifiable {
-    @Attribute(.unique)
-    var localId: String = UUID().uuidString
-    var icloudId: String = UUID().uuidString
+    @Attribute(originalName: "localId")
+    var id: String = UUID().uuidString
+    
     var cost: Double = 0.0
     @Attribute(originalName: "datePurchased")
     var date = Date()
