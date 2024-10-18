@@ -70,4 +70,33 @@ extension Array where Element == SDService {
     func completed() -> [SDService] {
         return self.filter { !$0.pending }
     }
+    
+    enum TimePeriod {
+        case days(Int)
+        case weeks(Int)
+        case months(Int)
+        case years(Int)
+    }
+    
+    func time(_ period: TimePeriod) -> [SDService] {
+        let today = Date()
+        var targetDate: Date?
+        
+        switch period {
+        case .days(let count):
+            targetDate = Calendar.current.date(byAdding: .day, value: -count, to: today)
+        case .weeks(let count):
+            targetDate = Calendar.current.date(byAdding: .weekOfYear, value: -count, to: today)
+        case .months(let count):
+            targetDate = Calendar.current.date(byAdding: .month, value: -count, to: today)
+        case .years(let count):
+            targetDate = Calendar.current.date(byAdding: .year, value: -count, to: today)
+        }
+        
+        guard let validDate = targetDate else {
+            return []
+        }
+        
+        return self.filter { $0.date >= validDate && $0.date <= today }
+    }
 }

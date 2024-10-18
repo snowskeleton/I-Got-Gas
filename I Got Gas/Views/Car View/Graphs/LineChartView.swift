@@ -1,5 +1,5 @@
 //
-//  GenericChartView.swift
+//  LineChartView.swift
 //  I Got Gas
 //
 //  Created by snow on 10/17/24.
@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-struct GenericChartView: View {
+struct LineChartView: View {
     var title: String
     var services: [SDService]
 
@@ -28,7 +28,6 @@ struct GenericChartView: View {
     }
     
     var dataPoints: [(odometer: Int, costPerMile: Double)] {
-        print(title)
         var points: [(odometer: Int, costPerMile: Double)] = []
         var mileageCostDict: [Int: Double] = [:]
         
@@ -40,7 +39,6 @@ struct GenericChartView: View {
         for (odometer, totalCost) in mileageCostDict.sorted(by: { $0.key < $1.key }) {
             let milesDriven = odometer - rangeStart
             guard milesDriven > 0 else {
-                print("Skipping \(milesDriven)")
                 continue
             }
             
