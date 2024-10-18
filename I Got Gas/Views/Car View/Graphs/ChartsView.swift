@@ -13,10 +13,10 @@ import Charts
 struct ChartsView: View {
     @Environment(\.presentationMode) var mode
     @Binding var car: SDCar
-    @AppStorage("priceFormat") var priceFormat = "%.3f"
+    
+    @State private var showFilterSheet = false
     
     @AppStorage("selectedChart") var selectedTab = "MPG"
-    @State private var showFilterSheet = false
     @AppStorage("chartHistory") var range: Int = 90
     
     var body: some View {
