@@ -49,7 +49,7 @@ struct ChartTabView: View {
                 .tag("Costs")
             }
             .tabViewStyle(.page)
-            //        .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
             VStack {
                 HStack {
                     Spacer()
