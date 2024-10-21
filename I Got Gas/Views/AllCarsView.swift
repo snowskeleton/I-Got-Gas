@@ -119,11 +119,11 @@ struct AllCarsView: View {
 
 struct CarLineItemView: View {
     @Binding var car: SDCar
+    @AppStorage("chartHistory") var range: Int = 90
     @AppStorage("chartIncludeFuel") var includeFuel: Bool = true
     @AppStorage("chartIncludeMaintenance") var includeMaintenance: Bool = true
     @AppStorage("chartIncludeCompleted") var includeCompleted: Bool = true
     @AppStorage("chartIncludePending") var includePending: Bool = false
-    
 
     var body: some View {
         NavigationLink {
@@ -137,11 +137,12 @@ struct CarLineItemView: View {
                 .fontWeight(.bold)
                 HStack {
                     let services = (car.services ?? [])
+                        .time(.days(range))
                         .pending(includePending)
                         .completed(includeCompleted)
                         .fuel(includeFuel)
                         .maintenance(includeMaintenance)
-                    Text("$\(services.costPerMile, specifier: "%.2f")/mile")
+                    Text("\(services.costPerMile, format: .currency(code: "USD"))/mile")
                     Spacer()
                     Text("Last fuel:")
                     Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
