@@ -21,37 +21,32 @@ struct ChartTabView: View {
     
     @AppStorage("selectedChart") var selectedTab = "MPG"
     @AppStorage("chartHistory") var range: Int = 90
-    
+    @AppStorage("chartIncludeFuel") var includeFuel: Bool = true
+    @AppStorage("chartIncludeMaintenance") var includeMaintenance: Bool = false
+    @AppStorage("chartIncludePending") var includePending: Bool = false
+    @AppStorage("chartIncludeCompleted") var includeCompleted: Bool = true
+
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
                 ChartView(
-                    title: "MPG",
+                    title: "Miles per Gallon",
                     mpg: services.fuel().time(.days(range)),
                     isCurrency: false
                 )
                 .tag("MPG")
                 
                 ChartView(
-                    title: "Fuel Expenses",
-                    costs: services.completed().fuel().time(.days(range)),
+                    title: "Cost per Mile",
+                    costs: services
+                        .time(.days(range))
+                        .completed(includeCompleted)
+                        .pending(includePending)
+                        .fuel(includeFuel)
+                        .maintenance(includeMaintenance),
                     isCurrency: true
                 )
-                .tag("Fuel")
-                
-                ChartView(
-                    title: "Maintenence Expenses",
-                    costs: services.completed().maintenance().time(.days(range)),
-                    isCurrency: true
-                )
-                .tag("Maintenence")
-                
-                ChartView(
-                    title: "All Expenses",
-                    costs: services.time(.days(range)),
-                    isCurrency: true
-                )
-                .tag("All")
+                .tag("Costs")
             }
             .tabViewStyle(.page)
             //        .indexViewStyle(.page(backgroundDisplayMode: .always))
@@ -77,6 +72,10 @@ struct ChartTabView: View {
                     Text("1 year").tag(365)
                     Text("2 year").tag(730)
                 }
+                Toggle("Fuel", isOn: $includeFuel)
+                Toggle("Maintenance", isOn: $includeMaintenance)
+                Toggle("Completed", isOn: $includeCompleted)
+                Toggle("Pending", isOn: $includePending)
             }
             .presentationDetents([.medium])
         }

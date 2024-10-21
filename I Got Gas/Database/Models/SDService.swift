@@ -55,22 +55,22 @@ extension Array where Element == SDService {
     // call with
     //services.fuel().pending(), etc
     
-    func fuel() -> [SDService] {
-        return self.filter { $0.isFuel }
+    func fuel(_ include: Bool = true) -> [SDService] {
+        return include ? self : self.filter { !$0.isFuel }
     }
     
-    func maintenance() -> [SDService] {
-        return self.filter { !$0.isFuel }
+    func maintenance(_ include: Bool = true) -> [SDService] {
+        return include ? self : self.filter { $0.isFuel }
     }
     
-    func pending() -> [SDService] {
-        return self.filter { $0.pending }
+    func pending(_ include: Bool = true) -> [SDService] {
+        return include ? self : self.filter { !$0.pending }
     }
     
-    func completed() -> [SDService] {
-        return self.filter { !$0.pending }
+    func completed(_ include: Bool = true) -> [SDService] {
+        return include ? self : self.filter { $0.pending }
     }
-    
+   
     enum TimePeriod {
         case days(Int)
         case weeks(Int)

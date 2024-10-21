@@ -14,6 +14,9 @@ struct ChartView: View {
     var services: [SDService]
     var isCurrency: Bool
     var dataPoints: [(date: Date, value: Double, id: String)]
+    var average: Double {
+        dataPoints.count > 0 ? dataPoints.reduce(0) { $0 + $1.value } / Double(dataPoints.count) : 0
+    }
     
     init(title: String, services: [SDService], isCurrency: Bool) {
         self.title = title
@@ -79,8 +82,15 @@ struct ChartView: View {
 
     var body: some View {
         VStack {
-            Text(title)
-            if dataPoints.count < 2 {
+            HStack {
+                Text(title)
+                if isCurrency {
+                    Text(average, format: .currency(code: "USD"))
+                } else {
+                    Text("\(average, specifier: "%.2f")")
+                }
+            }
+            if dataPoints.isEmpty {
                 Spacer()
                 Text("Not enough data yet.")
                 Text("Add some expenses!")
