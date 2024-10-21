@@ -52,8 +52,11 @@ class SDService: Identifiable {
 }
 
 extension Array where Element == SDService {
-    // call with
-    //services.fuel().pending(), etc
+    // these filters only filter our their own results when passed `false`,
+    // otherwise they let through everything.
+    // For example, call with
+    //services.fuel(false).pending(false)
+    // to get all non-fuel (i.e., maintenance) and completed transactions
     
     func fuel(_ include: Bool = true) -> [SDService] {
         return include ? self : self.filter { !$0.isFuel }

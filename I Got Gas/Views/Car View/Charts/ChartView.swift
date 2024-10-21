@@ -117,7 +117,7 @@ struct ChartView: View {
                                 if isCurrency {
                                     Text(yValue, format: .currency(code: "USD"))
                                 } else {
-                                    Text(yValue.description)
+                                    Text("\(yValue, specifier: "%.2f")")
                                 }
                             }
                         }
