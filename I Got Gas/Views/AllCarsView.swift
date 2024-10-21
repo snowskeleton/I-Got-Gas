@@ -130,7 +130,7 @@ struct CarLineItemView: View {
                 }
                 .fontWeight(.bold)
                 HStack {
-                    Text("$\(car.costPerMile, specifier: "%.2f")/mile")
+                    Text("$\(car.services?.costPerMile ?? 0.0, specifier: "%.2f")/mile")
                     Spacer()
                     Text("Last filled:")
                     Text(car.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")

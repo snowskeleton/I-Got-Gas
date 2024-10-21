@@ -79,6 +79,13 @@ extension Array where Element == SDService {
         case weeks(Int)
         case months(Int)
         case years(Int)
+        
+        var value: Int {
+            switch self {
+            case .days(let count), .weeks(let count), .months(let count), .years(let count):
+                return count
+            }
+        }
     }
     
     func time(_ period: TimePeriod) -> [SDService] {
@@ -100,6 +107,26 @@ extension Array where Element == SDService {
             return []
         }
         
-        return self.filter { $0.date >= validDate && $0.date <= today }
+        if period.value == 0 {
+            return self
+        } else {
+            return self.filter { $0.date >= validDate && $0.date <= today }
+        }
+    }
+}
+
+extension Array where Element == SDService {
+    var costPerMile: Double {
+        let totalCost = self.reduce(0.0) { $0 + $1.cost }
+        let lowestOdometer = self.map { $0.odometer }.min() ?? 0
+        let highestOdometer = self.map { $0.odometer }.max() ?? lowestOdometer
+        let milesDriven = highestOdometer - lowestOdometer
+        
+        // Prevent division by zero
+        guard milesDriven > 0 else {
+            return 0.0
+        }
+        
+        return totalCost / Double(milesDriven)
     }
 }

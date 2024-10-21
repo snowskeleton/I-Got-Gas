@@ -79,18 +79,18 @@ class SDCar: Identifiable {
         return (totalFuelCost / fuelExpenseCount)
     }
     
-    var costPerMile: Double {
-        let totalCost = services?.reduce(0.0) { $0 + $1.cost } ?? 0.0
-        let highestOdometer = services?.map { $0.odometer }.max() ?? startingOdometer
-        let milesDriven = highestOdometer - startingOdometer
-        
-        // Prevent division by zero
-        guard milesDriven > 0 else {
-            return 0.0
-        }
-        
-        return totalCost / Double(milesDriven)
-    }
+//    var costPerMile: Double {
+//        let totalCost = services?.reduce(0.0) { $0 + $1.cost } ?? 0.0
+//        let highestOdometer = services?.map { $0.odometer }.max() ?? startingOdometer
+//        let milesDriven = highestOdometer - startingOdometer
+//        
+//        // Prevent division by zero
+//        guard milesDriven > 0 else {
+//            return 0.0
+//        }
+//        
+//        return totalCost / Double(milesDriven)
+//    }
     
     var lastFillup: Date? {
         return services?.filter { $0.isFuel }

@@ -85,7 +85,7 @@ struct ChartView: View {
             HStack {
                 Text(title)
                 if isCurrency {
-                    Text(average, format: .currency(code: "USD"))
+                    Text(services.costPerMile, format: .currency(code: "USD"))
                 } else {
                     Text("\(average, specifier: "%.2f")")
                 }
