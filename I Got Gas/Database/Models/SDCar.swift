@@ -92,11 +92,6 @@ class SDCar: Identifiable {
 //        return totalCost / Double(milesDriven)
 //    }
     
-    var lastFillup: Date? {
-        return services?.filter { $0.isFuel }
-            .max(by: { $0.odometer < $1.odometer } )?
-            .date
-    }
     @available(*, deprecated, message: "use `lastFillup` instead")
     var lastFuelDate: Date? {
         return Date()

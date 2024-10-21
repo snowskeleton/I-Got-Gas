@@ -129,4 +129,11 @@ extension Array where Element == SDService {
         
         return totalCost / Double(milesDriven)
     }
+    
+    var lastFillup: Date? {
+        self.filter { $0.isFuel }
+            .max(by: { $0.odometer < $1.odometer } )?
+            .date
+    }
 }
+
