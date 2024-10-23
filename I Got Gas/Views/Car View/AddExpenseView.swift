@@ -125,11 +125,6 @@ struct AddExpenseView: View {
                                     .tag(service)
                             }
                         }
-                    } else {
-                        Picker(selection: $isFullTank, label: Text("Full Tank?")) {
-                            Text("Full Tank").tag(0)
-                            Text("Partial tank").tag(1)
-                        }.pickerStyle(SegmentedPickerStyle())
                     }
                     
                     Section(header: Text("Price")) {
