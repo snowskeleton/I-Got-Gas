@@ -145,7 +145,7 @@ struct CarLineItemView: View {
                     Text("\(services.costPerMile, format: .currency(code: "USD"))/mile")
                     Spacer()
                     Text("Last fuel:")
-                    Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
+                    Text(car.services?.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
                 }
             }
         }
