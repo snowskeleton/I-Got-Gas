@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 73;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -48,6 +48,7 @@
 				Configuration/Secrets.swift,
 				"Database/CoreData/Car+CoreDataClass.swift",
 				Database/CoreData/CoreDataPersistence.swift,
+				Database/CoreData/I_Got_Gas.xcdatamodeld,
 				Database/CoreData/RequestingFetches.swift,
 				Database/Models/SDCar.swift,
 				Database/Models/SDScheduledService.swift,
@@ -87,18 +88,8 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		80A3BB5B2CC00C1000186286 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 805B413724CDF04B0085DB47 /* Sources */;
-			membershipExceptions = (
-				Database/CoreData/I_Got_Gas.xcdatamodeld,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		80A3BB132CC00BFD00186286 /* I Got Gas */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (80A3BB5A2CC00C1000186286 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 80A3BB5B2CC00C1000186286 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "I Got Gas"; sourceTree = "<group>"; };
+		80A3BB132CC00BFD00186286 /* I Got Gas */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (80A3BB5A2CC00C1000186286 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "I Got Gas"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +176,7 @@
 				};
 			};
 			buildConfigurationList = 805B413624CDF04B0085DB47 /* Build configuration list for PBXProject "I Got Gas" */;
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -196,7 +188,6 @@
 				80582EC92C8A48F30056C421 /* XCRemoteSwiftPackageReference "aptabase-swift" */,
 				80A3BB632CC00F3500186286 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 			);
-			preferredProjectObjectVersion = 50;
 			productRefGroup = 805B413C24CDF04B0085DB47 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -362,7 +353,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "I Got Gas/I Got Gas.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
@@ -387,7 +378,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "I Got Gas/I Got Gas.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = PK7HCG46US;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
