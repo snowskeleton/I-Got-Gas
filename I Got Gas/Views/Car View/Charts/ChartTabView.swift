@@ -12,26 +12,33 @@ import Charts
 
 struct ChartTabView: View {
     @Environment(\.presentationMode) var mode
+    
     @Binding var car: SDCar
     var services: [SDService] {
         car.services ?? []
     }
     
+    @Bindable var settings: SDCarSettings
+    
     @State private var showFilterSheet = false
     
-    @AppStorage("selectedChart") var selectedTab = "MPG"
-    @AppStorage("chartHistory") var range: Int = 90
-    @AppStorage("chartIncludeFuel") var includeFuel: Bool = true
-    @AppStorage("chartIncludeMaintenance") var includeMaintenance: Bool = true
-    @AppStorage("chartIncludeCompleted") var includeCompleted: Bool = true
-    @AppStorage("chartIncludePending") var includePending: Bool = false
+    init(car: Binding<SDCar>) {
+        _car = car
+        if let settings = car.wrappedValue.settings {
+            self.settings = settings
+        } else {
+            let settings = SDCarSettings()
+            car.wrappedValue.settings = settings
+            self.settings = settings
+        }
+    }
 
     var body: some View {
         ZStack {
-            TabView(selection: $selectedTab) {
+            TabView(selection: $settings.selectedTab) {
                 ChartView(
                     title: "Miles per Gallon",
-                    mpg: services.fuel().time(.days(range)),
+                    mpg: services.fuel().time(.days(settings.range)),
                     isCurrency: false
                 )
                 .tag("MPG")
@@ -39,11 +46,11 @@ struct ChartTabView: View {
                 ChartView(
                     title: "Cost per Mile",
                     costs: services
-                        .time(.days(range))
-                        .completed(includeCompleted)
-                        .pending(includePending)
-                        .fuel(includeFuel)
-                        .maintenance(includeMaintenance),
+                        .time(.days(settings.range))
+                        .completed(settings.includeCompleted)
+                        .pending(settings.includePending)
+                        .fuel(settings.includeFuel)
+                        .maintenance(settings.includeMaintenance),
                     isCurrency: true
                 )
                 .tag("Costs")
@@ -66,17 +73,23 @@ struct ChartTabView: View {
         }
         .sheet(isPresented: $showFilterSheet) {
             List {
-                Picker("Date Range", selection: $range) {
+                Picker("Date Range", selection: $settings.range) {
                     Text("3 months").tag(90)
                     Text("6 months").tag(180)
                     Text("1 year").tag(365)
                     Text("3 year").tag(730)
                     Text("All time").tag(0)
                 }
-                Toggle("Fuel", isOn: $includeFuel)
-                Toggle("Maintenance", isOn: $includeMaintenance)
-                Toggle("Completed", isOn: $includeCompleted)
-                Toggle("Pending", isOn: $includePending)
+                Toggle("Fuel", isOn: $settings.includeFuel)
+                Toggle("Maintenance", isOn: $settings.includeMaintenance)
+                Toggle("Completed", isOn: $settings.includeCompleted)
+                Toggle("Pending", isOn: $settings.includePending)
+                
+                Section {
+                    Button("Reset to Defaults") {
+                        settings.reset()
+                    }
+                }
             }
             .presentationDetents([.medium])
         }

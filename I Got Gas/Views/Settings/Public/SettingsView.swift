@@ -29,6 +29,14 @@ struct SettingsView: View {
                 }
                 
                 Section {
+                    NavigationLink {
+                        DefaultFiltersView()
+                    } label: {
+                        Image(systemName: "switch.2")
+                        Text("Default Filters")
+                    }
+                }
+                Section {
                     Link(destination: URL(string: "https://discord.gg/SGrHWdYNWN")!) {
                         HStack {
                             Image(colorScheme == .dark ? "discord-white" : "discord-black")

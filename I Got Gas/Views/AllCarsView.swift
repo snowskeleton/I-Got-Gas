@@ -119,11 +119,18 @@ struct AllCarsView: View {
 
 struct CarLineItemView: View {
     @Binding var car: SDCar
-    @AppStorage("chartHistory") var range: Int = 90
-    @AppStorage("chartIncludeFuel") var includeFuel: Bool = true
-    @AppStorage("chartIncludeMaintenance") var includeMaintenance: Bool = true
-    @AppStorage("chartIncludeCompleted") var includeCompleted: Bool = true
-    @AppStorage("chartIncludePending") var includePending: Bool = false
+    @Bindable var settings: SDCarSettings
+    
+    init(car: Binding<SDCar>) {
+        _car = car
+        if let settings = car.wrappedValue.settings {
+            self.settings = settings
+        } else {
+            let settings = SDCarSettings()
+            car.wrappedValue.settings = settings
+            self.settings = settings
+        }
+    }
 
     var body: some View {
         NavigationLink {
@@ -137,11 +144,11 @@ struct CarLineItemView: View {
                 .fontWeight(.bold)
                 HStack {
                     let services = (car.services ?? [])
-                        .time(.days(range))
-                        .pending(includePending)
-                        .completed(includeCompleted)
-                        .fuel(includeFuel)
-                        .maintenance(includeMaintenance)
+                        .time(.days(settings.range))
+                        .completed(settings.includeCompleted)
+                        .pending(settings.includePending)
+                        .fuel(settings.includeFuel)
+                        .maintenance(settings.includeMaintenance)
                     Text("\(services.costPerMile, format: .currency(code: "USD"))/mile")
                     Spacer()
                     Text("Last fuel:")

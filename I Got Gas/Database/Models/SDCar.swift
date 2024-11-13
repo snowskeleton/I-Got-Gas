@@ -30,6 +30,9 @@ class SDCar: Identifiable {
     
     @Relationship
     var scheduledServices: [SDScheduledService]? = []
+    
+    @Relationship
+    var settings: SDCarSettings?
 
     init() { }
     init(

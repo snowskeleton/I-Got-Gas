@@ -18,6 +18,7 @@ public class SwiftDataManager {
             SDCar.self,
             SDService.self,
             SDScheduledService.self,
+            SDCarSettings.self,
 //            SDVendor.self,
         ])
         
