@@ -22,8 +22,6 @@ struct AddCarView: View {
     var buttonDisabled: Bool {
         carMake.isEmpty ||
         carModel.isEmpty ||
-        carPlate.isEmpty ||
-        carVIN.isEmpty ||
         carYear == nil ||
         carOdometer == nil
     }
