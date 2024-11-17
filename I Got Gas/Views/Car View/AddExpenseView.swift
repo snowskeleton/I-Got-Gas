@@ -12,6 +12,8 @@ import SwiftData
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
+    
+    @FocusState private var focusPriceField: Bool
 
     @Query var scheduledServices: [SDScheduledService]
 
@@ -145,8 +147,11 @@ struct AddExpenseView: View {
                                 .textFieldStyle(PlainTextFieldStyle())
                                 .disableAutocorrection(true)
                                 .accentColor(.clear)
+                                .focused($focusPriceField)
+                                .onAppear {
+                                    focusPriceField = true
+                                }
                         }
-                        
                     }
                     
                     if serviceType == "Gas" {
