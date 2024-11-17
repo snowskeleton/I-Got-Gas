@@ -86,7 +86,7 @@ struct ChartTabView: View {
                 Toggle("Pending", isOn: $settings.includePending)
                 
                 Section {
-                    Toggle("Custom for Vehicle", isOn: $settings.custom)
+                    Toggle("Custom for This Vehicle", isOn: $settings.custom)
                 }
             }
             .presentationDetents([.medium])
