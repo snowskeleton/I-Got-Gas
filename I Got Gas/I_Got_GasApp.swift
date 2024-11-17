@@ -23,6 +23,7 @@ struct I_Got_GasApp: App {
             with: InitOptions(host: AptabaseSecrets.host)
         )
         Analytics.track(.appLaunch)
+        SDCarSettings.setDefaults()
     }
     var body: some Scene {
         WindowGroup {
