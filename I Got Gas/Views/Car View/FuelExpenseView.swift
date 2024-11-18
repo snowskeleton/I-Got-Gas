@@ -64,6 +64,11 @@ struct FuelExpenseView: View {
             }
             .padding(.bottom)
         }
+        .onAppear {
+            Analytics.track(
+                .openedFuelExpenses
+            )
+        }
     }
     func loseMemory(at offsets: IndexSet) {
 //        for index in offsets     {

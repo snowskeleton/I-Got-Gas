@@ -57,6 +57,12 @@ struct FutureServiceView: View {
             }
             .padding(.bottom)
         }
+        .onAppear {
+            Analytics.track(
+                .openedScheduledServices
+            )
+        }
+
     }
     
 //    func loseMemory(at offsets: IndexSet) {

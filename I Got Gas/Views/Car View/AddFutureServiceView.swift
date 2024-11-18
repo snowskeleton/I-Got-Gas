@@ -96,6 +96,11 @@ struct AddFutureServiceView: View {
             }
         }
         .navigationBarTitle("Schedule Service")
+        .onAppear {
+            Analytics.track(
+                .openedAddScheduleService
+            )
+        }
     }
     
     func save() -> Void {
@@ -127,5 +132,17 @@ struct AddFutureServiceView: View {
         context.insert(hydratedService)
         
         hydratedService.scheduleNotification()
+        
+        Analytics.track(
+            .saveScheduleService,
+            with: [
+                "nameEmpty": name.isEmpty,
+                "fullDescriptionEmpty": fullDescription.isEmpty,
+                "repeating": repeating,
+                "frequencyTime": frequencyTime,
+                "frequencyTimeInterval": frequencyTimeInterval,
+                "frequencyMiles": frequencyMiles
+            ]
+        )
     }
 }

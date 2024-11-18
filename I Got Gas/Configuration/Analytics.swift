@@ -11,6 +11,20 @@ import Aptabase
 enum AnalyticEvent: String {
     case appLaunch
     
+    case carCount
+    case serviceFilterSettings
+    case servicesCount
+    case addExpense
+    case saveExpenseDetails
+    case openedAddScheduleService
+    case saveScheduleService
+
+    case openedFuelExpenses
+    case openedScheduledServices
+    case openedMaintenanceExpenses
+    case openedEditCar
+    case openedCarInfo
+    
     case analyticsDisabled
     case analyticsEnabled
     

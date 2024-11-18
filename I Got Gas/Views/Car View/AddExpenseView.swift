@@ -196,6 +196,14 @@ struct AddExpenseView: View {
             }
         }
         .navigationBarTitle(serviceType, displayMode: .inline)
+        .onAppear {
+            Analytics.track(
+                .addExpense,
+                with: [
+                    "type": serviceType
+                ]
+            )
+        }
     }
 
     fileprivate func save() -> Void {
@@ -245,5 +253,16 @@ struct AddExpenseView: View {
         }
 
         context.insert(hydratedService)
+        
+        Analytics.track(
+            .saveExpenseDetails,
+            with: [
+                "scheduledService": selectedFutureService == nil,
+                "pending": pending,
+                "odometer": odometer,
+                "vendorNameIsEmpty": vendorName.isEmpty,
+                "serviceNotesIsEmpty": name.isEmpty,
+            ]
+        )
     }
 }

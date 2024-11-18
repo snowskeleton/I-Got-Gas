@@ -114,6 +114,17 @@ struct AllCarsView: View {
 
             Text("Select a Vehicle")
         }
+        .onAppear {
+            Analytics.track(
+                .carCount,
+                with: [
+                    "totalCars": pinnedCars.count + sdcars.count + oldCars.count,
+                    "regularCars": sdcars.count,
+                    "pinnedCars": pinnedCars.count,
+                    "oldCars": oldCars.count
+                ]
+            )
+        }
     }
 }
 

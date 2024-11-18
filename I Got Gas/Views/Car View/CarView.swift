@@ -189,5 +189,15 @@ struct CarView: View {
         .sheet(isPresented: $showInfoSheet) {
             CarInfoView(car: $car)
         }
+        .onAppear {
+            Analytics.track(
+                .servicesCount,
+                with: [
+                    "fuel": (car.services ?? []).filter({ $0.isFuel }).count,
+                    "maintenance": (car.services ?? []).filter({ !$0.isFuel }).count,
+                    "scheduled": (car.scheduledServices ?? []).count
+                ]
+            )
+        }
     }
 }

@@ -66,6 +66,11 @@ struct MaintenanceExpenseView: View {
             .padding(.bottom)
         }
         .navigationTitle("Maintencance")
+        .onAppear {
+            Analytics.track(
+                .openedMaintenanceExpenses
+            )
+        }
     }
 //    func loseMemory(at offsets: IndexSet) {
 //        for index in offsets {

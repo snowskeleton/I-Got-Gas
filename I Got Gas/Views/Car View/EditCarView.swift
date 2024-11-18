@@ -92,6 +92,11 @@ struct EditCarView: View {
             }
             )
         }
+        .onAppear {
+            Analytics.track(
+                .openedEditCar
+            )
+        }
     }
     
     func save() {

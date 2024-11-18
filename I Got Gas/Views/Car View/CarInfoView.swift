@@ -132,5 +132,10 @@ struct CarInfoView: View {
                 }
             }
         }
+        .onAppear {
+            Analytics.track(
+                .openedCarInfo
+            )
+        }
     }
 }

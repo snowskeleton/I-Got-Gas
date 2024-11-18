@@ -91,5 +91,18 @@ struct ChartTabView: View {
             }
             .presentationDetents([.medium])
         }
+        .onAppear {
+            Analytics.track(
+                .serviceFilterSettings,
+                with: [
+                    "tab": settings.selectedTab,
+                    "range": settings.range.description,
+                    "fuel": settings.includeFuel.description,
+                    "maintenance": settings.includeMaintenance.description,
+                    "completed": settings.includeCompleted.description,
+                    "pending": settings.includePending.description
+                ]
+            )
+        }
     }
 }
