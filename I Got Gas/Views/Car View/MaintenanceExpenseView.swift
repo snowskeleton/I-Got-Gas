@@ -65,7 +65,7 @@ struct MaintenanceExpenseView: View {
             }
             .padding(.bottom)
         }
-        .navigationTitle("Maintencance")
+        .navigationTitle("Maintenance")
         .onAppear {
             Analytics.track(
                 .openedMaintenanceExpenses
