@@ -1,6 +1,0 @@
-framework module Pods_I_Got_Gas {
-  umbrella header "Pods-I Got Gas-umbrella.h"
-
-  export *
-  module * { export * }
-}
