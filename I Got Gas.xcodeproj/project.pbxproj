@@ -31,6 +31,7 @@
 				Database/CoreData/I_Got_Gas.xcdatamodeld,
 				Database/CoreData/RequestingFetches.swift,
 				Database/FakeData.swift,
+				Database/ImportExport.swift,
 				Database/Models/SDCar.swift,
 				Database/Models/SDCarSettings.swift,
 				Database/Models/SDScheduledService.swift,

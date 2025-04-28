@@ -10,10 +10,12 @@ import SwiftUI
 import SwiftData
 
 struct FuelExpenseView: View {
+    @Environment(\.modelContext) var context
+    
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-
+    
     @Binding var car: SDCar
-
+    
     @Query var services: [SDService]
     
     init(car: Binding<SDCar>) {
@@ -54,7 +56,7 @@ struct FuelExpenseView: View {
                         }
                     }
                 }.onDelete(perform: loseMemory)
-
+                
             }
             Spacer()
             NavigationLink {
@@ -71,17 +73,33 @@ struct FuelExpenseView: View {
         }
     }
     func loseMemory(at offsets: IndexSet) {
-//        for index in offsets     {
-//            let service = services[index]
-//            let savedCar = service.vehicle
-//            moc.delete(service)
-//            try? self.moc.save()
-//            if services.count > 0 {
-//                services[0].vehicle?.odometer = services[0].odometer
-//            } else {
-//                savedCar!.odometer = savedCar!.startingOdometer
-//            }
-//            try? self.moc.save()
+        do {
+            let _ = try offsets
+                .map { _ in
+                    try context
+                        .delete(
+                            model: SDService.self,
+                            where: #Predicate<SDService> { $0.id == $0.id }
+                        )}
+        } catch { }
+
+//        // Get the services to delete
+//        let servicesToDelete = offsets.map { services[$0] }
+//        
+//        // Delete the services
+//        for service in servicesToDelete {
+//            service.delete()
 //        }
+//        
+////        // Update the car's odometer
+////        if let mostRecentService = services.first(where: { $0.isFuel }) {
+////            car.odometer = mostRecentService.odometer
+////        } else {
+////            // No fuel services left, reset to starting odometer
+////            car.odometer = car.startingOdometer
+////        }
+////        
+////        // Save changes
+////        try? car.save()
     }
 }

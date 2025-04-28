@@ -86,6 +86,15 @@ enum FrequencyTimeInterval: CaseIterable, Codable {
     case month
     case year
     
+    init(rawValue: String) {
+        switch rawValue {
+        case "Days": self = .day
+        case "Months": self = .month
+        case "Years": self = .year
+        default: self = .month
+        }
+    }
+    
     var calendarComponent: Calendar.Component {
         switch self {
         case .day: return Calendar.Component.day
@@ -101,4 +110,6 @@ enum FrequencyTimeInterval: CaseIterable, Codable {
         case .year: return "Years"
         }
     }
+    
+    var rawValue: String { description }
 }
