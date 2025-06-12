@@ -10,13 +10,15 @@ import SwiftUI
 import SwiftData
 
 struct AddExpenseView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var mode
     @Environment(\.modelContext) var context
     
     @FocusState private var focusPriceField: Bool
 
     @Query var scheduledServices: [SDScheduledService]
 
+    @State private var showCancelWarning = false
+    
     @State var selectedFutureService: SDScheduledService?
     @Binding var car: SDCar
     @State private var expenseDate = Date()
@@ -42,6 +44,17 @@ struct AddExpenseView: View {
     }
     var gallonsOfGasFormatted: Double {
         return (Double(gallonsOfGas) ?? 0) / 1000
+    }
+    
+    var allowCancel: Bool {
+        if serviceType == "Gas" {
+            return gallonsOfGas.isEmpty && totalPrice.isEmpty
+        } else {
+            return gallonsOfGas.isEmpty &&
+            totalPrice.isEmpty &&
+            vendorName.isEmpty &&
+            name.isEmpty
+        }
     }
     
     var disableSave: Bool {
@@ -98,103 +111,133 @@ struct AddExpenseView: View {
     }
 
     var body: some View {
-        VStack {
-            Picker("Service Type", selection: $serviceType) {
-                Text("Gas").tag("Gas")
-                Text("Service").tag("Service")
-            }
-            .pickerStyle(SegmentedPickerStyle())
+        NavigationStack {
             VStack {
-                Form {
-                    Section {
-                        DatePicker("Purchased",
-                                   selection: $expenseDate,
-                                   displayedComponents: .date)
-                        if serviceType != "Gas"  {
-                            Toggle("Pending", isOn: $pending)
-                        }
-                    }
-                    
-                    if serviceType != "Gas"  {
-                        Picker("Scheduled Service", selection: $selectedFutureService) {
-                            Text("None")
-                                .italic()
-                                .tag(nil as SDScheduledService?)
-                            Divider()
-                            ForEach(scheduledServices, id: \.self) { service in
-                                Text(service.name)
-                                    .foregroundColor(service.pastDue ? Color.red : Color.secondary)
-                                    .tag(service)
+                Picker("Service Type", selection: $serviceType) {
+                    Text("Gas").tag("Gas")
+                    Text("Service").tag("Service")
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                VStack {
+                    Form {
+                        Section {
+                            DatePicker("Purchased",
+                                       selection: $expenseDate,
+                                       displayedComponents: .date)
+                            if serviceType != "Gas"  {
+                                Toggle("Pending", isOn: $pending)
                             }
                         }
-                    }
-                    
-                    Section(header: Text("Price")) {
                         
-                        ZStack(alignment: .leading) {
-                            HStack {
-                                Text("$")
-                                HStack {
-                                    Text("\(totalNumberFormatted, specifier: "%.2f")")
-                                        .multilineTextAlignment(TextAlignment.leading)
-                                    Text("\(editingPrice == true ? bluePipe : emptyText)")
-                                    
+                        if serviceType != "Gas"  {
+                            Picker("Scheduled Service", selection: $selectedFutureService) {
+                                Text("None")
+                                    .italic()
+                                    .tag(nil as SDScheduledService?)
+                                Divider()
+                                ForEach(scheduledServices, id: \.self) { service in
+                                    Text(service.name)
+                                        .foregroundColor(service.pastDue ? Color.red : Color.secondary)
+                                        .tag(service)
                                 }
                             }
-                            TextField("", text: $totalPrice, onEditingChanged: {_ in editingPrice.toggle()})
-                                .keyboardType(.numberPad)
-                                .foregroundColor(.clear)
-                                .textFieldStyle(PlainTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .accentColor(.clear)
-                                .focused($focusPriceField)
-                                .onAppear {
-                                    focusPriceField = true
-                                }
                         }
-                    }
-                    
-                    if serviceType == "Gas" {
-                        Section(header: Text("Gallons")) {
+                        
+                        Section(header: Text("Price")) {
+                            
                             ZStack(alignment: .leading) {
                                 HStack {
-                                    Text("\(gallonsOfGasFormatted, specifier: "%.3f")")
-                                        .multilineTextAlignment(TextAlignment.leading)
-                                    Text("\(editingGallons == true ? bluePipe : emptyText)")
+                                    Text("$")
+                                    HStack {
+                                        Text("\(totalNumberFormatted, specifier: "%.2f")")
+                                            .multilineTextAlignment(TextAlignment.leading)
+                                        Text("\(editingPrice == true ? bluePipe : emptyText)")
+                                        
+                                    }
                                 }
-                                TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
+                                TextField("", text: $totalPrice, onEditingChanged: {_ in editingPrice.toggle()})
+                                    .keyboardType(.numberPad)
                                     .foregroundColor(.clear)
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .disableAutocorrection(true)
                                     .accentColor(.clear)
-                                    .keyboardType(.decimalPad)
+                                    .focused($focusPriceField)
+                                    .onAppear {
+                                        focusPriceField = true
+                                    }
                             }
                         }
-                    }
-                    
-                    Section(header: Text("Odometer")) {
-                        TextField("\(car.odometer)", value: $odometer, formatter: NumberFormatter())
-                            .keyboardType(.numberPad)
+                        
+                        if serviceType == "Gas" {
+                            Section(header: Text("Gallons")) {
+                                ZStack(alignment: .leading) {
+                                    HStack {
+                                        Text("\(gallonsOfGasFormatted, specifier: "%.3f")")
+                                            .multilineTextAlignment(TextAlignment.leading)
+                                        Text("\(editingGallons == true ? bluePipe : emptyText)")
+                                    }
+                                    TextField("", text: $gallonsOfGas, onEditingChanged: {_ in editingGallons.toggle()})
+                                        .foregroundColor(.clear)
+                                        .textFieldStyle(PlainTextFieldStyle())
+                                        .disableAutocorrection(true)
+                                        .accentColor(.clear)
+                                        .keyboardType(.decimalPad)
+                                }
+                            }
+                        }
+                        
+                        Section(header: Text("Odometer")) {
+                            TextField("\(car.odometer)", value: $odometer, formatter: NumberFormatter())
+                                .keyboardType(.numberPad)
+                            
+                        }
+                        
+                        Section(header: Text("Vendor")) {
+                            TextField("Vendor name", text: $vendorName)
+                            if serviceType != "Gas"  {
+                                TextField("Service Notes", text: $name)
+                            }
+                        }
+                        
+                        Section {
+                            Button("Save") {
+                                save()
+                                mode.wrappedValue.dismiss()
+                            }.disabled(disableSave)
+                        }
                         
                     }
-                    
-                    Section(header: Text("Vendor")) {
-                        TextField("Vendor name", text: $vendorName)
-                        if serviceType != "Gas"  {
-                            TextField("Service Notes", text: $name)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        save()
+                        mode.wrappedValue.dismiss()
+                    }.disabled(disableSave)
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        if allowCancel {
+                            mode.wrappedValue.dismiss()
+                        } else {
+                            showCancelWarning = true
                         }
                     }
-                    
-                    Section {
-                        Button("Save") {
-                            save()
-                            presentationMode.wrappedValue.dismiss()
-                        }.disabled(disableSave)
-                    }
-                    
                 }
             }
         }
+        .alert(isPresented: $showCancelWarning) {
+            Alert(
+                title: Text("Unsaved data"),
+                message: Text("Are you sure you want to cancel?"),
+                primaryButton: .cancel(),
+                secondaryButton: .destructive(Text("Discard")) {
+                    mode.wrappedValue.dismiss()
+                }
+            )
+        }
+        .interactiveDismissDisabled(!allowCancel)
         .navigationBarTitle(serviceType, displayMode: .inline)
         .onAppear {
             Analytics.track(

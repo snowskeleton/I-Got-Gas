@@ -18,6 +18,10 @@ struct FuelExpenseView: View {
     
     @Query var services: [SDService]
     
+    @State private var showAddFuelSheet = false
+    @State private var showExistingFuelOrServiceSheet = false
+    @State private var existingService: SDService?
+
     init(car: Binding<SDCar>) {
         self._car = car
         let searchId = car.wrappedValue.id
@@ -39,9 +43,10 @@ struct FuelExpenseView: View {
         VStack {
             List {
                 ForEach(services, id: \.self) { service in
-                    NavigationLink {
-                        AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
-                    } label: {
+                    Button(action: {
+                        existingService = service
+                        showExistingFuelOrServiceSheet = true
+                    }) {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("$\(service.costPerGallon, specifier: (priceFormat == "" ? "%.3f" : "\(String(describing: priceFormat))"))/gal")
@@ -55,16 +60,23 @@ struct FuelExpenseView: View {
                             }
                         }
                     }
-                }.onDelete(perform: loseMemory)
-                
+                    .buttonStyle(PlainButtonStyle())
+                }
+//                .onDelete(perform: loseMemory)
             }
             Spacer()
-            NavigationLink {
-                AddExpenseView(car: Binding<SDCar>.constant(car))
-            } label: {
+            Button(action: { showAddFuelSheet = true }) {
                 Text("Add Expense")
             }
             .padding(.bottom)
+        }
+        .sheet(isPresented: $showAddFuelSheet) {
+            AddExpenseView(car: Binding<SDCar>.constant(car))
+        }
+        .sheet(isPresented: $showExistingFuelOrServiceSheet) {
+            if let existingService {
+                AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+            }
         }
         .onAppear {
             Analytics.track(

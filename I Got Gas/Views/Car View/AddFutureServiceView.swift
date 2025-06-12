@@ -10,18 +10,25 @@ import SwiftUI
 import UserNotifications
 
 struct AddFutureServiceView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var mode
     @Environment(\.modelContext) var context
+    
+    @State private var showCancelWarning = false
     
     @State private var frequencyTimeInterval: FrequencyTimeInterval = .month
     @State private var date: Date = Date()
     @State private var name: String = ""
     @State private var fullDescription: String = ""
     @State private var repeating: Bool = true
-    @State private var frequencyTime: Int = 30
+    @State private var frequencyTime: Int = 6
     @State private var frequencyMiles: Int = 5000
     @Binding var car: SDCar
     @State private var futureService: SDScheduledService?
+    
+    var allowCancel: Bool {
+        return name.isEmpty &&
+        fullDescription.isEmpty
+    }
     
     init(car: Binding<SDCar>) {
         _car = car
@@ -40,61 +47,91 @@ struct AddFutureServiceView: View {
     }
     
     var body: some View {
-        VStack {
-            Form {
-                Section {
-                    TextField("Name", text: $name)
-                }
-                Section {
-                    TextField("Description", text: $fullDescription, axis: .vertical)
-                }
-
-                Section {
-                    Toggle("Repeating", isOn: $repeating)
-                }
-                Section(repeating ? "Every..." : "In...") {
-                    ZStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            Text(frequencyTimeInterval.description)
-                                .foregroundColor(.gray)
-                        }
-                        TextField("3, 6, 12...", value: $frequencyTime, formatter: NumberFormatter())
-                            .keyboardType(.numberPad)
+        NavigationStack {
+            VStack {
+                Form {
+                    Section {
+                        TextField("Name", text: $name)
+                    }
+                    Section {
+                        TextField("Description", text: $fullDescription, axis: .vertical)
                     }
                     
-                    Picker(selection: $frequencyTimeInterval, label: Text("Interval")) {
-                        ForEach(FrequencyTimeInterval.allCases, id: \.self) {
-                            Text($0.description).tag($0)
+                    Section {
+                        Toggle("Repeating", isOn: $repeating)
+                    }
+                    Section(repeating ? "Every..." : "In...") {
+                        ZStack(alignment: .leading) {
+                            HStack {
+                                Spacer()
+                                Text(frequencyTimeInterval.description)
+                                    .foregroundColor(.gray)
+                            }
+                            TextField("3, 6, 12...", value: $frequencyTime, formatter: NumberFormatter())
+                                .keyboardType(.numberPad)
                         }
-                    }.pickerStyle(SegmentedPickerStyle())
-                }
-                
-                Section(header: Text("Or...")) {
-                    ZStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            Text("miles")
-                                .foregroundColor(.gray)
+                        
+                        Picker(selection: $frequencyTimeInterval, label: Text("Interval")) {
+                            ForEach(FrequencyTimeInterval.allCases, id: \.self) {
+                                Text($0.description).tag($0)
+                            }
+                        }.pickerStyle(SegmentedPickerStyle())
+                    }
+                    
+                    Section(header: Text("Or...")) {
+                        ZStack(alignment: .leading) {
+                            HStack {
+                                Spacer()
+                                Text("miles")
+                                    .foregroundColor(.gray)
+                            }
+                            TextField("3,000, 15,000...", value: $frequencyMiles, formatter: NumberFormatter())
+                                .keyboardType(.numberPad)
                         }
-                        TextField("3,000, 15,000...", value: $frequencyMiles, formatter: NumberFormatter())
-                            .keyboardType(.numberPad)
+                    }
+                    
+                    Section(header: Text("Starting...")) {
+                        DatePicker("Date",
+                                   selection: $date,
+                                   displayedComponents: .date)
+                        
+                        .labelsHidden()
+                    }
+                    Button("Save") {
+                        save()
+                        mode.wrappedValue.dismiss()
                     }
                 }
-                
-                Section(header: Text("Starting...")) {
-                    DatePicker("Date",
-                               selection: $date,
-                               displayedComponents: .date)
-                    
-                    .labelsHidden()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        save()
+                        mode.wrappedValue.dismiss()
+                    }
                 }
-                Button("Save") {
-                    save()
-                    presentationMode.wrappedValue.dismiss()
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        if allowCancel {
+                            mode.wrappedValue.dismiss()
+                        } else {
+                            showCancelWarning = true
+                        }
+                    }
                 }
             }
         }
+        .alert(isPresented: $showCancelWarning) {
+            Alert(
+                title: Text("Unsaved data"),
+                message: Text("Are you sure you want to cancel?"),
+                primaryButton: .cancel(),
+                secondaryButton: .destructive(Text("Discard")) {
+                    mode.wrappedValue.dismiss()
+                }
+            )
+        }
+        .interactiveDismissDisabled(!allowCancel)
         .navigationBarTitle("Schedule Service")
         .onAppear {
             Analytics.track(

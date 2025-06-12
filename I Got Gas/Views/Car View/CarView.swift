@@ -9,11 +9,27 @@
 import SwiftUI
 import SwiftData
 
+struct FakeAddExpenseView: View {
+    var body: some View {
+        Text("SubViewTwo")
+    }
+}
+
 struct CarView: View {
     @Binding var car: SDCar
     
     @State private var showInfoSheet = false
     
+    @State private var showAddFuelSheet = false
+    @State private var showAddServiceSheet = false
+    @State private var showAddScheduldServiceSheet = false
+
+    @State private var showExistingFuelOrServiceSheet = false
+    @State private var showExistingScheduledServiceSheet = false
+    
+    @State private var existingService: SDService?
+    @State private var existingFutureService: SDScheduledService?
+
     @Query var fuelServices: [SDService]
     @Query var services: [SDService]
     @Query var scheduledServices: [SDScheduledService]
@@ -76,15 +92,17 @@ struct CarView: View {
 
                 Section {
                     ForEach(fuelServices, id: \.self) { service in
-                        NavigationLink {
-                            AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
-                        } label: {
+                        Button(action: {
+                            existingService = service
+                            showExistingFuelOrServiceSheet = true
+                        }) {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
                                 Text("\(service.date, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     NavigationLink {
                         FuelExpenseView(car: Binding<SDCar>.constant(car))
@@ -92,9 +110,7 @@ struct CarView: View {
                         Text("All")
                     }
                 } header: {
-                    NavigationLink {
-                        AddExpenseView(car: Binding<SDCar>.constant(car))
-                    } label: {
+                    Button(action: { showAddFuelSheet = true }) {
                         HStack {
                             Text("Fuel")
                             Image(systemName: "fuelpump")
@@ -102,13 +118,15 @@ struct CarView: View {
                             Image(systemName: "plus")
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
                 
                 Section {
                     ForEach(services, id: \.self) { service in
-                        NavigationLink {
-                            AddExpenseView(car: Binding<SDCar>.constant(car), service: service)
-                        } label: {
+                        Button(action: {
+                            existingService = service
+                            showExistingFuelOrServiceSheet = true
+                        }) {
                             HStack {
                                 Text("$\(service.cost, specifier: "%.2f")")
                                 Spacer()
@@ -119,6 +137,7 @@ struct CarView: View {
                                 )
                             }
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     NavigationLink {
                         MaintenanceExpenseView(car: Binding<SDCar>.constant(car))
@@ -126,9 +145,7 @@ struct CarView: View {
                         Text("All")
                     }
                 } header: {
-                    NavigationLink {
-                        AddExpenseView(car: Binding<SDCar>.constant(car), isGas: false)
-                    } label: {
+                    Button(action: { showAddServiceSheet = true }) {
                         HStack {
                             Text("Maintenance")
                             Image(systemName: "wrench")
@@ -136,13 +153,15 @@ struct CarView: View {
                             Image(systemName: "plus")
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
                 
                 Section {
                     ForEach(scheduledServices, id: \.self) { service in
-                        NavigationLink {
-                            AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: service)
-                        } label: {
+                        Button(action: {
+                            existingFutureService = service
+                            showExistingScheduledServiceSheet = true
+                        }) {
                             HStack {
                                 Text(service.name)
                                     .foregroundColor(service.pastDue ? Color.red : Color.primary)
@@ -153,6 +172,7 @@ struct CarView: View {
                                 }
                             }
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     NavigationLink {
                         FutureServiceView(car: Binding<SDCar>.constant(car))
@@ -160,9 +180,7 @@ struct CarView: View {
                         Text("All")
                     }
                 } header: {
-                    NavigationLink {
-                        AddFutureServiceView(car: Binding<SDCar>.constant(car))
-                    } label: {
+                    Button(action: { showAddScheduldServiceSheet = true }) {
                         HStack {
                             Text("Schedule")
                             Image(systemName: "clock")
@@ -170,6 +188,7 @@ struct CarView: View {
                             Image(systemName: "plus")
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
             Spacer()
@@ -188,6 +207,25 @@ struct CarView: View {
         }
         .sheet(isPresented: $showInfoSheet) {
             CarInfoView(car: $car)
+        }
+        .sheet(isPresented: $showAddFuelSheet) {
+            AddExpenseView(car: Binding<SDCar>.constant(car))
+        }
+        .sheet(isPresented: $showAddServiceSheet) {
+            AddExpenseView(car: Binding<SDCar>.constant(car), isGas: false)
+        }
+        .sheet(isPresented: $showAddScheduldServiceSheet) {
+            AddFutureServiceView(car: Binding<SDCar>.constant(car))
+        }
+        .sheet(isPresented: $showExistingFuelOrServiceSheet) {
+            if let existingService {
+                AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+            }
+        }
+        .sheet(isPresented: $showExistingScheduledServiceSheet) {
+            if let existingFutureService {
+                AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: existingFutureService)
+            }
         }
         .onAppear {
             Analytics.track(
