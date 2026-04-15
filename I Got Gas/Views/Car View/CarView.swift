@@ -43,7 +43,8 @@ struct CarView: View {
         let carId = car.wrappedValue.id
         let fuelPredicate = #Predicate<SDService> {
             $0.car?.id == carId &&
-            $0.isFuel
+            $0.isFuel &&
+            $0.deleted == false
         }
         var fuelDescriptor = FetchDescriptor<SDService>(
             predicate: fuelPredicate,
@@ -57,7 +58,8 @@ struct CarView: View {
         
         let servicePredicate = #Predicate<SDService> {
             $0.car?.id == carId &&
-            !$0.isFuel
+            !$0.isFuel &&
+            $0.deleted == false
         }
         var serviceDescriptor = FetchDescriptor<SDService>(
             predicate: servicePredicate,
@@ -70,7 +72,8 @@ struct CarView: View {
         _services = Query(serviceDescriptor)
 
         let scheduledDredicate = #Predicate<SDScheduledService> {
-            $0.car?.id == carId
+            $0.car?.id == carId &&
+            $0.deleted == false
         }
         var scheduledDescriptor = FetchDescriptor<SDScheduledService>(
             predicate: scheduledDredicate,

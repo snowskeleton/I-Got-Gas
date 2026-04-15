@@ -22,17 +22,7 @@ struct ContentView: View {
     // end migration
 
     var body: some View {
-        TabView {
-            AllCarsView()
-                .tabItem {
-                    Label("Vehicles", systemImage: "car.side")
-                }
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                }
-        }
-//        .environment(\.horizontalSizeClass, .compact)
+        AllCarsView()
         // 1.x - 2.0 migration migration
         .alert(isPresented: $showQuitAlert) {
             Alert(

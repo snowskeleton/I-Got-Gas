@@ -35,9 +35,12 @@ class SDScheduledService: Identifiable {
     var frequencyTime: Int = 0
     var frequencyTimeInterval: FrequencyTimeInterval = FrequencyTimeInterval.month
     var frequencyTimeStart: Date = Date()
+    var deleted: Bool = false
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 
     var car: SDCar?
-    
+
     init() { }
     
     func scheduleNotification(now: Bool? = false) {
@@ -72,6 +75,67 @@ class SDScheduledService: Identifiable {
             
             UNUserNotificationCenter.current().add(request)
         }
+    }
+
+    func touch() {
+        updatedAt = Date()
+    }
+
+    func toAPIModel() -> [String: Any] {
+        let intervalString: String
+        switch frequencyTimeInterval {
+        case .day: intervalString = "day"
+        case .month: intervalString = "month"
+        case .year: intervalString = "year"
+        }
+        return [
+            "id": id,
+            "car_id": car?.id ?? "",
+            "name": name,
+            "full_description": fullDescription,
+            "notification_uuid": notificationUUID,
+            "repeating": repeating,
+            "odometer_first_occurance": odometerFirstOccurance,
+            "frequency_miles": frequencyMiles,
+            "frequency_time": frequencyTime,
+            "frequency_time_interval": intervalString,
+            "frequency_time_start": ISO8601DateFormatter().string(from: frequencyTimeStart),
+            "deleted": deleted,
+            "created_at": ISO8601DateFormatter().string(from: createdAt),
+            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
+        ]
+    }
+
+    func applyRemote(_ remote: [String: Any]) {
+        if let v = remote["name"] as? String { name = v }
+        if let v = remote["full_description"] as? String { fullDescription = v }
+        if let v = remote["repeating"] as? Bool { repeating = v }
+        if let v = remote["odometer_first_occurance"] as? Int { odometerFirstOccurance = v }
+        if let v = remote["frequency_miles"] as? Int { frequencyMiles = v }
+        if let v = remote["frequency_time"] as? Int { frequencyTime = v }
+        if let v = remote["deleted"] as? Bool { deleted = v }
+        if let s = remote["frequency_time_interval"] as? String {
+            switch s {
+            case "day": frequencyTimeInterval = .day
+            case "month": frequencyTimeInterval = .month
+            case "year": frequencyTimeInterval = .year
+            default: break
+            }
+        }
+        if let s = remote["frequency_time_start"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            frequencyTimeStart = d
+        }
+        if let s = remote["updated_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            updatedAt = d
+        }
+        if let s = remote["created_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            createdAt = d
+        }
+        // Regenerate notification UUID on new devices
+        notificationUUID = UUID().uuidString
     }
 }
 

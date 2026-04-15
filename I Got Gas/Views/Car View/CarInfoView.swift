@@ -116,6 +116,20 @@ struct CarInfoView: View {
                     }
                 }
                 
+                // Sharing section — only for owned cars
+                if car.ownerID.isEmpty {
+                    Section("Sharing") {
+                        NavigationLink {
+                            ShareVehicleView(carID: car.id, carName: car.visualName)
+                        } label: {
+                            HStack {
+                                Image(systemName: "person.2")
+                                Text("Share this Vehicle")
+                            }
+                        }
+                    }
+                }
+
                 Section {
                     Button("Export") {
                         let data = generateCSV(for: car.services ?? [], scheduledServices: car.scheduledServices ?? [])

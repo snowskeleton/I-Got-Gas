@@ -41,9 +41,19 @@
 				"extension DateFormatter.swift",
 				I_Got_GasApp.swift,
 				LICENSE.md,
+				Networking/APIClient.swift,
+				Networking/APIEndpoints.swift,
+				Networking/APIModels.swift,
+				Networking/AuthManager.swift,
+				Networking/KeychainHelper.swift,
 				PRIVACY_POLICY.md,
+				Sharing/ShareManager.swift,
+				Sync/SyncManager.swift,
+				Sync/SyncMerger.swift,
+				Sync/SyncMetadata.swift,
 				Views/AddCarView.swift,
 				Views/AllCarsView.swift,
+				Views/Auth/LoginView.swift,
 				"Views/Car View/AddExpenseView.swift",
 				"Views/Car View/AddFutureServiceView.swift",
 				"Views/Car View/CarInfoView.swift",
@@ -67,6 +77,8 @@
 				Views/Settings/Public/ExportDataView.swift,
 				Views/Settings/Public/OptionsView.swift,
 				Views/Settings/Public/SettingsView.swift,
+				Views/Sharing/PendingSharesView.swift,
+				Views/Sharing/ShareVehicleView.swift,
 			);
 			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
 		};

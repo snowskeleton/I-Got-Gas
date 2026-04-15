@@ -12,6 +12,7 @@ import UserNotifications
 struct AddFutureServiceView: View {
     @Environment(\.presentationMode) var mode
     @Environment(\.modelContext) var context
+    @Environment(SyncManager.self) private var syncManager
     
     @State private var showCancelWarning = false
     
@@ -166,8 +167,11 @@ struct AddFutureServiceView: View {
         hydratedService.frequencyTimeStart = date
         hydratedService.odometerFirstOccurance = car.odometer
         
+        hydratedService.touch()
+        car.touch()
         context.insert(hydratedService)
-        
+        syncManager.triggerSync()
+
         hydratedService.scheduleNotification()
         
         Analytics.track(

@@ -24,7 +24,8 @@ struct FutureServiceView: View {
         self._car = car
         let searchId = car.wrappedValue.id
         let predicate = #Predicate<SDScheduledService> {
-            $0.car?.id == searchId
+            $0.car?.id == searchId &&
+            $0.deleted == false
         }
         let descriptor = FetchDescriptor<SDScheduledService>(
             predicate: predicate,

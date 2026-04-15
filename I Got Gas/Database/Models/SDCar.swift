@@ -21,9 +21,11 @@ class SDCar: Identifiable {
     var year: Int?
     var startingOdometer: Int = 0
     var pinned: Bool = false
-//    @Attribute(originalName: "deleted")
     var deleted: Bool = false
     var archived: Bool = false
+    var ownerID: String = ""
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
     
     @Relationship
     var services: [SDService]? = []
@@ -98,5 +100,53 @@ class SDCar: Identifiable {
     @available(*, deprecated, message: "use `lastFillup` instead")
     var lastFuelDate: Date? {
         return Date()
+    }
+
+    func touch() {
+        updatedAt = Date()
+    }
+
+    func toAPIModel() -> [String: Any] {
+        var dict: [String: Any] = [
+            "id": id,
+            "owner_id": ownerID,
+            "make": make,
+            "model": model,
+            "name": name,
+            "plate": plate,
+            "vin": vin,
+            "starting_odometer": startingOdometer,
+            "pinned": pinned,
+            "deleted": deleted,
+            "archived": archived,
+            "created_at": ISO8601DateFormatter().string(from: createdAt),
+            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
+        ]
+        if let year = year {
+            dict["year"] = year
+        }
+        return dict
+    }
+
+    func applyRemote(_ remote: [String: Any]) {
+        if let v = remote["make"] as? String { make = v }
+        if let v = remote["model"] as? String { model = v }
+        if let v = remote["name"] as? String { name = v }
+        if let v = remote["plate"] as? String { plate = v }
+        if let v = remote["vin"] as? String { vin = v }
+        if let v = remote["year"] as? Int { year = v }
+        if let v = remote["starting_odometer"] as? Int { startingOdometer = v }
+        if let v = remote["pinned"] as? Bool { pinned = v }
+        if let v = remote["deleted"] as? Bool { deleted = v }
+        if let v = remote["archived"] as? Bool { archived = v }
+        if let v = remote["owner_id"] as? String { ownerID = v }
+        if let s = remote["updated_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            updatedAt = d
+        }
+        if let s = remote["created_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            createdAt = d
+        }
     }
 }

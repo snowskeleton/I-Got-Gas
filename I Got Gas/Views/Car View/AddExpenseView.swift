@@ -12,7 +12,8 @@ import SwiftData
 struct AddExpenseView: View {
     @Environment(\.presentationMode) var mode
     @Environment(\.modelContext) var context
-    
+    @Environment(SyncManager.self) private var syncManager
+
     @FocusState private var focusPriceField: Bool
 
     @Query var scheduledServices: [SDScheduledService]
@@ -295,8 +296,11 @@ struct AddExpenseView: View {
             }
         }
 
+        hydratedService.touch()
+        car.touch()
         context.insert(hydratedService)
-        
+        syncManager.triggerSync()
+
         Analytics.track(
             .saveExpenseDetails,
             with: [

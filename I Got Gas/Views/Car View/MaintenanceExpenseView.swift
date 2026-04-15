@@ -25,7 +25,8 @@ struct MaintenanceExpenseView: View {
         let searchId = car.wrappedValue.id
         let predicate = #Predicate<SDService> {
             $0.car?.id == searchId &&
-            $0.isFuel == false
+            $0.isFuel == false &&
+            $0.deleted == false
         }
         let descriptor = FetchDescriptor<SDService>(
             predicate: predicate,

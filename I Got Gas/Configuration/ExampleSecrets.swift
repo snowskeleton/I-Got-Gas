@@ -9,3 +9,7 @@
 //    static let appKey = ""
 //    static let host = ""
 //}
+
+//struct IGGServerSecrets {
+//    static let baseURL = "http://localhost:8080"
+//}

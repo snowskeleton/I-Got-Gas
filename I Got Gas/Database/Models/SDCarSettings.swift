@@ -19,8 +19,8 @@ class SDCarSettings: Identifiable {
     private var _includeCompleted: Bool = true
     private var _includePending: Bool = false
     private var _custom: Bool = false
-    
-    
+    var updatedAt: Date = Date()
+
     var car: SDCar?
     
     init() {
@@ -143,6 +143,38 @@ class SDCarSettings: Identifiable {
         UserDefaults.standard.set(_includePending, forKey: "defaultFilterIncludePending")
     }
     
+    func touch() {
+        updatedAt = Date()
+    }
+
+    func toAPIModel() -> [String: Any] {
+        return [
+            "car_id": car?.id ?? "",
+            "selected_tab": _selectedTab,
+            "range_days": _range,
+            "include_fuel": _includeFuel,
+            "include_maintenance": _includeMaintenance,
+            "include_completed": _includeCompleted,
+            "include_pending": _includePending,
+            "custom": _custom,
+            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
+        ]
+    }
+
+    func applyRemote(_ remote: [String: Any]) {
+        if let v = remote["selected_tab"] as? String { _selectedTab = v }
+        if let v = remote["range_days"] as? Int { _range = v }
+        if let v = remote["include_fuel"] as? Bool { _includeFuel = v }
+        if let v = remote["include_maintenance"] as? Bool { _includeMaintenance = v }
+        if let v = remote["include_completed"] as? Bool { _includeCompleted = v }
+        if let v = remote["include_pending"] as? Bool { _includePending = v }
+        if let v = remote["custom"] as? Bool { _custom = v }
+        if let s = remote["updated_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            updatedAt = d
+        }
+    }
+
     static public func setDefaults() {
         if !UserDefaults.standard.bool(forKey: "defaultFilterCompletedFirstRun") {
             UserDefaults.standard.set(true, forKey: "defaultFilterFirstRun")

@@ -29,10 +29,13 @@ class SDService: Identifiable {
     var gallons: Double = 0.0
     
     var vendorName = ""
-    
+    var deleted: Bool = false
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
+
     @Relationship
     var car: SDCar?
-    
+
     init() { }
     init(
         cost: Double,
@@ -45,9 +48,58 @@ class SDService: Identifiable {
         self.name = name
         self.odometer = odometer
     }
-    
+
     var costPerGallon: Double {
         cost / gallons
+    }
+
+    func touch() {
+        updatedAt = Date()
+    }
+
+    func toAPIModel() -> [String: Any] {
+        return [
+            "id": id,
+            "car_id": car?.id ?? "",
+            "cost": cost,
+            "date": ISO8601DateFormatter().string(from: date),
+            "pending": pending,
+            "name": name,
+            "full_description": fullDescription,
+            "odometer": odometer,
+            "is_fuel": isFuel,
+            "is_full_tank": isFullTank,
+            "gallons": gallons,
+            "vendor_name": vendorName,
+            "deleted": deleted,
+            "created_at": ISO8601DateFormatter().string(from: createdAt),
+            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
+        ]
+    }
+
+    func applyRemote(_ remote: [String: Any]) {
+        if let v = remote["cost"] as? Double { cost = v }
+        if let v = remote["pending"] as? Bool { pending = v }
+        if let v = remote["name"] as? String { name = v }
+        if let v = remote["full_description"] as? String { fullDescription = v }
+        if let v = remote["odometer"] as? Int { odometer = v }
+        if let v = remote["is_fuel"] as? Bool { isFuel = v }
+        if let v = remote["is_full_tank"] as? Bool { isFullTank = v }
+        if let v = remote["gallons"] as? Double { gallons = v }
+        if let v = remote["vendor_name"] as? String { vendorName = v }
+        if let v = remote["deleted"] as? Bool { deleted = v }
+        if let s = remote["date"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            date = d
+        }
+        if let s = remote["updated_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            updatedAt = d
+        }
+        if let s = remote["created_at"] as? String,
+           let d = ISO8601DateFormatter().date(from: s) {
+            createdAt = d
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import SwiftUI
 struct AddCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
+    @Environment(SyncManager.self) private var syncManager
     
     @State private var carMake = ""
     @State private var carModel = ""
@@ -62,16 +63,18 @@ struct AddCarView: View {
     
     func save() {
         let car = SDCar()
-        
+
         car.year = carYear
         car.make = carMake
         car.model = carModel
         car.plate = carPlate
         car.vin = carVIN
         car.startingOdometer = carOdometer!
-        
+        car.touch()
+
         context.insert(car)
-        
+        syncManager.triggerSync()
+
         presentationMode.wrappedValue.dismiss()
     }
 }
