@@ -11,6 +11,7 @@ import SwiftUI
 struct EditCarView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.modelContext) var context
+    @Environment(AuthManager.self) private var authManager
     @Environment(SyncManager.self) private var syncManager
 
     @State private var showFirstConfirmDeleteRequest = false
@@ -64,8 +65,7 @@ struct EditCarView: View {
                     car.touch()
                     syncManager.triggerSync()
                 }
-                // Only show delete for cars the user owns (ownerID is empty for local-only or matches current user)
-                if car.ownerID.isEmpty {
+                if car.ownerID.isEmpty || car.ownerID == authManager.userID {
                     Button("Delete", role: .destructive) {
                         self.showFirstConfirmDeleteRequest = true
                     }

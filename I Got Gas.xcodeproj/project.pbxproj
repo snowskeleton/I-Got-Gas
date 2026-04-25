@@ -71,7 +71,6 @@
 				Views/Settings/Public/About/AboutView.swift,
 				Views/Settings/Public/About/LicenseView.swift,
 				Views/Settings/Public/About/Markdownview.swift,
-				Views/Settings/Public/About/PrivacyPolicyView.swift,
 				Views/Settings/Public/AnalyticsView.swift,
 				Views/Settings/Public/DefaultFiltersView.swift,
 				Views/Settings/Public/ExportDataView.swift,
@@ -335,7 +334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -359,7 +358,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

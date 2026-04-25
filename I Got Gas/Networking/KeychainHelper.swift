@@ -15,6 +15,7 @@ enum KeychainHelper {
         case accessToken = "igg_access_token"
         case refreshToken = "igg_refresh_token"
         case userEmail = "igg_user_email"
+        case userID = "igg_user_id"
     }
 
     static func save(_ value: String, for key: Key) {
@@ -57,5 +58,6 @@ enum KeychainHelper {
         delete(.accessToken)
         delete(.refreshToken)
         delete(.userEmail)
+        delete(.userID)
     }
 }

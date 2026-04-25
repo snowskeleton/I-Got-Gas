@@ -168,6 +168,7 @@ struct AllCarsView: View {
 }
 
 struct CarLineItemView: View {
+    @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
     @Bindable var settings: SDCarSettings
 
@@ -189,7 +190,7 @@ struct CarLineItemView: View {
             VStack {
                 HStack {
                     Text(car.visualName)
-                    if !car.ownerID.isEmpty {
+                    if !car.ownerID.isEmpty && !authManager.userID.isEmpty && car.ownerID != authManager.userID {
                         Image(systemName: "person.2.fill")
                             .font(.caption)
                             .foregroundStyle(.secondary)

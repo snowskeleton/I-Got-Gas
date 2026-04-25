@@ -14,6 +14,7 @@ class AuthManager {
     var isAuthenticated: Bool = false
     var isLoading: Bool = false
     var email: String = ""
+    var userID: String = ""
     var errorMessage: String?
     var magicLinkSent: Bool = false
     var pollStatus: String?
@@ -27,17 +28,20 @@ class AuthManager {
     init() {
         isAuthenticated = KeychainHelper.read(.accessToken) != nil
         email = KeychainHelper.read(.userEmail) ?? ""
+        userID = KeychainHelper.read(.userID) ?? ""
     }
 
     func fetchEmailIfNeeded() async {
-        guard isAuthenticated, email.isEmpty else { return }
+        guard isAuthenticated, email.isEmpty || userID.isEmpty else { return }
         do {
             let me: MeResponse = try await APIClient.shared.request(
                 APIEndpoints.me,
                 method: "GET"
             )
             email = me.email
+            userID = me.id
             KeychainHelper.save(me.email, for: .userEmail)
+            KeychainHelper.save(me.id, for: .userID)
         } catch { }
     }
 

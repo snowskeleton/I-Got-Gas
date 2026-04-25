@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CarInfoView: View {
     @Environment(\.presentationMode) var mode
+    @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
     
     @State private var showCopied = false
@@ -117,7 +118,7 @@ struct CarInfoView: View {
                 }
                 
                 // Sharing section — only for owned cars
-                if car.ownerID.isEmpty {
+                if car.ownerID.isEmpty || car.ownerID == authManager.userID {
                     Section("Sharing") {
                         NavigationLink {
                             ShareVehicleView(carID: car.id, carName: car.visualName)
