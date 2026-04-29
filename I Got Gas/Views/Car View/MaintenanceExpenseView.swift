@@ -11,6 +11,7 @@ import SwiftData
 
 struct MaintenanceExpenseView: View {
     @Environment(\.modelContext) var context
+    @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     
@@ -73,10 +74,12 @@ struct MaintenanceExpenseView: View {
         }
         .sheet(isPresented: $showAddFuelSheet) {
             AddExpenseView(car: Binding<SDCar>.constant(car))
+                .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet) {
             if let existingService {
                 AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+                    .environment(syncManager)
             }
         }
         .navigationTitle("Maintenance")

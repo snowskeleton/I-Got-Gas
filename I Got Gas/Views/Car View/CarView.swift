@@ -16,8 +16,10 @@ struct FakeAddExpenseView: View {
 }
 
 struct CarView: View {
+    @Environment(SyncManager.self) private var syncManager
+    @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
-    
+
     @State private var showInfoSheet = false
     
     @State private var showAddFuelSheet = false
@@ -215,24 +217,30 @@ struct CarView: View {
         }
         .sheet(isPresented: $showInfoSheet) {
             CarInfoView(car: $car)
+                .environment(authManager)
         }
         .sheet(isPresented: $showAddFuelSheet) {
             AddExpenseView(car: Binding<SDCar>.constant(car))
+                .environment(syncManager)
         }
         .sheet(isPresented: $showAddServiceSheet) {
             AddExpenseView(car: Binding<SDCar>.constant(car), isGas: false)
+                .environment(syncManager)
         }
         .sheet(isPresented: $showAddScheduldServiceSheet) {
             AddFutureServiceView(car: Binding<SDCar>.constant(car))
+                .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet) {
             if let existingService {
                 AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+                    .environment(syncManager)
             }
         }
         .sheet(isPresented: $showExistingScheduledServiceSheet) {
             if let existingFutureService {
                 AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: existingFutureService)
+                    .environment(syncManager)
             }
         }
         .onAppear {

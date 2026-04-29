@@ -11,6 +11,7 @@ import SwiftData
 
 struct FutureServiceView: View {
     @Environment(\.modelContext) var context
+    @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     
@@ -68,10 +69,12 @@ struct FutureServiceView: View {
         }
         .sheet(isPresented: $showAddScheduldServiceSheet) {
             AddFutureServiceView(car: Binding<SDCar>.constant(car))
+                .environment(syncManager)
         }
         .sheet(isPresented: $showExistingScheduledServiceSheet) {
             if let existingFutureService {
                 AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: existingFutureService)
+                    .environment(syncManager)
             }
         }
 

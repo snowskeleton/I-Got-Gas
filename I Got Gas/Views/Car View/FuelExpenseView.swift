@@ -11,6 +11,7 @@ import SwiftData
 
 struct FuelExpenseView: View {
     @Environment(\.modelContext) var context
+    @Environment(SyncManager.self) private var syncManager
 
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
 
@@ -55,10 +56,12 @@ struct FuelExpenseView: View {
         }
         .sheet(isPresented: $showAddFuelSheet, onDismiss: fetchServices) {
             AddExpenseView(car: Binding<SDCar>.constant(car))
+                .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet, onDismiss: fetchServices) {
             if let existingService {
                 AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+                    .environment(syncManager)
             }
         }
         .onAppear {
