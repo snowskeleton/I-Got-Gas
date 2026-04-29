@@ -14,7 +14,7 @@ struct PendingNotificationsView: View {
     @State private var timer: Timer? = nil
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(pendingNotifications, id: \.identifier) { request in
                     VStack(alignment: .leading) {

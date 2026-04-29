@@ -171,9 +171,19 @@ struct CarLineItemView: View {
     @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
     @Bindable var settings: SDCarSettings
+    @Query var services: [SDService]
 
     init(car: Binding<SDCar>) {
         _car = car
+        let carId = car.wrappedValue.id
+        let predicate = #Predicate<SDService> {
+            $0.car?.id == carId &&
+            $0.deleted == false
+        }
+        _services = Query(FetchDescriptor<SDService>(
+            predicate: predicate,
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        ))
         if let settings = car.wrappedValue.settings {
             self.settings = settings
         } else {
@@ -199,17 +209,16 @@ struct CarLineItemView: View {
                 }
                 .fontWeight(.bold)
                 HStack {
-                    let services = (car.services ?? [])
-                        .filter { !$0.deleted }
+                    let filteredServices = services
                         .time(.days(settings.range))
                         .completed(settings.includeCompleted)
                         .pending(settings.includePending)
                         .fuel(settings.includeFuel)
                         .maintenance(settings.includeMaintenance)
-                    Text("\(services.costPerMile, format: .currency(code: "USD"))/mile")
+                    Text("\(filteredServices.costPerMile, format: .currency(code: "USD"))/mile")
                     Spacer()
                     Text("Last fuel:")
-                    Text(car.services?.filter { !$0.deleted }.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
+                    Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
                 }
             }
         }

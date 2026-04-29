@@ -11,7 +11,7 @@ struct ShareVehicleView: View {
     let carID: String
     let carName: String
 
-    @State private var shareManager = ShareManager()
+    @Environment(ShareManager.self) private var shareManager
     @State private var inviteEmail = ""
 
     var body: some View {

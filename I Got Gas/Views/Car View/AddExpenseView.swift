@@ -99,7 +99,8 @@ struct AddExpenseView: View {
         
         let carId = car.wrappedValue.id
         let predicate = #Predicate<SDScheduledService> {
-            $0.car?.id == carId
+            $0.car?.id == carId &&
+            $0.deleted == false
         }
         let descriptor = FetchDescriptor<SDScheduledService>(
             predicate: predicate,
