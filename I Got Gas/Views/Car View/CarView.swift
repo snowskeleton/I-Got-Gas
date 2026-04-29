@@ -87,6 +87,11 @@ struct CarView: View {
     }
     
     var body: some View {
+        let carOdometer = max(
+            fuelServices.first?.odometer ?? 0,
+            services.first?.odometer ?? 0,
+            car.startingOdometer
+        )
         VStack {
             List {
                 ChartTabView(car: Binding<SDCar>.constant(car))
@@ -170,7 +175,7 @@ struct CarView: View {
                                     .foregroundColor(service.pastDue ? Color.red : Color.primary)
                                 Spacer()
                                 VStack {
-                                    Text("\(service.odometerFirstOccurance - service.car!.odometer)/\(service.frequencyMiles)")
+                                    Text("\(service.odometerFirstOccurance - carOdometer)/\(service.frequencyMiles)")
                                     Text(service.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: service.frequencyTimeInterval.calendarComponent, value: service.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
                                 }
                             }

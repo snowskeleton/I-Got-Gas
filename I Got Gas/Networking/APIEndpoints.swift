@@ -41,6 +41,9 @@ enum APIEndpoints {
         url("/v1/shares/\(shareID)/decline")
     }
 
+    // Devices
+    static var devices: URL { url("/v1/devices") }
+
     // User
     static var me: URL { url("/v1/me") }
     static var health: URL { url("/v1/health") }

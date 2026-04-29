@@ -145,6 +145,7 @@ class AuthManager {
 
     func logout() async {
         stopPolling()
+        await PushTokenManager.shared.unregisterDevice()
         if let refreshToken = KeychainHelper.read(.refreshToken) {
             let body = RefreshRequestBody(refreshToken: refreshToken)
             try? await APIClient.shared.requestNoContent(

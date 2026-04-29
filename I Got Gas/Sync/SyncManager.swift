@@ -12,6 +12,9 @@ import SwiftUI
 @Observable
 @MainActor
 class SyncManager {
+    /// Shared reference so AppDelegate can trigger syncs directly for background pushes.
+    static var current: SyncManager?
+
     var isSyncing = false
     var lastError: String?
     var lastSyncDate: Date?
@@ -20,6 +23,10 @@ class SyncManager {
     private var debounceTask: Task<Void, Never>?
     private var periodicTask: Task<Void, Never>?
     private var context: ModelContext?
+
+    init() {
+        SyncManager.current = self
+    }
 
     func configure(context: ModelContext) {
         self.context = context
@@ -41,12 +48,12 @@ class SyncManager {
         Task { await performSync() }
     }
 
-    // Start 5-minute periodic sync
+    // Start 2-minute periodic sync (fallback; push handles real-time)
     func startPeriodicSync() {
         periodicTask?.cancel()
         periodicTask = Task {
             while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(300))
+                try? await Task.sleep(for: .seconds(120))
                 guard !Task.isCancelled else { break }
                 await performSync()
             }
@@ -57,13 +64,22 @@ class SyncManager {
         periodicTask?.cancel()
     }
 
-    private func performSync() async {
-        guard !isSyncing else { return }
-        guard KeychainHelper.read(.accessToken) != nil else { return }
-        guard let context else { return }
+    /// Performs a sync and returns whether new data was fetched.
+    /// Called directly by AppDelegate for background push handling.
+    @discardableResult
+    func performSync() async -> Bool {
+        guard !isSyncing else { return false }
+        guard KeychainHelper.read(.accessToken) != nil else { return false }
+
+        // Auto-configure if needed (background push may arrive before .onAppear)
+        if context == nil {
+            context = SwiftDataManager.shared.container.mainContext
+        }
+        guard let context else { return false }
 
         isSyncing = true
         lastError = nil
+        var gotData = false
 
         do {
             // Gather local changes since last sync
@@ -89,11 +105,13 @@ class SyncManager {
             SyncMetadata.updateCursor(from: response.syncedAt)
             lastSyncDate = SyncMetadata.lastSyncedAt
             shares = response.shares
+            gotData = true
         } catch {
             lastError = error.localizedDescription
         }
 
         isSyncing = false
+        return gotData
     }
 
     private func gatherLocalChanges(context: ModelContext) throws -> SyncChanges {

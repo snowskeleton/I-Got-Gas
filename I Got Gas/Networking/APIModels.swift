@@ -280,6 +280,29 @@ struct MeResponse: Codable {
     let email: String
 }
 
+// MARK: - Devices
+
+struct RegisterDeviceRequest: Codable {
+    let deviceID: String
+    let token: String
+    let platform: String
+    let notifyMode: String
+
+    enum CodingKeys: String, CodingKey {
+        case deviceID = "device_id"
+        case token, platform
+        case notifyMode = "notify_mode"
+    }
+}
+
+struct UnregisterDeviceRequest: Codable {
+    let deviceID: String
+
+    enum CodingKeys: String, CodingKey {
+        case deviceID = "device_id"
+    }
+}
+
 struct APIError: Codable {
     let error: String
 }

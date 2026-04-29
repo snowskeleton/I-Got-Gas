@@ -14,16 +14,23 @@ struct ChartTabView: View {
     @Environment(\.presentationMode) var mode
     
     @Binding var car: SDCar
-    var services: [SDService] {
-        car.services ?? []
-    }
-    
+    @Query var services: [SDService]
+
     @Bindable var settings: SDCarSettings
-    
+
     @State private var showFilterSheet = false
-    
+
     init(car: Binding<SDCar>) {
         _car = car
+        let carId = car.wrappedValue.id
+        let predicate = #Predicate<SDService> {
+            $0.car?.id == carId &&
+            $0.deleted == false
+        }
+        _services = Query(FetchDescriptor<SDService>(
+            predicate: predicate,
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        ))
         if let settings = car.wrappedValue.settings {
             self.settings = settings
         } else {

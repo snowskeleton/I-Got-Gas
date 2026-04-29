@@ -65,7 +65,7 @@ struct AllCarsView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 if !pinnedCars.isEmpty {
                     Section("Pinned") {
@@ -144,9 +144,9 @@ struct AllCarsView: View {
                 }
             }
             .navigationTitle("Vehicles")
-            .navigationViewStyle(.columns)
-
-            Text("Select a Vehicle")
+//            .navigationViewStyle(.columns)
+//
+//            Text("Select a Vehicle")
         }
         .sheet(isPresented: $showSettings) {
             NavigationStack {

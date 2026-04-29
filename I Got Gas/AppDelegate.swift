@@ -9,13 +9,9 @@
 import UIKit
 import CoreData
 import Aptabase
+import UserNotifications
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
-//    
-//    // MARK: UISceneSession Lifecycle
-//    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-//        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-//    }
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     // we have to keep this around for legacy versions that need to migrate data
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
@@ -27,5 +23,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-}
 
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        UNUserNotificationCenter.current().delegate = self
+        return true
+    }
+
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        PushTokenManager.shared.didRegister(tokenData: deviceToken)
+    }
+
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error
+    ) {
+        #if targetEnvironment(simulator)
+        print("[Push] not supported in Simulator")
+        #else
+        print("[Push] registration FAILED: \(error)")
+        #endif
+    }
+
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        Task { @MainActor in
+            let gotData = await SyncManager.current?.performSync() ?? false
+            completionHandler(gotData ? .newData : .noData)
+        }
+    }
+
+    // MARK: - UNUserNotificationCenterDelegate
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        Task { @MainActor in
+            await SyncManager.current?.performSync()
+            completionHandler()
+        }
+    }
+}

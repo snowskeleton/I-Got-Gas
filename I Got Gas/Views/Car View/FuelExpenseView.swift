@@ -11,35 +11,17 @@ import SwiftData
 
 struct FuelExpenseView: View {
     @Environment(\.modelContext) var context
-    
+
     @State private var priceFormat = UserDefaults.standard.string(forKey: "priceFormat") ?? ""
-    
+
     @Binding var car: SDCar
-    
-    @Query var services: [SDService]
-    
+
+    @State private var services: [SDService] = []
+
     @State private var showAddFuelSheet = false
     @State private var showExistingFuelOrServiceSheet = false
     @State private var existingService: SDService?
 
-    init(car: Binding<SDCar>) {
-        self._car = car
-        let searchId = car.wrappedValue.id
-        let predicate = #Predicate<SDService> {
-            $0.car?.id == searchId &&
-            $0.isFuel == true &&
-            $0.deleted == false
-        }
-        let descriptor = FetchDescriptor<SDService>(
-            predicate: predicate,
-            sortBy: [
-                SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.date, order: .reverse)
-            ]
-        )
-        _services = Query(descriptor)
-    }
-    
     var body: some View {
         VStack {
             List {
@@ -71,20 +53,39 @@ struct FuelExpenseView: View {
             }
             .padding(.bottom)
         }
-        .sheet(isPresented: $showAddFuelSheet) {
+        .sheet(isPresented: $showAddFuelSheet, onDismiss: fetchServices) {
             AddExpenseView(car: Binding<SDCar>.constant(car))
         }
-        .sheet(isPresented: $showExistingFuelOrServiceSheet) {
+        .sheet(isPresented: $showExistingFuelOrServiceSheet, onDismiss: fetchServices) {
             if let existingService {
                 AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
             }
         }
         .onAppear {
+            fetchServices()
             Analytics.track(
                 .openedFuelExpenses
             )
         }
     }
+
+    private func fetchServices() {
+        let searchId = car.id
+        let predicate = #Predicate<SDService> {
+            $0.car?.id == searchId &&
+            $0.isFuel == true &&
+            $0.deleted == false
+        }
+        let descriptor = FetchDescriptor<SDService>(
+            predicate: predicate,
+            sortBy: [
+                SortDescriptor(\.odometer, order: .reverse),
+                SortDescriptor(\.date, order: .reverse)
+            ]
+        )
+        services = (try? context.fetch(descriptor)) ?? []
+    }
+
     func loseMemory(at offsets: IndexSet) {
         do {
             let _ = try offsets
@@ -98,12 +99,12 @@ struct FuelExpenseView: View {
 
 //        // Get the services to delete
 //        let servicesToDelete = offsets.map { services[$0] }
-//        
+//
 //        // Delete the services
 //        for service in servicesToDelete {
 //            service.delete()
 //        }
-//        
+//
 ////        // Update the car's odometer
 ////        if let mostRecentService = services.first(where: { $0.isFuel }) {
 ////            car.odometer = mostRecentService.odometer
@@ -111,7 +112,7 @@ struct FuelExpenseView: View {
 ////            // No fuel services left, reset to starting odometer
 ////            car.odometer = car.startingOdometer
 ////        }
-////        
+////
 ////        // Save changes
 ////        try? car.save()
     }

@@ -50,6 +50,9 @@ struct I_Got_GasApp: App {
                 syncManager.configure(
                     context: SwiftDataManager.shared.container.mainContext
                 )
+                if authManager.isAuthenticated {
+                    PushTokenManager.shared.requestPermissionAndRegister()
+                }
             }
         }
         .modelContainer(SwiftDataManager.shared.container)
@@ -59,6 +62,7 @@ struct I_Got_GasApp: App {
                 if authManager.isAuthenticated {
                     syncManager.syncNow()
                     syncManager.startPeriodicSync()
+                    PushTokenManager.shared.requestPermissionAndRegister()
                     Task { await authManager.fetchEmailIfNeeded() }
                     Task { await shareManager.fetchReceivedShares() }
                 }
