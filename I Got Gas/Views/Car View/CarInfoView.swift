@@ -117,6 +117,10 @@ struct CarInfoView: View {
                     }
                 }
                 
+                Section("Notifications") {
+                    Toggle("Notify on updates", isOn: notifyOnChangeBinding)
+                }
+
                 // Sharing section — only for owned cars
                 if car.ownerID.isEmpty || car.ownerID == authManager.userID {
                     Section("Sharing") {
@@ -193,6 +197,18 @@ struct CarInfoView: View {
     }
     
     
+    private var notifyOnChangeBinding: Binding<Bool> {
+        Binding(
+            get: { car.settings?.notifyOnChange ?? true },
+            set: { newValue in
+                if car.settings == nil {
+                    car.settings = SDCarSettings()
+                }
+                car.settings?.notifyOnChange = newValue
+            }
+        )
+    }
+
     /// Handle the import result from file picker
     private func handleImportResult(_ result: Result<URL, Error>) {
         switch result {

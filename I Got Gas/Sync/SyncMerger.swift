@@ -16,8 +16,10 @@ class SyncMerger {
         self.context = context
     }
 
-    func apply(_ response: SyncResponse) throws {
+    /// Applies remote changes and returns the set of car IDs that had changes applied.
+    func apply(_ response: SyncResponse) throws -> Set<String> {
         let isoFormatter = ISO8601DateFormatter()
+        var changedCarIDs = Set<String>()
 
         // Merge cars
         for apiCar in response.changes.cars {
@@ -43,6 +45,7 @@ class SyncMerger {
                     existing.ownerID = apiCar.ownerID
                     existing.updatedAt = remoteDate
                     if let d = isoFormatter.date(from: apiCar.createdAt) { existing.createdAt = d }
+                    changedCarIDs.insert(carID)
                 }
             } else {
                 let car = SDCar()
@@ -61,6 +64,7 @@ class SyncMerger {
                 if let d = isoFormatter.date(from: apiCar.updatedAt) { car.updatedAt = d }
                 if let d = isoFormatter.date(from: apiCar.createdAt) { car.createdAt = d }
                 context.insert(car)
+                changedCarIDs.insert(carID)
             }
         }
 
@@ -75,6 +79,7 @@ class SyncMerger {
                 if let remoteDate = isoFormatter.date(from: apiSvc.updatedAt),
                    remoteDate > existing.updatedAt {
                     applyAPIService(apiSvc, to: existing, isoFormatter: isoFormatter)
+                    changedCarIDs.insert(apiSvc.carID)
                 }
             } else {
                 let svc = SDService()
@@ -88,6 +93,7 @@ class SyncMerger {
                     svc.car = car
                 }
                 context.insert(svc)
+                changedCarIDs.insert(apiSvc.carID)
             }
         }
 
@@ -102,6 +108,7 @@ class SyncMerger {
                 if let remoteDate = isoFormatter.date(from: apiSS.updatedAt),
                    remoteDate > existing.updatedAt {
                     applyAPIScheduledService(apiSS, to: existing, isoFormatter: isoFormatter)
+                    changedCarIDs.insert(apiSS.carID)
                 }
             } else {
                 let ss = SDScheduledService()
@@ -115,6 +122,7 @@ class SyncMerger {
                     ss.car = car
                 }
                 context.insert(ss)
+                changedCarIDs.insert(apiSS.carID)
             }
         }
 
@@ -157,6 +165,7 @@ class SyncMerger {
         }
 
         try context.save()
+        return changedCarIDs
     }
 
     private func applyAPIService(_ api: APIService, to svc: SDService, isoFormatter: ISO8601DateFormatter) {

@@ -67,6 +67,25 @@ struct LoginView: View {
                             .textFieldStyle(.roundedBorder)
                             .padding(.horizontal)
 
+                        if !authManager.previousEmails.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                ForEach(authManager.previousEmails, id: \.self) { previousEmail in
+                                    Button {
+                                        email = previousEmail
+                                    } label: {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "clock")
+                                                .font(.caption)
+                                            Text(previousEmail)
+                                                .font(.subheadline)
+                                        }
+                                        .foregroundStyle(.blue)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+
                         Button {
                             Task { await authManager.requestMagicLink(email: email) }
                         } label: {

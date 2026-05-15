@@ -25,14 +25,21 @@ class AuthManager {
     private var pollToken: String?
     private var pollTask: Task<Void, Never>?
 
+    private static let emailHistoryKey = "igg_logged_in_emails"
+
+    var previousEmails: [String] {
+        let saved = UserDefaults.standard.stringArray(forKey: Self.emailHistoryKey) ?? []
+        return saved.sorted()
+    }
+
     init() {
         isAuthenticated = KeychainHelper.read(.accessToken) != nil
         email = KeychainHelper.read(.userEmail) ?? ""
         userID = KeychainHelper.read(.userID) ?? ""
     }
 
-    func fetchEmailIfNeeded() async {
-        guard isAuthenticated, email.isEmpty || userID.isEmpty else { return }
+    func verifyAuth() async {
+        guard isAuthenticated else { return }
         do {
             let me: MeResponse = try await APIClient.shared.request(
                 APIEndpoints.me,
@@ -42,7 +49,13 @@ class AuthManager {
             userID = me.id
             KeychainHelper.save(me.email, for: .userEmail)
             KeychainHelper.save(me.id, for: .userID)
-        } catch { }
+        } catch {
+            if let apiError = error as? APIClientError,
+               case .unauthorized = apiError {
+                isAuthenticated = false
+            }
+            // Any other error (network, timeout): keep user signed in
+        }
     }
 
     func skipLogin() {
@@ -80,6 +93,8 @@ class AuthManager {
         isAuthenticated = true
         magicLinkSent = false
         pollStatus = nil
+        PushTokenManager.shared.requestPermissionAndRegister()
+        saveEmailToHistory()
     }
 
     func startPolling() {
@@ -121,6 +136,8 @@ class AuthManager {
                     self?.isAuthenticated = true
                     self?.magicLinkSent = false
                     self?.pollStatus = nil
+                    PushTokenManager.shared.requestPermissionAndRegister()
+                    self?.saveEmailToHistory()
                     return
                 case 202:
                     // Still pending
@@ -161,5 +178,14 @@ class AuthManager {
         magicLinkSent = false
         pollToken = nil
         pollStatus = nil
+    }
+
+    // MARK: - Email History
+
+    private func saveEmailToHistory() {
+        guard !email.isEmpty else { return }
+        var emails = Set(UserDefaults.standard.stringArray(forKey: Self.emailHistoryKey) ?? [])
+        emails.insert(email)
+        UserDefaults.standard.set(Array(emails), forKey: Self.emailHistoryKey)
     }
 }

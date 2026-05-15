@@ -20,6 +20,8 @@ actor APIClient {
         return e
     }()
 
+    private var refreshTask: Task<Bool, Error>?
+
     // MARK: - Core request method
 
     func request<T: Decodable>(
@@ -131,26 +133,53 @@ actor APIClient {
     // MARK: - Token refresh
 
     private func refreshTokens() async throws -> Bool {
-        guard let refreshToken = KeychainHelper.read(.refreshToken) else {
+        // If a refresh is already in flight, wait for its result
+        // instead of sending a duplicate request with the same token
+        if let existing = refreshTask {
+            return try await existing.value
+        }
+
+        let task = Task { () throws -> Bool in
+            guard let refreshToken = KeychainHelper.read(.refreshToken) else {
+                return false
+            }
+
+            let body = RefreshRequestBody(refreshToken: refreshToken)
+            var req = URLRequest(url: APIEndpoints.authRefresh)
+            req.httpMethod = "POST"
+            req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            req.httpBody = try encoder.encode(body)
+
+            let data: Data
+            let response: URLResponse
+            do {
+                (data, response) = try await session.data(for: req)
+            } catch {
+                return false
+            }
+
+            guard let http = response as? HTTPURLResponse else {
+                return false
+            }
+
+            if http.statusCode == 200 {
+                let tokens = try decoder.decode(AuthTokenResponse.self, from: data)
+                KeychainHelper.save(tokens.accessToken, for: .accessToken)
+                KeychainHelper.save(tokens.refreshToken, for: .refreshToken)
+                return true
+            }
+
+            if http.statusCode == 401 || http.statusCode == 403 {
+                KeychainHelper.delete(.accessToken)
+                KeychainHelper.delete(.refreshToken)
+            }
+
             return false
         }
 
-        let body = RefreshRequestBody(refreshToken: refreshToken)
-        var req = URLRequest(url: APIEndpoints.authRefresh)
-        req.httpMethod = "POST"
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.httpBody = try encoder.encode(body)
-
-        let (data, response) = try await session.data(for: req)
-        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
-            KeychainHelper.deleteAll()
-            return false
-        }
-
-        let tokens = try decoder.decode(AuthTokenResponse.self, from: data)
-        KeychainHelper.save(tokens.accessToken, for: .accessToken)
-        KeychainHelper.save(tokens.refreshToken, for: .refreshToken)
-        return true
+        refreshTask = task
+        defer { refreshTask = nil }
+        return try await task.value
     }
 }
 

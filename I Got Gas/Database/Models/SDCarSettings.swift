@@ -19,6 +19,7 @@ class SDCarSettings: Identifiable {
     private var _includeCompleted: Bool = true
     private var _includePending: Bool = false
     private var _custom: Bool = false
+    private var _notifyOnChange: Bool = true
     var updatedAt: Date = Date()
 
     var car: SDCar?
@@ -43,6 +44,11 @@ class SDCarSettings: Identifiable {
         }
     }
     
+    var notifyOnChange: Bool {
+        get { _notifyOnChange }
+        set { _notifyOnChange = newValue }
+    }
+
     var selectedTab: String {
         get {
             custom ? _selectedTab : UserDefaults.standard.string(forKey: "defaultFilterSelectedTab") ?? "MPG"

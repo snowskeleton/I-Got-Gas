@@ -17,7 +17,6 @@ struct SettingsView: View {
     @Environment(ShareManager.self) private var shareManager
 
     @AppStorage("showDeveloperMenu") var showDeveloperMenu = false
-    @AppStorage("igg_push_notify_mode") var pushNotifyMode = "silent"
     
     var body: some View {
         List {
@@ -38,15 +37,6 @@ struct SettingsView: View {
                                     .background(.red, in: Capsule())
                             }
                         }
-                    }
-                }
-                Section("Notifications") {
-                    Picker("Sync Notifications", selection: $pushNotifyMode) {
-                        Text("Silent (background sync)").tag("silent")
-                        Text("Visible (banner + sound)").tag("visible")
-                    }
-                    .onChange(of: pushNotifyMode) { _, newValue in
-                        PushTokenManager.shared.updateNotifyMode(newValue)
                     }
                 }
                 Section("Signed in as " + authManager.email) {

@@ -12,15 +12,9 @@ import UserNotifications
 final class PushTokenManager: @unchecked Sendable {
     static let shared = PushTokenManager()
 
-    private let notifyModeKey = "igg_push_notify_mode"
     private(set) var currentToken: String?
 
     private init() {}
-
-    var notifyMode: String {
-        get { UserDefaults.standard.string(forKey: notifyModeKey) ?? "silent" }
-        set { UserDefaults.standard.set(newValue, forKey: notifyModeKey) }
-    }
 
     func requestPermissionAndRegister() {
         print("[Push] requestPermissionAndRegister called")
@@ -38,13 +32,12 @@ final class PushTokenManager: @unchecked Sendable {
 
     func didRegister(tokenData: Data) {
         let hex = tokenData.map { String(format: "%02x", $0) }.joined()
+        #if DEBUG
+        print("[Push] APNs device token: \(hex)")
+        #else
         print("[Push] got APNs token: \(hex.prefix(16))...")
+        #endif
         currentToken = hex
-        Task { await registerTokenWithServer() }
-    }
-
-    func updateNotifyMode(_ mode: String) {
-        notifyMode = mode
         Task { await registerTokenWithServer() }
     }
 
@@ -56,7 +49,7 @@ final class PushTokenManager: @unchecked Sendable {
             deviceID: SyncMetadata.deviceID,
             token: token,
             platform: "ios",
-            notifyMode: notifyMode
+            notifyMode: "silent"
         )
 
         do {

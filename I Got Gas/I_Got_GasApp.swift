@@ -63,7 +63,7 @@ struct I_Got_GasApp: App {
                     syncManager.syncNow()
                     syncManager.startPeriodicSync()
                     PushTokenManager.shared.requestPermissionAndRegister()
-                    Task { await authManager.fetchEmailIfNeeded() }
+                    Task { await authManager.verifyAuth() }
                     Task { await shareManager.fetchReceivedShares() }
                 }
             case .background:

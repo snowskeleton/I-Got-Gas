@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SwiftData
 import Aptabase
 import UserNotifications
 
@@ -56,8 +57,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
     ) {
         Task { @MainActor in
-            let gotData = await SyncManager.current?.performSync() ?? false
-            completionHandler(gotData ? .newData : .noData)
+            let changedCarIDs = await SyncManager.current?.performSync() ?? []
+            if !changedCarIDs.isEmpty {
+                postLocalNotifications(for: changedCarIDs)
+            }
+            completionHandler(changedCarIDs.isEmpty ? .noData : .newData)
+        }
+    }
+
+    private func postLocalNotifications(for carIDs: Set<String>) {
+        let context = SwiftDataManager.shared.container.mainContext
+        let center = UNUserNotificationCenter.current()
+
+        for carID in carIDs {
+            let predicate = #Predicate<SDCar> { $0.id == carID }
+            let descriptor = FetchDescriptor<SDCar>(predicate: predicate)
+            guard let car = try? context.fetch(descriptor).first else { continue }
+
+            let shouldNotify = car.settings?.notifyOnChange ?? true
+            guard shouldNotify else { continue }
+
+            let content = UNMutableNotificationContent()
+            content.title = car.visualName
+            content.body = "Vehicle data was updated"
+            content.sound = .default
+
+            let identifier = "sync_\(carID)_\(Date().timeIntervalSince1970)"
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
+            center.add(request)
         }
     }
 

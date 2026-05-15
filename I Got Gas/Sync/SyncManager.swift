@@ -64,22 +64,23 @@ class SyncManager {
         periodicTask?.cancel()
     }
 
-    /// Performs a sync and returns whether new data was fetched.
+    /// Performs a sync and returns the set of car IDs that had remote changes applied.
+    /// An empty set means no changes or an error occurred.
     /// Called directly by AppDelegate for background push handling.
     @discardableResult
-    func performSync() async -> Bool {
-        guard !isSyncing else { return false }
-        guard KeychainHelper.read(.accessToken) != nil else { return false }
+    func performSync() async -> Set<String> {
+        guard !isSyncing else { return [] }
+        guard KeychainHelper.read(.accessToken) != nil else { return [] }
 
         // Auto-configure if needed (background push may arrive before .onAppear)
         if context == nil {
             context = SwiftDataManager.shared.container.mainContext
         }
-        guard let context else { return false }
+        guard let context else { return [] }
 
         isSyncing = true
         lastError = nil
-        var gotData = false
+        var changedCarIDs = Set<String>()
 
         do {
             // Gather local changes since last sync
@@ -99,19 +100,18 @@ class SyncManager {
 
             // Apply remote changes
             let merger = SyncMerger(context: context)
-            try merger.apply(response)
+            changedCarIDs = try merger.apply(response)
 
             // Update cursor
             SyncMetadata.updateCursor(from: response.syncedAt)
             lastSyncDate = SyncMetadata.lastSyncedAt
             shares = response.shares
-            gotData = true
         } catch {
             lastError = error.localizedDescription
         }
 
         isSyncing = false
-        return gotData
+        return changedCarIDs
     }
 
     private func gatherLocalChanges(context: ModelContext) throws -> SyncChanges {

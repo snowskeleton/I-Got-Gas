@@ -330,6 +330,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -354,6 +355,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "I Got Gas/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
