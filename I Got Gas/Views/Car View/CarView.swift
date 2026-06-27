@@ -20,83 +20,73 @@ struct CarView: View {
     @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
 
+    let fetchLimit: Int
+
     @State private var showInfoSheet = false
-    
     @State private var showAddFuelSheet = false
     @State private var showAddServiceSheet = false
     @State private var showAddScheduldServiceSheet = false
-
     @State private var showExistingFuelOrServiceSheet = false
     @State private var showExistingScheduledServiceSheet = false
-    
+
     @State private var existingService: SDService?
     @State private var existingFutureService: SDScheduledService?
 
-    @Query var fuelServices: [SDService]
-    @Query var services: [SDService]
+    @Query var allServices: [SDService]
     @Query var scheduledServices: [SDScheduledService]
 
     init(car: Binding<SDCar>) {
-        var fetchLimit = UserDefaults.standard.integer(forKey: "itemCountOnCarView")
-        if fetchLimit == 0 {
-            fetchLimit = 3
-        }
+        var limit = UserDefaults.standard.integer(forKey: "itemCountOnCarView")
+        if limit == 0 { limit = 3 }
+        fetchLimit = limit
+
         _car = car
         let carId = car.wrappedValue.id
-        let fuelPredicate = #Predicate<SDService> {
-            $0.car?.id == carId &&
-            $0.isFuel &&
-            $0.deleted == false
-        }
-        var fuelDescriptor = FetchDescriptor<SDService>(
-            predicate: fuelPredicate,
-            sortBy: [
-                SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.date, order: .reverse)
-            ]
-        )
-        fuelDescriptor.fetchLimit = fetchLimit
-        _fuelServices = Query(fuelDescriptor)
-        
-        let servicePredicate = #Predicate<SDService> {
-            $0.car?.id == carId &&
-            !$0.isFuel &&
-            $0.deleted == false
-        }
-        var serviceDescriptor = FetchDescriptor<SDService>(
-            predicate: servicePredicate,
-            sortBy: [
-                SortDescriptor(\.odometer, order: .reverse),
-                SortDescriptor(\.date, order: .reverse)
-            ]
-        )
-        serviceDescriptor.fetchLimit = fetchLimit
-        _services = Query(serviceDescriptor)
 
-        let scheduledDredicate = #Predicate<SDScheduledService> {
+        let servicesPredicate = #Predicate<SDService> {
+            $0.car?.id == carId &&
+            $0.deleted == false
+        }
+        _allServices = Query(FetchDescriptor<SDService>(
+            predicate: servicesPredicate,
+            sortBy: [
+                SortDescriptor(\.odometer, order: .reverse),
+                SortDescriptor(\.date, order: .reverse)
+            ]
+        ))
+
+        let scheduledPredicate = #Predicate<SDScheduledService> {
             $0.car?.id == carId &&
             $0.deleted == false
         }
         var scheduledDescriptor = FetchDescriptor<SDScheduledService>(
-            predicate: scheduledDredicate,
+            predicate: scheduledPredicate,
             sortBy: [
                 SortDescriptor(\.frequencyMiles, order: .reverse),
                 SortDescriptor(\.frequencyTime, order: .reverse)
             ]
         )
-        scheduledDescriptor.fetchLimit = fetchLimit
+        scheduledDescriptor.fetchLimit = limit
         _scheduledServices = Query(scheduledDescriptor)
     }
-    
+
+    private var fuelServices: [SDService] {
+        Array(allServices.filter { $0.isFuel }.prefix(fetchLimit))
+    }
+
+    private var maintenanceServices: [SDService] {
+        Array(allServices.filter { !$0.isFuel }.prefix(fetchLimit))
+    }
+
     var body: some View {
         let carOdometer = max(
             fuelServices.first?.odometer ?? 0,
-            services.first?.odometer ?? 0,
+            maintenanceServices.first?.odometer ?? 0,
             car.startingOdometer
         )
         VStack {
             List {
-                ChartTabView(car: Binding<SDCar>.constant(car))
+                ChartTabView(car: $car, services: allServices)
                     .frame(maxWidth: .infinity, minHeight: 300)
                     .listRowInsets(EdgeInsets())
 
@@ -114,11 +104,7 @@ struct CarView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    NavigationLink {
-                        FuelExpenseView(car: Binding<SDCar>.constant(car))
-                    } label: {
-                        Text("All")
-                    }
+                    NavigationLink("All") { FuelExpenseView(car: $car) }
                 } header: {
                     Button(action: { showAddFuelSheet = true }) {
                         HStack {
@@ -130,9 +116,9 @@ struct CarView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                
+
                 Section {
-                    ForEach(services, id: \.self) { service in
+                    ForEach(maintenanceServices, id: \.self) { service in
                         Button(action: {
                             existingService = service
                             showExistingFuelOrServiceSheet = true
@@ -143,17 +129,12 @@ struct CarView: View {
                                 Text(service.name)
                                     .lineLimit(1)
                                 Spacer()
-                                Text("\(service.date, formatter: DateFormatter.taskDateFormat)"
-                                )
+                                Text("\(service.date, formatter: DateFormatter.taskDateFormat)")
                             }
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    NavigationLink {
-                        MaintenanceExpenseView(car: Binding<SDCar>.constant(car))
-                    } label: {
-                        Text("All")
-                    }
+                    NavigationLink("All") { MaintenanceExpenseView(car: $car) }
                 } header: {
                     Button(action: { showAddServiceSheet = true }) {
                         HStack {
@@ -165,7 +146,7 @@ struct CarView: View {
                     }
                     .frame(maxWidth: .infinity)
                 }
-                
+
                 Section {
                     ForEach(scheduledServices, id: \.self) { service in
                         Button(action: {
@@ -184,11 +165,7 @@ struct CarView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    NavigationLink {
-                        FutureServiceView(car: Binding<SDCar>.constant(car))
-                    } label: {
-                        Text("All")
-                    }
+                    NavigationLink("All") { FutureServiceView(car: $car) }
                 } header: {
                     Button(action: { showAddScheduldServiceSheet = true }) {
                         HStack {
@@ -220,26 +197,26 @@ struct CarView: View {
                 .environment(authManager)
         }
         .sheet(isPresented: $showAddFuelSheet) {
-            AddExpenseView(car: Binding<SDCar>.constant(car))
+            AddExpenseView(car: $car)
                 .environment(syncManager)
         }
         .sheet(isPresented: $showAddServiceSheet) {
-            AddExpenseView(car: Binding<SDCar>.constant(car), isGas: false)
+            AddExpenseView(car: $car, isGas: false)
                 .environment(syncManager)
         }
         .sheet(isPresented: $showAddScheduldServiceSheet) {
-            AddFutureServiceView(car: Binding<SDCar>.constant(car))
+            AddFutureServiceView(car: $car)
                 .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet) {
             if let existingService {
-                AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+                AddExpenseView(car: $car, service: existingService)
                     .environment(syncManager)
             }
         }
         .sheet(isPresented: $showExistingScheduledServiceSheet) {
             if let existingFutureService {
-                AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: existingFutureService)
+                AddFutureServiceView(car: $car, futureService: existingFutureService)
                     .environment(syncManager)
             }
         }

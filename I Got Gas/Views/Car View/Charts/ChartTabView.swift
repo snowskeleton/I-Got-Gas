@@ -11,33 +11,20 @@ import SwiftData
 import Charts
 
 struct ChartTabView: View {
+    @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var mode
-    
-    @Binding var car: SDCar
-    @Query var services: [SDService]
 
+    @Binding var car: SDCar
+    let services: [SDService]
     @Bindable var settings: SDCarSettings
 
     @State private var showFilterSheet = false
 
-    init(car: Binding<SDCar>) {
+    init(car: Binding<SDCar>, services: [SDService]) {
         _car = car
-        let carId = car.wrappedValue.id
-        let predicate = #Predicate<SDService> {
-            $0.car?.id == carId &&
-            $0.deleted == false
-        }
-        _services = Query(FetchDescriptor<SDService>(
-            predicate: predicate,
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
-        ))
-        if let settings = car.wrappedValue.settings {
-            self.settings = settings
-        } else {
-            let settings = SDCarSettings()
-            car.wrappedValue.settings = settings
-            self.settings = settings
-        }
+        self.services = services
+        // Use existing settings for display; onAppear will persist one if missing.
+        self.settings = car.wrappedValue.settings ?? SDCarSettings()
     }
 
     var body: some View {
@@ -49,7 +36,7 @@ struct ChartTabView: View {
                     isCurrency: false
                 )
                 .tag("MPG")
-                
+
                 ChartView(
                     title: "Cost per Mile",
                     costs: services
@@ -91,7 +78,7 @@ struct ChartTabView: View {
                 Toggle("Maintenance", isOn: $settings.includeMaintenance)
                 Toggle("Completed", isOn: $settings.includeCompleted)
                 Toggle("Pending", isOn: $settings.includePending)
-                
+
                 Section {
                     Toggle("Custom for This Vehicle", isOn: $settings.custom)
                 }
@@ -99,6 +86,11 @@ struct ChartTabView: View {
             .presentationDetents([.medium])
         }
         .onAppear {
+            if car.settings == nil {
+                let newSettings = SDCarSettings()
+                context.insert(newSettings)
+                car.settings = newSettings
+            }
             Analytics.track(
                 .serviceFilterSettings,
                 with: [

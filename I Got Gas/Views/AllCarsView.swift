@@ -168,6 +168,7 @@ struct AllCarsView: View {
 }
 
 struct CarLineItemView: View {
+    @Environment(\.modelContext) private var context
     @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
     @Bindable var settings: SDCarSettings
@@ -184,13 +185,8 @@ struct CarLineItemView: View {
             predicate: predicate,
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         ))
-        if let settings = car.wrappedValue.settings {
-            self.settings = settings
-        } else {
-            let settings = SDCarSettings()
-            car.wrappedValue.settings = settings
-            self.settings = settings
-        }
+        // Use existing settings for display; onAppear will persist one if missing.
+        self.settings = car.wrappedValue.settings ?? SDCarSettings()
     }
 
     var body: some View {
@@ -220,6 +216,13 @@ struct CarLineItemView: View {
                     Text("Last fuel:")
                     Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
                 }
+            }
+        }
+        .onAppear {
+            if car.settings == nil {
+                let newSettings = SDCarSettings()
+                context.insert(newSettings)
+                car.settings = newSettings
             }
         }
     }

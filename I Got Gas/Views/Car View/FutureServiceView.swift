@@ -14,27 +14,13 @@ struct FutureServiceView: View {
     @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
-    
-    @Query var futureServices: [SDScheduledService]
-    
+
+    @State private var futureServices: [SDScheduledService] = []
+
     @State private var showAddScheduldServiceSheet = false
     @State private var showExistingScheduledServiceSheet = false
     @State private var existingFutureService: SDScheduledService?
 
-    init(car: Binding<SDCar>) {
-        self._car = car
-        let searchId = car.wrappedValue.id
-        let predicate = #Predicate<SDScheduledService> {
-            $0.car?.id == searchId &&
-            $0.deleted == false
-        }
-        let descriptor = FetchDescriptor<SDScheduledService>(
-            predicate: predicate,
-            sortBy: [SortDescriptor(\.frequencyTime, order: .forward)]
-        )
-        _futureServices = Query(descriptor)
-    }
-    
     var body: some View {
         VStack {
             List {
@@ -60,32 +46,41 @@ struct FutureServiceView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-//                .onDelete(perform: loseMemory)
             }
             Button("Schedule Service") {
                 showAddScheduldServiceSheet = true
             }
             .padding(.bottom)
         }
-        .sheet(isPresented: $showAddScheduldServiceSheet) {
-            AddFutureServiceView(car: Binding<SDCar>.constant(car))
+        .sheet(isPresented: $showAddScheduldServiceSheet, onDismiss: fetchServices) {
+            AddFutureServiceView(car: $car)
                 .environment(syncManager)
         }
-        .sheet(isPresented: $showExistingScheduledServiceSheet) {
+        .sheet(isPresented: $showExistingScheduledServiceSheet, onDismiss: fetchServices) {
             if let existingFutureService {
-                AddFutureServiceView(car: Binding<SDCar>.constant(car), futureService: existingFutureService)
+                AddFutureServiceView(car: $car, futureService: existingFutureService)
                     .environment(syncManager)
             }
         }
-
         .onAppear {
-            Analytics.track(
-                .openedScheduledServices
-            )
+            fetchServices()
+            Analytics.track(.openedScheduledServices)
         }
-
     }
-    
+
+    private func fetchServices() {
+        let searchId = car.id
+        let predicate = #Predicate<SDScheduledService> {
+            $0.car?.id == searchId &&
+            $0.deleted == false
+        }
+        let descriptor = FetchDescriptor<SDScheduledService>(
+            predicate: predicate,
+            sortBy: [SortDescriptor(\.frequencyTime, order: .forward)]
+        )
+        futureServices = (try? context.fetch(descriptor)) ?? []
+    }
+
     func loseMemory(at offsets: IndexSet) {
         do {
             let _ = try offsets
@@ -96,24 +91,5 @@ struct FutureServiceView: View {
                             where: #Predicate<SDService> { $0.id == $0.id }
                         )}
         } catch { }
-        
-        //        // Get the services to delete
-        //        let servicesToDelete = offsets.map { services[$0] }
-        //
-        //        // Delete the services
-        //        for service in servicesToDelete {
-        //            service.delete()
-        //        }
-        //
-        ////        // Update the car's odometer
-        ////        if let mostRecentService = services.first(where: { $0.isFuel }) {
-        ////            car.odometer = mostRecentService.odometer
-        ////        } else {
-        ////            // No fuel services left, reset to starting odometer
-        ////            car.odometer = car.startingOdometer
-        ////        }
-        ////
-        ////        // Save changes
-        ////        try? car.save()
     }
 }

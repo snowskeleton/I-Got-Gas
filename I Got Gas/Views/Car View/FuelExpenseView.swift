@@ -55,12 +55,12 @@ struct FuelExpenseView: View {
             .padding(.bottom)
         }
         .sheet(isPresented: $showAddFuelSheet, onDismiss: fetchServices) {
-            AddExpenseView(car: Binding<SDCar>.constant(car))
+            AddExpenseView(car: $car)
                 .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet, onDismiss: fetchServices) {
             if let existingService {
-                AddExpenseView(car: Binding<SDCar>.constant(car), service: existingService)
+                AddExpenseView(car: $car, service: existingService)
                     .environment(syncManager)
             }
         }
