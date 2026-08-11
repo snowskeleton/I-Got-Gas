@@ -41,12 +41,16 @@ struct AddFutureServiceView: View {
         _name = .init(initialValue: futureService.name)
         _fullDescription = .init(initialValue: futureService.fullDescription)
         _repeating = .init(initialValue: futureService.repeating)
-        _date = .init(initialValue: futureService.frequencyTimeStart)
+        _date = .init(initialValue: futureService.anchorDate)
         _frequencyTimeInterval = .init(initialValue: futureService.frequencyTimeInterval)
         _frequencyTime = .init(initialValue: futureService.frequencyTime)
-        _frequencyMiles = .init(initialValue: futureService.frequencyMiles)
+        _frequencyMiles = .init(
+            initialValue: futureService.frequencyDistance.rounded(to: car.wrappedValue.distanceUnit)
+        )
     }
     
+    @State private var showDeleteConfirmation = false
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -83,7 +87,7 @@ struct AddFutureServiceView: View {
                         ZStack(alignment: .leading) {
                             HStack {
                                 Spacer()
-                                Text("miles")
+                                Text(car.distanceUnit.abbreviation)
                                     .foregroundColor(.gray)
                             }
                             TextField("3,000, 15,000...", value: $frequencyMiles, formatter: NumberFormatter())
@@ -101,6 +105,16 @@ struct AddFutureServiceView: View {
                     Button("Save") {
                         save()
                         mode.wrappedValue.dismiss()
+                    }
+
+                    if futureService != nil {
+                        Section {
+                            Button("Delete", role: .destructive) {
+                                showDeleteConfirmation = true
+                            }
+                        } footer: {
+                            Text("Deleted schedules can be restored for \(TombstoneRetention.days) days. Any service history linked to this schedule is kept.")
+                        }
                     }
                 }
             }
@@ -132,6 +146,17 @@ struct AddFutureServiceView: View {
                 }
             )
         }
+        .confirmationDialog(
+            "Delete this schedule?",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                deleteSchedule()
+                mode.wrappedValue.dismiss()
+            }
+            Button("Cancel", role: .cancel) { }
+        }
         .interactiveDismissDisabled(!allowCancel)
         .navigationBarTitle("Schedule Service")
         .onAppear {
@@ -141,6 +166,18 @@ struct AddFutureServiceView: View {
         }
     }
     
+    /// Tombstones the schedule. The entries that fulfilled it keep their link
+    /// so the history stays intact if it's restored.
+    private func deleteSchedule() {
+        guard let schedule = futureService else { return }
+        schedule.deleted = true
+        schedule.touch()
+        car.touch()
+        try? context.save()
+        syncManager.recordSchedule(schedule)
+        Task { await NotificationReconciler.reconcile(context: context) }
+    }
+
     func save() -> Void {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if success {
@@ -161,18 +198,24 @@ struct AddFutureServiceView: View {
         hydratedService.name = name
         hydratedService.fullDescription = fullDescription
         hydratedService.repeating = repeating
-        hydratedService.frequencyMiles = frequencyMiles
+        hydratedService.frequencyDistance = Distance(
+            value: Double(frequencyMiles), unit: car.distanceUnit
+        )
         hydratedService.frequencyTime = frequencyTime
         hydratedService.frequencyTimeInterval = frequencyTimeInterval
-        hydratedService.frequencyTimeStart = date
-        hydratedService.odometerFirstOccurance = car.odometer
-        
+
+        // Anchors only matter until something is linked to this schedule;
+        // after that, next-due comes from the last completion.
+        hydratedService.anchorDate = date
+        hydratedService.anchorOdometer = car.odometer
+
         hydratedService.touch()
         car.touch()
         context.insert(hydratedService)
-        syncManager.triggerSync()
+        try? context.save()
+        syncManager.recordSchedule(hydratedService)
 
-        hydratedService.scheduleNotification()
+        Task { await NotificationReconciler.reconcile(context: context) }
         
         Analytics.track(
             .saveScheduleService,

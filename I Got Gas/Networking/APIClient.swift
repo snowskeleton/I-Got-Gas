@@ -130,6 +130,76 @@ actor APIClient {
         }
     }
 
+    // MARK: - Raw bytes
+    //
+    // Receipt images don't go through the JSON path: they're megabytes of
+    // binary and there's nothing to decode.
+
+    /// Sends a body and discards the response. Retries once after a refresh.
+    func send(_ request: URLRequest, body: Data) async throws {
+        var req = request
+        req.httpBody = body
+        if let token = KeychainHelper.read(.accessToken) {
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let (data, response) = try await session.upload(for: req, from: body)
+        guard let http = response as? HTTPURLResponse else {
+            throw APIClientError.invalidResponse
+        }
+
+        if http.statusCode == 401, try await refreshTokens() {
+            req.setValue("Bearer \(KeychainHelper.read(.accessToken) ?? "")",
+                         forHTTPHeaderField: "Authorization")
+            let (retryData, retryResponse) = try await session.upload(for: req, from: body)
+            guard let retryHTTP = retryResponse as? HTTPURLResponse,
+                  (200...299).contains(retryHTTP.statusCode) else {
+                throw apiError(from: retryData, status: (retryResponse as? HTTPURLResponse)?.statusCode ?? 0)
+            }
+            return
+        }
+
+        guard (200...299).contains(http.statusCode) else {
+            throw apiError(from: data, status: http.statusCode)
+        }
+    }
+
+    /// Fetches raw bytes.
+    func fetchData(_ request: URLRequest) async throws -> Data {
+        var req = request
+        if let token = KeychainHelper.read(.accessToken) {
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        let (data, response) = try await session.data(for: req)
+        guard let http = response as? HTTPURLResponse else {
+            throw APIClientError.invalidResponse
+        }
+
+        if http.statusCode == 401, try await refreshTokens() {
+            req.setValue("Bearer \(KeychainHelper.read(.accessToken) ?? "")",
+                         forHTTPHeaderField: "Authorization")
+            let (retryData, retryResponse) = try await session.data(for: req)
+            guard let retryHTTP = retryResponse as? HTTPURLResponse,
+                  (200...299).contains(retryHTTP.statusCode) else {
+                throw APIClientError.unauthorized
+            }
+            return retryData
+        }
+
+        guard (200...299).contains(http.statusCode) else {
+            throw apiError(from: data, status: http.statusCode)
+        }
+        return data
+    }
+
+    private func apiError(from data: Data, status: Int) -> APIClientError {
+        if let apiErr = try? decoder.decode(APIError.self, from: data) {
+            return .server(apiErr.error)
+        }
+        return .httpError(status)
+    }
+
     // MARK: - Token refresh
 
     private func refreshTokens() async throws -> Bool {

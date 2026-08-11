@@ -69,11 +69,15 @@ struct AddCarView: View {
         car.model = carModel
         car.plate = carPlate
         car.vin = carVIN
-        car.startingOdometer = carOdometer!
+        car.distanceUnit = UnitPreferences.newCarDistanceUnit
+        car.startingOdometer = Distance(
+            value: Double(carOdometer ?? 0), unit: car.distanceUnit
+        )
         car.touch()
 
         context.insert(car)
-        syncManager.triggerSync()
+        try? context.save()
+        syncManager.recordCar(car)
 
         presentationMode.wrappedValue.dismiss()
     }

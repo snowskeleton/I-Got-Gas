@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CarInfoView: View {
     @Environment(\.presentationMode) var mode
+    @Environment(\.modelContext) private var context
     @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
     
@@ -22,6 +23,7 @@ struct CarInfoView: View {
     @State private var importText = ""
     @State private var error: Error?
     @State private var isImporting = false
+    @State private var importWarning: String?
     
     var body: some View {
         NavigationStack {
@@ -137,7 +139,7 @@ struct CarInfoView: View {
 
                 Section {
                     Button("Export") {
-                        let data = generateCSV(for: car.services ?? [], scheduledServices: car.scheduledServices ?? [])
+                        let data = generateCSV(for: car.services ?? [], scheduledServices: car.scheduledServices ?? [], car: car)
                         csvFile = saveCSVFile(content: data)
                     }
                     if let fileURL = csvFile {
@@ -156,6 +158,10 @@ struct CarInfoView: View {
                     }
                     .padding()
                     
+                    if let importWarning {
+                        Text(importWarning)
+                            .foregroundStyle(.orange)
+                    }
                     if let error {
                         Text("Error: \(error.localizedDescription)")
                             .foregroundColor(.red)
@@ -238,52 +244,26 @@ struct CarInfoView: View {
     
     /// Parse and import CSV content into the car's data
     private func importCSVData(from content: String) {
-        let rows = content.split(separator: "\n").dropFirst() // Skip header row
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        
+        let result = CSVImporter.parse(content, distanceUnit: car.distanceUnit)
 
-        for row in rows {
-            let columns = row.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            
-            guard columns.count > 2 else { continue }
-            
-            let type = columns[CSVColumn.type.rawValue]
-            
-            if type == "Service" {
-                // Create and append SDService
-                let service = SDService()
-                service.id = columns[CSVColumn.id.rawValue]
-                service.name = columns[CSVColumn.name.rawValue]
-                service.cost = Double(columns[CSVColumn.cost.rawValue]) ?? 0.0
-                
-                guard let parsedDate = dateFormatter.date(from: columns[CSVColumn.date.rawValue]) else {
-                    fatalError("Failed to parse date: \(columns[CSVColumn.date.rawValue])")
-                }
-                service.date = parsedDate
-                
-//                service.date = ISO8601DateFormatter().date(from: columns[CSVColumn.date.rawValue])!
-                service.odometer = Int(columns[CSVColumn.odometer.rawValue]) ?? 0
-                service.isFuel = Bool(columns[CSVColumn.isFuel.rawValue]) ?? false
-                service.gallons = Double(columns[CSVColumn.gallons.rawValue]) ?? 0.0
-                service.vendorName = columns[CSVColumn.vendorName.rawValue]
-                service.fullDescription = columns[CSVColumn.fullDescription.rawValue]
-                service.pending = Bool(columns[CSVColumn.pending.rawValue]) ?? false
-                service.car = car
-                car.services?.append(service)
-            } else if type == "Scheduled Service" {
-                // Create and append SDScheduledService
-                let scheduledService = SDScheduledService()
-                scheduledService.id = columns[CSVColumn.id.rawValue]
-                scheduledService.name = columns[CSVColumn.name.rawValue]
-                scheduledService.fullDescription = columns[CSVColumn.fullDescription.rawValue]
-                scheduledService.repeating = Bool(columns[CSVColumn.repeating.rawValue]) ?? false
-                scheduledService.frequencyMiles = Int(columns[CSVColumn.frequencyMiles.rawValue]) ?? 0
-                scheduledService.frequencyTime = Int(columns[CSVColumn.frequencyTime.rawValue]) ?? 0
-                scheduledService.frequencyTimeInterval = FrequencyTimeInterval(rawValue: columns[CSVColumn.frequencyTimeInterval.rawValue])
-                scheduledService.car = car
-                car.scheduledServices?.append(scheduledService)
-            }
+        for service in result.services {
+            service.car = car
+            car.services?.append(service)
+        }
+        for scheduled in result.scheduledServices {
+            scheduled.car = car
+            // Anchor a freshly imported schedule where the car is now, so it
+            // doesn't read as wildly overdue before any history is linked.
+            scheduled.anchorDate = Date()
+            scheduled.anchorOdometer = car.odometer
+            car.scheduledServices?.append(scheduled)
+        }
+
+        // Backfill schedule links from the imported names.
+        try? ScheduleLinkMatcher.linkExistingHistory(in: context)
+
+        if !result.skippedRows.isEmpty {
+            importWarning = "\(result.skippedRows.count) row(s) could not be read and were skipped."
         }
     }
 

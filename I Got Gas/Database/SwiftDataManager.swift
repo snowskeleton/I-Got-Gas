@@ -12,29 +12,35 @@ public class SwiftDataManager {
 
     public static let shared = SwiftDataManager()
 
-    public let container: ModelContainer = {
+    /// Set when the store could not be opened. The UI surfaces this instead of
+    /// the app dying on launch — a failed migration must never brick the app,
+    /// because the user's data is still on disk and still recoverable.
+    public private(set) var loadFailure: Error?
 
-        let schema = Schema([
-            SDCar.self,
-            SDService.self,
-            SDScheduledService.self,
-            SDCarSettings.self,
-        ])
+    public let container: ModelContainer
 
-        let modelConfiguration = ModelConfiguration(
-            schema: schema,
-            isStoredInMemoryOnly: false
-        )
+    private init() {
+        let schema = Schema(IGGSchemaV3.models)
+        let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            container = try ModelContainer(
+                for: schema,
+                migrationPlan: IGGMigrationPlan.self,
+                configurations: [configuration]
+            )
         } catch {
+            NSLog("SwiftData: failed to open persistent store: \(error)")
+            loadFailure = error
+
+            // Fall back to an in-memory store so the app can launch and show
+            // the user what went wrong. Nothing on disk is touched or deleted.
+            let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
             do {
-                NSLog("Failed to load current schema and config. Clearing and trying again")
-                return try ModelContainer(for: schema, configurations: [modelConfiguration])
+                container = try ModelContainer(for: schema, configurations: [fallback])
             } catch {
-                fatalError("Could not create ModelContainer: \(error)")
+                fatalError("Could not create even an in-memory ModelContainer: \(error)")
             }
         }
-    }()
+    }
 }

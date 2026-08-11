@@ -16,36 +16,37 @@ func generateFakeCarData() -> SDCar {
         plate: "XYZ123",
         vin: "1HGBH41JXMN109186",
         year: 2015,
-        startingOdometer: 20000
+        startingOdometer: Distance(value: 20_000, unit: .miles),
+        distanceUnit: .miles
     )
-    
+
     let currentDate = Date()
     let calendar = Calendar.current
     var date = calendar.date(byAdding: .year, value: -5, to: currentDate)!
     var odometer = car.startingOdometer
-    
+
     // Generate Fuel Services
     while date < currentDate {
         let gallons = randomDouble(min: 10.0, max: 15.0)
         let pricePerGallon = randomDouble(min: 2.5, max: 4.0)
-        let cost = gallons * pricePerGallon
-        
-        odometer += randomInt(min: 450, max: 800)
-        
+        let cost = Money(majorUnits: Decimal(gallons * pricePerGallon))
+
+        odometer = odometer + Distance(value: Double(randomInt(min: 450, max: 800)), unit: .miles)
+
         let fuelService = SDService(
             cost: cost,
             date: date,
             name: "Fuel",
-            odometer: odometer
+            odometer: odometer,
+            kind: .fuel
         )
-        fuelService.isFuel = true
-        fuelService.gallons = gallons
-        
+        fuelService.volume = Volume(value: gallons, unit: .gallonsUS)
+
         car.services?.append(fuelService)
-        
+
         date = calendar.date(byAdding: .day, value: 14, to: date)!
     }
-    
+
     // Generate Maintenance Services
     generateMaintenanceServices(for: car)
     return car
@@ -58,19 +59,19 @@ func generateMaintenanceServices(for car: SDCar) {
         "Spark Plugs Replacement", "Transmission Fluid Change",
         "Timing Belt Replacement", "Wheel Alignment", "Coolant Flush"
     ]
-    
+
     var date = car.services?.first?.date ?? Date()
     var odometer = car.startingOdometer
     let calendar = Calendar.current
-    
+
     for _ in 0..<20 {
         let milesBetween = randomInt(min: 2000, max: 5000)
-        odometer += milesBetween
+        odometer = odometer + Distance(value: Double(milesBetween), unit: .miles)
         let maintenanceName = maintenanceNames.randomElement() ?? "General Repair"
-        let cost = randomDouble(min: 100.0, max: 800.0)
-        
+        let cost = Money(majorUnits: Decimal(randomDouble(min: 100.0, max: 800.0)))
+
         date = calendar.date(byAdding: .day, value: randomInt(min: 30, max: 90), to: date)!
-        
+
         let maintenanceService = SDService(
             cost: cost,
             date: date,

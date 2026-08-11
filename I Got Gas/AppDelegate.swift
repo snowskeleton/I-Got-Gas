@@ -7,23 +7,11 @@
 //
 
 import UIKit
-import CoreData
 import SwiftData
 import Aptabase
 import UserNotifications
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
-    // we have to keep this around for legacy versions that need to migrate data
-    lazy var persistentContainer: NSPersistentCloudKitContainer = {
-        let container = NSPersistentCloudKitContainer(name: "I_Got_Gas")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
 
     func application(
         _ application: UIApplication,

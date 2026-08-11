@@ -13,6 +13,7 @@ import Charts
 struct ChartTabView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var mode
+    @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     let services: [SDService]
@@ -31,21 +32,17 @@ struct ChartTabView: View {
         ZStack {
             TabView(selection: $settings.selectedTab) {
                 ChartView(
-                    title: "Miles per Gallon",
-                    mpg: services.fuel().time(.days(settings.range)),
-                    isCurrency: false
+                    economyOf: services.fuel().time(.days(settings.range)),
+                    car: car
                 )
                 .tag("MPG")
 
                 ChartView(
-                    title: "Cost per Mile",
-                    costs: services
+                    costsOf: services
                         .time(.days(settings.range))
-                        .completed(settings.includeCompleted)
-                        .pending(settings.includePending)
                         .fuel(settings.includeFuel)
                         .maintenance(settings.includeMaintenance),
-                    isCurrency: true
+                    car: car
                 )
                 .tag("Costs")
             }
@@ -76,14 +73,17 @@ struct ChartTabView: View {
                 }
                 Toggle("Fuel", isOn: $settings.includeFuel)
                 Toggle("Maintenance", isOn: $settings.includeMaintenance)
-                Toggle("Completed", isOn: $settings.includeCompleted)
-                Toggle("Pending", isOn: $settings.includePending)
 
                 Section {
                     Toggle("Custom for This Vehicle", isOn: $settings.custom)
                 }
             }
             .presentationDetents([.medium])
+            .onDisappear {
+                settings.touch()
+                try? context.save()
+                syncManager.recordSettings(settings)
+            }
         }
         .onAppear {
             if car.settings == nil {
@@ -97,9 +97,7 @@ struct ChartTabView: View {
                     "tab": settings.selectedTab,
                     "range": settings.range.description,
                     "fuel": settings.includeFuel.description,
-                    "maintenance": settings.includeMaintenance.description,
-                    "completed": settings.includeCompleted.description,
-                    "pending": settings.includePending.description
+                    "maintenance": settings.includeMaintenance.description
                 ]
             )
         }

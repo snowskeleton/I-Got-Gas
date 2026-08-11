@@ -13,8 +13,6 @@ struct DefaultFiltersView: View {
     @AppStorage("defaultFilterRange") var range: Int = 90
     @AppStorage("defaultFilterIncludeFuel") var includeFuel: Bool = true
     @AppStorage("defaultFilterIncludeMaintenance") var includeMaintenance: Bool = true
-    @AppStorage("defaultFilterIncludeCompleted") var includeCompleted: Bool = true
-    @AppStorage("defaultFilterIncludePending") var includePending: Bool = false
     
     var body: some View {
         List {
@@ -27,8 +25,6 @@ struct DefaultFiltersView: View {
             }
             Toggle("Fuel", isOn: $includeFuel)
             Toggle("Maintenance", isOn: $includeMaintenance)
-            Toggle("Completed", isOn: $includeCompleted)
-            Toggle("Pending", isOn: $includePending)
         }
     }
 }

@@ -74,7 +74,7 @@ struct AllCarsView: View {
                                     Button("Un-Pin") {
                                         car.pinned = false
                                         car.touch()
-                                        syncManager.triggerSync()
+                                        syncManager.recordCar(car)
                                     }
                                     .tint(.yellow)
                                 }
@@ -88,13 +88,13 @@ struct AllCarsView: View {
                             Button("Pin") {
                                 car.pinned = true
                                 car.touch()
-                                syncManager.triggerSync()
+                                syncManager.recordCar(car)
                             }
                             .tint(.yellow)
                             Button("Archive", role: .destructive) {
                                 car.archived = true
                                 car.touch()
-                                syncManager.triggerSync()
+                                syncManager.recordCar(car)
                             }
                         }
                 }
@@ -107,7 +107,7 @@ struct AllCarsView: View {
                                         Button("Un-Archive") {
                                             car.archived = false
                                             car.touch()
-                                            syncManager.triggerSync()
+                                            syncManager.recordCar(car)
                                         }
                                     }
                             }
@@ -183,11 +183,11 @@ struct CarLineItemView: View {
             HStack {
                 let filteredServices = services
                     .time(.days(settings.range))
-                    .completed(settings.includeCompleted)
-                    .pending(settings.includePending)
                     .fuel(settings.includeFuel)
                     .maintenance(settings.includeMaintenance)
-                Text("\(filteredServices.costPerMile, format: .currency(code: "USD"))/mile")
+                if let perDistance = filteredServices.costPerDistance(in: car.distanceUnit) {
+                    Text("\(perDistance.formatted())/\(car.distanceUnit.perUnitAbbreviation)")
+                }
                 Spacer()
                 Text("Last fuel:")
                 Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")

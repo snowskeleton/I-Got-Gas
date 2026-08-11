@@ -13,25 +13,12 @@ struct DeveloperMenuView: View {
     @State private var showCrashConfirmation = false
     @AppStorage("showDebugValues") var showDebugValues = false
     @AppStorage("verboseLogging") var verboseLogging = false
-    @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
-    @AppStorage("priceFormat") var priceFormat = "%.3f"
     @AppStorage("itemCountOnCarView") var itemCountOnCarView: Int = 3
     @State private var isGeneratingData = false
 
 
     var body: some View {
         List {
-            Section(
-                header: Text("Decimal Length for fuel prices"),
-                footer: Text("(e.g., \(3.456, specifier: priceFormat))")
-            ) {
-                Picker(selection: $priceFormat, label: Text("Fuel Price Decimal Length")) {
-                    Text("2").tag("%.2f")
-                    Text("3").tag("%.3f")
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
-            
             Section {
                 TextField("Service Count", value: $itemCountOnCarView, formatter: NumberFormatter())
             } footer: {
@@ -39,7 +26,6 @@ struct DeveloperMenuView: View {
             }
 
             Section("Troubleshooting") {
-                Toggle("2.0 Migration Complete", isOn: $migrated)
                 Toggle("Show debug values in various locations throughout the app", isOn: $showDebugValues)
                 Toggle("Verbose logging", isOn: $verboseLogging)
             }

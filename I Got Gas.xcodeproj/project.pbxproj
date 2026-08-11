@@ -13,6 +13,7 @@
 
 /* Begin PBXFileReference section */
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		80AA00022E00000100000001 /* I Got GasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "I Got GasTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -21,23 +22,35 @@
 			membershipExceptions = (
 				AppDelegate.swift,
 				Assets.xcassets,
+				Attachments/AttachmentStore.swift,
+				Attachments/AttachmentTransfer.swift,
 				Configuration/Analytics.swift,
 				Configuration/BundleExtension.swift,
 				Configuration/Config.swift,
 				Configuration/ExampleSecrets.swift,
 				Configuration/Secrets.swift,
-				"Database/CoreData/Car+CoreDataClass.swift",
-				Database/CoreData/CoreDataPersistence.swift,
-				Database/CoreData/I_Got_Gas.xcdatamodeld,
-				Database/CoreData/RequestingFetches.swift,
 				Database/FakeData.swift,
 				Database/ImportExport.swift,
+				Database/Migration/IGGMigrationPlan.swift,
+				Database/Migration/IGGSchemaV2.swift,
+				Database/Migration/IGGSchemaV3.swift,
+				Database/Migration/ScheduleLinkMatcher.swift,
+				Database/Models/SDAttachment.swift,
 				Database/Models/SDCar.swift,
 				Database/Models/SDCarSettings.swift,
+				Database/Models/SDCatalogPart.swift,
+				Database/Models/SDPart.swift,
 				Database/Models/SDScheduledService.swift,
 				Database/Models/SDService.swift,
+				Database/Models/SDUserPreferences.swift,
 				Database/Models/SDVendor.swift,
 				Database/SwiftDataManager.swift,
+				Database/TombstonePurge.swift,
+				Database/Units/Distance.swift,
+				Database/Units/FuelEconomy.swift,
+				Database/Units/Money.swift,
+				Database/Units/UnitPreferences.swift,
+				Database/Units/Volume.swift,
 				"extension DateFormatter.swift",
 				I_Got_GasApp.swift,
 				LICENSE.md,
@@ -48,15 +61,20 @@
 				Networking/KeychainHelper.swift,
 				Networking/PushTokenManager.swift,
 				PRIVACY_POLICY.md,
+				Scheduling/NotificationReconciler.swift,
 				Sharing/ShareManager.swift,
+				Sync/Op.swift,
+				Sync/OpApplier.swift,
+				Sync/OpBuilder.swift,
+				Sync/Outbox.swift,
 				Sync/SyncManager.swift,
-				Sync/SyncMerger.swift,
 				Sync/SyncMetadata.swift,
 				Views/AddCarView.swift,
 				Views/AllCarsView.swift,
 				Views/Auth/LoginView.swift,
 				"Views/Car View/AddExpenseView.swift",
 				"Views/Car View/AddFutureServiceView.swift",
+				"Views/Car View/Attachments/ReceiptSection.swift",
 				"Views/Car View/CarInfoView.swift",
 				"Views/Car View/Charts/ChartTabView.swift",
 				"Views/Car View/Charts/ChartView.swift",
@@ -64,9 +82,12 @@
 				"Views/Car View/FuelExpenseView.swift",
 				"Views/Car View/FutureServiceView.swift",
 				"Views/Car View/MaintenanceExpenseView.swift",
+				"Views/Car View/Parts/PartDetailSheet.swift",
+				"Views/Car View/Parts/PartDraft.swift",
+				"Views/Car View/Parts/PartsSection.swift",
+				"Views/Car View/ScheduleLinkReviewView.swift",
 				Views/CarPickerSheet.swift,
 				Views/CarTabView.swift,
-				Views/ContentView.swift,
 				Views/MainView.swift,
 				Views/Settings/Private/DeveloperMenuView.swift,
 				Views/Settings/Private/NotificationPermissionsView.swift,
@@ -76,11 +97,13 @@
 				Views/Settings/Public/About/Markdownview.swift,
 				Views/Settings/Public/AnalyticsView.swift,
 				Views/Settings/Public/DefaultFiltersView.swift,
-				Views/Settings/Public/ExportDataView.swift,
 				Views/Settings/Public/OptionsView.swift,
+				Views/Settings/Public/RecentlyDeletedView.swift,
 				Views/Settings/Public/SettingsView.swift,
+				Views/Settings/Public/UnitsView.swift,
 				Views/Sharing/PendingSharesView.swift,
 				Views/Sharing/ShareVehicleView.swift,
+				Views/UpdateRequiredBanner.swift,
 			);
 			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
 		};
@@ -88,6 +111,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		80A3BB132CC00BFD00186286 /* I Got Gas */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (80A3BB5A2CC00C1000186286 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "I Got Gas"; sourceTree = "<group>"; };
+		80AA00062E00000100000001 /* I Got GasTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "I Got GasTests"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +124,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		80AA00042E00000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -107,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				80A3BB132CC00BFD00186286 /* I Got Gas */,
+				80AA00062E00000100000001 /* I Got GasTests */,
 				805B413C24CDF04B0085DB47 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				805B413B24CDF04B0085DB47 /* I Got Gas.app */,
+				80AA00022E00000100000001 /* I Got GasTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,7 +172,46 @@
 			productReference = 805B413B24CDF04B0085DB47 /* I Got Gas.app */;
 			productType = "com.apple.product-type.application";
 		};
+		80AA00012E00000100000001 /* I Got GasTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 80AA00072E00000100000001 /* Build configuration list for PBXNativeTarget "I Got GasTests" */;
+			buildPhases = (
+				80AA00032E00000100000001 /* Sources */,
+				80AA00042E00000100000001 /* Frameworks */,
+				80AA00052E00000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				80AA000A2E00000100000001 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				80AA00062E00000100000001 /* I Got GasTests */,
+			);
+			name = "I Got GasTests";
+			productName = "I Got GasTests";
+			productReference = 80AA00022E00000100000001 /* I Got GasTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		80AA000B2E00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 805B413324CDF04B0085DB47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 805B413A24CDF04B0085DB47;
+			remoteInfo = "I Got Gas";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		80AA000A2E00000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
+			targetProxy = 80AA000B2E00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXProject section */
 		805B413324CDF04B0085DB47 /* Project object */ = {
@@ -152,6 +224,10 @@
 				TargetAttributes = {
 					805B413A24CDF04B0085DB47 = {
 						CreatedOnToolsVersion = 11.6;
+					};
+					80AA00012E00000100000001 = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = 805B413A24CDF04B0085DB47;
 					};
 				};
 			};
@@ -173,6 +249,7 @@
 			projectRoot = "";
 			targets = (
 				805B413A24CDF04B0085DB47 /* I Got Gas */,
+				80AA00012E00000100000001 /* I Got GasTests */,
 			);
 		};
 /* End PBXProject section */
@@ -185,10 +262,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		80AA00052E00000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		805B413724CDF04B0085DB47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		80AA00032E00000100000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -373,6 +464,44 @@
 			};
 			name = Release;
 		};
+		80AA00082E00000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGasTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/I Got Gas.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/I Got Gas";
+			};
+			name = Debug;
+		};
+		80AA00092E00000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGasTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/I Got Gas.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/I Got Gas";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -390,6 +519,15 @@
 			buildConfigurations = (
 				805B415324CDF04E0085DB47 /* Debug */,
 				805B415424CDF04E0085DB47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		80AA00072E00000100000001 /* Build configuration list for PBXNativeTarget "I Got GasTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80AA00082E00000100000001 /* Debug */,
+				80AA00092E00000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

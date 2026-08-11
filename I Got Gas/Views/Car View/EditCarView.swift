@@ -63,7 +63,7 @@ struct EditCarView: View {
                 Button("Archive", role: .destructive) {
                     car.archived = true
                     car.touch()
-                    syncManager.triggerSync()
+                    syncManager.recordCar(car)
                 }
                 if car.ownerID.isEmpty || car.ownerID == authManager.userID {
                     Button("Delete", role: .destructive) {
@@ -90,7 +90,7 @@ struct EditCarView: View {
                 // Soft delete instead of hard delete
                 car.deleted = true
                 car.touch()
-                syncManager.triggerSync()
+                syncManager.recordCar(car)
                 presentationMode.wrappedValue.dismiss()
             }
             )
@@ -110,6 +110,6 @@ struct EditCarView: View {
         car.plate = carPlate
         car.vin = carVIN
         car.touch()
-        syncManager.triggerSync()
+        syncManager.recordCar(car)
     }
 }

@@ -91,6 +91,18 @@ struct SettingsView: View {
             
             Section {
                 NavigationLink {
+                    UnitsView()
+                } label: {
+                    Label("Units", systemImage: "ruler")
+                }
+
+                NavigationLink {
+                    RecentlyDeletedView()
+                } label: {
+                    Label("Recently Deleted", systemImage: "trash")
+                }
+
+                NavigationLink {
                     DefaultFiltersView()
                 } label: {
                     Image(systemName: "switch.2")

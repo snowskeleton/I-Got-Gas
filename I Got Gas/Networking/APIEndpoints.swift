@@ -41,6 +41,11 @@ enum APIEndpoints {
         url("/v1/shares/\(shareID)/decline")
     }
 
+    // Attachments
+    static func attachmentBlob(_ attachmentID: String) -> URL {
+        url("/v1/attachments/\(attachmentID)/blob")
+    }
+
     // Devices
     static var devices: URL { url("/v1/devices") }
 

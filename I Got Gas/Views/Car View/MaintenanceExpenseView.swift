@@ -20,41 +20,41 @@ struct MaintenanceExpenseView: View {
     @State private var showExistingServiceSheet = false
     @State private var existingService: SDService?
 
-    // Pairs each service with the gap back to the previous one: miles driven
+    // Pairs each service with the gap back to the previous one: distance driven
     // and days elapsed.
     // services is sorted odometer descending, so services[i+1] is the prior service.
     private struct Entry: Identifiable {
         let service: SDService
-        let miles: Int?
+        let distance: Distance?
         let days: Int?
 
         var id: SDService { service }
-        var hasGap: Bool { miles != nil || days != nil }
+        var hasGap: Bool { distance != nil || days != nil }
     }
 
     private var entries: [Entry] {
         services.enumerated().map { i, service in
             guard i < services.count - 1 else {
-                return Entry(service: service, miles: nil, days: nil)
+                return Entry(service: service, distance: nil, days: nil)
             }
             let previous = services[i + 1]
 
-            let milesDriven = service.odometer - previous.odometer
-            let miles = milesDriven > 0 ? milesDriven : nil
+            let driven = service.odometer - previous.odometer
+            let distance = driven.meters > 0 ? driven : nil
 
             let elapsed = Calendar.current.dateComponents(
                 [.day], from: previous.date, to: service.date
             ).day
             let days = (elapsed ?? 0) >= 0 ? elapsed : nil
 
-            return Entry(service: service, miles: miles, days: days)
+            return Entry(service: service, distance: distance, days: days)
         }
     }
 
     var body: some View {
         List {
             Section {
-                ChartView(title: "Cost per Mile", costs: allServices, isCurrency: true)
+                ChartView(costsOf: allServices, car: car)
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
             }
@@ -65,13 +65,20 @@ struct MaintenanceExpenseView: View {
                         existingService = entry.service
                         showExistingServiceSheet = true
                     } label: {
-                        MaintenanceExpenseCard(service: entry.service)
+                        MaintenanceExpenseCard(
+                            service: entry.service,
+                            distanceUnit: car.distanceUnit
+                        )
                     }
                     .buttonStyle(.plain)
                     .listRowSeparator(.hidden)
 
                     if entry.hasGap {
-                        GapRow(miles: entry.miles, days: entry.days)
+                        GapRow(
+                            distance: entry.distance,
+                            days: entry.days,
+                            distanceUnit: car.distanceUnit
+                        )
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 20))
@@ -108,8 +115,9 @@ struct MaintenanceExpenseView: View {
 
 // Sits in the space between two services and describes the gap between them.
 private struct GapRow: View {
-    let miles: Int?
+    let distance: Distance?
     let days: Int?
+    let distanceUnit: DistanceUnit
 
     var body: some View {
         HStack(spacing: 6) {
@@ -119,10 +127,10 @@ private struct GapRow: View {
                 .foregroundStyle(.quaternary)
 
             HStack(spacing: 4) {
-                if let miles {
-                    Text("\(miles) mi")
+                if let distance {
+                    Text(distance.formatted(as: distanceUnit))
                 }
-                if miles != nil && days != nil {
+                if distance != nil && days != nil {
                     Text("·").foregroundStyle(.tertiary)
                 }
                 if let days {
@@ -140,34 +148,26 @@ private struct GapRow: View {
 
 private struct MaintenanceExpenseCard: View {
     let service: SDService
+    let distanceUnit: DistanceUnit
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            if service.pending {
-                Text("PENDING")
-                    .font(.caption2).bold()
-                    .padding(.horizontal, 6).padding(.vertical, 2)
-                    .background(Color.orange)
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-            }
-
             HStack {
                 Text(service.date, format: .dateTime.month(.abbreviated).day().year())
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text("\(service.odometer) mi")
+                Text(service.odometer.formatted(as: distanceUnit))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
             HStack {
-                Text(service.name)
+                Text(service.displayName)
                     .font(.headline)
                     .lineLimit(1)
                 Spacer()
-                Text("$\(service.cost, specifier: "%.2f")")
+                Text(service.cost.formatted())
                     .font(.title3).fontWeight(.semibold)
                     .foregroundStyle(.secondary)
             }

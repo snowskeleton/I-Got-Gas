@@ -20,47 +20,47 @@ struct FuelExpenseView: View {
     @State private var showExistingFuelOrServiceSheet = false
     @State private var existingService: SDService?
 
-    // Pairs each fill-up with the gap back to the previous entry: miles driven,
-    // days elapsed, and the MPG those miles imply.
+    // Pairs each fill-up with the gap back to the previous entry: distance
+    // driven, days elapsed, and the economy those miles imply.
     // services is sorted odometer descending, so services[i+1] is the prior fill.
     private struct Entry: Identifiable {
         let service: SDService
-        let miles: Int?
+        let distance: Distance?
         let days: Int?
-        let mpg: Double?
+        let economy: FuelEconomy?
 
         var id: SDService { service }
-        var hasGap: Bool { miles != nil || days != nil }
+        var hasGap: Bool { distance != nil || days != nil }
     }
 
     private var entries: [Entry] {
         services.enumerated().map { i, service in
             guard i < services.count - 1 else {
-                return Entry(service: service, miles: nil, days: nil, mpg: nil)
+                return Entry(service: service, distance: nil, days: nil, economy: nil)
             }
             let previous = services[i + 1]
 
-            let milesDriven = service.odometer - previous.odometer
-            let miles = milesDriven > 0 ? milesDriven : nil
+            let driven = service.odometer - previous.odometer
+            let distance = driven.meters > 0 ? driven : nil
 
             let elapsed = Calendar.current.dateComponents(
                 [.day], from: previous.date, to: service.date
             ).day
             let days = (elapsed ?? 0) >= 0 ? elapsed : nil
 
-            var mpg: Double?
-            if let miles, service.gallons > 0 {
-                mpg = Double(miles) / service.gallons
+            var economy: FuelEconomy?
+            if let distance {
+                economy = FuelEconomy(distance: distance, volume: service.volume)
             }
 
-            return Entry(service: service, miles: miles, days: days, mpg: mpg)
+            return Entry(service: service, distance: distance, days: days, economy: economy)
         }
     }
 
     var body: some View {
         List {
             Section {
-                ChartView(title: "Miles per Gallon", mpg: services, isCurrency: false)
+                ChartView(economyOf: services, car: car)
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
             }
@@ -71,13 +71,21 @@ struct FuelExpenseView: View {
                         existingService = entry.service
                         showExistingFuelOrServiceSheet = true
                     } label: {
-                        FuelExpenseCard(service: entry.service, mpg: entry.mpg)
+                        FuelExpenseCard(
+                            service: entry.service,
+                            economy: entry.economy,
+                            distanceUnit: car.distanceUnit
+                        )
                     }
                     .buttonStyle(.plain)
                     .listRowSeparator(.hidden)
 
                     if entry.hasGap {
-                        GapRow(miles: entry.miles, days: entry.days)
+                        GapRow(
+                            distance: entry.distance,
+                            days: entry.days,
+                            distanceUnit: car.distanceUnit
+                        )
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                             .listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 20))
@@ -113,8 +121,9 @@ struct FuelExpenseView: View {
 
 // Sits in the space between two fill-ups and describes the trip between them.
 private struct GapRow: View {
-    let miles: Int?
+    let distance: Distance?
     let days: Int?
+    let distanceUnit: DistanceUnit
 
     var body: some View {
         HStack(spacing: 6) {
@@ -124,10 +133,10 @@ private struct GapRow: View {
                 .foregroundStyle(.quaternary)
 
             HStack(spacing: 4) {
-                if let miles {
-                    Text("\(miles) mi")
+                if let distance {
+                    Text(distance.formatted(as: distanceUnit))
                 }
-                if miles != nil && days != nil {
+                if distance != nil && days != nil {
                     Text("·").foregroundStyle(.tertiary)
                 }
                 if let days {
@@ -145,25 +154,20 @@ private struct GapRow: View {
 
 private struct FuelExpenseCard: View {
     let service: SDService
-    let mpg: Double?
+    let economy: FuelEconomy?
+    let distanceUnit: DistanceUnit
+
+    private var volumeUnit: VolumeUnit { UnitPreferences.volumeUnit }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            if service.pending {
-                Text("PENDING")
-                    .font(.caption2).bold()
-                    .padding(.horizontal, 6).padding(.vertical, 2)
-                    .background(Color.orange)
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-            }
             HStack {
                 HStack {
                     Text(service.date, format: .dateTime.month(.abbreviated).day().year())
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Text("\(service.odometer) mi")
+                    Text(service.odometer.formatted(as: distanceUnit))
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
@@ -171,21 +175,27 @@ private struct FuelExpenseCard: View {
             
             HStack {
                 VStack {
-                    Text("$\(service.cost, specifier: "%.2f")")
+                    Text(service.cost.formatted())
                         .font(.title3).fontWeight(.semibold)
                         .foregroundStyle(.secondary)
-                    Text("$\(service.costPerGallon, specifier: "%.3f")/gal")
-                        .foregroundStyle(.secondary)
-                }
-                
-                Spacer()
-                
-                VStack {
-                    Text("\(service.gallons, specifier: "%.2f") gal")
-                        .foregroundStyle(.secondary)
-                    if let mpg {
-                        Text("\(mpg, specifier: "%.1f") MPG")
+                    if let perUnit = service.costPerVolume {
+                        Text("\(perUnit.formattedPerUnit())/\(volumeUnit.abbreviation)")
                             .foregroundStyle(.secondary)
+                    }
+                }
+
+                Spacer()
+
+                VStack {
+                    Text(service.volume.formatted(as: volumeUnit))
+                        .foregroundStyle(.secondary)
+                    if let economy {
+                        Text(economy.formatted(
+                            distance: distanceUnit,
+                            volume: volumeUnit,
+                            style: .preferred(distance: distanceUnit, volume: volumeUnit)
+                        ))
+                        .foregroundStyle(.secondary)
                     }
                 }
             }

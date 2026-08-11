@@ -9,25 +9,33 @@
 import Foundation
 import SwiftData
 
+enum ServiceKind: String, Codable, CaseIterable, Sendable {
+    case fuel
+    case maintenance
+}
+
 @Model
 class SDService: Identifiable {
-    @Attribute(originalName: "localId")
     var id: String = UUID().uuidString
-    
-    var cost: Double = 0.0
-    @Attribute(originalName: "datePurchased")
+
+    /// Total paid, in currency minor units. Authoritative — parts are a
+    /// breakdown for convenience and never write back to this.
+    var costMinor: Int = 0
+
     var date = Date()
-    @Attribute(originalName: "isCompleted")
-    var pending: Bool = false
-    @Attribute(originalName: "note")
     var name: String = ""
     var fullDescription: String = ""
-    var odometer: Int = 0
-    
-    var isFuel: Bool = false
+
+    /// Odometer reading in whole metres.
+    var odometerMeters: Int = 0
+
+    var kind: ServiceKind = ServiceKind.maintenance
+
+    // MARK: Fuel-only
     var isFullTank: Bool = true
-    var gallons: Double = 0.0
-    
+    /// Volume dispensed, in whole millilitres. Zero for maintenance entries.
+    var volumeML: Int = 0
+
     var vendorName = ""
     var deleted: Bool = false
     var createdAt: Date = Date()
@@ -36,102 +44,119 @@ class SDService: Identifiable {
     @Relationship
     var car: SDCar?
 
+    /// The schedule this entry fulfilled, if any. Must belong to the same car.
+    var scheduledService: SDScheduledService?
+
+    /// Distinguishes a link the user made deliberately from one the V2→V3
+    /// name matcher guessed, so re-running the matcher can't stomp intent.
+    var linkedManually: Bool = false
+
+    /// What went into this repair. Fuel entries get no UI for these, but the
+    /// model doesn't forbid them.
+    @Relationship(deleteRule: .cascade, inverse: \SDPart.service)
+    var parts: [SDPart]? = []
+
+    /// Receipt photos.
+    @Relationship(deleteRule: .cascade, inverse: \SDAttachment.service)
+    var attachments: [SDAttachment]? = []
+
     init() { }
     init(
-        cost: Double,
+        cost: Money,
         date: Date,
         name: String,
-        odometer: Int
+        odometer: Distance,
+        kind: ServiceKind = .maintenance
     ) {
-        self.cost = cost
+        self.costMinor = cost.minorUnits
         self.date = date
         self.name = name
-        self.odometer = odometer
+        self.odometerMeters = odometer.meters
+        self.kind = kind
     }
 
-    var costPerGallon: Double {
-        cost / gallons
+    // MARK: - Typed accessors
+
+    var cost: Money {
+        get { Money(minorUnits: costMinor) }
+        set { costMinor = newValue.minorUnits }
+    }
+
+    var odometer: Distance {
+        get { Distance(meters: odometerMeters) }
+        set { odometerMeters = newValue.meters }
+    }
+
+    var volume: Volume {
+        get { Volume(milliliters: volumeML) }
+        set { volumeML = newValue.milliliters }
+    }
+
+    var isFuel: Bool { kind == .fuel }
+
+    var liveParts: [SDPart] {
+        (parts ?? []).filter { !$0.deleted }.sorted { $0.position < $1.position }
+    }
+
+    /// Falls back to the parts list when the entry hasn't been named.
+    /// Never persisted, so renaming a part updates every label that shows it.
+    var displayName: String {
+        if !name.isEmpty { return name }
+        let names = liveParts.map(\.name).filter { !$0.isEmpty }
+        return names.isEmpty ? "" : names.joined(separator: ", ")
+    }
+
+    /// Sum of the parts that carry a unit cost. Informational only —
+    /// `cost` is what the user actually paid and is never overwritten.
+    var partsTotal: Money {
+        liveParts.compactMap(\.lineTotal).total()
+    }
+
+    /// Case- and whitespace-insensitive key for grouping vendors. Display
+    /// always uses `vendorName` as the user typed it.
+    var vendorKey: String {
+        vendorName.trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+    }
+
+    /// Cost per unit of fuel. Nil rather than infinity when no fuel was
+    /// dispensed — the old `cost / gallons` returned `inf` for every
+    /// maintenance entry and rendered it verbatim.
+    var costPerVolume: Money? {
+        guard volumeML > 0 else { return nil }
+        let perML = Double(costMinor) / Double(volumeML)
+        let perUnit = perML * UnitPreferences.volumeUnit.millilitersPerUnit
+        return Money(minorUnits: Int(perUnit.rounded()))
     }
 
     func touch() {
         updatedAt = Date()
     }
-
-    func toAPIModel() -> [String: Any] {
-        return [
-            "id": id,
-            "car_id": car?.id ?? "",
-            "cost": cost,
-            "date": ISO8601DateFormatter().string(from: date),
-            "pending": pending,
-            "name": name,
-            "full_description": fullDescription,
-            "odometer": odometer,
-            "is_fuel": isFuel,
-            "is_full_tank": isFullTank,
-            "gallons": gallons,
-            "vendor_name": vendorName,
-            "deleted": deleted,
-            "created_at": ISO8601DateFormatter().string(from: createdAt),
-            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
-        ]
-    }
-
-    func applyRemote(_ remote: [String: Any]) {
-        if let v = remote["cost"] as? Double { cost = v }
-        if let v = remote["pending"] as? Bool { pending = v }
-        if let v = remote["name"] as? String { name = v }
-        if let v = remote["full_description"] as? String { fullDescription = v }
-        if let v = remote["odometer"] as? Int { odometer = v }
-        if let v = remote["is_fuel"] as? Bool { isFuel = v }
-        if let v = remote["is_full_tank"] as? Bool { isFullTank = v }
-        if let v = remote["gallons"] as? Double { gallons = v }
-        if let v = remote["vendor_name"] as? String { vendorName = v }
-        if let v = remote["deleted"] as? Bool { deleted = v }
-        if let s = remote["date"] as? String,
-           let d = ISO8601DateFormatter().date(from: s) {
-            date = d
-        }
-        if let s = remote["updated_at"] as? String,
-           let d = ISO8601DateFormatter().date(from: s) {
-            updatedAt = d
-        }
-        if let s = remote["created_at"] as? String,
-           let d = ISO8601DateFormatter().date(from: s) {
-            createdAt = d
-        }
-    }
 }
 
+// MARK: - Filtering
+
 extension Array where Element == SDService {
-    // these filters only filter our their own results when passed `false`,
-    // otherwise they let through everything.
-    // For example, call with
-    //services.fuel(false).pending(false)
-    // to get all non-fuel (i.e., maintenance) and completed transactions
-    
+    // These filters only remove their own results when passed `false`,
+    // otherwise they let everything through. For example:
+    //   services.fuel(false)
+    // returns all non-fuel (i.e. maintenance) transactions.
+
     func fuel(_ include: Bool = true) -> [SDService] {
-        return include ? self : self.filter { !$0.isFuel }
+        return include ? self : self.filter { $0.kind != .fuel }
     }
-    
+
     func maintenance(_ include: Bool = true) -> [SDService] {
-        return include ? self : self.filter { $0.isFuel }
+        return include ? self : self.filter { $0.kind != .maintenance }
     }
-    
-    func pending(_ include: Bool = true) -> [SDService] {
-        return include ? self : self.filter { !$0.pending }
-    }
-    
-    func completed(_ include: Bool = true) -> [SDService] {
-        return include ? self : self.filter { $0.pending }
-    }
-   
+
     enum TimePeriod {
         case days(Int)
         case weeks(Int)
         case months(Int)
         case years(Int)
-        
+
         var value: Int {
             switch self {
             case .days(let count), .weeks(let count), .months(let count), .years(let count):
@@ -139,11 +164,11 @@ extension Array where Element == SDService {
             }
         }
     }
-    
+
     func time(_ period: TimePeriod) -> [SDService] {
         let today = Date()
         var targetDate: Date?
-        
+
         switch period {
         case .days(let count):
             targetDate = Calendar.current.date(byAdding: .day, value: -count, to: today)
@@ -154,11 +179,11 @@ extension Array where Element == SDService {
         case .years(let count):
             targetDate = Calendar.current.date(byAdding: .year, value: -count, to: today)
         }
-        
+
         guard let validDate = targetDate else {
             return []
         }
-        
+
         if period.value == 0 {
             return self
         } else {
@@ -167,25 +192,29 @@ extension Array where Element == SDService {
     }
 }
 
+// MARK: - Aggregates
+
 extension Array where Element == SDService {
-    var costPerMile: Double {
-        let totalCost = self.reduce(0.0) { $0 + $1.cost }
-        let lowestOdometer = self.map { $0.odometer }.min() ?? 0
-        let highestOdometer = self.map { $0.odometer }.max() ?? lowestOdometer
-        let milesDriven = highestOdometer - lowestOdometer
-        
-        // Prevent division by zero
-        guard milesDriven > 0 else {
-            return 0.0
-        }
-        
-        return totalCost / Double(milesDriven)
+
+    var totalCost: Money {
+        map(\.cost).total()
     }
-    
+
+    /// Cost per mile / per km, in the caller's display unit.
+    /// Nil when the entries don't span any distance, rather than zero —
+    /// "no data" and "free" are different answers.
+    func costPerDistance(in unit: DistanceUnit) -> Money? {
+        let odometers = self.map(\.odometerMeters)
+        guard let lowest = odometers.min(), let highest = odometers.max() else { return nil }
+        let metersDriven = highest - lowest
+        guard metersDriven > 0 else { return nil }
+        let perUnit = Double(totalCost.minorUnits) / Double(metersDriven) * unit.metersPerUnit
+        return Money(minorUnits: Int(perUnit.rounded()))
+    }
+
     var lastFillup: Date? {
-        self.filter { $0.isFuel }
-            .max(by: { $0.odometer < $1.odometer } )?
+        self.filter { $0.kind == .fuel }
+            .max(by: { $0.odometerMeters < $1.odometerMeters })?
             .date
     }
 }
-

@@ -8,14 +8,12 @@
 
 import SwiftUI
 import SwiftData
-import CoreData
 import Aptabase
 
 @main
 struct I_Got_GasApp: App {
     @UIApplicationDelegateAdaptor var appDelegate: AppDelegate
     @Environment(\.scenePhase) var scenePhase
-    let persistenceController = PersistenceController.shared
 
     @State private var authManager = AuthManager()
     @State private var syncManager = SyncManager()
@@ -27,15 +25,13 @@ struct I_Got_GasApp: App {
             with: InitOptions(host: AptabaseSecrets.host)
         )
         Analytics.track(.appLaunch)
-        SDCarSettings.setDefaults()
     }
 
     var body: some Scene {
         WindowGroup {
             Group {
                 if authManager.isAuthenticated || authManager.skippedLogin {
-                    ContentView()
-                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    MainView()
                 } else {
                     LoginView()
                 }
@@ -50,6 +46,17 @@ struct I_Got_GasApp: App {
                 syncManager.configure(
                     context: SwiftDataManager.shared.container.mainContext
                 )
+                Task {
+                    await NotificationReconciler.reconcile(
+                        context: SwiftDataManager.shared.container.mainContext
+                    )
+                }
+                TombstonePurge.run(context: SwiftDataManager.shared.container.mainContext)
+                // Mirror the synced preferences into the formatting cache.
+                let preferences = SDUserPreferences.current(
+                    in: SwiftDataManager.shared.container.mainContext
+                )
+                UnitPreferences.mirror(from: preferences)
                 if authManager.isAuthenticated {
                     PushTokenManager.shared.requestPermissionAndRegister()
                 }
@@ -59,6 +66,13 @@ struct I_Got_GasApp: App {
         .onChange(of: scenePhase) { _, newScenePhase in
             switch newScenePhase {
             case .active:
+                // Reminders are derived state, so they get recomputed rather
+                // than being written when an expense happens to be saved.
+                Task {
+                    await NotificationReconciler.reconcile(
+                        context: SwiftDataManager.shared.container.mainContext
+                    )
+                }
                 if authManager.isAuthenticated {
                     syncManager.syncNow()
                     syncManager.startPeriodicSync()
@@ -67,7 +81,6 @@ struct I_Got_GasApp: App {
                     Task { await shareManager.fetchReceivedShares() }
                 }
             case .background:
-                persistenceController.saveContext()
                 syncManager.stopPeriodicSync()
             default:
                 break

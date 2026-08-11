@@ -9,94 +9,125 @@
 import SwiftUI
 import Charts
 
+/// Swift Charts requires `Plottable`, which neither `Money` nor `Decimal`
+/// conform to. So aggregation happens in exact types and converts to `Double`
+/// at this boundary only — nothing upstream of here does floating-point money.
 struct ChartView: View {
-    var title: String
-    var services: [SDService]
-    var isCurrency: Bool
-    var dataPoints: [(date: Date, value: Double, id: String)]
-    var average: Double {
-        dataPoints.count > 0 ? dataPoints.reduce(0) { $0 + $1.value } / Double(dataPoints.count) : 0
-    }
-    
-    init(title: String, services: [SDService], isCurrency: Bool) {
-        self.title = title
-        self.services = services
-        self.dataPoints = []
-        self.isCurrency = isCurrency
-    }
-    
-    init(title: String, mpg services: [SDService], isCurrency: Bool) {
-        self.init(title: title, services: services, isCurrency: false)
-        
-        let sortedServices = services.sorted(by: { $0.odometer < $1.odometer })
-        var points: [(date: Date, value: Double, id: String)] = []
-        var previousOdometer = sortedServices.first?.odometer ?? 0
-        
-        for service in sortedServices {
-            let currentOdometer = service.odometer
-            let milesDriven = currentOdometer - previousOdometer
-            
-            guard milesDriven > 0, service.gallons > 0 else { continue }
-            
-            let mpg = Double(milesDriven) / service.gallons
-            
-            points.append((date: service.date, value: mpg, id: UUID().uuidString))
-            
-            previousOdometer = currentOdometer
-        }
-        
-        self.dataPoints = points
-    }
-    
-    init(title: String, costs services: [SDService], isCurrency: Bool) {
-        self.init(title: title, services: services, isCurrency: true)
 
-        var rangeStart: Int {
-            services.map { $0.odometer }.min() ?? 0
+    private enum Metric {
+        case fuelEconomy(FuelEconomyStyle, label: String)
+        case currency
+    }
+
+    private struct Point: Identifiable {
+        let id = UUID().uuidString
+        let date: Date
+        let value: Double
+    }
+
+    private let title: String
+    private let metric: Metric
+    private let points: [Point]
+    private let summary: String?
+
+    private var average: Double {
+        guard !points.isEmpty else { return 0 }
+        return points.reduce(0) { $0 + $1.value } / Double(points.count)
+    }
+
+    private var isCurrency: Bool {
+        if case .currency = metric { return true }
+        return false
+    }
+
+    // MARK: - Fuel economy
+
+    init(economyOf services: [SDService], car: SDCar) {
+        let distanceUnit = car.distanceUnit
+        let volumeUnit = UnitPreferences.volumeUnit
+        let style = FuelEconomyStyle.preferred(distance: distanceUnit, volume: volumeUnit)
+
+        let sorted = services
+            .filter { $0.kind == .fuel && !$0.deleted }
+            .sorted { $0.odometerMeters < $1.odometerMeters }
+
+        var points: [Point] = []
+        var previousOdometer = sorted.first?.odometerMeters ?? 0
+
+        for service in sorted {
+            let driven = Distance(meters: service.odometerMeters - previousOdometer)
+            defer { previousOdometer = service.odometerMeters }
+
+            guard let economy = FuelEconomy(distance: driven, volume: service.volume) else {
+                continue
+            }
+            points.append(Point(
+                date: service.date,
+                value: economy.value(distance: distanceUnit, volume: volumeUnit, style: style)
+            ))
         }
 
-        var points: [(date: Date, value: Double, id: String)] = []
-        var mileageCostDict: [Int: (cost: Double, date: Date)] = [:]
-            
-        for service in services {
-            let mileage = service.odometer
-            mileageCostDict[
-                mileage,
-                default: (0.0, service.date)
-            ].cost += service.cost
-        }
-            
-        for (odometer, data) in mileageCostDict
-            .sorted(by: { $0.key < $1.key }) {
-            let milesDriven = odometer - rangeStart
-            guard milesDriven > 0 else { continue }
-                
-            let costPerMile = data.cost / Double(milesDriven)
-            points.append(
-                (date: data.date, value: costPerMile, id: UUID().uuidString)
-                )
-        }
-            
-        self.dataPoints = points
+        let label = FuelEconomy(metersPerMilliliter: 0)
+            .label(distance: distanceUnit, volume: volumeUnit, style: style)
+
+        self.title = label
+        self.metric = .fuelEconomy(style, label: label)
+        self.points = points
+        self.summary = points.isEmpty
+            ? nil
+            : (points.reduce(0) { $0 + $1.value } / Double(points.count))
+                .formatted(.number.precision(.fractionLength(1)))
     }
+
+    // MARK: - Cost per distance
+
+    init(costsOf services: [SDService], car: SDCar) {
+        let distanceUnit = car.distanceUnit
+        let live = services.filter { !$0.deleted }
+
+        // Running cost-per-distance measured from the earliest reading in range.
+        let rangeStart = live.map(\.odometerMeters).min() ?? 0
+
+        var costByOdometer: [Int: (minor: Int, date: Date)] = [:]
+        for service in live {
+            costByOdometer[service.odometerMeters, default: (0, service.date)].minor
+                += service.costMinor
+        }
+
+        var points: [Point] = []
+        for (odometer, data) in costByOdometer.sorted(by: { $0.key < $1.key }) {
+            let metersDriven = odometer - rangeStart
+            guard metersDriven > 0 else { continue }
+            let perUnit = Double(data.minor) / Double(metersDriven) * distanceUnit.metersPerUnit
+            points.append(Point(
+                date: data.date,
+                value: perUnit / pow(10.0, Double(Money.fractionDigits(for: UnitPreferences.currencyCode)))
+            ))
+        }
+
+        self.title = "Cost per \(distanceUnit.perUnitAbbreviation)"
+        self.metric = .currency
+        self.points = points
+        self.summary = live.costPerDistance(in: distanceUnit)?.formatted()
+    }
+
+    // MARK: - Body
 
     var body: some View {
         VStack {
             HStack {
                 Text(title)
-                if isCurrency {
-                    Text(services.costPerMile, format: .currency(code: "USD"))
-                } else {
-                    Text("\(average, specifier: "%.2f")")
+                if let summary {
+                    Text(summary)
                 }
             }
-            if dataPoints.isEmpty {
+            if points.isEmpty {
                 Spacer()
                 Text("Not enough data yet.")
                 Text("Add some expenses!")
                 Spacer()
             } else {
-                Chart(dataPoints, id: \.id) { point in
+                Chart(points) { point in
                     BarMark(
                         x: .value("Date", point.date),
                         y: .value(title, point.value)
@@ -115,9 +146,11 @@ struct ChartView: View {
                             AxisGridLine()
                             AxisValueLabel {
                                 if isCurrency {
-                                    Text(yValue, format: .currency(code: "USD"))
+                                    Text(Decimal(yValue), format: .currency(
+                                        code: UnitPreferences.currencyCode
+                                    ))
                                 } else {
-                                    Text(Int(yValue).description)
+                                    Text(yValue.formatted(.number.precision(.fractionLength(0))))
                                 }
                             }
                         }
@@ -128,5 +161,4 @@ struct ChartView: View {
         .padding()
         .padding(.bottom)
     }
-
 }

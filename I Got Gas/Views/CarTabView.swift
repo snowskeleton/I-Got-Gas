@@ -11,6 +11,7 @@ import SwiftData
 
 struct CarTabView: View {
     @Environment(AuthManager.self) private var authManager
+    @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     @Binding var lastSelectedCarId: String
@@ -32,7 +33,7 @@ struct CarTabView: View {
         _allServices = Query(FetchDescriptor<SDService>(
             predicate: servicesPredicate,
             sortBy: [
-                SortDescriptor(\.odometer, order: .reverse),
+                SortDescriptor(\.odometerMeters, order: .reverse),
                 SortDescriptor(\.date, order: .reverse)
             ]
         ))
@@ -42,19 +43,28 @@ struct CarTabView: View {
         }
         _scheduledServices = Query(FetchDescriptor<SDScheduledService>(
             predicate: scheduledPredicate,
-            sortBy: [SortDescriptor(\.frequencyMiles, order: .reverse)]
+            sortBy: [SortDescriptor(\.frequencyMeters, order: .reverse)]
         ))
     }
 
     private var fuelServices: [SDService] {
-        allServices.filter { $0.isFuel }
+        allServices.filter { $0.kind == .fuel }
     }
 
     private var maintenanceServices: [SDService] {
-        allServices.filter { !$0.isFuel }
+        allServices.filter { $0.kind == .maintenance }
     }
 
     var body: some View {
+        VStack(spacing: 0) {
+            if syncManager.blockedCarIDs.contains(car.id) {
+                UpdateRequiredBanner()
+            }
+            tabs
+        }
+    }
+
+    private var tabs: some View {
         TabView {
             NavigationStack {
                 FuelExpenseView(car: $car, services: fuelServices, allServices: allServices)

@@ -10,9 +10,11 @@ import SwiftUI
 import SwiftData
 
 struct MainView: View {
+    @Environment(\.modelContext) private var context
     @Query var cars: [SDCar]
     @AppStorage("lastSelectedCarId") var lastSelectedCarId: String = ""
     @State private var showAddCar = false
+    @State private var showLinkReview = false
 
     init() {
         let predicate = #Predicate<SDCar> {
@@ -33,6 +35,19 @@ struct MainView: View {
     }
 
     var body: some View {
+        content
+            .sheet(isPresented: $showLinkReview) {
+                ScheduleLinkReviewView()
+            }
+            .task {
+                // One-time after the 3.0 upgrade: confirm the links the
+                // migration guessed from entry names.
+                showLinkReview = ScheduleLinkReview.isPending(context: context)
+            }
+    }
+
+    @ViewBuilder
+    private var content: some View {
         if let car = selectedCar {
             CarTabView(car: .constant(car), lastSelectedCarId: $lastSelectedCarId)
                 .id(car.id)

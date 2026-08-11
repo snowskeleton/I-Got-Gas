@@ -5,193 +5,115 @@
 //  Created by snow on 11/7/24.
 //  Copyright © 2024 Blizzard Skeleton. All rights reserved.
 //
+//  Per-car filter overrides.
+//
+//  The stored values are only consulted when `custom` is on. Otherwise the
+//  car follows the account defaults in SDUserPreferences — which, unlike the
+//  UserDefaults this used to read, actually sync.
+//
 
 import Foundation
 import SwiftData
 
 @Model
 class SDCarSettings: Identifiable {
-    // Internal storage for custom settings
+    // Overrides. Meaningful only while `custom` is true.
     private var _selectedTab: String = "MPG"
     private var _range: Int = 90
     private var _includeFuel: Bool = true
     private var _includeMaintenance: Bool = true
-    private var _includeCompleted: Bool = true
-    private var _includePending: Bool = false
     private var _custom: Bool = false
     private var _notifyOnChange: Bool = true
     var updatedAt: Date = Date()
 
     var car: SDCar?
-    
-    init() {
-        loadFromDefaults()
+
+    init() { }
+
+    /// Account defaults. Injected by the view layer so the model doesn't have
+    /// to reach for a container.
+    @MainActor
+    private var defaults: SDUserPreferences? {
+        guard let context = modelContext else { return nil }
+        return try? context.fetch(FetchDescriptor<SDUserPreferences>()).first
     }
-    
-    // MARK: - Computed Properties for Each Setting
-    
+
+    // MARK: - Settings
+
+    /// When switched on, the car keeps whatever it was showing rather than
+    /// jumping to unrelated values.
+    @MainActor
     var custom: Bool {
-        get {
-            _custom
-        }
+        get { _custom }
         set {
-            if newValue {
-                loadFromDefaults()
-            } else {
-                saveToDefaults()
+            if newValue, let defaults {
+                _selectedTab = defaults.defaultSelectedTab
+                _range = defaults.defaultRange
+                _includeFuel = defaults.defaultIncludeFuel
+                _includeMaintenance = defaults.defaultIncludeMaintenance
             }
             _custom = newValue
         }
     }
-    
+
     var notifyOnChange: Bool {
         get { _notifyOnChange }
         set { _notifyOnChange = newValue }
     }
 
+    @MainActor
     var selectedTab: String {
-        get {
-            custom ? _selectedTab : UserDefaults.standard.string(forKey: "defaultFilterSelectedTab") ?? "MPG"
-        }
+        get { _custom ? _selectedTab : (defaults?.defaultSelectedTab ?? "MPG") }
         set {
-            if custom {
+            if _custom {
                 _selectedTab = newValue
             } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterSelectedTab")
+                defaults?.defaultSelectedTab = newValue
+                defaults?.touch()
             }
         }
     }
-    
+
+    @MainActor
     var range: Int {
-        get {
-            custom ? _range : UserDefaults.standard.integer(forKey: "defaultFilterRange")
-        }
+        get { _custom ? _range : (defaults?.defaultRange ?? 90) }
         set {
-            if custom {
+            if _custom {
                 _range = newValue
             } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterRange")
+                defaults?.defaultRange = newValue
+                defaults?.touch()
             }
         }
     }
-    
+
+    @MainActor
     var includeFuel: Bool {
-        get {
-            custom ? _includeFuel : UserDefaults.standard.bool(forKey: "defaultFilterIncludeFuel")
-        }
+        get { _custom ? _includeFuel : (defaults?.defaultIncludeFuel ?? true) }
         set {
-            if custom {
+            if _custom {
                 _includeFuel = newValue
             } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterIncludeFuel")
+                defaults?.defaultIncludeFuel = newValue
+                defaults?.touch()
             }
         }
     }
-    
+
+    @MainActor
     var includeMaintenance: Bool {
-        get {
-            custom ? _includeMaintenance : UserDefaults.standard.bool(forKey: "defaultFilterIncludeMaintenance")
-        }
+        get { _custom ? _includeMaintenance : (defaults?.defaultIncludeMaintenance ?? true) }
         set {
-            if custom {
+            if _custom {
                 _includeMaintenance = newValue
             } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterIncludeMaintenance")
+                defaults?.defaultIncludeMaintenance = newValue
+                defaults?.touch()
             }
         }
     }
-    
-    var includeCompleted: Bool {
-        get {
-            custom ? _includeCompleted : UserDefaults.standard.bool(forKey: "defaultFilterIncludeCompleted")
-        }
-        set {
-            if custom {
-                _includeCompleted = newValue
-            } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterIncludeCompleted")
-            }
-        }
-    }
-    
-    var includePending: Bool {
-        get {
-            custom ? _includePending : UserDefaults.standard.bool(forKey: "defaultFilterIncludePending")
-        }
-        set {
-            if custom {
-                _includePending = newValue
-            } else {
-                UserDefaults.standard.set(newValue, forKey: "defaultFilterIncludePending")
-            }
-        }
-    }
-    
-    // MARK: - Helper Methods
-    
-    // Load settings from UserDefaults as the shared defaults
-    private func loadFromDefaults() {
-        _selectedTab = UserDefaults.standard.string(forKey: "defaultFilterSelectedTab") ?? "MPG"
-        _range = UserDefaults.standard.integer(forKey: "defaultFilterRange")
-        _includeFuel = UserDefaults.standard.bool(forKey: "defaultFilterIncludeFuel")
-        _includeMaintenance = UserDefaults.standard.bool(forKey: "defaultFilterIncludeMaintenance")
-        _includeCompleted = UserDefaults.standard.bool(forKey: "defaultFilterIncludeCompleted")
-        _includePending = UserDefaults.standard.bool(forKey: "defaultFilterIncludePending")
-    }
-    
-    // Save current custom state to UserDefaults
-    private func saveToDefaults() {
-        UserDefaults.standard.set(_selectedTab, forKey: "defaultFilterSelectedTab")
-        UserDefaults.standard.set(_range, forKey: "defaultFilterRange")
-        UserDefaults.standard.set(_includeFuel, forKey: "defaultFilterIncludeFuel")
-        UserDefaults.standard.set(_includeMaintenance, forKey: "defaultFilterIncludeMaintenance")
-        UserDefaults.standard.set(_includeCompleted, forKey: "defaultFilterIncludeCompleted")
-        UserDefaults.standard.set(_includePending, forKey: "defaultFilterIncludePending")
-    }
-    
+
     func touch() {
         updatedAt = Date()
-    }
-
-    func toAPIModel() -> [String: Any] {
-        return [
-            "car_id": car?.id ?? "",
-            "selected_tab": _selectedTab,
-            "range_days": _range,
-            "include_fuel": _includeFuel,
-            "include_maintenance": _includeMaintenance,
-            "include_completed": _includeCompleted,
-            "include_pending": _includePending,
-            "custom": _custom,
-            "updated_at": ISO8601DateFormatter().string(from: updatedAt)
-        ]
-    }
-
-    func applyRemote(_ remote: [String: Any]) {
-        if let v = remote["selected_tab"] as? String { _selectedTab = v }
-        if let v = remote["range_days"] as? Int { _range = v }
-        if let v = remote["include_fuel"] as? Bool { _includeFuel = v }
-        if let v = remote["include_maintenance"] as? Bool { _includeMaintenance = v }
-        if let v = remote["include_completed"] as? Bool { _includeCompleted = v }
-        if let v = remote["include_pending"] as? Bool { _includePending = v }
-        if let v = remote["custom"] as? Bool { _custom = v }
-        if let s = remote["updated_at"] as? String,
-           let d = ISO8601DateFormatter().date(from: s) {
-            updatedAt = d
-        }
-    }
-
-    static public func setDefaults() {
-        if !UserDefaults.standard.bool(forKey: "defaultFilterCompletedFirstRun") {
-            UserDefaults.standard.set(true, forKey: "defaultFilterFirstRun")
-            
-            UserDefaults.standard.set("MPG", forKey: "defaultFilterSelectedTab")
-            UserDefaults.standard.set("MPG", forKey: "defaultFilterSelectedTab")
-            UserDefaults.standard.set(90, forKey: "defaultFilterRange")
-            UserDefaults.standard.set(true, forKey: "defaultFilterIncludeFuel")
-            UserDefaults.standard.set(true, forKey: "defaultFilterIncludeMaintenance")
-            UserDefaults.standard.set(true, forKey: "defaultFilterIncludeCompleted")
-            UserDefaults.standard.set(false, forKey: "defaultFilterIncludePending")
-        }
     }
 }
