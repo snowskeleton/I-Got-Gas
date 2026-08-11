@@ -16,20 +16,30 @@ enum ServiceKind: String, Codable, CaseIterable, Sendable {
 
 @Model
 class SDService: Identifiable {
+    /// See the note on `SDCar.id` — 2.x named these differently, and an
+    /// undeclared rename is a silent drop-and-add.
+    @Attribute(originalName: "localId")
     var id: String = UUID().uuidString
 
     /// Total paid, in currency minor units. Authoritative — parts are a
     /// breakdown for convenience and never write back to this.
     var costMinor: Int = 0
 
+    @Attribute(originalName: "datePurchased")
     var date = Date()
+
+    @Attribute(originalName: "note")
     var name: String = ""
     var fullDescription: String = ""
 
     /// Odometer reading in whole metres.
     var odometerMeters: Int = 0
 
-    var kind: ServiceKind = ServiceKind.maintenance
+    /// Stored as its raw string rather than the enum: a store migrated from
+    /// V2 has no column for this, so SwiftData hands back NULL and the
+    /// generated enum getter traps on the force cast. A String with a default
+    /// degrades to `.maintenance` instead of crashing.
+    var kindRaw: String = ServiceKind.maintenance.rawValue
 
     // MARK: Fuel-only
     var isFullTank: Bool = true
@@ -76,6 +86,11 @@ class SDService: Identifiable {
     }
 
     // MARK: - Typed accessors
+
+    var kind: ServiceKind {
+        get { ServiceKind(rawValue: kindRaw) ?? .maintenance }
+        set { kindRaw = newValue.rawValue }
+    }
 
     var cost: Money {
         get { Money(minorUnits: costMinor) }

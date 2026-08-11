@@ -61,6 +61,24 @@ enum IGGMigrationPlan: SchemaMigrationPlan {
     nonisolated(unsafe) private static var services: [String: ServiceSnapshot] = [:]
     nonisolated(unsafe) private static var schedules: [String: ScheduleSnapshot] = [:]
 
+    // MARK: - Reporting
+
+    /// Unmatched rows are a bug in this plan, not a user problem: the values
+    /// are already converted and the app is usable either way. So this traps
+    /// in debug builds where a developer will see it, and only writes to the
+    /// log in release. Nothing surfaces in the UI.
+    private static func report(cars: Int, services: Int, schedules: Int) {
+        guard cars > 0 || services > 0 || schedules > 0 else {
+            NSLog("IGG migration: all rows matched a V2 snapshot")
+            return
+        }
+
+        let message = "IGG migration: no V2 snapshot for \(cars) cars, "
+            + "\(services) services, \(schedules) schedules — these kept model defaults"
+        NSLog("%@", message)
+        assertionFailure(message)
+    }
+
     // MARK: - The stage
 
     static let v2toV3 = MigrationStage.custom(
@@ -103,16 +121,30 @@ enum IGGMigrationPlan: SchemaMigrationPlan {
             let gallon = VolumeUnit.gallonsUS
             let mile = DistanceUnit.miles
 
+            // A V3 row with no V2 snapshot means `willMigrate` and
+            // `didMigrate` disagree about what's in the store — the row keeps
+            // its model defaults, which is wrong but not fatal. Count them and
+            // report at the end rather than dropping them on the floor.
+            var unmatchedCars = 0
+            var unmatchedServices = 0
+            var unmatchedSchedules = 0
+
             for car in try context.fetch(FetchDescriptor<SDCar>()) {
                 car.distanceUnit = .miles
-                guard let snapshot = cars[car.id] else { continue }
+                guard let snapshot = cars[car.id] else {
+                    unmatchedCars += 1
+                    continue
+                }
                 car.startingOdometerMeters = Distance(
                     value: Double(snapshot.startingOdometerMiles), unit: mile
                 ).meters
             }
 
             for service in try context.fetch(FetchDescriptor<SDService>()) {
-                guard let snapshot = services[service.id] else { continue }
+                guard let snapshot = services[service.id] else {
+                    unmatchedServices += 1
+                    continue
+                }
                 service.costMinor = Money(
                     majorUnits: Decimal(snapshot.costDollars), currencyCode: currency
                 ).minorUnits
@@ -124,7 +156,10 @@ enum IGGMigrationPlan: SchemaMigrationPlan {
             }
 
             for schedule in try context.fetch(FetchDescriptor<SDScheduledService>()) {
-                guard let snapshot = schedules[schedule.id] else { continue }
+                guard let snapshot = schedules[schedule.id] else {
+                    unmatchedSchedules += 1
+                    continue
+                }
                 schedule.frequencyMeters = Distance(
                     value: Double(snapshot.frequencyMiles), unit: mile
                 ).meters
@@ -142,7 +177,12 @@ enum IGGMigrationPlan: SchemaMigrationPlan {
                 ).meters
             }
 
+            report(cars: unmatchedCars, services: unmatchedServices, schedules: unmatchedSchedules)
+
             try context.save()
+
+            // Everything here is new to the op log — see OutboxBackfill.
+            UserDefaults.standard.set(true, forKey: "igg_needs_op_backfill")
 
             let linked = try ScheduleLinkMatcher.linkExistingHistory(in: context)
             NSLog("IGG migration: linked \(linked) entries to schedules by name")

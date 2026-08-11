@@ -104,6 +104,11 @@ enum Outbox {
                 NSLog("sync: dropping op %@ (%@): %@",
                       pending.opID, rejection.reason, rejection.detail ?? "")
                 context.delete(pending)
+            } else if rejection.isWaitingOnUpgrade {
+                // Held, not failed: no attempt counted, so it survives until
+                // the blocking side updates and the push finally lands. The
+                // banner has already told the user their changes are pending.
+                pending.lastError = rejection.reason
             } else {
                 pending.attempts += 1
                 pending.lastError = rejection.reason

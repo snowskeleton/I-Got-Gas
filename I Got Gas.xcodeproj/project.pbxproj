@@ -11,6 +11,16 @@
 		80A3BB652CC00F3500186286 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 80A3BB642CC00F3500186286 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		80AA000B2E00000100000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 805B413324CDF04B0085DB47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 805B413A24CDF04B0085DB47;
+			remoteInfo = "I Got Gas";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		805B413B24CDF04B0085DB47 /* I Got Gas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "I Got Gas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AA00022E00000100000001 /* I Got GasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "I Got GasTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +45,8 @@
 				Database/Migration/IGGSchemaV2.swift,
 				Database/Migration/IGGSchemaV3.swift,
 				Database/Migration/ScheduleLinkMatcher.swift,
+				Database/Migration/StoreBackup.swift,
+				Database/Migration/StoreMaintenance.swift,
 				Database/Models/SDAttachment.swift,
 				Database/Models/SDCar.swift,
 				Database/Models/SDCarSettings.swift,
@@ -67,6 +79,7 @@
 				Sync/OpApplier.swift,
 				Sync/OpBuilder.swift,
 				Sync/Outbox.swift,
+				Sync/OutboxBackfill.swift,
 				Sync/SyncManager.swift,
 				Sync/SyncMetadata.swift,
 				Views/AddCarView.swift,
@@ -92,6 +105,9 @@
 				Views/Settings/Private/DeveloperMenuView.swift,
 				Views/Settings/Private/NotificationPermissionsView.swift,
 				Views/Settings/Private/PendingNotificationsView.swift,
+				Views/Settings/Private/StoreBackupsView.swift,
+				Views/Settings/Private/StoreMaintenanceView.swift,
+				Views/Settings/Private/StoreRecoveryView.swift,
 				Views/Settings/Public/About/AboutView.swift,
 				Views/Settings/Public/About/LicenseView.swift,
 				Views/Settings/Public/About/Markdownview.swift,
@@ -195,24 +211,6 @@
 		};
 /* End PBXNativeTarget section */
 
-/* Begin PBXContainerItemProxy section */
-		80AA000B2E00000100000001 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 805B413324CDF04B0085DB47 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 805B413A24CDF04B0085DB47;
-			remoteInfo = "I Got Gas";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXTargetDependency section */
-		80AA000A2E00000100000001 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
-			targetProxy = 80AA000B2E00000100000001 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXProject section */
 		805B413324CDF04B0085DB47 /* Project object */ = {
 			isa = PBXProject;
@@ -287,6 +285,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		80AA000A2E00000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 805B413A24CDF04B0085DB47 /* I Got Gas */;
+			targetProxy = 80AA000B2E00000100000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		805B415024CDF04E0085DB47 /* Debug */ = {

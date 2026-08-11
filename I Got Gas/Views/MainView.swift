@@ -65,6 +65,19 @@ struct MainView: View {
                         showAddCar = true
                     }
                     .buttonStyle(.borderedProminent)
+
+                    // Settings lives inside the car tabs, so with no car there
+                    // is no other way in — and an empty app after a bad
+                    // migration is exactly when the backup tools are needed.
+                    if Config.appConfiguration != .AppStore {
+                        NavigationLink {
+                            DeveloperMenuView()
+                        } label: {
+                            Label("Developer", systemImage: "hammer.fill")
+                                .font(.footnote)
+                        }
+                        .padding(.top, 12)
+                    }
                 }
                 .navigationTitle("I Got Gas")
             }

@@ -11,6 +11,10 @@ import SwiftData
 
 @Model
 class SDCar: Identifiable {
+    /// 2.x called this `localId`. Without the mapping SwiftData treats the
+    /// migration as a drop plus an add, the new column comes through empty,
+    /// and every row loses the identity the migration matches on.
+    @Attribute(originalName: "localId")
     var id: String = UUID().uuidString
     var make: String = ""
     var model: String = ""
@@ -24,7 +28,9 @@ class SDCar: Identifiable {
 
     /// Distance unit this car is read in. Per-car rather than per-account so
     /// a household can keep one car in miles and another in kilometres.
-    var distanceUnit: DistanceUnit = DistanceUnit.miles
+    /// Raw-string backed for the same reason as `SDService.kindRaw`: a
+    /// migrated store has no column for it and the enum getter would trap.
+    var distanceUnitRaw: String = DistanceUnit.miles.rawValue
 
     var pinned: Bool = false
     var deleted: Bool = false
@@ -64,6 +70,11 @@ class SDCar: Identifiable {
     }
 
     // MARK: - Typed accessors
+
+    var distanceUnit: DistanceUnit {
+        get { DistanceUnit(rawValue: distanceUnitRaw) ?? .miles }
+        set { distanceUnitRaw = newValue.rawValue }
+    }
 
     var startingOdometer: Distance {
         get { Distance(meters: startingOdometerMeters) }

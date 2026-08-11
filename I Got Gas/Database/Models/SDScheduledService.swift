@@ -11,6 +11,8 @@ import SwiftData
 
 @Model
 class SDScheduledService: Identifiable {
+    /// See the note on `SDCar.id`.
+    @Attribute(originalName: "localId")
     var id: String = UUID().uuidString
 
     var name: String = ""
@@ -28,7 +30,8 @@ class SDScheduledService: Identifiable {
 
     /// Interval between services, in `frequencyTimeInterval` units. Zero = not time-based.
     var frequencyTime: Int = 0
-    var frequencyTimeInterval: FrequencyTimeInterval = FrequencyTimeInterval.month
+    /// Raw-string backed for the same reason as `SDService.kindRaw`.
+    var frequencyTimeIntervalRaw: String = FrequencyTimeInterval.month.rawValue
 
     /// Where the schedule starts counting when nothing has been completed yet.
     var anchorDate: Date = Date()
@@ -54,6 +57,11 @@ class SDScheduledService: Identifiable {
     init() { }
 
     // MARK: - Typed accessors
+
+    var frequencyTimeInterval: FrequencyTimeInterval {
+        get { FrequencyTimeInterval(rawValue: frequencyTimeIntervalRaw) }
+        set { frequencyTimeIntervalRaw = newValue.rawValue }
+    }
 
     var frequencyDistance: Distance {
         get { Distance(meters: frequencyMeters) }

@@ -20,7 +20,11 @@ enum APIEndpoints {
     static var authPoll: URL { url("/v1/auth/poll") }
 
     // Sync
-    static var sync: URL { url("/v1/sync") }
+    /// Sync is the only endpoint that moved with 3.0. `/v1/sync` still serves
+    /// the 2.x record-level protocol for clients that can't be updated, so the
+    /// op log needed a path of its own rather than a changed contract on the
+    /// old one.
+    static var sync: URL { url("/v3/sync") }
 
     // Sharing
     static func carShares(_ carID: String) -> URL {

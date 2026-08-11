@@ -30,6 +30,10 @@ class SyncManager {
 
     /// Cars this build is too old to write to. Drives the upgrade banner.
     var blockedCarIDs: Set<String> = []
+    /// Shared cars that are read-only because their owner hasn't updated yet.
+    /// Nothing the person holding this phone can do about it, so it gets its
+    /// own banner rather than being folded into `blockedCarIDs`.
+    var ownerUpgradeCarIDs: Set<String> = []
     var needsAppUpdate = false
 
     var pendingOpCount: Int = 0
@@ -49,6 +53,10 @@ class SyncManager {
 
     func configure(context: ModelContext) {
         self.context = context
+        // Records that predate the 3.0 upgrade have never emitted ops, since
+        // ops are only built when a view saves. This is the one chance to get
+        // them into the outbox.
+        OutboxBackfill.runIfNeeded(context: context)
         lastSyncDate = SyncMetadata.lastSyncedAt
         pendingOpCount = Outbox.count(in: context)
     }
@@ -112,6 +120,7 @@ class SyncManager {
         }
         SyncMetadata.reset()
         blockedCarIDs = []
+        ownerUpgradeCarIDs = []
         needsAppUpdate = false
         pendingOpCount = 0
         Task { await NotificationReconciler.cancelAll() }
@@ -173,6 +182,7 @@ class SyncManager {
             lastSyncDate = SyncMetadata.lastSyncedAt
             shares = response.shares
             blockedCarIDs = Set(response.blockedCarIDs ?? [])
+            ownerUpgradeCarIDs = Set(response.ownerUpgradeCarIDs ?? [])
             needsAppUpdate = !blockedCarIDs.isEmpty
 
             try? context.save()

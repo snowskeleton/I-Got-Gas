@@ -22,6 +22,14 @@ public class SwiftDataManager {
     private init() {
         let schema = Schema(IGGSchemaV3.models)
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let version = IGGSchemaV3.versionIdentifier
+
+        // Both of these must happen before the container is built: opening it
+        // is what runs the migration, and it is also the last moment the store
+        // files can be touched safely.
+        StoreMaintenance.applyPendingAction(configuration: configuration)
+        StoreBackup.applyPendingRestore(configuration: configuration)
+        StoreBackup.backUpIfNeeded(configuration: configuration, version: version)
 
         do {
             container = try ModelContainer(
@@ -29,6 +37,7 @@ public class SwiftDataManager {
                 migrationPlan: IGGMigrationPlan.self,
                 configurations: [configuration]
             )
+            StoreBackup.markOpened(version: version)
         } catch {
             NSLog("SwiftData: failed to open persistent store: \(error)")
             loadFailure = error

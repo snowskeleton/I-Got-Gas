@@ -58,7 +58,9 @@ struct CarTabView: View {
     var body: some View {
         VStack(spacing: 0) {
             if syncManager.blockedCarIDs.contains(car.id) {
-                UpdateRequiredBanner()
+                UpdateRequiredBanner(reason: .clientTooOld)
+            } else if syncManager.ownerUpgradeCarIDs.contains(car.id) {
+                UpdateRequiredBanner(reason: .ownerTooOld)
             }
             tabs
         }

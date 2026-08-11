@@ -104,6 +104,10 @@ struct OpSyncResponse: Codable {
     var appliedOpIDs: [String]?
     var rejected: [OpRejection]?
     var blockedCarIDs: [String]?
+    /// Shared cars that are readable but not writable because their *owner* is
+    /// still on 2.x. Kept apart from `blockedCarIDs` because the fix is the
+    /// opposite one: somebody else has to update, not the person reading this.
+    var ownerUpgradeCarIDs: [String]?
     var revokedCarIDs: [String]?
     var serverTime: Date?
     var minClientVersion: Int?
@@ -114,6 +118,7 @@ struct OpSyncResponse: Codable {
         case ops, cursors, rejected, shares
         case appliedOpIDs = "applied_op_ids"
         case blockedCarIDs = "blocked_car_ids"
+        case ownerUpgradeCarIDs = "owner_upgrade_car_ids"
         case revokedCarIDs = "revoked_car_ids"
         case serverTime = "server_time"
         case minClientVersion = "min_client_version"
@@ -140,6 +145,18 @@ struct OpRejection: Codable {
         default:
             return false
         }
+    }
+
+    /// Rejections that are waiting on a version change rather than failing.
+    ///
+    /// These need their own category because neither of the others is right:
+    /// the op is not permanently invalid, but the wait is measured in app
+    /// updates rather than retries. Counting them as transient failures would
+    /// burn the ten-attempt budget in an afternoon and drop edits that would
+    /// have applied cleanly once the other side upgraded — the local record
+    /// would keep the change and the server would never hear about it.
+    var isWaitingOnUpgrade: Bool {
+        reason == "client_too_old" || reason == "owner_too_old"
     }
 }
 

@@ -35,6 +35,11 @@ struct DeveloperMenuView: View {
                 NavigationLink(destination: PendingNotificationsView()) { Text("Pending Notifications") }
             }
             
+            Section("Data") {
+                NavigationLink(destination: StoreBackupsView()) { Text("Store Backups") }
+                NavigationLink(destination: StoreMaintenanceView()) { Text("Reset / Seed Store") }
+            }
+
             Section("Actions") {
                 Button("Crash!") { showCrashConfirmation = true }
                     .confirmationDialog(

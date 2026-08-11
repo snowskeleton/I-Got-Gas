@@ -30,7 +30,11 @@ struct I_Got_GasApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if authManager.isAuthenticated || authManager.skippedLogin {
+                if let failure = SwiftDataManager.shared.loadFailure {
+                    // In-memory fallback: the app would otherwise present an
+                    // empty account with no explanation.
+                    StoreRecoveryView(error: failure)
+                } else if authManager.isAuthenticated || authManager.skippedLogin {
                     MainView()
                 } else {
                     LoginView()
@@ -43,6 +47,8 @@ struct I_Got_GasApp: App {
                 handleIncomingURL(url)
             }
             .onAppear {
+                // Nothing below should run against the throwaway store.
+                guard SwiftDataManager.shared.loadFailure == nil else { return }
                 syncManager.configure(
                     context: SwiftDataManager.shared.container.mainContext
                 )
@@ -64,6 +70,7 @@ struct I_Got_GasApp: App {
         }
         .modelContainer(SwiftDataManager.shared.container)
         .onChange(of: scenePhase) { _, newScenePhase in
+            guard SwiftDataManager.shared.loadFailure == nil else { return }
             switch newScenePhase {
             case .active:
                 // Reminders are derived state, so they get recomputed rather
