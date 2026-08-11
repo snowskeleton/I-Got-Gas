@@ -45,9 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
         #if targetEnvironment(simulator)
-        print("[Push] not supported in Simulator")
+        DebugLog.push("not supported in Simulator")
         #else
-        print("[Push] registration FAILED: \(error)")
+        DebugLog.push("registration FAILED: \(error)")
         #endif
     }
 

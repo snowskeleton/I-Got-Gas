@@ -12,7 +12,6 @@ import SwiftData
 struct AllCarsView: View {
     @Environment(SyncManager.self) private var syncManager
     @Environment(ShareManager.self) private var shareManager
-    @State private var showSettings = false
     @Query var pinnedCars: [SDCar]
     @Query var sdcars: [SDCar]
     @Query var oldCars: [SDCar]
@@ -127,31 +126,11 @@ struct AllCarsView: View {
                         Image(systemName: "plus")
                     }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .overlay(alignment: .topTrailing) {
-                                if shareManager.pendingShares.count > 0 {
-                                    Circle()
-                                        .fill(.red)
-                                        .frame(width: 8, height: 8)
-                                        .offset(x: 4, y: -4)
-                                }
-                            }
-                    }
-                }
             }
             .navigationTitle("Vehicles")
 //            .navigationViewStyle(.columns)
 //
 //            Text("Select a Vehicle")
-        }
-        .sheet(isPresented: $showSettings) {
-            NavigationStack {
-                SettingsView()
-            }
         }
         .onAppear {
             Analytics.track(
@@ -190,32 +169,28 @@ struct CarLineItemView: View {
     }
 
     var body: some View {
-        NavigationLink {
-            CarView(car: Binding<SDCar>.constant(car))
-        } label: {
-            VStack {
-                HStack {
-                    Text(car.visualName)
-                    if !car.ownerID.isEmpty && !authManager.userID.isEmpty && car.ownerID != authManager.userID {
-                        Image(systemName: "person.2.fill")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
+        VStack {
+            HStack {
+                Text(car.visualName)
+                if !car.ownerID.isEmpty && !authManager.userID.isEmpty && car.ownerID != authManager.userID {
+                    Image(systemName: "person.2.fill")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
-                .fontWeight(.bold)
-                HStack {
-                    let filteredServices = services
-                        .time(.days(settings.range))
-                        .completed(settings.includeCompleted)
-                        .pending(settings.includePending)
-                        .fuel(settings.includeFuel)
-                        .maintenance(settings.includeMaintenance)
-                    Text("\(filteredServices.costPerMile, format: .currency(code: "USD"))/mile")
-                    Spacer()
-                    Text("Last fuel:")
-                    Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
-                }
+                Spacer()
+            }
+            .fontWeight(.bold)
+            HStack {
+                let filteredServices = services
+                    .time(.days(settings.range))
+                    .completed(settings.includeCompleted)
+                    .pending(settings.includePending)
+                    .fuel(settings.includeFuel)
+                    .maintenance(settings.includeMaintenance)
+                Text("\(filteredServices.costPerMile, format: .currency(code: "USD"))/mile")
+                Spacer()
+                Text("Last fuel:")
+                Text(services.lastFillup?.formatted(date: .numeric, time: .omitted) ?? "never")
             }
         }
         .onAppear {

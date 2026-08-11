@@ -11,15 +11,24 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) private var dismiss
     @Environment(AuthManager.self) private var authManager
     @Environment(SyncManager.self) private var syncManager
     @Environment(ShareManager.self) private var shareManager
 
     @AppStorage("showDeveloperMenu") var showDeveloperMenu = false
-    
+    @State private var showManageVehicles = false
+
     var body: some View {
         List {
+            Section {
+                Button {
+                    showManageVehicles = true
+                } label: {
+                    Label("Manage Vehicles", systemImage: "car.2.fill")
+                        .foregroundStyle(.primary)
+                }
+            }
+
             if authManager.isAuthenticated {
                 Section {
                     NavigationLink {
@@ -61,7 +70,6 @@ struct SettingsView: View {
             } else {
                 Button {
                     authManager.skippedLogin = false
-                    dismiss()
                 } label: {
                     HStack {
                         Image(systemName: "person.circle")
@@ -146,6 +154,9 @@ struct SettingsView: View {
         .navigationTitle("Settings")
         .onAppear {
             Analytics.track(.openedSettingsView)
+        }
+        .sheet(isPresented: $showManageVehicles) {
+            AllCarsView()
         }
     }
     

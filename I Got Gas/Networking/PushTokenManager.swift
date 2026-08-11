@@ -17,14 +17,14 @@ final class PushTokenManager: @unchecked Sendable {
     private init() {}
 
     func requestPermissionAndRegister() {
-        print("[Push] requestPermissionAndRegister called")
+        DebugLog.push("requestPermissionAndRegister called")
         UNUserNotificationCenter.current().requestAuthorization(
             options: [.alert, .sound, .badge]
         ) { granted, error in
-            print("[Push] authorization result: granted=\(granted), error=\(String(describing: error))")
+            DebugLog.push("authorization result: granted=\(granted), error=\(String(describing: error))")
             // Silent pushes work even if the user denies permission.
             DispatchQueue.main.async {
-                print("[Push] calling registerForRemoteNotifications")
+                DebugLog.push("calling registerForRemoteNotifications")
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
@@ -33,9 +33,9 @@ final class PushTokenManager: @unchecked Sendable {
     func didRegister(tokenData: Data) {
         let hex = tokenData.map { String(format: "%02x", $0) }.joined()
         #if DEBUG
-        print("[Push] APNs device token: \(hex)")
+        DebugLog.push("APNs device token: \(hex)")
         #else
-        print("[Push] got APNs token: \(hex.prefix(16))...")
+        DebugLog.push("got APNs token: \(hex.prefix(16))...")
         #endif
         currentToken = hex
         Task { await registerTokenWithServer() }

@@ -22,7 +22,7 @@ struct ContentView: View {
     // end migration
 
     var body: some View {
-        AllCarsView()
+        MainView()
         // 1.x - 2.0 migration migration
         .alert(isPresented: $showQuitAlert) {
             Alert(

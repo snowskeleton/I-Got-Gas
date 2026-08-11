@@ -10,86 +10,120 @@ import SwiftUI
 import SwiftData
 
 struct FutureServiceView: View {
-    @Environment(\.modelContext) var context
     @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
+    let scheduledServices: [SDScheduledService]
 
-    @State private var futureServices: [SDScheduledService] = []
-
-    @State private var showAddScheduldServiceSheet = false
+    @State private var showAddScheduledServiceSheet = false
     @State private var showExistingScheduledServiceSheet = false
     @State private var existingFutureService: SDScheduledService?
 
+    private var currentOdometer: Int {
+        car.odometer
+    }
+
     var body: some View {
-        VStack {
-            List {
-                ForEach(futureServices, id: \.self) { futureService in
-                    Button(action: {
-                        existingFutureService = futureService
+        List {
+            Section("Upcoming") {
+                ForEach(scheduledServices, id: \.self) { service in
+                    Button {
+                        existingFutureService = service
                         showExistingScheduledServiceSheet = true
-                    }) {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Text(futureService.name)
-                                Spacer()
-                                VStack {
-                                    Text(futureService.frequencyTime == 0 ? "" : "\(Calendar.current.date(byAdding: futureService.frequencyTimeInterval.calendarComponent, value: futureService.frequencyTime, to: Date())!, formatter: DateFormatter.taskDateFormat)")
-                                    Text(futureService.odometerFirstOccurance.description)
-                                }
-                            }
-                            if !futureService.fullDescription.isEmpty {
-                                Text(futureService.fullDescription)
-                                    .font(.subheadline)
-                            }
-                        }
+                    } label: {
+                        ScheduleCard(service: service, currentOdometer: currentOdometer)
                     }
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(.plain)
                 }
             }
-            Button("Schedule Service") {
-                showAddScheduldServiceSheet = true
-            }
-            .padding(.bottom)
         }
-        .sheet(isPresented: $showAddScheduldServiceSheet, onDismiss: fetchServices) {
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showAddScheduledServiceSheet = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showAddScheduledServiceSheet) {
             AddFutureServiceView(car: $car)
                 .environment(syncManager)
         }
-        .sheet(isPresented: $showExistingScheduledServiceSheet, onDismiss: fetchServices) {
+        .sheet(isPresented: $showExistingScheduledServiceSheet) {
             if let existingFutureService {
                 AddFutureServiceView(car: $car, futureService: existingFutureService)
                     .environment(syncManager)
             }
         }
         .onAppear {
-            fetchServices()
             Analytics.track(.openedScheduledServices)
         }
     }
+}
 
-    private func fetchServices() {
-        let searchId = car.id
-        let predicate = #Predicate<SDScheduledService> {
-            $0.car?.id == searchId &&
-            $0.deleted == false
+private struct ScheduleCard: View {
+    let service: SDScheduledService
+    let currentOdometer: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(service.name)
+                    .font(.headline)
+                    .lineLimit(1)
+                Spacer()
+                if service.pastDue {
+                    Text("PAST DUE")
+                        .font(.caption2).bold()
+                        .padding(.horizontal, 6).padding(.vertical, 2)
+                        .background(Color.red)
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+                }
+            }
+
+            if service.frequencyMiles > 0 {
+                let milesLeft = service.odometerFirstOccurance - currentOdometer
+                HStack {
+                    Label("Every \(service.frequencyMiles) mi", systemImage: "speedometer")
+                    Spacer()
+                    if milesLeft >= 0 {
+                        Text("In \(milesLeft) mi")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("\(-milesLeft) mi overdue")
+                            .foregroundStyle(.red)
+                    }
+                }
+                .font(.subheadline)
+            }
+
+            if service.frequencyTime > 0,
+               let nextDate = Calendar.current.date(
+                byAdding: service.frequencyTimeInterval.calendarComponent,
+                value: service.frequencyTime,
+                to: Date()
+               ) {
+                HStack {
+                    Label(
+                        "Every \(service.frequencyTime) \(service.frequencyTimeInterval.description)(s)",
+                        systemImage: "calendar"
+                    )
+                    Spacer()
+                    Text(nextDate, format: .dateTime.month(.abbreviated).year())
+                        .foregroundStyle(service.pastDue ? .red : .secondary)
+                }
+                .font(.subheadline)
+            }
+
+            if !service.fullDescription.isEmpty {
+                Text(service.fullDescription)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+            }
         }
-        let descriptor = FetchDescriptor<SDScheduledService>(
-            predicate: predicate,
-            sortBy: [SortDescriptor(\.frequencyTime, order: .forward)]
-        )
-        futureServices = (try? context.fetch(descriptor)) ?? []
-    }
-
-    func loseMemory(at offsets: IndexSet) {
-        do {
-            let _ = try offsets
-                .map { _ in
-                    try context
-                        .delete(
-                            model: SDService.self,
-                            where: #Predicate<SDService> { $0.id == $0.id }
-                        )}
-        } catch { }
+        .padding(.vertical, 8)
     }
 }

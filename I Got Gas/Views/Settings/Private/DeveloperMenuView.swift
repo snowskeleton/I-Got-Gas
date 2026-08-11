@@ -12,6 +12,7 @@ struct DeveloperMenuView: View {
     @Environment(\.modelContext) private var context
     @State private var showCrashConfirmation = false
     @AppStorage("showDebugValues") var showDebugValues = false
+    @AppStorage("verboseLogging") var verboseLogging = false
     @AppStorage("migratedFrom1.0To2.0") var migrated: Bool = false
     @AppStorage("priceFormat") var priceFormat = "%.3f"
     @AppStorage("itemCountOnCarView") var itemCountOnCarView: Int = 3
@@ -40,6 +41,7 @@ struct DeveloperMenuView: View {
             Section("Troubleshooting") {
                 Toggle("2.0 Migration Complete", isOn: $migrated)
                 Toggle("Show debug values in various locations throughout the app", isOn: $showDebugValues)
+                Toggle("Verbose logging", isOn: $verboseLogging)
             }
             
             Section("Notifications") {

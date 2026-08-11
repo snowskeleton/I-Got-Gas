@@ -37,3 +37,20 @@ struct Config {
         }
     }
 }
+
+/// Chatty diagnostics that would otherwise clutter the console on every launch.
+/// Off by default; flip "Verbose logging" in the Developer menu to see them.
+enum DebugLog {
+    static var isEnabled: Bool {
+        UserDefaults.standard.bool(forKey: "verboseLogging")
+    }
+
+    static func log(_ category: String, _ message: @autoclosure () -> String) {
+        guard isEnabled else { return }
+        print("[\(category)] \(message())")
+    }
+
+    static func push(_ message: @autoclosure () -> String) {
+        log("Push", message())
+    }
+}
