@@ -91,7 +91,7 @@
 				"Views/Car View/AddFutureServiceView.swift",
 				"Views/Car View/Attachments/ReceiptSection.swift",
 				"Views/Car View/CarInfoView.swift",
-				"Views/Car View/Charts/ChartTabView.swift",
+				"Views/Car View/Charts/ChartFilterPanel.swift",
 				"Views/Car View/Charts/ChartView.swift",
 				"Views/Car View/EditCarView.swift",
 				"Views/Car View/FuelExpenseView.swift",
@@ -480,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGasTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -499,7 +499,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blizzardskeleton.IGotGasTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

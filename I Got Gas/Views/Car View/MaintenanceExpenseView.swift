@@ -10,15 +10,35 @@ import SwiftUI
 import SwiftData
 
 struct MaintenanceExpenseView: View {
+    @Environment(\.modelContext) private var context
     @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     let services: [SDService]
     let allServices: [SDService]
+    @Bindable private var settings: SDCarSettings
 
     @State private var showAddServiceSheet = false
     @State private var showExistingServiceSheet = false
     @State private var existingService: SDService?
+    @State private var filtersHidden = false
+
+    private let chartAnchor = "maintenanceChart"
+
+    init(car: Binding<SDCar>, services: [SDService], allServices: [SDService]) {
+        _car = car
+        self.services = services
+        self.allServices = allServices
+        // Displayed as-is; onAppear persists one if the car doesn't have any.
+        self.settings = car.wrappedValue.settings ?? SDCarSettings()
+    }
+
+    private var chartServices: [SDService] {
+        allServices
+            .time(.days(settings.range))
+            .fuel(settings.includeFuel)
+            .maintenance(settings.includeMaintenance)
+    }
 
     // Pairs each service with the gap back to the previous one: distance driven
     // and days elapsed.
@@ -52,11 +72,23 @@ struct MaintenanceExpenseView: View {
     }
 
     var body: some View {
+        ScrollViewReader { proxy in
+            list
+                .hideChartFilters(below: chartAnchor, using: proxy, hidden: $filtersHidden)
+        }
+    }
+
+    private var list: some View {
         List {
             Section {
-                ChartView(costsOf: allServices, car: car)
+                ChartFilterPanel(settings: settings, showsKindToggles: true)
+            }
+
+            Section {
+                ChartView(costsOf: chartServices, car: car)
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
+                    .id(chartAnchor)
             }
 
             Section {
@@ -107,6 +139,10 @@ struct MaintenanceExpenseView: View {
             }
         }
         .onAppear {
+            if car.settings == nil {
+                context.insert(settings)
+                car.settings = settings
+            }
             Analytics.track(.openedMaintenanceExpenses)
         }
     }

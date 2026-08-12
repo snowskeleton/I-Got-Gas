@@ -30,12 +30,22 @@ class SDCarSettings: Identifiable {
 
     init() { }
 
-    /// Account defaults. Injected by the view layer so the model doesn't have
-    /// to reach for a container.
+    /// Account defaults. Reachable only once this row is in a context, which
+    /// is why every accessor below falls back to its own storage rather than
+    /// dropping the write: a settings row that hasn't been inserted yet used
+    /// to swallow everything the filter sheet set, so the filters looked
+    /// frozen at their initial values.
     @MainActor
     private var defaults: SDUserPreferences? {
         guard let context = modelContext else { return nil }
         return try? context.fetch(FetchDescriptor<SDUserPreferences>()).first
+    }
+
+    /// True when this row owns its values — either it's marked custom, or the
+    /// account defaults aren't reachable to redirect to.
+    @MainActor
+    private var isSelfBacked: Bool {
+        _custom || defaults == nil
     }
 
     // MARK: - Settings
@@ -63,9 +73,9 @@ class SDCarSettings: Identifiable {
 
     @MainActor
     var selectedTab: String {
-        get { _custom ? _selectedTab : (defaults?.defaultSelectedTab ?? "MPG") }
+        get { isSelfBacked ? _selectedTab : (defaults?.defaultSelectedTab ?? _selectedTab) }
         set {
-            if _custom {
+            if isSelfBacked {
                 _selectedTab = newValue
             } else {
                 defaults?.defaultSelectedTab = newValue
@@ -76,9 +86,9 @@ class SDCarSettings: Identifiable {
 
     @MainActor
     var range: Int {
-        get { _custom ? _range : (defaults?.defaultRange ?? 90) }
+        get { isSelfBacked ? _range : (defaults?.defaultRange ?? _range) }
         set {
-            if _custom {
+            if isSelfBacked {
                 _range = newValue
             } else {
                 defaults?.defaultRange = newValue
@@ -89,9 +99,9 @@ class SDCarSettings: Identifiable {
 
     @MainActor
     var includeFuel: Bool {
-        get { _custom ? _includeFuel : (defaults?.defaultIncludeFuel ?? true) }
+        get { isSelfBacked ? _includeFuel : (defaults?.defaultIncludeFuel ?? _includeFuel) }
         set {
-            if _custom {
+            if isSelfBacked {
                 _includeFuel = newValue
             } else {
                 defaults?.defaultIncludeFuel = newValue
@@ -102,9 +112,9 @@ class SDCarSettings: Identifiable {
 
     @MainActor
     var includeMaintenance: Bool {
-        get { _custom ? _includeMaintenance : (defaults?.defaultIncludeMaintenance ?? true) }
+        get { isSelfBacked ? _includeMaintenance : (defaults?.defaultIncludeMaintenance ?? _includeMaintenance) }
         set {
-            if _custom {
+            if isSelfBacked {
                 _includeMaintenance = newValue
             } else {
                 defaults?.defaultIncludeMaintenance = newValue

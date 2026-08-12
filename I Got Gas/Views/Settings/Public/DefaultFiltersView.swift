@@ -5,26 +5,39 @@
 //  Created by snow on 11/12/24.
 //  Copyright © 2024 Blizzard Skeleton. All rights reserved.
 //
+//  The account-wide chart filters. Every vehicle not marked "Custom for This
+//  Vehicle" reads these. They used to be @AppStorage, which stopped being the
+//  backing store in 3.0 — this screen was editing keys nothing read.
+//
 
 import SwiftUI
+import SwiftData
 
 struct DefaultFiltersView: View {
-    @AppStorage("defaultFilterSelectedTab") var selectedTab = "MPG"
-    @AppStorage("defaultFilterRange") var range: Int = 90
-    @AppStorage("defaultFilterIncludeFuel") var includeFuel: Bool = true
-    @AppStorage("defaultFilterIncludeMaintenance") var includeMaintenance: Bool = true
-    
+    @Environment(\.modelContext) private var context
+
+    @Query private var preferences: [SDUserPreferences]
+
+    private var current: SDUserPreferences {
+        preferences.first ?? SDUserPreferences.current(in: context)
+    }
+
     var body: some View {
+        @Bindable var preferences = current
+
         List {
-            Picker("Date Range", selection: $range) {
-                Text("3 months").tag(90)
-                Text("6 months").tag(180)
-                Text("1 year").tag(365)
-                Text("3 year").tag(730)
-                Text("All time").tag(0)
+            Picker("Date Range", selection: $preferences.defaultRange) {
+                ForEach(ChartFilterRange.all, id: \.self) { days in
+                    Text(ChartFilterRange.label(days)).tag(days)
+                }
             }
-            Toggle("Fuel", isOn: $includeFuel)
-            Toggle("Maintenance", isOn: $includeMaintenance)
+            Toggle("Fuel", isOn: $preferences.defaultIncludeFuel)
+            Toggle("Maintenance", isOn: $preferences.defaultIncludeMaintenance)
+        }
+        .navigationTitle("Default Filters")
+        .onDisappear {
+            current.touch()
+            try? context.save()
         }
     }
 }

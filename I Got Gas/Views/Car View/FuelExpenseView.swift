@@ -10,15 +10,28 @@ import SwiftUI
 import SwiftData
 
 struct FuelExpenseView: View {
+    @Environment(\.modelContext) private var context
     @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     let services: [SDService]
     let allServices: [SDService]
+    @Bindable private var settings: SDCarSettings
 
     @State private var showAddFuelSheet = false
     @State private var showExistingFuelOrServiceSheet = false
     @State private var existingService: SDService?
+    @State private var filtersHidden = false
+
+    private let chartAnchor = "fuelChart"
+
+    init(car: Binding<SDCar>, services: [SDService], allServices: [SDService]) {
+        _car = car
+        self.services = services
+        self.allServices = allServices
+        // Displayed as-is; onAppear persists one if the car doesn't have any.
+        self.settings = car.wrappedValue.settings ?? SDCarSettings()
+    }
 
     // Pairs each fill-up with the gap back to the previous entry: distance
     // driven, days elapsed, and the economy those miles imply.
@@ -58,11 +71,23 @@ struct FuelExpenseView: View {
     }
 
     var body: some View {
+        ScrollViewReader { proxy in
+            list
+                .hideChartFilters(below: chartAnchor, using: proxy, hidden: $filtersHidden)
+        }
+    }
+
+    private var list: some View {
         List {
             Section {
-                ChartView(economyOf: services, car: car)
+                ChartFilterPanel(settings: settings, showsKindToggles: false)
+            }
+
+            Section {
+                ChartView(economyOf: services.time(.days(settings.range)), car: car)
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
+                    .id(chartAnchor)
             }
 
             Section {
@@ -114,6 +139,10 @@ struct FuelExpenseView: View {
             }
         }
         .onAppear {
+            if car.settings == nil {
+                context.insert(settings)
+                car.settings = settings
+            }
             Analytics.track(.openedFuelExpenses)
         }
     }
