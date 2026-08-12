@@ -71,8 +71,9 @@ struct ChartView: View {
             ))
         }
 
-        let label = FuelEconomy(metersPerMilliliter: 0)
-            .label(distance: distanceUnit, volume: volumeUnit, style: style)
+        let label = FuelEconomy.label(
+            distance: distanceUnit, volume: volumeUnit, style: style
+        )
 
         self.title = label
         self.metric = .fuelEconomy(style, label: label)

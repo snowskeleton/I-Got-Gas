@@ -130,6 +130,30 @@ struct FuelEconomyTests {
         #expect(FuelEconomyStyle.preferred(distance: .miles, volume: .gallonsUS) == .distancePerVolume)
         #expect(FuelEconomyStyle.preferred(distance: .kilometers, volume: .liters) == .volumePer100km)
     }
+
+    @Test func labelsUseConventionalSpelling() {
+        func label(_ d: DistanceUnit, _ v: VolumeUnit) -> String {
+            FuelEconomy.label(
+                distance: d, volume: v,
+                style: FuelEconomyStyle.preferred(distance: d, volume: v)
+            )
+        }
+        #expect(label(.miles, .gallonsUS) == "MPG")
+        #expect(label(.miles, .gallonsImperial) == "MPG (imp)")
+        #expect(label(.miles, .liters) == "mi/L")
+        #expect(label(.kilometers, .gallonsUS) == "km/gal")
+        #expect(label(.kilometers, .liters) == "L/100km")
+    }
+
+    @Test func formattedEconomyReadsNaturally() throws {
+        let economy = try #require(FuelEconomy(
+            distance: Distance(value: 300, unit: .miles),
+            volume: Volume(value: 10, unit: .gallonsUS)
+        ))
+        #expect(economy.formatted(
+            distance: .miles, volume: .gallonsUS, style: .distancePerVolume
+        ) == "30.0 MPG")
+    }
 }
 
 struct TimestampTests {

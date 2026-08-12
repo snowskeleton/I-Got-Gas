@@ -48,13 +48,31 @@ struct FuelEconomy: Equatable, Hashable, Sendable {
         }
     }
 
-    func label(distance: DistanceUnit, volume: VolumeUnit, style: FuelEconomyStyle) -> String {
+    /// The conventional written form for a unit pair. These are not composable
+    /// from the individual abbreviations — "MPG" is not "MI" + "P" + "GAL" —
+    /// so every combination is spelled out.
+    static func label(
+        distance: DistanceUnit,
+        volume: VolumeUnit,
+        style: FuelEconomyStyle
+    ) -> String {
         switch style {
-        case .distancePerVolume:
-            return "\(distance.abbreviation.uppercased())P\(volume.abbreviation.uppercased())"
         case .volumePer100km:
             return "L/100km"
+        case .distancePerVolume:
+            switch (distance, volume) {
+            case (.miles, .gallonsUS): return "MPG"
+            case (.miles, .gallonsImperial): return "MPG (imp)"
+            case (.miles, .liters): return "mi/L"
+            case (.kilometers, .gallonsUS): return "km/gal"
+            case (.kilometers, .gallonsImperial): return "km/gal (imp)"
+            case (.kilometers, .liters): return "km/L"
+            }
         }
+    }
+
+    func label(distance: DistanceUnit, volume: VolumeUnit, style: FuelEconomyStyle) -> String {
+        Self.label(distance: distance, volume: volume, style: style)
     }
 
     func formatted(distance: DistanceUnit, volume: VolumeUnit, style: FuelEconomyStyle) -> String {
