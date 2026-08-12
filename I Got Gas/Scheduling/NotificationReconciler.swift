@@ -48,7 +48,13 @@ enum NotificationReconciler {
         }
 
         let desired = (try? desiredNotifications(context: context)) ?? []
-        let desiredByID = Dictionary(uniqueKeysWithValues: desired.map { ($0.identifier, $0) })
+        // `SDScheduledService.id` isn't enforced unique by the store, so two
+        // rows can carry the same ID and collide here. One reminder per ID is
+        // all iOS can hold anyway; keep the soonest so nothing is pushed out.
+        let desiredByID = Dictionary(
+            desired.map { ($0.identifier, $0) },
+            uniquingKeysWith: { $0.fireDate <= $1.fireDate ? $0 : $1 }
+        )
 
         let pending = await center.pendingNotificationRequests()
         let ours = pending.filter { $0.identifier.hasPrefix(prefix) }
@@ -72,7 +78,7 @@ enum NotificationReconciler {
         }
 
         // Add anything missing.
-        for want in desired {
+        for want in desiredByID.values {
             let alreadyPending = pendingByID[want.identifier] != nil
                 && !stale.contains(want.identifier)
             guard !alreadyPending else { continue }
