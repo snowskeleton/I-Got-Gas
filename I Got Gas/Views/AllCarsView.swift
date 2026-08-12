@@ -69,7 +69,11 @@ struct AllCarsView: View {
                 if !pinnedCars.isEmpty {
                     Section("Pinned") {
                         ForEach(pinnedCars, id: \.self) { car in
-                            CarLineItemView(car: Binding<SDCar>.constant(car))
+                            NavigationLink {
+                                CarInfoView(car: Binding<SDCar>.constant(car))
+                            } label: {
+                                CarLineItemView(car: Binding<SDCar>.constant(car))
+                            }
                                 .swipeActions {
                                     Button("Un-Pin") {
                                         car.pinned = false
@@ -83,7 +87,11 @@ struct AllCarsView: View {
                 }
 
                 ForEach(sdcars, id: \.self) { car in
-                    CarLineItemView(car: Binding<SDCar>.constant(car))
+                    NavigationLink {
+                        CarInfoView(car: Binding<SDCar>.constant(car))
+                    } label: {
+                        CarLineItemView(car: Binding<SDCar>.constant(car))
+                    }
                         .swipeActions {
                             Button("Pin") {
                                 car.pinned = true
@@ -102,7 +110,11 @@ struct AllCarsView: View {
                     Section {
                         DisclosureGroup("Archived") {
                             ForEach(oldCars, id: \.self) { car in
-                                CarLineItemView(car: Binding<SDCar>.constant(car))
+                                NavigationLink {
+                                    CarInfoView(car: Binding<SDCar>.constant(car))
+                                } label: {
+                                    CarLineItemView(car: Binding<SDCar>.constant(car))
+                                }
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button("Un-Archive") {
                                             car.archived = false

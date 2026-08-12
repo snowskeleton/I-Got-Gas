@@ -10,14 +10,12 @@ import SwiftUI
 import SwiftData
 
 struct CarTabView: View {
-    @Environment(AuthManager.self) private var authManager
     @Environment(SyncManager.self) private var syncManager
 
     @Binding var car: SDCar
     @Binding var lastSelectedCarId: String
 
     @State private var showCarPicker = false
-    @State private var showCarInfo = false
 
     @Query var allServices: [SDService]
     @Query var scheduledServices: [SDScheduledService]
@@ -103,10 +101,6 @@ struct CarTabView: View {
             CarPickerSheet(lastSelectedCarId: $lastSelectedCarId)
                 .presentationDetents([.medium, .large])
         }
-        .sheet(isPresented: $showCarInfo) {
-            CarInfoView(car: $car)
-                .environment(authManager)
-        }
     }
 
     private var carPickerButton: some View {
@@ -126,13 +120,6 @@ struct CarTabView: View {
     private var carToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             carPickerButton
-        }
-        ToolbarItem(placement: .topBarTrailing) {
-            Button {
-                showCarInfo = true
-            } label: {
-                Image(systemName: "info.circle")
-            }
         }
     }
 }

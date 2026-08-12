@@ -21,9 +21,6 @@ struct MaintenanceExpenseView: View {
     @State private var showAddServiceSheet = false
     @State private var showExistingServiceSheet = false
     @State private var existingService: SDService?
-    @State private var filtersHidden = false
-
-    private let chartAnchor = "maintenanceChart"
 
     init(car: Binding<SDCar>, services: [SDService], allServices: [SDService]) {
         _car = car
@@ -72,23 +69,11 @@ struct MaintenanceExpenseView: View {
     }
 
     var body: some View {
-        ScrollViewReader { proxy in
-            list
-                .hideChartFilters(below: chartAnchor, using: proxy, hidden: $filtersHidden)
-        }
-    }
-
-    private var list: some View {
         List {
             Section {
-                ChartFilterPanel(settings: settings, showsKindToggles: true)
-            }
-
-            Section {
-                ChartView(costsOf: chartServices, car: car)
+                ChartView(costsOf: chartServices, car: car, range: settings.range)
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
-                    .id(chartAnchor)
             }
 
             Section {
@@ -119,13 +104,10 @@ struct MaintenanceExpenseView: View {
             }
         }
         .listRowSpacing(10.0)
+        .floatingAddButton { showAddServiceSheet = true }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showAddServiceSheet = true
-                } label: {
-                    Image(systemName: "plus")
-                }
+                ChartFilterButton(settings: settings, showsKindToggles: true)
             }
         }
         .sheet(isPresented: $showAddServiceSheet) {

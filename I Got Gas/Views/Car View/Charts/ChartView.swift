@@ -29,6 +29,9 @@ struct ChartView: View {
     private let metric: Metric
     private let points: [Point]
     private let summary: String?
+    /// The filter range the points were drawn from. Printed under the chart
+    /// since the filter control itself is just an unlabelled toolbar icon.
+    private let range: Int
 
     private var average: Double {
         guard !points.isEmpty else { return 0 }
@@ -42,7 +45,8 @@ struct ChartView: View {
 
     // MARK: - Fuel economy
 
-    init(economyOf services: [SDService], car: SDCar) {
+    init(economyOf services: [SDService], car: SDCar, range: Int) {
+        self.range = range
         let distanceUnit = car.distanceUnit
         let volumeUnit = UnitPreferences.volumeUnit
         let style = FuelEconomyStyle.preferred(distance: distanceUnit, volume: volumeUnit)
@@ -81,7 +85,8 @@ struct ChartView: View {
 
     // MARK: - Cost per distance
 
-    init(costsOf services: [SDService], car: SDCar) {
+    init(costsOf services: [SDService], car: SDCar, range: Int) {
+        self.range = range
         let distanceUnit = car.distanceUnit
         let live = services.filter { !$0.deleted }
 
@@ -157,6 +162,9 @@ struct ChartView: View {
                     }
                 }
             }
+            Text(ChartFilterRange.label(range))
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
         .padding()
         .padding(.bottom)

@@ -103,6 +103,7 @@
 				"Views/Car View/ScheduleLinkReviewView.swift",
 				Views/CarPickerSheet.swift,
 				Views/CarTabView.swift,
+				Views/FloatingAddButton.swift,
 				Views/MainView.swift,
 				Views/Settings/Private/DeveloperMenuView.swift,
 				Views/Settings/Private/NotificationPermissionsView.swift,

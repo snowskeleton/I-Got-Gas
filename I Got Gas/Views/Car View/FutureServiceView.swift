@@ -35,15 +35,7 @@ struct FutureServiceView: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showAddScheduledServiceSheet = true
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-        }
+        .floatingAddButton { showAddScheduledServiceSheet = true }
         .sheet(isPresented: $showAddScheduledServiceSheet) {
             AddFutureServiceView(car: $car)
                 .environment(syncManager)

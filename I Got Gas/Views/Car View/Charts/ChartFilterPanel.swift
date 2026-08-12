@@ -5,9 +5,9 @@
 //  Created by snow on 8/11/26.
 //  Copyright © 2026 Blizzard Skeleton. All rights reserved.
 //
-//  The chart filters that used to live behind a button on the chart itself.
-//  The link to them now sits in a section above the top of the list, off
-//  screen until the user pulls down — see `hideChartFilters(below:)`.
+//  The chart filters live in the top-right of the toolbar on the Fuel and
+//  Maintenance screens. The chart itself prints whichever range is selected,
+//  so the icon doesn't need a label to explain itself.
 //
 
 import SwiftUI
@@ -29,9 +29,8 @@ enum ChartFilterRange {
     }
 }
 
-/// A single row that opens the filters in a half sheet. Meant to be dropped
-/// straight into a `Section` so it picks up normal list row styling.
-struct ChartFilterPanel: View {
+/// Toolbar button that opens the chart filters in a half sheet.
+struct ChartFilterButton: View {
     @Environment(\.modelContext) private var context
     @Environment(SyncManager.self) private var syncManager
 
@@ -47,17 +46,9 @@ struct ChartFilterPanel: View {
         Button {
             showFilterSheet = true
         } label: {
-            HStack {
-                Label("Chart Filters", systemImage: "line.3.horizontal.decrease.circle")
-                Spacer()
-                Text(ChartFilterRange.label(settings.range))
-                    .foregroundStyle(.secondary)
-                Image(systemName: "chevron.right")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(.tertiary)
-            }
+            Image(systemName: "line.3.horizontal.decrease.circle")
         }
-        .buttonStyle(.plain)
+        .accessibilityLabel("Chart Filters")
         .sheet(isPresented: $showFilterSheet) {
             NavigationStack {
                 List {
@@ -103,21 +94,5 @@ struct ChartFilterPanel: View {
                 "maintenance": settings.includeMaintenance.description
             ]
         )
-    }
-}
-
-// MARK: - Pull-down reveal
-
-extension View {
-    /// Starts the list scrolled so everything above `anchor` — the filter
-    /// section — is off screen. Pulling down brings it back, Mail-search style.
-    func hideChartFilters(below anchor: String, using proxy: ScrollViewProxy, hidden: Binding<Bool>) -> some View {
-        onAppear {
-            guard !hidden.wrappedValue else { return }
-            hidden.wrappedValue = true
-            Task { @MainActor in
-                proxy.scrollTo(anchor, anchor: .top)
-            }
-        }
     }
 }

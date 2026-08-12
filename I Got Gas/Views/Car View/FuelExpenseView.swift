@@ -21,9 +21,6 @@ struct FuelExpenseView: View {
     @State private var showAddFuelSheet = false
     @State private var showExistingFuelOrServiceSheet = false
     @State private var existingService: SDService?
-    @State private var filtersHidden = false
-
-    private let chartAnchor = "fuelChart"
 
     init(car: Binding<SDCar>, services: [SDService], allServices: [SDService]) {
         _car = car
@@ -71,23 +68,15 @@ struct FuelExpenseView: View {
     }
 
     var body: some View {
-        ScrollViewReader { proxy in
-            list
-                .hideChartFilters(below: chartAnchor, using: proxy, hidden: $filtersHidden)
-        }
-    }
-
-    private var list: some View {
         List {
             Section {
-                ChartFilterPanel(settings: settings, showsKindToggles: false)
-            }
-
-            Section {
-                ChartView(economyOf: services.time(.days(settings.range)), car: car)
+                ChartView(
+                    economyOf: services.time(.days(settings.range)),
+                    car: car,
+                    range: settings.range
+                )
                     .frame(minHeight: 200)
                     .listRowInsets(EdgeInsets())
-                    .id(chartAnchor)
             }
 
             Section {
@@ -119,13 +108,10 @@ struct FuelExpenseView: View {
             }
         }
         .listRowSpacing(10.0)
+        .floatingAddButton { showAddFuelSheet = true }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showAddFuelSheet = true
-                } label: {
-                    Image(systemName: "plus")
-                }
+                ChartFilterButton(settings: settings, showsKindToggles: false)
             }
         }
         .sheet(isPresented: $showAddFuelSheet) {

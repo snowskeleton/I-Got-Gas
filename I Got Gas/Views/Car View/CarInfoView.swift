@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct CarInfoView: View {
-    @Environment(\.presentationMode) var mode
     @Environment(\.modelContext) private var context
     @Environment(AuthManager.self) private var authManager
     @Binding var car: SDCar
@@ -26,168 +25,161 @@ struct CarInfoView: View {
     @State private var importWarning: String?
     
     var body: some View {
-        NavigationStack {
-            List {
-                if !car.name.isEmpty {
-                    Section {
-                        Text(car.name)
-                    } header: {
-                        Button {
-                            UIPasteboard.general.string = car.name
-                            alertMessage = "Copied: \(car.name)"
-                            showCopied = true
-                        } label: {
-                            HStack {
-                                Text("Name")
-                                Spacer()
-                                Image(systemName: "clipboard")
-                            }
-                        }
-                    }
-                }
+        List {
+            if !car.name.isEmpty {
                 Section {
-                    if car.year != nil {
-                        Text(car.year!.description)
-                    } else {
-                        Text("Year")
-                            .italic()
-                    }
-                    if !car.make.isEmpty {
-                        Text(car.make)
-                    } else {
-                        Text("Make")
-                            .italic()
-                    }
-                    if !car.model.isEmpty {
-                        Text(car.model)
-                    } else {
-                        Text("model")
-                            .italic()
-                    }
+                    Text(car.name)
                 } header: {
                     Button {
-                        UIPasteboard.general.string = car.joinedModel
-                        alertMessage = "Copied: \(car.joinedModel)"
+                        UIPasteboard.general.string = car.name
+                        alertMessage = "Copied: \(car.name)"
                         showCopied = true
                     } label: {
                         HStack {
-                            Text("Model")
+                            Text("Name")
                             Spacer()
                             Image(systemName: "clipboard")
                         }
                     }
                 }
-                Section {
-                    if !car.plate.isEmpty {
-                        Text(car.plate)
-                    } else {
-                        Text("Plate")
-                            .italic()
-                    }
-                } header: {
-                    Button {
-                        UIPasteboard.general.string = car.plate
-                        alertMessage = "Copied: \(car.plate)"
-                        showCopied = true
-                    } label: {
-                        HStack {
-                            Text("License Plate")
-                            Spacer()
-                            Image(systemName: "clipboard")
-                        }
+            }
+            Section {
+                if car.year != nil {
+                    Text(car.year!.description)
+                } else {
+                    Text("Year")
+                        .italic()
+                }
+                if !car.make.isEmpty {
+                    Text(car.make)
+                } else {
+                    Text("Make")
+                        .italic()
+                }
+                if !car.model.isEmpty {
+                    Text(car.model)
+                } else {
+                    Text("model")
+                        .italic()
+                }
+            } header: {
+                Button {
+                    UIPasteboard.general.string = car.joinedModel
+                    alertMessage = "Copied: \(car.joinedModel)"
+                    showCopied = true
+                } label: {
+                    HStack {
+                        Text("Model")
+                        Spacer()
+                        Image(systemName: "clipboard")
                     }
                 }
-                
-                Section {
-                    if !car.vin.isEmpty {
-                        Text(car.vin)
-                    } else {
+            }
+            Section {
+                if !car.plate.isEmpty {
+                    Text(car.plate)
+                } else {
+                    Text("Plate")
+                        .italic()
+                }
+            } header: {
+                Button {
+                    UIPasteboard.general.string = car.plate
+                    alertMessage = "Copied: \(car.plate)"
+                    showCopied = true
+                } label: {
+                    HStack {
+                        Text("License Plate")
+                        Spacer()
+                        Image(systemName: "clipboard")
+                    }
+                }
+            }
+            
+            Section {
+                if !car.vin.isEmpty {
+                    Text(car.vin)
+                } else {
+                    Text("VIN")
+                        .italic()
+                }
+            } header: {
+                Button {
+                    UIPasteboard.general.string = car.vin
+                    alertMessage = "Copied: \(car.vin)"
+                    showCopied = true
+                } label: {
+                    HStack {
                         Text("VIN")
-                            .italic()
+                        Spacer()
+                        Image(systemName: "clipboard")
                     }
-                } header: {
-                    Button {
-                        UIPasteboard.general.string = car.vin
-                        alertMessage = "Copied: \(car.vin)"
-                        showCopied = true
+                }
+            }
+            
+            Section("Notifications") {
+                Toggle("Notify on updates", isOn: notifyOnChangeBinding)
+            }
+
+            // Sharing section — only for owned cars
+            if car.ownerID.isEmpty || car.ownerID == authManager.userID {
+                Section("Sharing") {
+                    NavigationLink {
+                        ShareVehicleView(carID: car.id, carName: car.visualName)
                     } label: {
                         HStack {
-                            Text("VIN")
-                            Spacer()
-                            Image(systemName: "clipboard")
+                            Image(systemName: "person.2")
+                            Text("Share this Vehicle")
                         }
                     }
+                }
+            }
+
+            Section {
+                Button("Export") {
+                    let data = generateCSV(for: car.services ?? [], scheduledServices: car.scheduledServices ?? [], car: car)
+                    csvFile = saveCSVFile(content: data)
+                }
+                if let fileURL = csvFile {
+                    ShareLink(item: fileURL) {
+                        Text("Share CSV File")
+                    }
+                }
+                Button("Import") {
+                    isImporting = true
                 }
                 
-                Section("Notifications") {
-                    Toggle("Notify on updates", isOn: notifyOnChangeBinding)
+                Button(action: {
+                    isImporting = true
+                }) {
+                    Label("Import CSV", systemImage: "square.and.arrow.down")
                 }
-
-                // Sharing section — only for owned cars
-                if car.ownerID.isEmpty || car.ownerID == authManager.userID {
-                    Section("Sharing") {
-                        NavigationLink {
-                            ShareVehicleView(carID: car.id, carName: car.visualName)
-                        } label: {
-                            HStack {
-                                Image(systemName: "person.2")
-                                Text("Share this Vehicle")
-                            }
-                        }
-                    }
+                .padding()
+                
+                if let importWarning {
+                    Text(importWarning)
+                        .foregroundStyle(.orange)
                 }
-
-                Section {
-                    Button("Export") {
-                        let data = generateCSV(for: car.services ?? [], scheduledServices: car.scheduledServices ?? [], car: car)
-                        csvFile = saveCSVFile(content: data)
-                    }
-                    if let fileURL = csvFile {
-                        ShareLink(item: fileURL) {
-                            Text("Share CSV File")
-                        }
-                    }
-                    Button("Import") {
-                        isImporting = true
-                    }
-                    
-                    Button(action: {
-                        isImporting = true
-                    }) {
-                        Label("Import CSV", systemImage: "square.and.arrow.down")
-                    }
-                    .padding()
-                    
-                    if let importWarning {
-                        Text(importWarning)
-                            .foregroundStyle(.orange)
-                    }
-                    if let error {
-                        Text("Error: \(error.localizedDescription)")
-                            .foregroundColor(.red)
-                            .padding()
-                    }
+                if let error {
+                    Text("Error: \(error.localizedDescription)")
+                        .foregroundColor(.red)
+                        .padding()
                 }
             }
-            .alert(isPresented: $showCopied) {
-                Alert(
-                    title: Text(alertTitle),
-                    message: Text(alertMessage)
-                )
-            }
-            .navigationTitle("Info")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        EditCarView(car: Binding<SDCar>.constant(car))
-                    } label: {
-                        Text("Edit")
-                    }
-                }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Done") {
-                        mode.wrappedValue.dismiss()
-                    }
+        }
+        .alert(isPresented: $showCopied) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage)
+            )
+        }
+        .navigationTitle("Info")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    EditCarView(car: Binding<SDCar>.constant(car))
+                } label: {
+                    Text("Edit")
                 }
             }
         }

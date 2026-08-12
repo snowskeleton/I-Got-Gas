@@ -14,6 +14,7 @@ struct CarPickerSheet: View {
     @Binding var lastSelectedCarId: String
     @Environment(\.dismiss) private var dismiss
     @State private var showAddCar = false
+    @State private var detailsCar: SDCar?
 
     init(lastSelectedCarId: Binding<String>) {
         _lastSelectedCarId = lastSelectedCarId
@@ -34,27 +35,38 @@ struct CarPickerSheet: View {
         NavigationStack {
             List {
                 ForEach(cars, id: \.self) { car in
-                    Button {
-                        lastSelectedCarId = car.id
-                        dismiss()
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(car.visualName)
-                                    .fontWeight(.medium)
-                                    .foregroundStyle(.primary)
-                                if !car.plate.isEmpty {
-                                    Text(car.plate)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Spacer()
-                            if car.id == lastSelectedCarId {
+                    HStack {
+                        // Selecting the vehicle and opening its details are two
+                        // separate taps, so each gets its own button.
+                        Button {
+                            lastSelectedCarId = car.id
+                            dismiss()
+                        } label: {
+                            HStack {
                                 Image(systemName: "checkmark")
-                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(.tint)
+                                    .opacity(car.id == lastSelectedCarId ? 1 : 0)
+                                VStack(alignment: .leading) {
+                                    Text(car.visualName)
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.primary)
+                                    if !car.plate.isEmpty {
+                                        Text(car.plate)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                                Spacer()
                             }
+                            .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
+
+                        Button("Details") {
+                            detailsCar = car
+                        }
+                        .buttonStyle(.borderless)
+                        .font(.subheadline)
                     }
                 }
                 Button {
@@ -62,6 +74,9 @@ struct CarPickerSheet: View {
                 } label: {
                     Label("Add New Vehicle", systemImage: "plus.circle.fill")
                 }
+            }
+            .navigationDestination(item: $detailsCar) { car in
+                CarInfoView(car: Binding<SDCar>.constant(car))
             }
             .navigationTitle("Select Vehicle")
             .navigationBarTitleDisplayMode(.inline)
