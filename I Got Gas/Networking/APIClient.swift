@@ -11,12 +11,34 @@ actor APIClient {
     static let shared = APIClient()
 
     private let session = URLSession.shared
+    // Dates cross the wire as RFC3339 strings, in both directions.
+    //
+    // The default strategy is `.deferredToDate`, which is a *number* of seconds
+    // since 2001 — so a bare JSONDecoder threw `typeMismatch` on `server_time`
+    // for every single sync response, and a bare JSONEncoder sent op timestamps
+    // as `{"ts":807692800}`, which Go's time.Time rejects with a 400. The two
+    // failures hid each other: the push looked like it never happened because
+    // the response that would have acknowledged it never decoded.
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
+        d.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let text = try container.decode(String.self)
+            guard let date = ISO8601.parse(text) else {
+                throw DecodingError.dataCorruptedError(
+                    in: container,
+                    debugDescription: "expected an RFC3339 timestamp, got \(text)")
+            }
+            return date
+        }
         return d
     }()
     private let encoder: JSONEncoder = {
         let e = JSONEncoder()
+        e.dateEncodingStrategy = .custom { date, encoder in
+            var container = encoder.singleValueContainer()
+            try container.encode(ISO8601.string(from: date))
+        }
         return e
     }()
 

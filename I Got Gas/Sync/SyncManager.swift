@@ -119,6 +119,8 @@ class SyncManager {
             Outbox.clear(in: context)
         }
         SyncMetadata.reset()
+        // The next account's cars are a different question entirely.
+        SyncReconciler.resetSession()
         blockedCarIDs = []
         ownerUpgradeCarIDs = []
         needsAppUpdate = false
@@ -150,6 +152,7 @@ class SyncManager {
         do {
             let pending = Outbox.pending(in: context)
             let ops = pending.compactMap(\.op)
+            let outboxBefore = Outbox.count(in: context)
 
             let request = OpSyncRequest(
                 deviceID: SyncMetadata.deviceID,
@@ -189,6 +192,38 @@ class SyncManager {
             pendingOpCount = Outbox.count(in: context)
             lastError = nil
             consecutiveFailures = 0
+
+            // A push is capped at `Outbox.pending`'s fetch limit, so a first
+            // upload of any size leaves a remainder. Nothing else would come
+            // back for it until the 120-second timer, which turned a 4-batch
+            // backfill into six minutes of waiting.
+            //
+            // Gated on progress rather than on "is there anything left": if a
+            // round drains nothing, the queue is stuck on something a retry
+            // won't fix, and continuing would spin every 2 seconds forever.
+            // In that case the periodic sync is the right, slower, home.
+            if pendingOpCount > 0 && pendingOpCount < outboxBefore {
+                triggerSync()
+            }
+
+            // With both sides quiet, ask the other question cursors can't:
+            // not "what changed" but "do you have it at all".
+            if SyncReconciler.shouldRun(
+                pendingOps: pendingOpCount,
+                receivedOps: response.ops?.count ?? 0
+            ) {
+                let repaired = SyncReconciler.reconcile(
+                    knownCarIDs: response.knownCarIDs,
+                    digests: response.carDigests,
+                    context: context
+                )
+                if !repaired.isEmpty {
+                    pendingOpCount = Outbox.count(in: context)
+                    // Debounced rather than immediate: the repair is not
+                    // urgent, and this keeps it out of the current exchange.
+                    triggerSync()
+                }
+            }
 
             await NotificationReconciler.reconcile(context: context)
             await AttachmentTransfer.shared.uploadPending(context: context)

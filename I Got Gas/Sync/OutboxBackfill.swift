@@ -35,27 +35,34 @@ enum OutboxBackfill {
         UserDefaults.standard.bool(forKey: pendingKey)
     }
 
+    /// Every op describing one car and everything hanging off it.
+    ///
+    /// Shared with `SyncReconciler`, which pushes a single car rather than the
+    /// whole store. Deliberately a full field set per record: that is what
+    /// makes a *create* land on a server that has never seen the record, which
+    /// is the entire point of both callers.
+    static func ops(forCar car: SDCar) -> [Op] {
+        var ops = OpBuilder.ops(for: car)
+        for service in car.services ?? [] {
+            ops += OpBuilder.ops(for: service)
+        }
+        for schedule in car.scheduledServices ?? [] {
+            ops += OpBuilder.ops(for: schedule)
+        }
+        if let settings = car.settings {
+            ops += OpBuilder.ops(for: settings)
+        }
+        return ops
+    }
+
     /// Enqueues a full op set for every live record. Clears the flag only on
     /// success, so an interrupted run is retried rather than half-applied.
     @discardableResult
     static func runIfNeeded(context: ModelContext) -> Int {
         guard isNeeded else { return 0 }
 
-        var ops: [Op] = []
-
         let cars = (try? context.fetch(FetchDescriptor<SDCar>())) ?? []
-        for car in cars {
-            ops += OpBuilder.ops(for: car)
-            for service in car.services ?? [] {
-                ops += OpBuilder.ops(for: service)
-            }
-            for schedule in car.scheduledServices ?? [] {
-                ops += OpBuilder.ops(for: schedule)
-            }
-            if let settings = car.settings {
-                ops += OpBuilder.ops(for: settings)
-            }
-        }
+        let ops = cars.flatMap { self.ops(forCar: $0) }
 
         guard !ops.isEmpty else {
             UserDefaults.standard.set(false, forKey: pendingKey)

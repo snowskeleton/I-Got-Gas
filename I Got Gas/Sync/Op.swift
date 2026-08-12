@@ -109,6 +109,11 @@ struct OpSyncResponse: Codable {
     /// opposite one: somebody else has to update, not the person reading this.
     var ownerUpgradeCarIDs: [String]?
     var revokedCarIDs: [String]?
+    /// Every car the server holds for this account. A local car missing from
+    /// this list has never made it up — see `SyncReconciler`.
+    var knownCarIDs: [String]?
+    /// Membership fingerprint per car. Compared against `SyncDigest.digest`.
+    var carDigests: [String: String]?
     var serverTime: Date?
     var minClientVersion: Int?
     var currentVersion: Int?
@@ -120,6 +125,8 @@ struct OpSyncResponse: Codable {
         case blockedCarIDs = "blocked_car_ids"
         case ownerUpgradeCarIDs = "owner_upgrade_car_ids"
         case revokedCarIDs = "revoked_car_ids"
+        case knownCarIDs = "known_car_ids"
+        case carDigests = "car_digests"
         case serverTime = "server_time"
         case minClientVersion = "min_client_version"
         case currentVersion = "current_version"
