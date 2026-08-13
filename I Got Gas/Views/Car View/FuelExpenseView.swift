@@ -6,8 +6,8 @@
 //  Copyright © 2020 Blizzard Skeleton. All rights reserved.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct FuelExpenseView: View {
     @Environment(\.modelContext) private var context
@@ -46,7 +46,12 @@ struct FuelExpenseView: View {
     private var entries: [Entry] {
         services.enumerated().map { i, service in
             guard i < services.count - 1 else {
-                return Entry(service: service, distance: nil, days: nil, economy: nil)
+                return Entry(
+                    service: service,
+                    distance: nil,
+                    days: nil,
+                    economy: nil
+                )
             }
             let previous = services[i + 1]
 
@@ -54,16 +59,26 @@ struct FuelExpenseView: View {
             let distance = driven.meters > 0 ? driven : nil
 
             let elapsed = Calendar.current.dateComponents(
-                [.day], from: previous.date, to: service.date
+                [.day],
+                from: previous.date,
+                to: service.date
             ).day
             let days = (elapsed ?? 0) >= 0 ? elapsed : nil
 
             var economy: FuelEconomy?
             if let distance {
-                economy = FuelEconomy(distance: distance, volume: service.volume)
+                economy = FuelEconomy(
+                    distance: distance,
+                    volume: service.volume
+                )
             }
 
-            return Entry(service: service, distance: distance, days: days, economy: economy)
+            return Entry(
+                service: service,
+                distance: distance,
+                days: days,
+                economy: economy
+            )
         }
     }
 
@@ -75,8 +90,8 @@ struct FuelExpenseView: View {
                     car: car,
                     range: settings.range
                 )
-                    .frame(minHeight: 200)
-                    .listRowInsets(EdgeInsets())
+                .frame(minHeight: 200)
+                .listRowInsets(EdgeInsets())
             }
 
             Section {
@@ -100,9 +115,16 @@ struct FuelExpenseView: View {
                             days: entry.days,
                             distanceUnit: car.distanceUnit
                         )
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 20))
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(
+                            EdgeInsets(
+                                top: 0,
+                                leading: 32,
+                                bottom: 0,
+                                trailing: 20
+                            )
+                        )
                     }
                 }
             }
@@ -177,25 +199,27 @@ private struct FuelExpenseCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                HStack {
-                    Text(service.date, format: .dateTime.month(.abbreviated).day().year())
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                    Text(service.odometer.formatted(as: distanceUnit))
-                        .foregroundStyle(.secondary)
-                }
+                Text(
+                    service.date,
+                    format: .dateTime.month(.abbreviated).day().year()
+                )
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
                 Spacer()
+                Text(service.odometer.formatted(as: distanceUnit))
+                    .foregroundStyle(.secondary)
             }
-            
+
             HStack {
                 VStack {
                     Text(service.cost.formatted())
-                        .font(.title3).fontWeight(.semibold)
+                        .font(.title3).fontWeight(.bold)
                         .foregroundStyle(.secondary)
                     if let perUnit = service.costPerVolume {
-                        Text("\(perUnit.formattedPerUnit())/\(volumeUnit.abbreviation)")
-                            .foregroundStyle(.secondary)
+                        Text(
+                            "\(perUnit.formattedPerUnit())/\(volumeUnit.abbreviation)"
+                        )
+                        .foregroundStyle(.secondary)
                     }
                 }
 
@@ -203,27 +227,23 @@ private struct FuelExpenseCard: View {
 
                 VStack {
                     Text(service.volume.formatted(as: volumeUnit))
+                        .font(.title3).fontWeight(.bold)
                         .foregroundStyle(.secondary)
                     if let economy {
-                        Text(economy.formatted(
-                            distance: distanceUnit,
-                            volume: volumeUnit,
-                            style: .preferred(distance: distanceUnit, volume: volumeUnit)
-                        ))
+                        Text(
+                            economy.formatted(
+                                distance: distanceUnit,
+                                volume: volumeUnit,
+                                style: .preferred(
+                                    distance: distanceUnit,
+                                    volume: volumeUnit
+                                )
+                            )
+                        )
                         .foregroundStyle(.secondary)
                     }
                 }
             }
-            
-//            HStack {
-//                Spacer()
-//                if !service.vendorName.isEmpty {
-//                    Text(service.vendorName)
-//                        .font(.subheadline)
-//                        .foregroundStyle(.secondary)
-//                        .lineLimit(1)
-//                }
-//            }
         }
         .padding(.vertical, 8)
     }
