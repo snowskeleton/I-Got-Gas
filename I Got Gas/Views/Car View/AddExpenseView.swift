@@ -36,6 +36,14 @@ struct AddExpenseView: View {
     /// recorded alongside the entry's.
     @State private var touchedSchedules: [SDScheduledService] = []
 
+    @State private var showScanner = false
+
+    /// What the scanner put in the fields, kept so `save()` can tell whether
+    /// the user had to correct it. With no way for the parser to check itself,
+    /// this is the only real measure of whether scanning works.
+    @State private var scannedTotal: String?
+    @State private var scannedVolume: String?
+
     @State private var editingPrice = false
     private var bluePipe = Text("|")
         .foregroundColor(Color.blue)
@@ -105,6 +113,14 @@ struct AddExpenseView: View {
         _kind = State(initialValue: isGas ? .fuel : .maintenance)
     }
 
+    /// Opens straight into the pump scanner. The long-press on the fuel list's
+    /// add button lands here, so the camera is up before the form has settled.
+    init(car: Binding<SDCar>, autoScan: Bool) {
+        self.init(car: car)
+        _kind = State(initialValue: .fuel)
+        _showScanner = State(initialValue: autoScan)
+    }
+
     init(car: Binding<SDCar>, service: SDService) {
         self.init(car: car)
         _service = State(initialValue: service)
@@ -160,6 +176,18 @@ struct AddExpenseView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 VStack {
                     Form {
+                        if kind == .fuel {
+                            Section {
+                                Button {
+                                    showScanner = true
+                                } label: {
+                                    Label("Scan Pump", systemImage: "text.viewfinder")
+                                }
+                            } footer: {
+                                Text("Reads the total and \(volumeUnit.abbreviation) off the pump's display. Check them before saving.")
+                            }
+                        }
+
                         Section {
                             DatePicker("Purchased",
                                        selection: $expenseDate,
@@ -197,7 +225,10 @@ struct AddExpenseView: View {
                                     .accentColor(.clear)
                                     .focused($focusPriceField)
                                     .onAppear {
-                                        focusPriceField = true
+                                        // The keyboard would otherwise fight
+                                        // the scanner for the first responder
+                                        // on the way in from a long-press.
+                                        focusPriceField = !showScanner
                                     }
                             }
                         }
@@ -313,6 +344,11 @@ struct AddExpenseView: View {
         } message: {
             Text("You can restore it from Settings for \(TombstoneRetention.days) days.")
         }
+        .fullScreenCover(isPresented: $showScanner) {
+            PumpScannerView(scanContext: .forCar(car, in: context)) { reading in
+                apply(reading)
+            }
+        }
         .interactiveDismissDisabled(!allowCancel)
         .navigationBarTitle(kind == .fuel ? "Gas" : "Service", displayMode: .inline)
         .onAppear {
@@ -323,6 +359,30 @@ struct AddExpenseView: View {
                 ]
             )
         }
+    }
+
+    // MARK: - Scanning
+
+    /// Drops a scanned reading into the entry fields. Both are scaled digit
+    /// strings, so this is the same shape the keypad would have produced —
+    /// nothing downstream can tell the difference, and the user can edit
+    /// either one afterwards.
+    private func apply(_ reading: PumpReading) {
+        if let total = reading.total {
+            totalPrice = String(total.minorUnits)
+            scannedTotal = totalPrice
+        }
+        if let volume = reading.volume {
+            let value = volume.converted(to: volumeUnit)
+            volumeDigits = String(Int((value * 1000).rounded()))
+            scannedVolume = volumeDigits
+        }
+    }
+
+    /// True once the user has changed something the scanner filled in.
+    private var scanWasCorrected: Bool {
+        (scannedTotal != nil && scannedTotal != totalPrice)
+            || (scannedVolume != nil && scannedVolume != volumeDigits)
     }
 
     // MARK: - Save
@@ -387,6 +447,8 @@ struct AddExpenseView: View {
                 "vendorNameIsEmpty": vendorName.isEmpty,
                 "serviceNotesIsEmpty": name.isEmpty,
                 "partCount": partDrafts.filter { !$0.isEmpty }.count,
+                "scanned": scannedTotal != nil || scannedVolume != nil,
+                "scanEdited": scanWasCorrected,
             ]
         )
     }

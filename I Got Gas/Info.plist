@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>igg</string>
-			</array>
-			<key>CFBundleURLName</key>
-			<string>net.snowskeleton.igotgas</string>
-		</dict>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -29,6 +18,17 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>net.snowskeleton.igotgas</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>igg</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GADApplicationIdentifier</key>
@@ -37,8 +37,12 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>I Got Gas uses the camera to read the total and volume off a gas pump display, and to photograph receipts you attach to an expense.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2024</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>I Got Gas needs access to your photos so you can attach an existing receipt image to an expense.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

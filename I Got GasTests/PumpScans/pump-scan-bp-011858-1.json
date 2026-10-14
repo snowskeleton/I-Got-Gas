@@ -1,0 +1,947 @@
+{
+ "note": "Real capture, iPhone17,4, iOS 27.0, 2026-10-14T01:18:58Z. Expected values checked by eye against the photo.",
+ "expectedTotal": "9.90",
+ "expectedVolume": "2.363",
+ "currencyCode": "USD",
+ "volumeUnit": "gallonsUS",
+ "priceBandLow": "1.945",
+ "priceBandHigh": "6.8075",
+ "passes": [
+  {
+   "variant": "plain",
+   "lines": [
+    {
+     "text": "299",
+     "midX": 0.1628,
+     "midY": 0.0603,
+     "height": 0.0741
+    },
+    {
+     "text": "prime",
+     "midX": 0.076,
+     "midY": 0.1089,
+     "height": 0.0253
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2158,
+     "midY": 0.1119,
+     "height": 0.0208
+    },
+    {
+     "text": "NHEN YOU BUY",
+     "midX": 0.2197,
+     "midY": 0.1297,
+     "height": 0.0131
+    },
+    {
+     "text": "5 CANS OF ZYN",
+     "midX": 0.2209,
+     "midY": 0.1428,
+     "height": 0.0139
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3501,
+     "midY": 0.0349,
+     "height": 0.0291
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3527,
+     "midY": 0.0721,
+     "height": 0.0133
+    },
+    {
+     "text": "$449",
+     "midX": 0.5607,
+     "midY": 0.0791,
+     "height": 0.126
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4496,
+     "midY": 0.1943,
+     "height": 0.0417
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.46,
+     "midY": 0.3328,
+     "height": 0.0134
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5117,
+     "midY": 0.4273,
+     "height": 0.0439
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4806,
+     "midY": 0.4657,
+     "height": 0.0146
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.496,
+     "midY": 0.5705,
+     "height": 0.0288
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4923,
+     "midY": 0.5956,
+     "height": 0.0271
+    },
+    {
+     "text": "or",
+     "midX": 0.4483,
+     "midY": 0.6214,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4976,
+     "midY": 0.6433,
+     "height": 0.0345
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.3514,
+     "midY": 0.686,
+     "height": 0.0237
+    },
+    {
+     "text": "bp",
+     "midX": 0.6964,
+     "midY": 0.6759,
+     "height": 0.0116
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.1667,
+     "midY": 0.9411,
+     "height": 0.0073
+    },
+    {
+     "text": "Link your ac",
+     "midX": 0.9535,
+     "midY": 0.1688,
+     "height": 0.0117
+    },
+    {
+     "text": "to start sav",
+     "midX": 0.9535,
+     "midY": 0.1818,
+     "height": 0.0105
+    },
+    {
+     "text": "amazon.co",
+     "midX": 0.9536,
+     "midY": 0.1987,
+     "height": 0.0089
+    },
+    {
+     "text": "Do not use phone whle",
+     "midX": 0.9522,
+     "midY": 0.2163,
+     "height": 0.01
+    },
+    {
+     "text": "Ink their occount to Amozon Pr",
+     "midX": 0.9407,
+     "midY": 0.244,
+     "height": 0.0117
+    },
+    {
+     "text": "ary 2027 of bp. Amroco on",
+     "midX": 0.947,
+     "midY": 0.25,
+     "height": 0.0087
+    },
+    {
+     "text": "O DEBIT/CREDIT",
+     "midX": 0.9104,
+     "midY": 0.6897,
+     "height": 0.0154
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9108,
+     "midY": 0.6975,
+     "height": 0.0106
+    }
+   ]
+  },
+  {
+   "variant": "contrast",
+   "lines": [
+    {
+     "text": "prime",
+     "midX": 0.0762,
+     "midY": 0.1096,
+     "height": 0.0239
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3501,
+     "midY": 0.0349,
+     "height": 0.0291
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3424,
+     "midY": 0.0728,
+     "height": 0.0119
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.1126,
+     "height": 0.016
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2159,
+     "midY": 0.1119,
+     "height": 0.0201
+    },
+    {
+     "text": "NHEN YOU BUY",
+     "midX": 0.2196,
+     "midY": 0.1285,
+     "height": 0.0133
+    },
+    {
+     "text": "5 CANS OF ZYN",
+     "midX": 0.2209,
+     "midY": 0.1432,
+     "height": 0.0137
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.6641,
+     "midY": 0.1039,
+     "height": 0.019
+    },
+    {
+     "text": "WHEN YOU BUY",
+     "midX": 0.6628,
+     "midY": 0.1222,
+     "height": 0.0119
+    },
+    {
+     "text": "5 CANS OF",
+     "midX": 0.6486,
+     "midY": 0.1342,
+     "height": 0.0143
+    },
+    {
+     "text": "Save 20%/ gallon every Friday",
+     "midX": 0.4484,
+     "midY": 0.1947,
+     "height": 0.0429
+    },
+    {
+     "text": "Link your ao",
+     "midX": 0.9535,
+     "midY": 0.1693,
+     "height": 0.0102
+    },
+    {
+     "text": "to start sav",
+     "midX": 0.9535,
+     "midY": 0.1813,
+     "height": 0.0095
+    },
+    {
+     "text": "amazon.co",
+     "midX": 0.9535,
+     "midY": 0.1985,
+     "height": 0.0091
+    },
+    {
+     "text": "Do rot va phonn nhlo",
+     "midX": 0.9535,
+     "midY": 0.2162,
+     "height": 0.009
+    },
+    {
+     "text": "990",
+     "midX": 0.5572,
+     "midY": 0.3737,
+     "height": 0.0575
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5206,
+     "midY": 0.4261,
+     "height": 0.049
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4962,
+     "midY": 0.5705,
+     "height": 0.0297
+    },
+    {
+     "text": "Insert/Taр card",
+     "midX": 0.4923,
+     "midY": 0.5955,
+     "height": 0.0239
+    },
+    {
+     "text": "or",
+     "midX": 0.4474,
+     "midY": 0.6212,
+     "height": 0.0144
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4973,
+     "midY": 0.6429,
+     "height": 0.0333
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3621,
+     "midY": 0.6854,
+     "height": 0.023
+    },
+    {
+     "text": "bp",
+     "midX": 0.6964,
+     "midY": 0.6766,
+     "height": 0.0131
+    }
+   ]
+  },
+  {
+   "variant": "highContrast",
+   "lines": [
+    {
+     "text": "ZYN",
+     "midX": 0.3476,
+     "midY": 0.0356,
+     "height": 0.0267
+    },
+    {
+     "text": "5 ZYN",
+     "midX": 0.345,
+     "midY": 0.0719,
+     "height": 0.0102
+    },
+    {
+     "text": "prime",
+     "midX": 0.0762,
+     "midY": 0.1095,
+     "height": 0.0204
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2171,
+     "midY": 0.1112,
+     "height": 0.0192
+    },
+    {
+     "text": "THEN YOU BY",
+     "midX": 0.2197,
+     "midY": 0.1293,
+     "height": 0.0126
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4496,
+     "midY": 0.1935,
+     "height": 0.0385
+    },
+    {
+     "text": "Link your ar",
+     "midX": 0.9535,
+     "midY": 0.1693,
+     "height": 0.0102
+    },
+    {
+     "text": "to start sav",
+     "midX": 0.9535,
+     "midY": 0.1818,
+     "height": 0.0089
+    },
+    {
+     "text": "amazon.coi",
+     "midX": 0.9535,
+     "midY": 0.1985,
+     "height": 0.0087
+    },
+    {
+     "text": "990",
+     "midX": 0.5583,
+     "midY": 0.3743,
+     "height": 0.056
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5192,
+     "midY": 0.4262,
+     "height": 0.0489
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4924,
+     "midY": 0.5956,
+     "height": 0.0271
+    },
+    {
+     "text": "or",
+     "midX": 0.4509,
+     "midY": 0.6214,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4973,
+     "midY": 0.6429,
+     "height": 0.0333
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3516,
+     "midY": 0.6861,
+     "height": 0.0244
+    }
+   ]
+  },
+  {
+   "variant": "darkened",
+   "lines": [
+    {
+     "text": "ta99",
+     "midX": 0.1382,
+     "midY": 0.0603,
+     "height": 0.0741
+    },
+    {
+     "text": "prime",
+     "midX": 0.0761,
+     "midY": 0.1089,
+     "height": 0.0253
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2158,
+     "midY": 0.1119,
+     "height": 0.0203
+    },
+    {
+     "text": "NHEN YOU BUY",
+     "midX": 0.2197,
+     "midY": 0.1296,
+     "height": 0.0132
+    },
+    {
+     "text": "5 CANS OF ZYN",
+     "midX": 0.2209,
+     "midY": 0.1427,
+     "height": 0.0156
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3501,
+     "midY": 0.0355,
+     "height": 0.0296
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3527,
+     "midY": 0.0721,
+     "height": 0.0133
+    },
+    {
+     "text": "$449",
+     "midX": 0.5672,
+     "midY": 0.079,
+     "height": 0.1232
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4496,
+     "midY": 0.1943,
+     "height": 0.0417
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.46,
+     "midY": 0.3328,
+     "height": 0.0136
+    },
+    {
+     "text": "SSL",
+     "midX": 0.5519,
+     "midY": 0.3765,
+     "height": 0.0415
+    },
+    {
+     "text": "2363",
+     "midX": 0.5109,
+     "midY": 0.428,
+     "height": 0.0452
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4781,
+     "midY": 0.4664,
+     "height": 0.0162
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.495,
+     "midY": 0.5702,
+     "height": 0.0283
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4924,
+     "midY": 0.5956,
+     "height": 0.0271
+    },
+    {
+     "text": "or",
+     "midX": 0.4483,
+     "midY": 0.6214,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4974,
+     "midY": 0.6429,
+     "height": 0.0336
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3513,
+     "midY": 0.6861,
+     "height": 0.0237
+    },
+    {
+     "text": "bp",
+     "midX": 0.6964,
+     "midY": 0.6759,
+     "height": 0.0116
+    },
+    {
+     "text": "New dore",
+     "midX": 0.1279,
+     "midY": 0.8997,
+     "height": 0.0119
+    },
+    {
+     "text": "Link your ac",
+     "midX": 0.9535,
+     "midY": 0.1693,
+     "height": 0.0104
+    },
+    {
+     "text": "to start sav",
+     "midX": 0.9535,
+     "midY": 0.1818,
+     "height": 0.0105
+    },
+    {
+     "text": "amazon.co",
+     "midX": 0.9535,
+     "midY": 0.1986,
+     "height": 0.0089
+    },
+    {
+     "text": "Do not use phone whle",
+     "midX": 0.9522,
+     "midY": 0.2162,
+     "height": 0.0102
+    },
+    {
+     "text": "Ink their occourt to Amozon Py",
+     "midX": 0.9407,
+     "midY": 0.244,
+     "height": 0.0116
+    },
+    {
+     "text": "ary 2027 of bp. Amroco onc",
+     "midX": 0.9483,
+     "midY": 0.25,
+     "height": 0.0088
+    },
+    {
+     "text": "m 35 gallons Includes",
+     "midX": 0.9586,
+     "midY": 0.2551,
+     "height": 0.0106
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9083,
+     "midY": 0.682,
+     "height": 0.0138
+    },
+    {
+     "text": "TO DEBIT/CREDIT",
+     "midX": 0.9096,
+     "midY": 0.69,
+     "height": 0.014
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9096,
+     "midY": 0.6971,
+     "height": 0.0113
+    }
+   ]
+  },
+  {
+   "variant": "brightened",
+   "lines": [
+    {
+     "text": "tagg",
+     "midX": 0.1382,
+     "midY": 0.0618,
+     "height": 0.0741
+    },
+    {
+     "text": "prime",
+     "midX": 0.076,
+     "midY": 0.1089,
+     "height": 0.0253
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2158,
+     "midY": 0.1119,
+     "height": 0.0208
+    },
+    {
+     "text": "NHEN YOU BUY",
+     "midX": 0.2197,
+     "midY": 0.1297,
+     "height": 0.0129
+    },
+    {
+     "text": "5 CANS OF ZYN",
+     "midX": 0.2209,
+     "midY": 0.1428,
+     "height": 0.0139
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3501,
+     "midY": 0.0349,
+     "height": 0.0291
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.354,
+     "midY": 0.0721,
+     "height": 0.0133
+    },
+    {
+     "text": "$449",
+     "midX": 0.5607,
+     "midY": 0.0791,
+     "height": 0.1259
+    },
+    {
+     "text": "Save 20¢/gallon every Fridy",
+     "midX": 0.4496,
+     "midY": 0.1943,
+     "height": 0.0417
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4599,
+     "midY": 0.3321,
+     "height": 0.0136
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5158,
+     "midY": 0.4271,
+     "height": 0.0443
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4806,
+     "midY": 0.4657,
+     "height": 0.0146
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4947,
+     "midY": 0.5703,
+     "height": 0.0282
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4925,
+     "midY": 0.5957,
+     "height": 0.0276
+    },
+    {
+     "text": "or",
+     "midX": 0.4496,
+     "midY": 0.6214,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4966,
+     "midY": 0.6434,
+     "height": 0.0377
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.3514,
+     "midY": 0.686,
+     "height": 0.0237
+    },
+    {
+     "text": "bp",
+     "midX": 0.6964,
+     "midY": 0.6759,
+     "height": 0.0116
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.1667,
+     "midY": 0.9411,
+     "height": 0.0073
+    },
+    {
+     "text": "Link your ak",
+     "midX": 0.9535,
+     "midY": 0.1679,
+     "height": 0.0106
+    },
+    {
+     "text": "to start savi",
+     "midX": 0.9535,
+     "midY": 0.1818,
+     "height": 0.0105
+    },
+    {
+     "text": "amazon.co",
+     "midX": 0.9536,
+     "midY": 0.1987,
+     "height": 0.0111
+    },
+    {
+     "text": "Do not use phone whle",
+     "midX": 0.9522,
+     "midY": 0.2162,
+     "height": 0.0103
+    },
+    {
+     "text": "Ink their occount to Amozon Pr",
+     "midX": 0.9407,
+     "midY": 0.244,
+     "height": 0.0118
+    },
+    {
+     "text": "ary 2027 of bp. Amroco orc",
+     "midX": 0.9483,
+     "midY": 0.25,
+     "height": 0.0088
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9084,
+     "midY": 0.6822,
+     "height": 0.014
+    },
+    {
+     "text": "O DEBIT/CREDIT",
+     "midX": 0.9104,
+     "midY": 0.6897,
+     "height": 0.0154
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.911,
+     "midY": 0.6974,
+     "height": 0.0127
+    }
+   ]
+  },
+  {
+   "variant": "sharpened",
+   "lines": [
+    {
+     "text": "ta9g",
+     "midX": 0.1395,
+     "midY": 0.0618,
+     "height": 0.0741
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3501,
+     "midY": 0.0356,
+     "height": 0.0305
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3539,
+     "midY": 0.0722,
+     "height": 0.0138
+    },
+    {
+     "text": "prime",
+     "midX": 0.076,
+     "midY": 0.1088,
+     "height": 0.0254
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.2158,
+     "midY": 0.1126,
+     "height": 0.022
+    },
+    {
+     "text": "NHEN YOU BUY",
+     "midX": 0.2196,
+     "midY": 0.1295,
+     "height": 0.0133
+    },
+    {
+     "text": "PEPPERMINT",
+     "midX": 0.3605,
+     "midY": 0.1257,
+     "height": 0.0073
+    },
+    {
+     "text": "$449",
+     "midX": 0.5686,
+     "midY": 0.0796,
+     "height": 0.1239
+    },
+    {
+     "text": "5 CANS OF ZYN",
+     "midX": 0.2209,
+     "midY": 0.1423,
+     "height": 0.0139
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4483,
+     "midY": 0.194,
+     "height": 0.0445
+    },
+    {
+     "text": "Link your ak",
+     "midX": 0.9522,
+     "midY": 0.1692,
+     "height": 0.0134
+    },
+    {
+     "text": "to start sav",
+     "midX": 0.9522,
+     "midY": 0.1822,
+     "height": 0.0124
+    },
+    {
+     "text": "amazon.co",
+     "midX": 0.9535,
+     "midY": 0.1986,
+     "height": 0.0095
+    },
+    {
+     "text": "Do not use phone whle",
+     "midX": 0.9522,
+     "midY": 0.2158,
+     "height": 0.0125
+    },
+    {
+     "text": "y 2027 ot bp. Arroco orc",
+     "midX": 0.9509,
+     "midY": 0.25,
+     "height": 0.0088
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4612,
+     "midY": 0.3325,
+     "height": 0.0138
+    },
+    {
+     "text": "SSL",
+     "midX": 0.5498,
+     "midY": 0.3754,
+     "height": 0.0523
+    },
+    {
+     "text": "2363",
+     "midX": 0.5157,
+     "midY": 0.4269,
+     "height": 0.0491
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4792,
+     "midY": 0.4664,
+     "height": 0.0163
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4962,
+     "midY": 0.5695,
+     "height": 0.0308
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4923,
+     "midY": 0.595,
+     "height": 0.0258
+    },
+    {
+     "text": "or",
+     "midX": 0.4444,
+     "midY": 0.6214,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4963,
+     "midY": 0.6434,
+     "height": 0.0377
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3489,
+     "midY": 0.6849,
+     "height": 0.0235
+    },
+    {
+     "text": "bp",
+     "midX": 0.6951,
+     "midY": 0.6759,
+     "height": 0.0145
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9083,
+     "midY": 0.682,
+     "height": 0.0139
+    },
+    {
+     "text": "O DEBIT/CREDIT",
+     "midX": 0.9107,
+     "midY": 0.6901,
+     "height": 0.0146
+    },
+    {
+     "text": "MOLE !",
+     "midX": 0.9044,
+     "midY": 0.7131,
+     "height": 0.0076
+    }
+   ]
+  }
+ ]
+}

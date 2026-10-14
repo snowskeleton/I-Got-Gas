@@ -1,0 +1,1019 @@
+{
+ "note": "Real capture, iPhone17,4, iOS 27.0, 2026-10-14T01:16:54Z. Expected values checked by eye against the photo.",
+ "expectedTotal": "8.28",
+ "expectedVolume": "2.185",
+ "currencyCode": "USD",
+ "volumeUnit": "gallonsUS",
+ "priceBandLow": "1.945",
+ "priceBandHigh": "6.8075",
+ "passes": [
+  {
+   "variant": "plain",
+   "lines": [
+    {
+     "text": "rime",
+     "midX": 0.0401,
+     "midY": 0.0887,
+     "height": 0.021
+    },
+    {
+     "text": "SCREEN",
+     "midX": 0.0388,
+     "midY": 0.9562,
+     "height": 0.0106
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.0388,
+     "midY": 0.9628,
+     "height": 0.0066
+    },
+    {
+     "text": "$799",
+     "midX": 0.3175,
+     "midY": 0.0704,
+     "height": 0.1109
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5393,
+     "midY": 0.0284,
+     "height": 0.0401
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.5307,
+     "midY": 0.066,
+     "height": 0.0205
+    },
+    {
+     "text": "94149",
+     "midX": 0.7679,
+     "midY": 0.0503,
+     "height": 0.1151
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.8643,
+     "midY": 0.0902,
+     "height": 0.024
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.443,
+     "midY": 0.1744,
+     "height": 0.0617
+    },
+    {
+     "text": "members who link the",
+     "midX": 0.9393,
+     "midY": 0.2338,
+     "height": 0.0121
+    },
+    {
+     "text": "% through Januan",
+     "midX": 0.9509,
+     "midY": 0.2419,
+     "height": 0.0075
+    },
+    {
+     "text": "• Friday. Maxi",
+     "midX": 0.9638,
+     "midY": 0.2494,
+     "height": 0.0075
+    },
+    {
+     "text": "ct to‹",
+     "midX": 0.9832,
+     "midY": 0.2565,
+     "height": 0.0073
+    },
+    {
+     "text": "S",
+     "midX": 0.1925,
+     "midY": 0.3779,
+     "height": 0.0233
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4328,
+     "midY": 0.3365,
+     "height": 0.0133
+    },
+    {
+     "text": "828",
+     "midX": 0.5233,
+     "midY": 0.3874,
+     "height": 0.0567
+    },
+    {
+     "text": "2.185",
+     "midX": 0.4974,
+     "midY": 0.4448,
+     "height": 0.0421
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4328,
+     "midY": 0.4859,
+     "height": 0.0128
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4509,
+     "midY": 0.6012,
+     "height": 0.0263
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4406,
+     "midY": 0.6305,
+     "height": 0.0231
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6562,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4417,
+     "midY": 0.6846,
+     "height": 0.032
+    },
+    {
+     "text": "1 Rewards",
+     "midX": 0.2726,
+     "midY": 0.716,
+     "height": 0.0238
+    },
+    {
+     "text": "bp",
+     "midX": 0.6602,
+     "midY": 0.7449,
+     "height": 0.0131
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9198,
+     "midY": 0.7837,
+     "height": 0.0166
+    },
+    {
+     "text": "TO DEBIT/CREDIT",
+     "midX": 0.921,
+     "midY": 0.7927,
+     "height": 0.0141
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9186,
+     "midY": 0.8035,
+     "height": 0.0169
+    },
+    {
+     "text": "financial institution",
+     "midX": 0.9315,
+     "midY": 0.8164,
+     "height": 0.0136
+    },
+    {
+     "text": "MAY HOLD FUNDS on",
+     "midX": 0.9198,
+     "midY": 0.8227,
+     "height": 0.0157
+    },
+    {
+     "text": "your account that may",
+     "midX": 0.92,
+     "midY": 0.8302,
+     "height": 0.0127
+    },
+    {
+     "text": "the purchase",
+     "midX": 0.9394,
+     "midY": 0.838,
+     "height": 0.0121
+    },
+    {
+     "text": "amount when using a",
+     "midX": 0.9199,
+     "midY": 0.8451,
+     "height": 0.0119
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9004,
+     "midY": 0.8508,
+     "height": 0.0122
+    },
+    {
+     "text": "This station is NOT",
+     "midX": 0.9185,
+     "midY": 0.8626,
+     "height": 0.014
+    },
+    {
+     "text": "RESPONSIBLE for placing",
+     "midX": 0.9187,
+     "midY": 0.8691,
+     "height": 0.016
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.9019,
+     "midY": 0.8759,
+     "height": 0.0113
+    }
+   ]
+  },
+  {
+   "variant": "contrast",
+   "lines": [
+    {
+     "text": "ZYN",
+     "midX": 0.5285,
+     "midY": 0.0289,
+     "height": 0.0394
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5233,
+     "midY": 0.0676,
+     "height": 0.0102
+    },
+    {
+     "text": "rime",
+     "midX": 0.0388,
+     "midY": 0.0887,
+     "height": 0.0214
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.8643,
+     "midY": 0.0898,
+     "height": 0.0209
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.3876,
+     "midY": 0.1122,
+     "height": 0.0215
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4432,
+     "midY": 0.1748,
+     "height": 0.0592
+    },
+    {
+     "text": "828",
+     "midX": 0.5233,
+     "midY": 0.3872,
+     "height": 0.0577
+    },
+    {
+     "text": "2.185",
+     "midX": 0.4961,
+     "midY": 0.4448,
+     "height": 0.0426
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4495,
+     "midY": 0.6024,
+     "height": 0.023
+    },
+    {
+     "text": "Insert/Tар card",
+     "midX": 0.4417,
+     "midY": 0.6305,
+     "height": 0.0252
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6562,
+     "height": 0.0131
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.443,
+     "midY": 0.6852,
+     "height": 0.0312
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.2715,
+     "midY": 0.7163,
+     "height": 0.0251
+    },
+    {
+     "text": "bp",
+     "midX": 0.6615,
+     "midY": 0.7449,
+     "height": 0.016
+    },
+    {
+     "text": "s==HIMhE|!",
+     "midX": 0.8786,
+     "midY": 0.8278,
+     "height": 0.1061
+    }
+   ]
+  },
+  {
+   "variant": "highContrast",
+   "lines": [
+    {
+     "text": "rime",
+     "midX": 0.0388,
+     "midY": 0.0887,
+     "height": 0.0203
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4432,
+     "midY": 0.1751,
+     "height": 0.0601
+    },
+    {
+     "text": "• 828",
+     "midX": 0.5233,
+     "midY": 0.3873,
+     "height": 0.0597
+    },
+    {
+     "text": "2.185",
+     "midX": 0.4974,
+     "midY": 0.4448,
+     "height": 0.0419
+    },
+    {
+     "text": "Insert/Tаp card",
+     "midX": 0.4418,
+     "midY": 0.6306,
+     "height": 0.0228
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6555,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4429,
+     "midY": 0.6851,
+     "height": 0.0321
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.2725,
+     "midY": 0.7164,
+     "height": 0.025
+    }
+   ]
+  },
+  {
+   "variant": "darkened",
+   "lines": [
+    {
+     "text": "rime",
+     "midX": 0.0388,
+     "midY": 0.0887,
+     "height": 0.0207
+    },
+    {
+     "text": "$799",
+     "midX": 0.3177,
+     "midY": 0.0709,
+     "height": 0.1126
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5318,
+     "midY": 0.0288,
+     "height": 0.0397
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.5295,
+     "midY": 0.0668,
+     "height": 0.0151
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.8643,
+     "midY": 0.0901,
+     "height": 0.0279
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.443,
+     "midY": 0.1744,
+     "height": 0.0617
+    },
+    {
+     "text": "members who link the",
+     "midX": 0.9432,
+     "midY": 0.2336,
+     "height": 0.0115
+    },
+    {
+     "text": "½ through Januar",
+     "midX": 0.9522,
+     "midY": 0.2419,
+     "height": 0.0075
+    },
+    {
+     "text": "Friday. Maxi",
+     "midX": 0.9651,
+     "midY": 0.2494,
+     "height": 0.0075
+    },
+    {
+     "text": "act to •",
+     "midX": 0.9819,
+     "midY": 0.2565,
+     "height": 0.0073
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4328,
+     "midY": 0.3365,
+     "height": 0.0132
+    },
+    {
+     "text": "828",
+     "midX": 0.5233,
+     "midY": 0.3872,
+     "height": 0.0576
+    },
+    {
+     "text": "2.185",
+     "midX": 0.4948,
+     "midY": 0.4448,
+     "height": 0.0417
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4328,
+     "midY": 0.4859,
+     "height": 0.0125
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4521,
+     "midY": 0.6011,
+     "height": 0.0262
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4418,
+     "midY": 0.6306,
+     "height": 0.0228
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6555,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4416,
+     "midY": 0.6849,
+     "height": 0.0319
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.2727,
+     "midY": 0.7162,
+     "height": 0.0221
+    },
+    {
+     "text": "bp",
+     "midX": 0.6602,
+     "midY": 0.7449,
+     "height": 0.0131
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9211,
+     "midY": 0.7829,
+     "height": 0.0146
+    },
+    {
+     "text": "TO DEBIT/CREDIT",
+     "midX": 0.92,
+     "midY": 0.7925,
+     "height": 0.0149
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9198,
+     "midY": 0.8028,
+     "height": 0.0147
+    },
+    {
+     "text": "account that may",
+     "midX": 0.9329,
+     "midY": 0.8306,
+     "height": 0.0116
+    },
+    {
+     "text": "purchase",
+     "midX": 0.9509,
+     "midY": 0.8394,
+     "height": 0.0073
+    },
+    {
+     "text": "amount waene",
+     "midX": 0.8979,
+     "midY": 0.8438,
+     "height": 0.007
+    },
+    {
+     "text": "using a",
+     "midX": 0.9574,
+     "midY": 0.8459,
+     "height": 0.0087
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9005,
+     "midY": 0.8502,
+     "height": 0.0143
+    },
+    {
+     "text": "This",
+     "midX": 0.8721,
+     "midY": 0.8605,
+     "height": 0.0087
+    },
+    {
+     "text": "station is NOT",
+     "midX": 0.9302,
+     "midY": 0.8634,
+     "height": 0.0109
+    },
+    {
+     "text": "RESPONSIBLE for placing",
+     "midX": 0.9175,
+     "midY": 0.8689,
+     "height": 0.0167
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.9018,
+     "midY": 0.8758,
+     "height": 0.0112
+    }
+   ]
+  },
+  {
+   "variant": "brightened",
+   "lines": [
+    {
+     "text": "rime",
+     "midX": 0.0401,
+     "midY": 0.0887,
+     "height": 0.0203
+    },
+    {
+     "text": "$799",
+     "midX": 0.3175,
+     "midY": 0.0704,
+     "height": 0.1109
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5339,
+     "midY": 0.0294,
+     "height": 0.0376
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.5155,
+     "midY": 0.0684,
+     "height": 0.0161
+    },
+    {
+     "text": "·449",
+     "midX": 0.7677,
+     "midY": 0.0503,
+     "height": 0.1103
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.8642,
+     "midY": 0.0901,
+     "height": 0.0282
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4431,
+     "midY": 0.1744,
+     "height": 0.0617
+    },
+    {
+     "text": "a members who link the",
+     "midX": 0.9382,
+     "midY": 0.2338,
+     "height": 0.0132
+    },
+    {
+     "text": "06 through Januan",
+     "midX": 0.9496,
+     "midY": 0.2419,
+     "height": 0.0075
+    },
+    {
+     "text": "• Friday. Maxi",
+     "midX": 0.9638,
+     "midY": 0.2494,
+     "height": 0.0075
+    },
+    {
+     "text": "ct to‹",
+     "midX": 0.9832,
+     "midY": 0.2565,
+     "height": 0.0073
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4328,
+     "midY": 0.3365,
+     "height": 0.0135
+    },
+    {
+     "text": "828",
+     "midX": 0.5233,
+     "midY": 0.3874,
+     "height": 0.058
+    },
+    {
+     "text": "2.185",
+     "midX": 0.5052,
+     "midY": 0.4448,
+     "height": 0.0423
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4328,
+     "midY": 0.4859,
+     "height": 0.0126
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4509,
+     "midY": 0.6012,
+     "height": 0.0263
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4406,
+     "midY": 0.6305,
+     "height": 0.0231
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6555,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4431,
+     "midY": 0.6849,
+     "height": 0.0316
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.2726,
+     "midY": 0.716,
+     "height": 0.0236
+    },
+    {
+     "text": "op",
+     "midX": 0.6576,
+     "midY": 0.7456,
+     "height": 0.0116
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9198,
+     "midY": 0.7837,
+     "height": 0.0166
+    },
+    {
+     "text": "TO DEBIT/CREDIT",
+     "midX": 0.921,
+     "midY": 0.7928,
+     "height": 0.0144
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9186,
+     "midY": 0.8036,
+     "height": 0.0175
+    },
+    {
+     "text": "Ir financial institution",
+     "midX": 0.9252,
+     "midY": 0.8161,
+     "height": 0.0114
+    },
+    {
+     "text": "MAY HOLD FUNDS on",
+     "midX": 0.9201,
+     "midY": 0.8224,
+     "height": 0.0136
+    },
+    {
+     "text": "your account that may",
+     "midX": 0.9199,
+     "midY": 0.8305,
+     "height": 0.0118
+    },
+    {
+     "text": "the purchase",
+     "midX": 0.9394,
+     "midY": 0.838,
+     "height": 0.0119
+    },
+    {
+     "text": "amount when using a",
+     "midX": 0.9186,
+     "midY": 0.845,
+     "height": 0.0121
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.8992,
+     "midY": 0.8505,
+     "height": 0.008
+    },
+    {
+     "text": "This station is NOT",
+     "midX": 0.9186,
+     "midY": 0.8622,
+     "height": 0.0131
+    },
+    {
+     "text": "RESPONSIBLE for placing",
+     "midX": 0.9175,
+     "midY": 0.8691,
+     "height": 0.0157
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.9019,
+     "midY": 0.876,
+     "height": 0.0116
+    },
+    {
+     "text": "SEE",
+     "midX": 0.0375,
+     "midY": 0.9484,
+     "height": 0.0073
+    },
+    {
+     "text": "SCREEN",
+     "midX": 0.0388,
+     "midY": 0.9561,
+     "height": 0.011
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.0375,
+     "midY": 0.9627,
+     "height": 0.0068
+    }
+   ]
+  },
+  {
+   "variant": "sharpened",
+   "lines": [
+    {
+     "text": "rime",
+     "midX": 0.0388,
+     "midY": 0.0879,
+     "height": 0.0218
+    },
+    {
+     "text": "$799",
+     "midX": 0.3171,
+     "midY": 0.0717,
+     "height": 0.1175
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.532,
+     "midY": 0.0296,
+     "height": 0.0393
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.5311,
+     "midY": 0.066,
+     "height": 0.0244
+    },
+    {
+     "text": "449",
+     "midX": 0.7654,
+     "midY": 0.0502,
+     "height": 0.1053
+    },
+    {
+     "text": "Save 20€/gallon every Friday",
+     "midX": 0.4417,
+     "midY": 0.1721,
+     "height": 0.0585
+    },
+    {
+     "text": "mombers who link the",
+     "midX": 0.9419,
+     "midY": 0.2336,
+     "height": 0.0117
+    },
+    {
+     "text": "6, through Januan",
+     "midX": 0.9535,
+     "midY": 0.2419,
+     "height": 0.0075
+    },
+    {
+     "text": "Friday. Maxi",
+     "midX": 0.9651,
+     "midY": 0.2494,
+     "height": 0.0075
+    },
+    {
+     "text": "oct to‹",
+     "midX": 0.9806,
+     "midY": 0.2565,
+     "height": 0.0073
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4315,
+     "midY": 0.3365,
+     "height": 0.0138
+    },
+    {
+     "text": "828",
+     "midX": 0.5233,
+     "midY": 0.3874,
+     "height": 0.0567
+    },
+    {
+     "text": "2.185",
+     "midX": 0.4934,
+     "midY": 0.4433,
+     "height": 0.0427
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4328,
+     "midY": 0.4855,
+     "height": 0.0136
+    },
+    {
+     "text": "• VISA",
+     "midX": 0.4832,
+     "midY": 0.5233,
+     "height": 0.0059
+    },
+    {
+     "text": "OYAGERe",
+     "midX": 0.5065,
+     "midY": 0.5371,
+     "height": 0.0044
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4497,
+     "midY": 0.6016,
+     "height": 0.0274
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4407,
+     "midY": 0.6305,
+     "height": 0.0231
+    },
+    {
+     "text": "or",
+     "midX": 0.3902,
+     "midY": 0.6555,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4406,
+     "midY": 0.6847,
+     "height": 0.0314
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.2738,
+     "midY": 0.7161,
+     "height": 0.024
+    },
+    {
+     "text": "bp",
+     "midX": 0.6615,
+     "midY": 0.7449,
+     "height": 0.016
+    },
+    {
+     "text": "NH 6TOРLS",
+     "midX": 0.5195,
+     "midY": 0.8404,
+     "height": 0.0118
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.9186,
+     "midY": 0.7832,
+     "height": 0.0129
+    },
+    {
+     "text": "TO DEBIT/CREDIT",
+     "midX": 0.9199,
+     "midY": 0.7926,
+     "height": 0.0136
+    },
+    {
+     "text": "CARD CUSTOMERS",
+     "midX": 0.9186,
+     "midY": 0.8035,
+     "height": 0.0166
+    },
+    {
+     "text": "financial Institution",
+     "midX": 0.9316,
+     "midY": 0.8165,
+     "height": 0.0137
+    },
+    {
+     "text": "HOLD FUNDS on",
+     "midX": 0.9341,
+     "midY": 0.8237,
+     "height": 0.014
+    },
+    {
+     "text": "your account that may",
+     "midX": 0.92,
+     "midY": 0.8303,
+     "height": 0.0123
+    },
+    {
+     "text": "purchase",
+     "midX": 0.9496,
+     "midY": 0.8394,
+     "height": 0.0073
+    },
+    {
+     "text": "amount when",
+     "midX": 0.8966,
+     "midY": 0.8437,
+     "height": 0.0075
+    },
+    {
+     "text": "using a",
+     "midX": 0.9573,
+     "midY": 0.8464,
+     "height": 0.0117
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9006,
+     "midY": 0.85,
+     "height": 0.0125
+    },
+    {
+     "text": "This station is NOT",
+     "midX": 0.9172,
+     "midY": 0.8624,
+     "height": 0.0139
+    },
+    {
+     "text": "RESPONSIBLE for plecing",
+     "midX": 0.9175,
+     "midY": 0.869,
+     "height": 0.0156
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.9018,
+     "midY": 0.8758,
+     "height": 0.0112
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,941 @@
+{
+ "note": "Real capture, iPhone17,4, iOS 27.0, 2026-10-14T01:19:07Z. Expected values checked by eye against the photo.",
+ "expectedTotal": "29.57",
+ "expectedVolume": "7.804",
+ "currencyCode": "USD",
+ "volumeUnit": "gallonsUS",
+ "priceBandLow": "1.945",
+ "priceBandHigh": "6.8075",
+ "passes": [
+  {
+   "variant": "plain",
+   "lines": [
+    {
+     "text": "ify*",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.1317,
+     "midY": 0.0667,
+     "height": 0.0253
+    },
+    {
+     "text": "Nicotine is an au",
+     "midX": 0.5,
+     "midY": 0.0081,
+     "height": 0.0162
+    },
+    {
+     "text": "$799",
+     "midX": 0.3604,
+     "midY": 0.0715,
+     "height": 0.0688
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5646,
+     "midY": 0.0465,
+     "height": 0.0291
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.562,
+     "midY": 0.0825,
+     "height": 0.0169
+    },
+    {
+     "text": "$449",
+     "midX": 0.7869,
+     "midY": 0.0643,
+     "height": 0.0789
+    },
+    {
+     "text": "Save 20€/aallon overy Friday",
+     "midX": 0.5111,
+     "midY": 0.1542,
+     "height": 0.0432
+    },
+    {
+     "text": "$",
+     "midX": 0.2636,
+     "midY": 0.3408,
+     "height": 0.0334
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.5026,
+     "midY": 0.3038,
+     "height": 0.0124
+    },
+    {
+     "text": "2957",
+     "midX": 0.5749,
+     "midY": 0.3532,
+     "height": 0.0552
+    },
+    {
+     "text": "7804",
+     "midX": 0.5569,
+     "midY": 0.4079,
+     "height": 0.0396
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4987,
+     "midY": 0.4455,
+     "height": 0.0133
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.5051,
+     "midY": 0.5613,
+     "height": 0.0249
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4999,
+     "midY": 0.5893,
+     "height": 0.0191
+    },
+    {
+     "text": "or",
+     "midX": 0.4444,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.496,
+     "midY": 0.6416,
+     "height": 0.0286
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3387,
+     "midY": 0.6747,
+     "height": 0.0152
+    },
+    {
+     "text": "bp",
+     "midX": 0.708,
+     "midY": 0.6984,
+     "height": 0.0131
+    },
+    {
+     "text": "IMPORTANT N",
+     "midX": 0.9419,
+     "midY": 0.7268,
+     "height": 0.0089
+    },
+    {
+     "text": "TO DEBIT/CREDI",
+     "midX": 0.951,
+     "midY": 0.7364,
+     "height": 0.0115
+    },
+    {
+     "text": "CARD CUSTOMER",
+     "midX": 0.9522,
+     "midY": 0.7456,
+     "height": 0.0123
+    },
+    {
+     "text": "MHt STOPTo",
+     "midX": 0.5762,
+     "midY": 0.7972,
+     "height": 0.0106
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9355,
+     "midY": 0.7922,
+     "height": 0.0107
+    },
+    {
+     "text": "station is NI",
+     "midX": 0.9626,
+     "midY": 0.8042,
+     "height": 0.0113
+    },
+    {
+     "text": "RESPONSIBLE for placi",
+     "midX": 0.9483,
+     "midY": 0.8095,
+     "height": 0.0138
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.938,
+     "midY": 0.8169,
+     "height": 0.0093
+    },
+    {
+     "text": "5 Ateecrte eslection bufton",
+     "midX": 0.0736,
+     "midY": 0.8802,
+     "height": 0.0133
+    },
+    {
+     "text": "screen prompte above",
+     "midX": 0.0931,
+     "midY": 0.8856,
+     "height": 0.0116
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.0711,
+     "midY": 0.9324,
+     "height": 0.0044
+    }
+   ]
+  },
+  {
+   "variant": "contrast",
+   "lines": [
+    {
+     "text": "ify+°",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.1304,
+     "midY": 0.0664,
+     "height": 0.0266
+    },
+    {
+     "text": "Save 209/aallan avery Friday",
+     "midX": 0.5142,
+     "midY": 0.1519,
+     "height": 0.0337
+    },
+    {
+     "text": "=20",
+     "midX": 0.0181,
+     "midY": 0.2028,
+     "height": 0.0131
+    },
+    {
+     "text": "295 7",
+     "midX": 0.5736,
+     "midY": 0.3581,
+     "height": 0.0633
+    },
+    {
+     "text": "1.804",
+     "midX": 0.5568,
+     "midY": 0.4092,
+     "height": 0.04
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.5051,
+     "midY": 0.5617,
+     "height": 0.023
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.5019,
+     "midY": 0.5939,
+     "height": 0.0331
+    },
+    {
+     "text": "or",
+     "midX": 0.4457,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "eer",
+     "midX": 0.2984,
+     "midY": 0.6512,
+     "height": 0.032
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.496,
+     "midY": 0.6419,
+     "height": 0.0275
+    },
+    {
+     "text": "Л Rewards",
+     "midX": 0.3244,
+     "midY": 0.6746,
+     "height": 0.0186
+    }
+   ]
+  },
+  {
+   "variant": "highContrast",
+   "lines": [
+    {
+     "text": "ify*°",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.124,
+     "midY": 0.0668,
+     "height": 0.0275
+    },
+    {
+     "text": "Save 209/aallan avery Friday",
+     "midX": 0.5142,
+     "midY": 0.1519,
+     "height": 0.0337
+    },
+    {
+     "text": "295 7",
+     "midX": 0.5736,
+     "midY": 0.3579,
+     "height": 0.0644
+    },
+    {
+     "text": "7.804",
+     "midX": 0.5568,
+     "midY": 0.4092,
+     "height": 0.0392
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4998,
+     "midY": 0.5892,
+     "height": 0.0215
+    },
+    {
+     "text": "or",
+     "midX": 0.4457,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "f ift handle to pay inside",
+     "midX": 0.4724,
+     "midY": 0.6413,
+     "height": 0.0355
+    },
+    {
+     "text": "• Rewards",
+     "midX": 0.3256,
+     "midY": 0.675,
+     "height": 0.0173
+    }
+   ]
+  },
+  {
+   "variant": "darkened",
+   "lines": [
+    {
+     "text": "ify*°",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.1318,
+     "midY": 0.0667,
+     "height": 0.0255
+    },
+    {
+     "text": "Nicotine is an auerce",
+     "midX": 0.4897,
+     "midY": 0.0081,
+     "height": 0.0163
+    },
+    {
+     "text": "$799",
+     "midX": 0.3591,
+     "midY": 0.072,
+     "height": 0.0737
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5646,
+     "midY": 0.0465,
+     "height": 0.0291
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.562,
+     "midY": 0.0828,
+     "height": 0.0128
+    },
+    {
+     "text": "$149",
+     "midX": 0.7868,
+     "midY": 0.0625,
+     "height": 0.0721
+    },
+    {
+     "text": "Save 209Laallon avery Friday",
+     "midX": 0.5142,
+     "midY": 0.1519,
+     "height": 0.0337
+    },
+    {
+     "text": "F20:",
+     "midX": 0.0181,
+     "midY": 0.2028,
+     "height": 0.0131
+    },
+    {
+     "text": "$",
+     "midX": 0.2636,
+     "midY": 0.3416,
+     "height": 0.0291
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.5026,
+     "midY": 0.3038,
+     "height": 0.0124
+    },
+    {
+     "text": "2957",
+     "midX": 0.5749,
+     "midY": 0.3532,
+     "height": 0.0552
+    },
+    {
+     "text": "1804",
+     "midX": 0.5581,
+     "midY": 0.4092,
+     "height": 0.0416
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4987,
+     "midY": 0.4455,
+     "height": 0.014
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.5052,
+     "midY": 0.5612,
+     "height": 0.025
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4998,
+     "midY": 0.5892,
+     "height": 0.0216
+    },
+    {
+     "text": "or",
+     "midX": 0.4444,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4948,
+     "midY": 0.6416,
+     "height": 0.0285
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3373,
+     "midY": 0.6746,
+     "height": 0.0192
+    },
+    {
+     "text": "bp",
+     "midX": 0.708,
+     "midY": 0.6984,
+     "height": 0.0131
+    },
+    {
+     "text": "Text STOP to",
+     "midX": 0.5762,
+     "midY": 0.7981,
+     "height": 0.0089
+    },
+    {
+     "text": "IMPORTANT",
+     "midX": 0.9366,
+     "midY": 0.7265,
+     "height": 0.0125
+    },
+    {
+     "text": "TO DEBIT/CRED",
+     "midX": 0.9521,
+     "midY": 0.7362,
+     "height": 0.0123
+    },
+    {
+     "text": "CARD CUSTOMER",
+     "midX": 0.9522,
+     "midY": 0.7456,
+     "height": 0.0122
+    },
+    {
+     "text": "MAY HOLD FUI",
+     "midX": 0.9367,
+     "midY": 0.764,
+     "height": 0.0177
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9368,
+     "midY": 0.7923,
+     "height": 0.0103
+    },
+    {
+     "text": "station is",
+     "midX": 0.9535,
+     "midY": 0.8031,
+     "height": 0.0075
+    },
+    {
+     "text": "RESPONSIBLE for pla",
+     "midX": 0.9445,
+     "midY": 0.8093,
+     "height": 0.0132
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.9367,
+     "midY": 0.8169,
+     "height": 0.0091
+    },
+    {
+     "text": "5. for dore eslection button",
+     "midX": 0.0724,
+     "midY": 0.8809,
+     "height": 0.0119
+    },
+    {
+     "text": "orson prompts abon",
+     "midX": 0.0917,
+     "midY": 0.8859,
+     "height": 0.0073
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.0711,
+     "midY": 0.9324,
+     "height": 0.0044
+    }
+   ]
+  },
+  {
+   "variant": "brightened",
+   "lines": [
+    {
+     "text": "ify*",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.1318,
+     "midY": 0.0676,
+     "height": 0.0218
+    },
+    {
+     "text": "Nicotine is an auuee",
+     "midX": 0.4922,
+     "midY": 0.0073,
+     "height": 0.0145
+    },
+    {
+     "text": "$799",
+     "midX": 0.3592,
+     "midY": 0.072,
+     "height": 0.0766
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5648,
+     "midY": 0.0468,
+     "height": 0.0302
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.5607,
+     "midY": 0.0825,
+     "height": 0.0167
+    },
+    {
+     "text": "$449",
+     "midX": 0.787,
+     "midY": 0.064,
+     "height": 0.0802
+    },
+    {
+     "text": "Save 209/aallan avery Friday",
+     "midX": 0.5111,
+     "midY": 0.152,
+     "height": 0.0377
+    },
+    {
+     "text": "$",
+     "midX": 0.2636,
+     "midY": 0.3401,
+     "height": 0.0349
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.5026,
+     "midY": 0.3038,
+     "height": 0.0124
+    },
+    {
+     "text": "295 7",
+     "midX": 0.5749,
+     "midY": 0.354,
+     "height": 0.0569
+    },
+    {
+     "text": "7804",
+     "midX": 0.5568,
+     "midY": 0.4079,
+     "height": 0.0392
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4987,
+     "midY": 0.4455,
+     "height": 0.0133
+    },
+    {
+     "text": "VISA",
+     "midX": 0.5504,
+     "midY": 0.4869,
+     "height": 0.0058
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.5052,
+     "midY": 0.5611,
+     "height": 0.0246
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.5026,
+     "midY": 0.5886,
+     "height": 0.0228
+    },
+    {
+     "text": "or",
+     "midX": 0.4444,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4948,
+     "midY": 0.6416,
+     "height": 0.0288
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3388,
+     "midY": 0.6747,
+     "height": 0.0151
+    },
+    {
+     "text": "op",
+     "midX": 0.708,
+     "midY": 0.6991,
+     "height": 0.0116
+    },
+    {
+     "text": "Text STOP to",
+     "midX": 0.5762,
+     "midY": 0.7981,
+     "height": 0.0089
+    },
+    {
+     "text": "IMPORTANT N",
+     "midX": 0.9419,
+     "midY": 0.7268,
+     "height": 0.0089
+    },
+    {
+     "text": "TO DEBIT/CREDI",
+     "midX": 0.9522,
+     "midY": 0.7364,
+     "height": 0.0115
+    },
+    {
+     "text": "CARD CUSTOMER",
+     "midX": 0.9522,
+     "midY": 0.7458,
+     "height": 0.0129
+    },
+    {
+     "text": "HOLD FUNDS",
+     "midX": 0.9587,
+     "midY": 0.7648,
+     "height": 0.0122
+    },
+    {
+     "text": "amount when",
+     "midX": 0.9315,
+     "midY": 0.7849,
+     "height": 0.0089
+    },
+    {
+     "text": "debit/credit card.",
+     "midX": 0.9355,
+     "midY": 0.7924,
+     "height": 0.01
+    },
+    {
+     "text": "This station is N(",
+     "midX": 0.947,
+     "midY": 0.8036,
+     "height": 0.0125
+    },
+    {
+     "text": "RESPONSIBLE for placi",
+     "midX": 0.9483,
+     "midY": 0.8096,
+     "height": 0.0134
+    },
+    {
+     "text": "or removing holds.",
+     "midX": 0.938,
+     "midY": 0.8165,
+     "height": 0.0102
+    },
+    {
+     "text": "5 Ateecrte eslection buftoni",
+     "midX": 0.0736,
+     "midY": 0.8802,
+     "height": 0.0133
+    },
+    {
+     "text": "screen prompts above",
+     "midX": 0.0931,
+     "midY": 0.8856,
+     "height": 0.0116
+    },
+    {
+     "text": "ABOVE",
+     "midX": 0.0711,
+     "midY": 0.9324,
+     "height": 0.0044
+    }
+   ]
+  },
+  {
+   "variant": "sharpened",
+   "lines": [
+    {
+     "text": "ify**",
+     "midX": 0.0271,
+     "midY": 0.0712,
+     "height": 0.0203
+    },
+    {
+     "text": "prime",
+     "midX": 0.1316,
+     "midY": 0.0661,
+     "height": 0.0264
+    },
+    {
+     "text": "Nicotine s an a",
+     "midX": 0.5,
+     "midY": 0.0081,
+     "height": 0.0162
+    },
+    {
+     "text": "$299",
+     "midX": 0.358,
+     "midY": 0.0719,
+     "height": 0.0706
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.5648,
+     "midY": 0.0465,
+     "height": 0.0309
+    },
+    {
+     "text": "6 ZYN 2",
+     "midX": 0.5593,
+     "midY": 0.0825,
+     "height": 0.018
+    },
+    {
+     "text": "$ 449",
+     "midX": 0.7857,
+     "midY": 0.064,
+     "height": 0.0794
+    },
+    {
+     "text": "Save 20€ Laallon overy Friday",
+     "midX": 0.5142,
+     "midY": 0.1519,
+     "height": 0.0364
+    },
+    {
+     "text": "$",
+     "midX": 0.2649,
+     "midY": 0.3408,
+     "height": 0.0305
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.5026,
+     "midY": 0.3038,
+     "height": 0.0122
+    },
+    {
+     "text": "295 7",
+     "midX": 0.5762,
+     "midY": 0.354,
+     "height": 0.0569
+    },
+    {
+     "text": "7804",
+     "midX": 0.5581,
+     "midY": 0.4092,
+     "height": 0.04
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.4987,
+     "midY": 0.4462,
+     "height": 0.0136
+    },
+    {
+     "text": "VISA",
+     "midX": 0.5491,
+     "midY": 0.4876,
+     "height": 0.0073
+    },
+    {
+     "text": "VOYAGEN WeX",
+     "midX": 0.5685,
+     "midY": 0.5,
+     "height": 0.0062
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.5052,
+     "midY": 0.5609,
+     "height": 0.0243
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4973,
+     "midY": 0.5885,
+     "height": 0.0225
+    },
+    {
+     "text": "or",
+     "midX": 0.4444,
+     "midY": 0.6134,
+     "height": 0.0116
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4948,
+     "midY": 0.6416,
+     "height": 0.0289
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.341,
+     "midY": 0.6747,
+     "height": 0.015
+    },
+    {
+     "text": "bp",
+     "midX": 0.7093,
+     "midY": 0.6977,
+     "height": 0.0174
+    },
+    {
+     "text": "IMPORTANT",
+     "midX": 0.9379,
+     "midY": 0.7264,
+     "height": 0.0103
+    },
+    {
+     "text": "IO DEBIT/CREDI",
+     "midX": 0.9522,
+     "midY": 0.7364,
+     "height": 0.009
+    },
+    {
+     "text": "CARD CUSTOMER",
+     "midX": 0.9522,
+     "midY": 0.7456,
+     "height": 0.0088
+    },
+    {
+     "text": "AY HOLD FUND",
+     "midX": 0.9483,
+     "midY": 0.7633,
+     "height": 0.0141
+    },
+    {
+     "text": "yoed Cont",
+     "midX": 0.9285,
+     "midY": 0.7761,
+     "height": 0.0189
+    },
+    {
+     "text": "that",
+     "midX": 0.9742,
+     "midY": 0.774,
+     "height": 0.0102
+    },
+    {
+     "text": "mount wher",
+     "midX": 0.9315,
+     "midY": 0.7849,
+     "height": 0.0089
+    },
+    {
+     "text": "purcha",
+     "midX": 0.9806,
+     "midY": 0.7805,
+     "height": 0.0058
+    },
+    {
+     "text": "debit/credia card",
+     "midX": 0.9355,
+     "midY": 0.7915,
+     "height": 0.0113
+    },
+    {
+     "text": "\" STOP to",
+     "midX": 0.5801,
+     "midY": 0.7981,
+     "height": 0.0089
+    },
+    {
+     "text": "S Ner cee cotectns pu",
+     "midX": 0.0711,
+     "midY": 0.8809,
+     "height": 0.0119
+    },
+    {
+     "text": "~ww prosspіs aboн",
+     "midX": 0.093,
+     "midY": 0.8859,
+     "height": 0.0073
+    },
+    {
+     "text": "2",
+     "midX": 0.4444,
+     "midY": 0.8903,
+     "height": 0.0131
+    }
+   ]
+  }
+ ]
+}

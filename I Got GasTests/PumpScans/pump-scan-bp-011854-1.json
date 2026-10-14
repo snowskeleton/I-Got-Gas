@@ -1,0 +1,1211 @@
+{
+ "note": "Real capture, iPhone17,4, iOS 27.0, 2026-10-14T01:18:54Z. Expected values checked by eye against the photo.",
+ "expectedTotal": "9.90",
+ "expectedVolume": "2.363",
+ "currencyCode": "USD",
+ "volumeUnit": "gallonsUS",
+ "priceBandLow": "1.945",
+ "priceBandHigh": "6.8075",
+ "passes": [
+  {
+   "variant": "plain",
+   "lines": [
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.354,
+     "midY": 0.0302,
+     "height": 0.0288
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3593,
+     "midY": 0.0495,
+     "height": 0.0294
+    },
+    {
+     "text": "$299",
+     "midX": 0.159,
+     "midY": 0.1141,
+     "height": 0.0705
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.0952,
+     "height": 0.0247
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.354,
+     "midY": 0.1272,
+     "height": 0.0106
+    },
+    {
+     "text": "nify*",
+     "midX": 0.0323,
+     "midY": 0.1715,
+     "height": 0.0174
+    },
+    {
+     "text": "prime",
+     "midX": 0.1408,
+     "midY": 0.1693,
+     "height": 0.0189
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2494,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "GZ",
+     "midX": 0.3359,
+     "midY": 0.165,
+     "height": 0.016
+    },
+    {
+     "text": "I YOU BUY",
+     "midX": 0.2506,
+     "midY": 0.1772,
+     "height": 0.0119
+    },
+    {
+     "text": "IS OF ZYN",
+     "midX": 0.2506,
+     "midY": 0.1891,
+     "height": 0.0119
+    },
+    {
+     "text": "$449",
+     "midX": 0.5558,
+     "midY": 0.1369,
+     "height": 0.109
+    },
+    {
+     "text": "TED DADY",
+     "midX": 0.2597,
+     "midY": 0.2017,
+     "height": 0.0109
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4625,
+     "midY": 0.2447,
+     "height": 0.0312
+    },
+    {
+     "text": "with ea",
+     "midX": 0.2532,
+     "midY": 0.274,
+     "height": 0.016
+    },
+    {
+     "text": "= 20",
+     "midX": 0.0452,
+     "midY": 0.2863,
+     "height": 0.0116
+    },
+    {
+     "text": "Link your accounts",
+     "midX": 0.9186,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "amazon.com/fuelup",
+     "midX": 0.9251,
+     "midY": 0.2529,
+     "height": 0.0087
+    },
+    {
+     "text": "Do not uss phone while refueling",
+     "midX": 0.9096,
+     "midY": 0.2681,
+     "height": 0.0075
+    },
+    {
+     "text": "o irik ther occount to Amozon Pr po torp 200g or gol",
+     "midX": 0.9134,
+     "midY": 0.2928,
+     "height": 0.0106
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4781,
+     "midY": 0.367,
+     "height": 0.0102
+    },
+    {
+     "text": "990",
+     "midX": 0.5555,
+     "midY": 0.4026,
+     "height": 0.0443
+    },
+    {
+     "text": "2363",
+     "midX": 0.5271,
+     "midY": 0.4492,
+     "height": 0.038
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.491,
+     "midY": 0.4826,
+     "height": 0.0087
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4975,
+     "midY": 0.5748,
+     "height": 0.0264
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4975,
+     "midY": 0.5972,
+     "height": 0.0247
+    },
+    {
+     "text": "or",
+     "midX": 0.4625,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.5001,
+     "midY": 0.6393,
+     "height": 0.0315
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.3721,
+     "midY": 0.6776,
+     "height": 0.0206
+    },
+    {
+     "text": "op",
+     "midX": 0.6757,
+     "midY": 0.6693,
+     "height": 0.0102
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.8617,
+     "midY": 0.6735,
+     "height": 0.0141
+    },
+    {
+     "text": "MAY HOLD",
+     "midX": 0.845,
+     "midY": 0.7006,
+     "height": 0.0088
+    },
+    {
+     "text": "NOT",
+     "midX": 0.8915,
+     "midY": 0.7253,
+     "height": 0.0058
+    },
+    {
+     "text": "- АлАгено н",
+     "midX": 0.1755,
+     "midY": 0.8683,
+     "height": 0.0114
+    },
+    {
+     "text": "silver®",
+     "midX": 0.5513,
+     "midY": 0.9844,
+     "height": 0.0337
+    },
+    {
+     "text": "ultimate",
+     "midX": 0.7813,
+     "midY": 0.9601,
+     "height": 0.0346
+    },
+    {
+     "text": "4565",
+     "midX": 0.7935,
+     "midY": 0.9811,
+     "height": 0.0215
+    }
+   ]
+  },
+  {
+   "variant": "contrast",
+   "lines": [
+    {
+     "text": "nify+®",
+     "midX": 0.0323,
+     "midY": 0.1715,
+     "height": 0.0174
+    },
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.3528,
+     "midY": 0.0308,
+     "height": 0.0302
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3593,
+     "midY": 0.0496,
+     "height": 0.032
+    },
+    {
+     "text": "55,90",
+     "midX": 0.1679,
+     "midY": 0.1135,
+     "height": 0.0629
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.0952,
+     "height": 0.0247
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.354,
+     "midY": 0.1279,
+     "height": 0.0116
+    },
+    {
+     "text": "prime",
+     "midX": 0.1408,
+     "midY": 0.1693,
+     "height": 0.0189
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2481,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "ZYNI",
+     "midX": 0.3682,
+     "midY": 0.1642,
+     "height": 0.0174
+    },
+    {
+     "text": "I YOU BUY",
+     "midX": 0.2506,
+     "midY": 0.1772,
+     "height": 0.0119
+    },
+    {
+     "text": "IS OF ZYN",
+     "midX": 0.2506,
+     "midY": 0.1891,
+     "height": 0.0119
+    },
+    {
+     "text": "PER CAN",
+     "midX": 0.6357,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "WHEN YOU BUY",
+     "midX": 0.637,
+     "midY": 0.1759,
+     "height": 0.0119
+    },
+    {
+     "text": "5 CANS OF",
+     "midX": 0.6227,
+     "midY": 0.1868,
+     "height": 0.0102
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4613,
+     "midY": 0.2449,
+     "height": 0.0314
+    },
+    {
+     "text": "with eo",
+     "midX": 0.2494,
+     "midY": 0.2747,
+     "height": 0.0145
+    },
+    {
+     "text": "Link your accounts",
+     "midX": 0.9199,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "mazon.com/fuelup",
+     "midX": 0.9251,
+     "midY": 0.2529,
+     "height": 0.0087
+    },
+    {
+     "text": "Do nce uso phong, wisto ratusing",
+     "midX": 0.9109,
+     "midY": 0.2681,
+     "height": 0.0075
+    },
+    {
+     "text": "990",
+     "midX": 0.5554,
+     "midY": 0.4033,
+     "height": 0.0499
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5218,
+     "midY": 0.4494,
+     "height": 0.0376
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4976,
+     "midY": 0.5749,
+     "height": 0.0249
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4974,
+     "midY": 0.5974,
+     "height": 0.0249
+    },
+    {
+     "text": "or",
+     "midX": 0.4625,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.5003,
+     "midY": 0.6396,
+     "height": 0.0306
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3837,
+     "midY": 0.677,
+     "height": 0.0202
+    },
+    {
+     "text": "ultmate",
+     "midX": 0.78,
+     "midY": 0.9611,
+     "height": 0.0327
+    },
+    {
+     "text": "4589",
+     "midX": 0.7956,
+     "midY": 0.9802,
+     "height": 0.0265
+    }
+   ]
+  },
+  {
+   "variant": "highContrast",
+   "lines": [
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.3527,
+     "midY": 0.0308,
+     "height": 0.0301
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3594,
+     "midY": 0.0495,
+     "height": 0.0322
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.0952,
+     "height": 0.0247
+    },
+    {
+     "text": "ZYNI",
+     "midX": 0.3618,
+     "midY": 0.1272,
+     "height": 0.0073
+    },
+    {
+     "text": "nify*",
+     "midX": 0.0321,
+     "midY": 0.1714,
+     "height": 0.0205
+    },
+    {
+     "text": "prime",
+     "midX": 0.1407,
+     "midY": 0.1696,
+     "height": 0.0173
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2481,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "Save 20/ gallon every Friday",
+     "midX": 0.4613,
+     "midY": 0.245,
+     "height": 0.0318
+    },
+    {
+     "text": "with e",
+     "midX": 0.2399,
+     "midY": 0.2746,
+     "height": 0.0187
+    },
+    {
+     "text": "Lirk your accounts",
+     "midX": 0.9186,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "mazon.com/fuelup",
+     "midX": 0.9251,
+     "midY": 0.2529,
+     "height": 0.0087
+    },
+    {
+     "text": "990",
+     "midX": 0.5557,
+     "midY": 0.4026,
+     "height": 0.0488
+    },
+    {
+     "text": "2.363",
+     "midX": 0.526,
+     "midY": 0.4492,
+     "height": 0.0372
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4974,
+     "midY": 0.5973,
+     "height": 0.025
+    },
+    {
+     "text": "or",
+     "midX": 0.4625,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.5001,
+     "midY": 0.6395,
+     "height": 0.0303
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3848,
+     "midY": 0.6768,
+     "height": 0.0198
+    },
+    {
+     "text": "ШтНИ",
+     "midX": 0.8428,
+     "midY": 0.7187,
+     "height": 0.0567
+    },
+    {
+     "text": "ЛOROnI",
+     "midX": 0.8915,
+     "midY": 0.718,
+     "height": 0.0552
+    },
+    {
+     "text": "ReạẠạ2%",
+     "midX": 0.9922,
+     "midY": 0.8089,
+     "height": 0.048
+    },
+    {
+     "text": "251 U0",
+     "midX": 0.9897,
+     "midY": 0.9339,
+     "height": 0.0451
+    },
+    {
+     "text": "4585",
+     "midX": 0.796,
+     "midY": 0.9794,
+     "height": 0.0242
+    }
+   ]
+  },
+  {
+   "variant": "darkened",
+   "lines": [
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.3528,
+     "midY": 0.0302,
+     "height": 0.0288
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3593,
+     "midY": 0.0495,
+     "height": 0.0294
+    },
+    {
+     "text": "$299",
+     "midX": 0.1602,
+     "midY": 0.1145,
+     "height": 0.0687
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.0952,
+     "height": 0.0247
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3514,
+     "midY": 0.1278,
+     "height": 0.0119
+    },
+    {
+     "text": "nify*",
+     "midX": 0.0323,
+     "midY": 0.1715,
+     "height": 0.0174
+    },
+    {
+     "text": "prime",
+     "midX": 0.1408,
+     "midY": 0.1693,
+     "height": 0.0195
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2481,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "GZY",
+     "midX": 0.3424,
+     "midY": 0.165,
+     "height": 0.016
+    },
+    {
+     "text": "I YOU BUY",
+     "midX": 0.2506,
+     "midY": 0.1772,
+     "height": 0.0119
+    },
+    {
+     "text": "IS OF ZYN",
+     "midX": 0.2506,
+     "midY": 0.1891,
+     "height": 0.0119
+    },
+    {
+     "text": "$449",
+     "midX": 0.5543,
+     "midY": 0.1374,
+     "height": 0.1061
+    },
+    {
+     "text": "LED DADY",
+     "midX": 0.2597,
+     "midY": 0.2016,
+     "height": 0.0105
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4625,
+     "midY": 0.2447,
+     "height": 0.0312
+    },
+    {
+     "text": "with ea",
+     "midX": 0.2506,
+     "midY": 0.274,
+     "height": 0.016
+    },
+    {
+     "text": "= 20",
+     "midX": 0.0439,
+     "midY": 0.287,
+     "height": 0.0103
+    },
+    {
+     "text": "Link your accounts",
+     "midX": 0.9186,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "amazon.com/fuelup",
+     "midX": 0.925,
+     "midY": 0.2534,
+     "height": 0.0109
+    },
+    {
+     "text": "Do not uss phone while refueling",
+     "midX": 0.9096,
+     "midY": 0.2681,
+     "height": 0.0075
+    },
+    {
+     "text": "Irik ther occount to Amoson Pr po toe 200g on gol",
+     "midX": 0.9147,
+     "midY": 0.2928,
+     "height": 0.0106
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4767,
+     "midY": 0.3677,
+     "height": 0.0118
+    },
+    {
+     "text": "990",
+     "midX": 0.5554,
+     "midY": 0.4026,
+     "height": 0.0443
+    },
+    {
+     "text": "2.363",
+     "midX": 0.5218,
+     "midY": 0.4494,
+     "height": 0.0376
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.491,
+     "midY": 0.4826,
+     "height": 0.0087
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4975,
+     "midY": 0.5748,
+     "height": 0.0262
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4975,
+     "midY": 0.5973,
+     "height": 0.0249
+    },
+    {
+     "text": "or",
+     "midX": 0.4612,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.5001,
+     "midY": 0.6395,
+     "height": 0.0322
+    },
+    {
+     "text": "4 Rewards",
+     "midX": 0.371,
+     "midY": 0.6776,
+     "height": 0.0204
+    },
+    {
+     "text": "op",
+     "midX": 0.6757,
+     "midY": 0.6693,
+     "height": 0.0102
+    },
+    {
+     "text": "silver®",
+     "midX": 0.5516,
+     "midY": 0.9845,
+     "height": 0.0329
+    },
+    {
+     "text": "uitmate",
+     "midX": 0.7829,
+     "midY": 0.9612,
+     "height": 0.0299
+    },
+    {
+     "text": "9585",
+     "midX": 0.7948,
+     "midY": 0.9812,
+     "height": 0.024
+    }
+   ]
+  },
+  {
+   "variant": "brightened",
+   "lines": [
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.354,
+     "midY": 0.0303,
+     "height": 0.0267
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3593,
+     "midY": 0.0494,
+     "height": 0.0296
+    },
+    {
+     "text": "$299",
+     "midX": 0.1578,
+     "midY": 0.1147,
+     "height": 0.072
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3553,
+     "midY": 0.0952,
+     "height": 0.0247
+    },
+    {
+     "text": "6 ZYN*",
+     "midX": 0.3553,
+     "midY": 0.1272,
+     "height": 0.0106
+    },
+    {
+     "text": "nify*",
+     "midX": 0.0336,
+     "midY": 0.1708,
+     "height": 0.0189
+    },
+    {
+     "text": "prime",
+     "midX": 0.1408,
+     "midY": 0.1693,
+     "height": 0.0189
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2494,
+     "midY": 0.1613,
+     "height": 0.0183
+    },
+    {
+     "text": "I YOU BUY",
+     "midX": 0.2506,
+     "midY": 0.1772,
+     "height": 0.0119
+    },
+    {
+     "text": "IS OF ZYN",
+     "midX": 0.2519,
+     "midY": 0.1891,
+     "height": 0.0119
+    },
+    {
+     "text": "$449",
+     "midX": 0.556,
+     "midY": 0.1372,
+     "height": 0.1104
+    },
+    {
+     "text": "TD DADY",
+     "midX": 0.2597,
+     "midY": 0.2017,
+     "height": 0.0109
+    },
+    {
+     "text": "Save 20¢/gallon every Friday",
+     "midX": 0.4613,
+     "midY": 0.2447,
+     "height": 0.0312
+    },
+    {
+     "text": "with ear",
+     "midX": 0.2556,
+     "midY": 0.2739,
+     "height": 0.0202
+    },
+    {
+     "text": "F 20",
+     "midX": 0.0491,
+     "midY": 0.2863,
+     "height": 0.0116
+    },
+    {
+     "text": "Link your accounts",
+     "midX": 0.9186,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "amazon.com/fuelup",
+     "midX": 0.925,
+     "midY": 0.2534,
+     "height": 0.0109
+    },
+    {
+     "text": "Do not use phone while refueling",
+     "midX": 0.9109,
+     "midY": 0.2681,
+     "height": 0.0075
+    },
+    {
+     "text": "o irik ther ocount to Amozon Pr portop 200g orgol",
+     "midX": 0.9134,
+     "midY": 0.2928,
+     "height": 0.0106
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4781,
+     "midY": 0.367,
+     "height": 0.0101
+    },
+    {
+     "text": "990",
+     "midX": 0.5556,
+     "midY": 0.4027,
+     "height": 0.0442
+    },
+    {
+     "text": "2363",
+     "midX": 0.5283,
+     "midY": 0.4491,
+     "height": 0.0381
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.491,
+     "midY": 0.4826,
+     "height": 0.0087
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4977,
+     "midY": 0.5752,
+     "height": 0.0271
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4975,
+     "midY": 0.5972,
+     "height": 0.0247
+    },
+    {
+     "text": "or",
+     "midX": 0.4625,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.5001,
+     "midY": 0.6395,
+     "height": 0.032
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3733,
+     "midY": 0.6775,
+     "height": 0.0213
+    },
+    {
+     "text": "op",
+     "midX": 0.677,
+     "midY": 0.6686,
+     "height": 0.0087
+    },
+    {
+     "text": "IMPORTANT NOTICE",
+     "midX": 0.8617,
+     "midY": 0.6735,
+     "height": 0.0141
+    },
+    {
+     "text": "MAY HOLD",
+     "midX": 0.845,
+     "midY": 0.7006,
+     "height": 0.0088
+    },
+    {
+     "text": "NOT",
+     "midX": 0.8915,
+     "midY": 0.7253,
+     "height": 0.0058
+    },
+    {
+     "text": "silver®",
+     "midX": 0.5511,
+     "midY": 0.9845,
+     "height": 0.0336
+    },
+    {
+     "text": "ultiate",
+     "midX": 0.7815,
+     "midY": 0.9608,
+     "height": 0.0334
+    },
+    {
+     "text": "4585",
+     "midX": 0.792,
+     "midY": 0.9812,
+     "height": 0.0213
+    }
+   ]
+  },
+  {
+   "variant": "sharpened",
+   "lines": [
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.3528,
+     "midY": 0.0302,
+     "height": 0.0288
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.3594,
+     "midY": 0.0489,
+     "height": 0.0336
+    },
+    {
+     "text": "$299",
+     "midX": 0.1589,
+     "midY": 0.1152,
+     "height": 0.0702
+    },
+    {
+     "text": "ZYN",
+     "midX": 0.3566,
+     "midY": 0.0959,
+     "height": 0.0262
+    },
+    {
+     "text": "6 ZYN",
+     "midX": 0.3592,
+     "midY": 0.1278,
+     "height": 0.0119
+    },
+    {
+     "text": "nify*",
+     "midX": 0.0323,
+     "midY": 0.1722,
+     "height": 0.0189
+    },
+    {
+     "text": "prime",
+     "midX": 0.1408,
+     "midY": 0.1693,
+     "height": 0.0189
+    },
+    {
+     "text": "R CAN",
+     "midX": 0.2494,
+     "midY": 0.1613,
+     "height": 0.0176
+    },
+    {
+     "text": "GZY",
+     "midX": 0.3424,
+     "midY": 0.1642,
+     "height": 0.0174
+    },
+    {
+     "text": "I YOU BUY",
+     "midX": 0.2506,
+     "midY": 0.1772,
+     "height": 0.0119
+    },
+    {
+     "text": "IS OF ZYN",
+     "midX": 0.2519,
+     "midY": 0.189,
+     "height": 0.0122
+    },
+    {
+     "text": "$449",
+     "midX": 0.5543,
+     "midY": 0.1374,
+     "height": 0.109
+    },
+    {
+     "text": "TED DADY",
+     "midX": 0.2597,
+     "midY": 0.2015,
+     "height": 0.0139
+    },
+    {
+     "text": "Save 20¢/ gallon every Friday",
+     "midX": 0.4612,
+     "midY": 0.2445,
+     "height": 0.0304
+    },
+    {
+     "text": "with er",
+     "midX": 0.2494,
+     "midY": 0.274,
+     "height": 0.016
+    },
+    {
+     "text": "Link your accounts",
+     "midX": 0.9199,
+     "midY": 0.2289,
+     "height": 0.0103
+    },
+    {
+     "text": "to start saving.",
+     "midX": 0.9057,
+     "midY": 0.2399,
+     "height": 0.0089
+    },
+    {
+     "text": "amazon.com/fuelup",
+     "midX": 0.9251,
+     "midY": 0.2536,
+     "height": 0.0102
+    },
+    {
+     "text": "Do not usse phone while refueling",
+     "midX": 0.9096,
+     "midY": 0.2681,
+     "height": 0.0075
+    },
+    {
+     "text": "rik their occount to Amazon Prime save 20€ per gole",
+     "midX": 0.9174,
+     "midY": 0.2916,
+     "height": 0.0118
+    },
+    {
+     "text": "потки в роле райсм оморолном сто",
+     "midX": 0.9186,
+     "midY": 0.3004,
+     "height": 0.0185
+    },
+    {
+     "text": "S",
+     "midX": 0.2791,
+     "midY": 0.4033,
+     "height": 0.0218
+    },
+    {
+     "text": "This Sale",
+     "midX": 0.4767,
+     "midY": 0.3677,
+     "height": 0.0143
+    },
+    {
+     "text": "990",
+     "midX": 0.5542,
+     "midY": 0.4027,
+     "height": 0.0486
+    },
+    {
+     "text": "2.363",
+     "midX": 0.521,
+     "midY": 0.4495,
+     "height": 0.0376
+    },
+    {
+     "text": "Gallons",
+     "midX": 0.491,
+     "midY": 0.4826,
+     "height": 0.0087
+    },
+    {
+     "text": "Welcome to BP",
+     "midX": 0.4987,
+     "midY": 0.5747,
+     "height": 0.0264
+    },
+    {
+     "text": "Insert/Tap card",
+     "midX": 0.4963,
+     "midY": 0.5971,
+     "height": 0.0274
+    },
+    {
+     "text": "or",
+     "midX": 0.4612,
+     "midY": 0.6199,
+     "height": 0.0102
+    },
+    {
+     "text": "Lift handle to pay inside",
+     "midX": 0.4999,
+     "midY": 0.6392,
+     "height": 0.0316
+    },
+    {
+     "text": "Rewards",
+     "midX": 0.3721,
+     "midY": 0.6769,
+     "height": 0.0231
+    },
+    {
+     "text": "bp",
+     "midX": 0.6731,
+     "midY": 0.6686,
+     "height": 0.0116
+    },
+    {
+     "text": "silver®",
+     "midX": 0.5514,
+     "midY": 0.9844,
+     "height": 0.0329
+    },
+    {
+     "text": "ultinate",
+     "midX": 0.7826,
+     "midY": 0.9603,
+     "height": 0.0308
+    },
+    {
+     "text": "4565",
+     "midX": 0.7947,
+     "midY": 0.98,
+     "height": 0.027
+    }
+   ]
+  }
+ ]
+}

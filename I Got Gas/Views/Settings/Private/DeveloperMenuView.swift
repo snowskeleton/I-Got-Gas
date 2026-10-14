@@ -15,6 +15,15 @@ struct DeveloperMenuView: View {
     @AppStorage("verboseLogging") var verboseLogging = false
     @AppStorage("itemCountOnCarView") var itemCountOnCarView: Int = 3
     @State private var isGeneratingData = false
+    @State private var isPackagingScans = false
+    @State private var scanPackage: ScanPackage?
+
+    /// A zip waiting for the share sheet. Wrapped because `URL` can't identify
+    /// a sheet on its own.
+    private struct ScanPackage: Identifiable {
+        let id = UUID()
+        let url: URL
+    }
 
 
     var body: some View {
@@ -39,6 +48,53 @@ struct DeveloperMenuView: View {
                 NavigationLink(destination: StoreBackupsView()) { Text("Store Backups") }
                 NavigationLink(destination: StoreMaintenanceView()) { Text("Reset / Seed Store") }
             }
+
+            Section {
+                #if DEBUG
+                NavigationLink(destination: PumpScanSimulatorView()) {
+                    Text("Pump Scan Simulator")
+                }
+                #endif
+
+                LabeledContent("Recorded scans", value: PumpScanDebugRecorder.summary)
+
+                Button {
+                    isPackagingScans = true
+                    Task {
+                        let packaged = await Task.detached(priority: .userInitiated) {
+                            PumpScanDebug.packagedScans()
+                        }.value
+                        isPackagingScans = false
+                        if let packaged { scanPackage = ScanPackage(url: packaged) }
+                    }
+                } label: {
+                    HStack {
+                        if isPackagingScans {
+                            ProgressView().progressViewStyle(CircularProgressViewStyle())
+                        }
+                        Text(isPackagingScans ? "Packaging…" : "Share Recorded Scans")
+                    }
+                }
+                .disabled(isPackagingScans)
+
+                Button("Delete Recorded Scans", role: .destructive) {
+                    PumpScanDebugRecorder.deleteAll()
+                }
+            } header: {
+                Text("Scanning")
+            } footer: {
+                Text(
+                    "Every pump scan saves the photo it read, plus what Vision made of it "
+                    + "on this device, keeping the 12 most recent. Share them to get a real "
+                    + "capture off the phone — the exported photos a camera roll gives you "
+                    + "have already been resized, which is exactly the detail these displays "
+                    + "turn on."
+                    + (Config.appConfiguration == .Debug
+                       ? " Debug builds also expose them in Files, under On My iPhone."
+                       : "")
+                )
+            }
+            .sheet(item: $scanPackage) { PumpScanShareSheet(url: $0.url) }
 
             Section("Actions") {
                 Button("Crash!") { showCrashConfirmation = true }

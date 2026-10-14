@@ -19,6 +19,10 @@ struct FuelExpenseView: View {
     @Bindable private var settings: SDCarSettings
 
     @State private var showAddFuelSheet = false
+
+    /// Set by the add button's press-and-hold, so the sheet it opens comes up
+    /// with the scanner already running.
+    @State private var startWithScanner = false
     @State private var showExistingFuelOrServiceSheet = false
     @State private var existingService: SDService?
 
@@ -130,14 +134,23 @@ struct FuelExpenseView: View {
             }
         }
         .listRowSpacing(10.0)
-        .floatingAddButton { showAddFuelSheet = true }
+        .floatingAddButton(
+            action: {
+                startWithScanner = false
+                showAddFuelSheet = true
+            },
+            longPressAction: .init(title: "Scan Pump", systemImage: "text.viewfinder") {
+                startWithScanner = true
+                showAddFuelSheet = true
+            }
+        )
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 ChartFilterButton(settings: settings, showsKindToggles: false)
             }
         }
         .sheet(isPresented: $showAddFuelSheet) {
-            AddExpenseView(car: $car)
+            AddExpenseView(car: $car, autoScan: startWithScanner)
                 .environment(syncManager)
         }
         .sheet(isPresented: $showExistingFuelOrServiceSheet) {

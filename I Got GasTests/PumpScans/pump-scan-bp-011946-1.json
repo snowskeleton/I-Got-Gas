@@ -1,0 +1,803 @@
+{
+ "note": "Real capture, iPhone17,4, iOS 27.0, 2026-10-14T01:19:46Z. Expected values checked by eye against the photo.",
+ "expectedTotal": "37.34",
+ "expectedVolume": "9.856",
+ "currencyCode": "USD",
+ "volumeUnit": "gallonsUS",
+ "priceBandLow": "1.945",
+ "priceBandHigh": "6.8075",
+ "passes": [
+  {
+   "variant": "plain",
+   "lines": [
+    {
+     "text": "@comty* prim",
+     "midX": 0.3435,
+     "midY": 0.2899,
+     "height": 0.0148
+    },
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.5863,
+     "midY": 0.2557,
+     "height": 0.0345
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.5814,
+     "midY": 0.2639,
+     "height": 0.0299
+    },
+    {
+     "text": "ZVAL",
+     "midX": 0.5762,
+     "midY": 0.2805,
+     "height": 0.0116
+    },
+    {
+     "text": "Friday",
+     "midX": 0.5672,
+     "midY": 0.2994,
+     "height": 0.0116
+    },
+    {
+     "text": "A WARNI",
+     "midX": 0.7339,
+     "midY": 0.3324,
+     "height": 0.0138
+    },
+    {
+     "text": "3",
+     "midX": 0.1783,
+     "midY": 0.3714,
+     "height": 0.0218
+    },
+    {
+     "text": "3734",
+     "midX": 0.4961,
+     "midY": 0.3648,
+     "height": 0.0258
+    },
+    {
+     "text": "9.85 6",
+     "midX": 0.4845,
+     "midY": 0.3821,
+     "height": 0.0139
+    },
+    {
+     "text": "Do you.want a",
+     "midX": 0.4264,
+     "midY": 0.4397,
+     "height": 0.0073
+    },
+    {
+     "text": "4 Yes",
+     "midX": 0.3824,
+     "midY": 0.4709,
+     "height": 0.0058
+    },
+    {
+     "text": "MAY CO",
+     "midX": 0.686,
+     "midY": 0.4578,
+     "height": 0.0145
+    },
+    {
+     "text": "TO 10%",
+     "midX": 0.6848,
+     "midY": 0.4717,
+     "height": 0.016
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7894,
+     "midY": 0.455,
+     "height": 0.0175
+    },
+    {
+     "text": "THANOL",
+     "midX": 0.7894,
+     "midY": 0.4709,
+     "height": 0.0176
+    },
+    {
+     "text": "NOT USE PI",
+     "midX": 0.668,
+     "midY": 0.5456,
+     "height": 0.0075
+    },
+    {
+     "text": "Save",
+     "midX": 0.6525,
+     "midY": 0.5843,
+     "height": 0.0087
+    },
+    {
+     "text": "10¢/ga",
+     "midX": 0.6589,
+     "midY": 0.5951,
+     "height": 0.0132
+    },
+    {
+     "text": "regular",
+     "midX": 0.292,
+     "midY": 0.6076,
+     "height": 0.0087
+    },
+    {
+     "text": "87",
+     "midX": 0.2597,
+     "midY": 0.681,
+     "height": 0.016
+    },
+    {
+     "text": "89",
+     "midX": 0.3734,
+     "midY": 0.6868,
+     "height": 0.016
+    },
+    {
+     "text": "93",
+     "midX": 0.4961,
+     "midY": 0.6962,
+     "height": 0.0174
+    },
+    {
+     "text": "ESUER-ROOT",
+     "midX": 0.3901,
+     "midY": 0.734,
+     "height": 0.0127
+    },
+    {
+     "text": "Invioc",
+     "midX": 0.1779,
+     "midY": 0.9875,
+     "height": 0.083
+    }
+   ]
+  },
+  {
+   "variant": "contrast",
+   "lines": [
+    {
+     "text": "3",
+     "midX": 0.1796,
+     "midY": 0.3714,
+     "height": 0.0247
+    },
+    {
+     "text": "regular",
+     "midX": 0.2907,
+     "midY": 0.609,
+     "height": 0.0087
+    },
+    {
+     "text": "87",
+     "midX": 0.2597,
+     "midY": 0.681,
+     "height": 0.016
+    },
+    {
+     "text": "Invinn",
+     "midX": 0.1826,
+     "midY": 0.9848,
+     "height": 0.0695
+    },
+    {
+     "text": "WNG: This product conta",
+     "midX": 0.5651,
+     "midY": 0.2578,
+     "height": 0.0224
+    },
+    {
+     "text": "icotine.",
+     "midX": 0.6896,
+     "midY": 0.2455,
+     "height": 0.0134
+    },
+    {
+     "text": "Vicotine is an addictive che",
+     "midX": 0.5674,
+     "midY": 0.2652,
+     "height": 0.0231
+    },
+    {
+     "text": "ZVN",
+     "midX": 0.5775,
+     "midY": 0.2805,
+     "height": 0.0087
+    },
+    {
+     "text": "Friday",
+     "midX": 0.5672,
+     "midY": 0.2994,
+     "height": 0.0116
+    },
+    {
+     "text": "A WARN",
+     "midX": 0.7299,
+     "midY": 0.3327,
+     "height": 0.0139
+    },
+    {
+     "text": "3734",
+     "midX": 0.4964,
+     "midY": 0.3645,
+     "height": 0.0289
+    },
+    {
+     "text": "9.856",
+     "midX": 0.4846,
+     "midY": 0.3822,
+     "height": 0.0146
+    },
+    {
+     "text": "MAY CO",
+     "midX": 0.6848,
+     "midY": 0.458,
+     "height": 0.0177
+    },
+    {
+     "text": "TO 10%",
+     "midX": 0.6822,
+     "midY": 0.4717,
+     "height": 0.016
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7894,
+     "midY": 0.454,
+     "height": 0.0206
+    },
+    {
+     "text": "HANOL",
+     "midX": 0.7881,
+     "midY": 0.4701,
+     "height": 0.0204
+    },
+    {
+     "text": "89",
+     "midX": 0.3721,
+     "midY": 0.6868,
+     "height": 0.016
+    }
+   ]
+  },
+  {
+   "variant": "highContrast",
+   "lines": [
+    {
+     "text": "87",
+     "midX": 0.2584,
+     "midY": 0.681,
+     "height": 0.016
+    },
+    {
+     "text": "Invino",
+     "midX": 0.1796,
+     "midY": 0.9851,
+     "height": 0.0715
+    },
+    {
+     "text": "Eriday",
+     "midX": 0.5672,
+     "midY": 0.2994,
+     "height": 0.0087
+    },
+    {
+     "text": "s0",
+     "midX": 0.7131,
+     "midY": 0.3459,
+     "height": 0.0163
+    },
+    {
+     "text": "3734",
+     "midX": 0.4961,
+     "midY": 0.3634,
+     "height": 0.0246
+    },
+    {
+     "text": "9.856",
+     "midX": 0.4846,
+     "midY": 0.3822,
+     "height": 0.0171
+    },
+    {
+     "text": "MAY CI",
+     "midX": 0.6809,
+     "midY": 0.4561,
+     "height": 0.0171
+    },
+    {
+     "text": "TO 10'",
+     "midX": 0.6757,
+     "midY": 0.4723,
+     "height": 0.0147
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7894,
+     "midY": 0.4542,
+     "height": 0.0166
+    },
+    {
+     "text": "HANOL",
+     "midX": 0.7881,
+     "midY": 0.4695,
+     "height": 0.0174
+    },
+    {
+     "text": "silve",
+     "midX": 0.398,
+     "midY": 0.6098,
+     "height": 0.0129
+    },
+    {
+     "text": "tmate",
+     "midX": 0.522,
+     "midY": 0.6148,
+     "height": 0.0087
+    },
+    {
+     "text": "89",
+     "midX": 0.3721,
+     "midY": 0.6868,
+     "height": 0.016
+    },
+    {
+     "text": "EDER-ROOT",
+     "midX": 0.3939,
+     "midY": 0.7355,
+     "height": 0.0153
+    }
+   ]
+  },
+  {
+   "variant": "darkened",
+   "lines": [
+    {
+     "text": "@eomitys prim",
+     "midX": 0.3424,
+     "midY": 0.29,
+     "height": 0.0151
+    },
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.5852,
+     "midY": 0.2563,
+     "height": 0.0366
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.583,
+     "midY": 0.2641,
+     "height": 0.0301
+    },
+    {
+     "text": "ZVN",
+     "midX": 0.5751,
+     "midY": 0.2806,
+     "height": 0.0132
+    },
+    {
+     "text": "Griday",
+     "midX": 0.5698,
+     "midY": 0.298,
+     "height": 0.0087
+    },
+    {
+     "text": "A WARNI",
+     "midX": 0.7336,
+     "midY": 0.3325,
+     "height": 0.0171
+    },
+    {
+     "text": "3",
+     "midX": 0.1783,
+     "midY": 0.3714,
+     "height": 0.0218
+    },
+    {
+     "text": "3734",
+     "midX": 0.4961,
+     "midY": 0.3648,
+     "height": 0.0258
+    },
+    {
+     "text": "9.856",
+     "midX": 0.4845,
+     "midY": 0.3821,
+     "height": 0.014
+    },
+    {
+     "text": "Do you.want a.rec",
+     "midX": 0.4328,
+     "midY": 0.4397,
+     "height": 0.0073
+    },
+    {
+     "text": "4 Yes",
+     "midX": 0.385,
+     "midY": 0.4709,
+     "height": 0.0058
+    },
+    {
+     "text": "MAY CO",
+     "midX": 0.686,
+     "midY": 0.4571,
+     "height": 0.016
+    },
+    {
+     "text": "TO 10%",
+     "midX": 0.6848,
+     "midY": 0.4717,
+     "height": 0.0167
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7894,
+     "midY": 0.455,
+     "height": 0.0175
+    },
+    {
+     "text": "THANOL",
+     "midX": 0.7881,
+     "midY": 0.4709,
+     "height": 0.0177
+    },
+    {
+     "text": "NOT USE PI",
+     "midX": 0.668,
+     "midY": 0.5456,
+     "height": 0.0075
+    },
+    {
+     "text": "Save",
+     "midX": 0.6525,
+     "midY": 0.5843,
+     "height": 0.0087
+    },
+    {
+     "text": "10¢/ga",
+     "midX": 0.6589,
+     "midY": 0.5952,
+     "height": 0.0102
+    },
+    {
+     "text": "regular",
+     "midX": 0.292,
+     "midY": 0.6083,
+     "height": 0.0073
+    },
+    {
+     "text": "silvel",
+     "midX": 0.4018,
+     "midY": 0.6106,
+     "height": 0.0116
+    },
+    {
+     "text": "87",
+     "midX": 0.2571,
+     "midY": 0.6824,
+     "height": 0.0131
+    },
+    {
+     "text": "89",
+     "midX": 0.3721,
+     "midY": 0.6868,
+     "height": 0.016
+    },
+    {
+     "text": "93",
+     "midX": 0.4961,
+     "midY": 0.6962,
+     "height": 0.0174
+    },
+    {
+     "text": "EEDER-ROOT",
+     "midX": 0.3901,
+     "midY": 0.7338,
+     "height": 0.0133
+    },
+    {
+     "text": "Invine",
+     "midX": 0.1808,
+     "midY": 0.9863,
+     "height": 0.0769
+    }
+   ]
+  },
+  {
+   "variant": "brightened",
+   "lines": [
+    {
+     "text": "Ceomty* R",
+     "midX": 0.3424,
+     "midY": 0.2906,
+     "height": 0.0164
+    },
+    {
+     "text": "87",
+     "midX": 0.2584,
+     "midY": 0.6824,
+     "height": 0.0131
+    },
+    {
+     "text": "89",
+     "midX": 0.3734,
+     "midY": 0.6868,
+     "height": 0.016
+    },
+    {
+     "text": "Invine",
+     "midX": 0.1791,
+     "midY": 0.9873,
+     "height": 0.0828
+    },
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.585,
+     "midY": 0.2557,
+     "height": 0.0349
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.5814,
+     "midY": 0.2639,
+     "height": 0.0296
+    },
+    {
+     "text": "ZVAL",
+     "midX": 0.5775,
+     "midY": 0.2805,
+     "height": 0.0116
+    },
+    {
+     "text": "Friday",
+     "midX": 0.5672,
+     "midY": 0.2994,
+     "height": 0.0116
+    },
+    {
+     "text": "A WARNI",
+     "midX": 0.7338,
+     "midY": 0.3325,
+     "height": 0.0149
+    },
+    {
+     "text": "3734",
+     "midX": 0.4962,
+     "midY": 0.3645,
+     "height": 0.0222
+    },
+    {
+     "text": "9.856",
+     "midX": 0.4858,
+     "midY": 0.3815,
+     "height": 0.0131
+    },
+    {
+     "text": "MAY CO",
+     "midX": 0.686,
+     "midY": 0.4578,
+     "height": 0.0145
+    },
+    {
+     "text": "TO 10%",
+     "midX": 0.6848,
+     "midY": 0.4717,
+     "height": 0.016
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7894,
+     "midY": 0.455,
+     "height": 0.0175
+    },
+    {
+     "text": "THANOL",
+     "midX": 0.7881,
+     "midY": 0.4709,
+     "height": 0.0178
+    },
+    {
+     "text": "1 NOT USE PI",
+     "midX": 0.668,
+     "midY": 0.5456,
+     "height": 0.0075
+    },
+    {
+     "text": "Save",
+     "midX": 0.6525,
+     "midY": 0.585,
+     "height": 0.0073
+    },
+    {
+     "text": "10€/ga",
+     "midX": 0.6602,
+     "midY": 0.5951,
+     "height": 0.0129
+    },
+    {
+     "text": "93",
+     "midX": 0.4974,
+     "midY": 0.6962,
+     "height": 0.0174
+    }
+   ]
+  },
+  {
+   "variant": "sharpened",
+   "lines": [
+    {
+     "text": "@nantyr prèm",
+     "midX": 0.3423,
+     "midY": 0.2902,
+     "height": 0.0179
+    },
+    {
+     "text": "WARNING: This product contains nicotine.",
+     "midX": 0.5853,
+     "midY": 0.2568,
+     "height": 0.0341
+    },
+    {
+     "text": "Nicotine is an addictive chemical.",
+     "midX": 0.5815,
+     "midY": 0.2643,
+     "height": 0.0277
+    },
+    {
+     "text": "ZVN",
+     "midX": 0.5749,
+     "midY": 0.2798,
+     "height": 0.0131
+    },
+    {
+     "text": "Friday",
+     "midX": 0.5685,
+     "midY": 0.2994,
+     "height": 0.0116
+    },
+    {
+     "text": "A WARNI",
+     "midX": 0.7348,
+     "midY": 0.3322,
+     "height": 0.0206
+    },
+    {
+     "text": "80",
+     "midX": 0.7131,
+     "midY": 0.3466,
+     "height": 0.0153
+    },
+    {
+     "text": "3734",
+     "midX": 0.4961,
+     "midY": 0.3641,
+     "height": 0.0233
+    },
+    {
+     "text": "9.856",
+     "midX": 0.4857,
+     "midY": 0.382,
+     "height": 0.0161
+    },
+    {
+     "text": "Do you want a receipt?",
+     "midX": 0.4457,
+     "midY": 0.4391,
+     "height": 0.0095
+    },
+    {
+     "text": "4 Yes",
+     "midX": 0.385,
+     "midY": 0.4709,
+     "height": 0.0058
+    },
+    {
+     "text": "4 000",
+     "midX": 0.376,
+     "midY": 0.4862,
+     "height": 0.0075
+    },
+    {
+     "text": "MAY CO",
+     "midX": 0.686,
+     "midY": 0.4571,
+     "height": 0.016
+    },
+    {
+     "text": "TO 10%",
+     "midX": 0.6848,
+     "midY": 0.4718,
+     "height": 0.0203
+    },
+    {
+     "text": "AIN UP",
+     "midX": 0.7907,
+     "midY": 0.455,
+     "height": 0.0175
+    },
+    {
+     "text": "HANOL",
+     "midX": 0.7881,
+     "midY": 0.4709,
+     "height": 0.018
+    },
+    {
+     "text": "ga",
+     "midX": 0.1305,
+     "midY": 0.5632,
+     "height": 0.0073
+    },
+    {
+     "text": "Save",
+     "midX": 0.6525,
+     "midY": 0.585,
+     "height": 0.0073
+    },
+    {
+     "text": "10¢/ga|",
+     "midX": 0.6602,
+     "midY": 0.5952,
+     "height": 0.0102
+    },
+    {
+     "text": "regular",
+     "midX": 0.292,
+     "midY": 0.6076,
+     "height": 0.0087
+    },
+    {
+     "text": "1789",
+     "midX": 0.292,
+     "midY": 0.6235,
+     "height": 0.0087
+    },
+    {
+     "text": "18 S",
+     "midX": 0.2894,
+     "midY": 0.6418,
+     "height": 0.0102
+    },
+    {
+     "text": "silvel",
+     "midX": 0.4006,
+     "midY": 0.6105,
+     "height": 0.0115
+    },
+    {
+     "text": "ultmate",
+     "midX": 0.5155,
+     "midY": 0.6148,
+     "height": 0.0087
+    },
+    {
+     "text": "87",
+     "midX": 0.2571,
+     "midY": 0.6824,
+     "height": 0.0131
+    },
+    {
+     "text": "89",
+     "midX": 0.3721,
+     "midY": 0.6868,
+     "height": 0.016
+    },
+    {
+     "text": "93",
+     "midX": 0.4961,
+     "midY": 0.6955,
+     "height": 0.016
+    },
+    {
+     "text": "Invior",
+     "midX": 0.1779,
+     "midY": 0.9877,
+     "height": 0.0833
+    }
+   ]
+  }
+ ]
+}
