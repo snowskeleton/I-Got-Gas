@@ -60,8 +60,15 @@ enum NotificationReconciler {
         let ours = pending.filter { $0.identifier.hasPrefix(prefix) }
         let pendingByID = Dictionary(uniqueKeysWithValues: ours.map { ($0.identifier, $0) })
 
+        // 2.x scheduled reminders under bare UUID identifiers and never
+        // cancelled them, so upgraded devices can still hold some. They
+        // duplicate the reminders above (worded with make/model instead of
+        // the nickname). Nothing else schedules a bare UUID, so sweep them.
+        var stale = pending
+            .map(\.identifier)
+            .filter { UUID(uuidString: $0) != nil }
+
         // Cancel anything that shouldn't be there, or whose fire date moved.
-        var stale: [String] = []
         for request in ours {
             guard let want = desiredByID[request.identifier] else {
                 stale.append(request.identifier)
@@ -106,7 +113,9 @@ enum NotificationReconciler {
     static func cancelAll() async {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
-        let ours = pending.filter { $0.identifier.hasPrefix(prefix) }.map(\.identifier)
+        let ours = pending.map(\.identifier).filter {
+            $0.hasPrefix(prefix) || UUID(uuidString: $0) != nil  // incl. 2.x leftovers
+        }
         center.removePendingNotificationRequests(withIdentifiers: ours)
     }
 
