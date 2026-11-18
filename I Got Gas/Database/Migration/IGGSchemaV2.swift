@@ -2,8 +2,10 @@
 //  IGGSchemaV2.swift
 //  I Got Gas
 //
-//  The shipped 2.x shape, preserved verbatim so the V3 migration has
-//  something to read from. Nothing here should ever change again — if you
+//  The cloud-saves 2.x shape (ownerID, timestamps, soft-delete), preserved
+//  verbatim so the V3 migration has something to read from. This never
+//  reached the App Store — that was IGGSchemaV1 — but development and
+//  TestFlight stores are in this shape. Nothing here should ever change again — if you
 //  find yourself editing this file, you want a V4 instead.
 //
 //  These models keep the `@Attribute(originalName:)` mappings back to the

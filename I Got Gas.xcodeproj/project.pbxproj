@@ -42,6 +42,7 @@
 				Database/FakeData.swift,
 				Database/ImportExport.swift,
 				Database/Migration/IGGMigrationPlan.swift,
+				Database/Migration/IGGSchemaV1.swift,
 				Database/Migration/IGGSchemaV2.swift,
 				Database/Migration/IGGSchemaV3.swift,
 				Database/Migration/ScheduleLinkMatcher.swift,
