@@ -45,6 +45,7 @@
 				Database/Migration/IGGSchemaV1.swift,
 				Database/Migration/IGGSchemaV2.swift,
 				Database/Migration/IGGSchemaV3.swift,
+				Database/Migration/RecoveryExport.swift,
 				Database/Migration/ScheduleLinkMatcher.swift,
 				Database/Migration/StoreBackup.swift,
 				Database/Migration/StoreMaintenance.swift,

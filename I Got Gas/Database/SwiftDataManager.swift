@@ -19,10 +19,15 @@ public class SwiftDataManager {
 
     public let container: ModelContainer
 
+    /// Where the on-disk store lives, even when it failed to open. The
+    /// recovery screen exports from here.
+    public let storeURL: URL
+
     private init() {
         let schema = Schema(IGGSchemaV3.models)
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         let version = IGGSchemaV3.versionIdentifier
+        storeURL = configuration.url
 
         // Both of these must happen before the container is built: opening it
         // is what runs the migration, and it is also the last moment the store

@@ -85,7 +85,7 @@ func generateCSV(
 }
 
 /// Quotes a field if it contains anything that would break the row.
-private func csvEscaped(_ field: String) -> String {
+func csvEscaped(_ field: String) -> String {
     guard field.contains(where: { $0 == "," || $0 == "\"" || $0 == "\n" || $0 == "\r" }) else {
         return field
     }

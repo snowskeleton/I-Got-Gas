@@ -16,6 +16,14 @@ struct StoreRecoveryView: View {
     let error: Error
 
     @State private var showDetail = false
+    @State private var isExporting = false
+    @State private var exportFailure: String?
+    @State private var exported: ExportedArchive?
+
+    private struct ExportedArchive: Identifiable {
+        let id = UUID()
+        let url: URL
+    }
 
     var body: some View {
         NavigationStack {
@@ -43,10 +51,31 @@ struct StoreRecoveryView: View {
                 .multilineTextAlignment(.center)
                 .font(.callout.weight(.medium))
 
+            // Lets the user see for themselves that the records still exist,
+            // and gives support a copy to work from.
+            Button {
+                export()
+            } label: {
+                if isExporting {
+                    ProgressView()
+                } else {
+                    Label("Export My Data", systemImage: "square.and.arrow.up")
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(isExporting)
+
+            if let exportFailure {
+                Text(exportFailure)
+                    .font(.footnote)
+                    .foregroundStyle(.red)
+                    .multilineTextAlignment(.center)
+            }
+
             Button("Contact Support") {
                 UIApplication.shared.open(URL(string: "mailto:support@igotgas.app")!)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
 
             Button(showDetail ? "Hide Details" : "Show Details") {
                 showDetail.toggle()
@@ -76,5 +105,24 @@ struct StoreRecoveryView: View {
             }
         }
         .padding(28)
+        .sheet(item: $exported) { PumpScanShareSheet(url: $0.url) }
+    }
+
+    private func export() {
+        isExporting = true
+        exportFailure = nil
+        Task { @MainActor in
+            // Let the spinner draw before the synchronous copy starts.
+            await Task.yield()
+            defer { isExporting = false }
+            do {
+                let url = try RecoveryExport.makeArchive(
+                    storeURL: SwiftDataManager.shared.storeURL, error: error
+                )
+                exported = ExportedArchive(url: url)
+            } catch {
+                exportFailure = "Couldn't export: \(error.localizedDescription)"
+            }
+        }
     }
 }
