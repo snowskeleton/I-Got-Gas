@@ -87,6 +87,49 @@ struct MigrationTests {
         #expect(schedules.first?.frequencyTime == 6)
     }
 
+    @Test func appStore21StoreMigrates() throws {
+        let url = temporaryStoreURL()
+        defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
+
+        do {
+            let schema = Schema(versionedSchema: IGGSchemaV1_1.self)
+            let container = try ModelContainer(
+                for: schema, configurations: [ModelConfiguration(schema: schema, url: url)]
+            )
+            let context = ModelContext(container)
+            let car = IGGSchemaV1_1.SDCar()
+            car.id = "car-21"
+            car.ownerID = "owner"
+            context.insert(car)
+            let kept = IGGSchemaV1_1.SDService()
+            kept.id = "svc-21"
+            kept.cost = 30.01
+            kept.gallons = 8
+            kept.isFuel = true
+            kept.car = car
+            context.insert(kept)
+            let gone = IGGSchemaV1_1.SDService()
+            gone.id = "svc-21-deleted"
+            gone.deleted = true
+            gone.car = car
+            context.insert(gone)
+            let settings = IGGSchemaV1_1.SDCarSettings()
+            settings.car = car
+            context.insert(settings)
+            try context.save()
+        }
+
+        let context = ModelContext(try openCurrent(at: url))
+        let cars = try context.fetch(FetchDescriptor<SDCar>())
+        #expect(cars.map(\.id) == ["car-21"])
+        #expect(cars.first?.ownerID == "owner")
+        let services = try context.fetch(FetchDescriptor<SDService>(sortBy: [SortDescriptor(\.id)]))
+        #expect(services.map(\.id) == ["svc-21", "svc-21-deleted"])
+        #expect(services.first?.costMinor == 3001)
+        #expect(services.first?.kind == .fuel)
+        #expect(services.last?.deleted == true)
+    }
+
     @Test func cloudSaves2xStoreStillMigrates() throws {
         let url = temporaryStoreURL()
         defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
@@ -138,10 +181,42 @@ struct MigrationTests {
         return url
     }
 
+    /// A copy of a store that nothing in this process has open. The container
+    /// that wrote the original may close at any later point, and closing
+    /// checkpoints the log, which rewrites the file under a byte comparison.
+    private func detachedCopy(of url: URL) throws -> URL {
+        let copy = temporaryStoreURL()
+        for component in StoreBackup.components(of: url)
+        where FileManager.default.fileExists(atPath: component.path) {
+            try FileManager.default.copyItem(
+                at: component,
+                to: copy.deletingLastPathComponent().appendingPathComponent(component.lastPathComponent)
+            )
+        }
+        return copy
+    }
+
+    private func storeBytes(_ url: URL) -> [Data] {
+        [url, url.deletingLastPathComponent().appendingPathComponent("default.store-wal")]
+            .map { (try? Data(contentsOf: $0)) ?? Data() }
+    }
+
     @Test func detectsEachStoreShape() throws {
         let v1 = try makeV1Store()
         defer { try? FileManager.default.removeItem(at: v1.deletingLastPathComponent()) }
         #expect(RecoveryExport.detectShape(of: v1) == .v1)
+
+        let v11 = temporaryStoreURL()
+        defer { try? FileManager.default.removeItem(at: v11.deletingLastPathComponent()) }
+        let v11Schema = Schema(versionedSchema: IGGSchemaV1_1.self)
+        _ = try ModelContainer(for: v11Schema, configurations: [ModelConfiguration(schema: v11Schema, url: v11)])
+        #expect(RecoveryExport.detectShape(of: v11) == .v1_1)
+
+        let v2 = temporaryStoreURL()
+        defer { try? FileManager.default.removeItem(at: v2.deletingLastPathComponent()) }
+        let v2Schema = Schema(versionedSchema: IGGSchemaV2.self)
+        _ = try ModelContainer(for: v2Schema, configurations: [ModelConfiguration(schema: v2Schema, url: v2)])
+        #expect(RecoveryExport.detectShape(of: v2) == .v2)
 
         let v3 = temporaryStoreURL()
         defer { try? FileManager.default.removeItem(at: v3.deletingLastPathComponent()) }
@@ -151,14 +226,15 @@ struct MigrationTests {
     }
 
     @Test func recoveryArchiveLeavesTheStoreAlone() throws {
-        let url = try makeV1Store()
+        let original = try makeV1Store()
+        defer { try? FileManager.default.removeItem(at: original.deletingLastPathComponent()) }
+        let url = try detachedCopy(of: original)
         defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
-        let before = try Data(contentsOf: url)
-
+        let before = storeBytes(url)
         let archive = try RecoveryExport.makeArchive(storeURL: url, error: nil)
         #expect(FileManager.default.fileExists(atPath: archive.path))
         #expect(archive.pathExtension == "zip")
-        #expect(try Data(contentsOf: url) == before)
+        #expect(storeBytes(url) == before)
         // Still a V1 store, so the real migration will still recognise it.
         #expect(RecoveryExport.detectShape(of: url) == .v1)
     }

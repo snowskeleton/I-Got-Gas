@@ -2,11 +2,12 @@
 //  IGGSchemaV2.swift
 //  I Got Gas
 //
-//  The cloud-saves 2.x shape (ownerID, timestamps, soft-delete), preserved
+//  The last 2.x shape (2.1 plus SDCarSettings._notifyOnChange), preserved
 //  verbatim so the V3 migration has something to read from. This never
-//  reached the App Store — that was IGGSchemaV1 — but development and
-//  TestFlight stores are in this shape. Nothing here should ever change again — if you
-//  find yourself editing this file, you want a V4 instead.
+//  reached the App Store (2.0.x was IGGSchemaV1, 2.1 was IGGSchemaV1_1),
+//  but development and TestFlight stores are in this shape. Nothing here
+//  should ever change again — if you find yourself editing this file, you
+//  want a V4 instead.
 //
 //  These models keep the `@Attribute(originalName:)` mappings back to the
 //  original Core Data column names, because that is genuinely what is on

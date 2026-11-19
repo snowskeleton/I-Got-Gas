@@ -28,7 +28,8 @@ enum RecoveryExport {
 
     enum Shape: String {
         case v1 = "2.0.x"
-        case v2 = "2.x (cloud saves)"
+        case v1_1 = "2.1"
+        case v2 = "2.x (unreleased)"
         case v3 = "3.0"
         case unknown = "unknown"
     }
@@ -107,10 +108,20 @@ enum RecoveryExport {
         guard sqlite3_open_v2(storeURL.path, &db, SQLITE_OPEN_READONLY, nil) == SQLITE_OK else {
             return .unknown
         }
+        let services = columns(of: "ZSDSERVICE", in: db)
+        if services.contains("ZCOSTMINOR") { return .v3 }
+        if services.contains("ZUPDATEDAT") {
+            return columns(of: "ZSDCARSETTINGS", in: db).contains("Z_NOTIFYONCHANGE") ? .v2 : .v1_1
+        }
+        if services.contains("ZCOST") { return .v1 }
+        return .unknown
+    }
+
+    private static func columns(of table: String, in db: OpaquePointer?) -> Set<String> {
         var statement: OpaquePointer?
         defer { sqlite3_finalize(statement) }
-        guard sqlite3_prepare_v2(db, "PRAGMA table_info(ZSDSERVICE)", -1, &statement, nil) == SQLITE_OK else {
-            return .unknown
+        guard sqlite3_prepare_v2(db, "PRAGMA table_info(\(table))", -1, &statement, nil) == SQLITE_OK else {
+            return []
         }
         var columns = Set<String>()
         while sqlite3_step(statement) == SQLITE_ROW {
@@ -118,10 +129,7 @@ enum RecoveryExport {
                 columns.insert(String(cString: name).uppercased())
             }
         }
-        if columns.contains("ZCOSTMINOR") { return .v3 }
-        if columns.contains("ZUPDATEDAT") { return .v2 }
-        if columns.contains("ZCOST") { return .v1 }
-        return .unknown
+        return columns
     }
 
     // MARK: - CSV
@@ -148,6 +156,16 @@ enum RecoveryExport {
                     car: car
                 )
                 try write(csv, name: car.visualName)
+            }
+
+        case .v1_1:
+            let context = try open(storeURL, schema: Schema(versionedSchema: IGGSchemaV1_1.self))
+            for car in try context.fetch(FetchDescriptor<IGGSchemaV1_1.SDCar>()) where !car.deleted {
+                let csv = legacyCSV(
+                    services: (car.services ?? []).filter { !$0.deleted }.map(LegacyService.init),
+                    schedules: (car.scheduledServices ?? []).filter { !$0.deleted }.map(LegacySchedule.init)
+                )
+                try write(csv, name: displayName(car.name, car.year, car.make, car.model))
             }
 
         case .v2:
@@ -209,6 +227,11 @@ enum RecoveryExport {
             (cost, gallons, date, odometer) = (s.cost, s.gallons, s.date, s.odometer)
             (isFuel, isFullTank) = (s.isFuel, s.isFullTank)
         }
+        init(_ s: IGGSchemaV1_1.SDService) {
+            (id, name, vendor, description) = (s.id, s.name, s.vendorName, s.fullDescription)
+            (cost, gallons, date, odometer) = (s.cost, s.gallons, s.date, s.odometer)
+            (isFuel, isFullTank) = (s.isFuel, s.isFullTank)
+        }
         init(_ s: IGGSchemaV2.SDService) {
             (id, name, vendor, description) = (s.id, s.name, s.vendorName, s.fullDescription)
             (cost, gallons, date, odometer) = (s.cost, s.gallons, s.date, s.odometer)
@@ -222,6 +245,10 @@ enum RecoveryExport {
         var frequencyMiles, frequencyTime: Int
 
         init(_ s: IGGSchemaV1.SDScheduledService) {
+            (id, name, description, interval) = (s.id, s.name, s.fullDescription, s.frequencyTimeInterval.rawValue)
+            (repeating, frequencyMiles, frequencyTime) = (s.repeating, s.frequencyMiles, s.frequencyTime)
+        }
+        init(_ s: IGGSchemaV1_1.SDScheduledService) {
             (id, name, description, interval) = (s.id, s.name, s.fullDescription, s.frequencyTimeInterval.rawValue)
             (repeating, frequencyMiles, frequencyTime) = (s.repeating, s.frequencyMiles, s.frequencyTime)
         }

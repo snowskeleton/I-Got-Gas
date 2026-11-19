@@ -43,6 +43,7 @@
 				Database/ImportExport.swift,
 				Database/Migration/IGGMigrationPlan.swift,
 				Database/Migration/IGGSchemaV1.swift,
+				Database/Migration/IGGSchemaV1_1.swift,
 				Database/Migration/IGGSchemaV2.swift,
 				Database/Migration/IGGSchemaV3.swift,
 				Database/Migration/RecoveryExport.swift,

@@ -5,10 +5,8 @@
 //  The shape that actually shipped on the App Store as 2.0.0 and 2.0.1,
 //  preserved verbatim from `appstoreVersion_2.0.1`.
 //
-//  IGGSchemaV2 is *not* that: it froze the later cloud-saves 2.x models
-//  (ownerID, createdAt/updatedAt, soft-delete on services and schedules,
-//  _notifyOnChange), which only ever reached development and TestFlight
-//  stores. Without this version in the plan, SwiftData cannot match an App
+//  2.1 added the cloud-saves columns (IGGSchemaV1_1), and IGGSchemaV2 is a
+//  later unreleased shape on top of that. Without this version in the plan, SwiftData cannot match an App
 //  Store 2.0.1 store to any known schema and refuses to open it at all —
 //  3.0 build 4 shipped with exactly that bug.
 //

@@ -2,13 +2,20 @@
 //  IGGMigrationPlan.swift
 //  I Got Gas
 //
-//  V1 → V2 → V3.
+//  V1 → V1_1 → V2 → V3.
 //
-//  V1 is the App Store 2.0.x shape. V1 → V2 only adds columns that all have
-//  defaults (ownerID, createdAt/updatedAt, soft-delete flags,
-//  _notifyOnChange), so it is a lightweight stage. Its only job is to give
-//  SwiftData a known starting point for stores that never ran the
-//  cloud-saves 2.x builds; see IGGSchemaV1.
+//  Every shape a user's store can be in needs a version here, or SwiftData
+//  refuses the store outright as an unknown model version. The ones that
+//  shipped on the App Store:
+//
+//    V1    2.0.x
+//    V1_1  2.1   (cloud-saves columns, no _notifyOnChange)
+//    V3    3.0
+//
+//  V2 (2.1 plus _notifyOnChange) never shipped, but development and
+//  TestFlight stores are in it, and it is what the custom V2 → V3 stage
+//  reads. V1 → V1_1 → V2 only add columns that have defaults, so those
+//  stages are lightweight.
 //
 //  V2 → V3:
 //
@@ -36,15 +43,20 @@ import SwiftData
 enum IGGMigrationPlan: SchemaMigrationPlan {
 
     static var schemas: [any VersionedSchema.Type] {
-        [IGGSchemaV1.self, IGGSchemaV2.self, IGGSchemaV3.self]
+        [IGGSchemaV1.self, IGGSchemaV1_1.self, IGGSchemaV2.self, IGGSchemaV3.self]
     }
 
     static var stages: [MigrationStage] {
-        [v1toV2, v2toV3]
+        [v1toV1_1, v1_1toV2, v2toV3]
     }
 
-    static let v1toV2 = MigrationStage.lightweight(
+    static let v1toV1_1 = MigrationStage.lightweight(
         fromVersion: IGGSchemaV1.self,
+        toVersion: IGGSchemaV1_1.self
+    )
+
+    static let v1_1toV2 = MigrationStage.lightweight(
+        fromVersion: IGGSchemaV1_1.self,
         toVersion: IGGSchemaV2.self
     )
 
